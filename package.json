@@ -9,13 +9,15 @@
     "lint": "next lint",
     "prepare": "husky install",
     "sb": "storybook dev -p 6006",
-    "build-sb": "storybook build"
+    "build-sb": "storybook build",
+    "msw": "NEXT_PUBLIC_API_MOCKING=enabled next dev"
   },
   "dependencies": {
     "@types/node": "20.2.3",
     "@types/react": "18.2.6",
     "@types/react-dom": "18.2.4",
     "eslint-config-next": "13.4.3",
+    "msw": "^1.2.1",
     "next": "13.4.3",
     "react": "18.2.0",
     "react-dom": "18.2.0",
@@ -40,6 +42,7 @@
     "eslint-plugin-storybook": "^0.6.12",
     "husky": "^8.0.0",
     "lint-staged": "^13.2.2",
+    "msw-storybook-addon": "^1.8.0",
     "postcss": "^8.4.23",
     "prettier": "^2.8.8",
     "prettier-plugin-tailwindcss": "^0.3.0",
@@ -53,5 +56,8 @@
     "src/**": [
       "prettier --write \"**/*.{js,jsx,ts,tsx,json,md,css}\""
     ]
+  },
+  "msw": {
+    "workerDirectory": "public"
   }
 }
