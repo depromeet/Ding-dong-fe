@@ -17,12 +17,11 @@
     "ecmaVersion": "latest",
     "sourceType": "module"
   },
-  "plugins": [
-    "react",
-    "import",
-    "@typescript-eslint"
-  ],
+  "plugins": ["react", "import", "@typescript-eslint", "simple-import-sort"],
   "rules": {
+    "simple-import-sort/imports": "error",
+    "simple-import-sort/exports": "error",
+    "react/react-in-jsx-scope": "off",
     "react/function-component-definition": [
       2,
       {
@@ -33,46 +32,27 @@
     "@typescript-eslint/naming-convention": [
       "error",
       {
-        "format": [
-          "camelCase",
-          "UPPER_CASE",
-          "PascalCase"
-        ],
+        "format": ["camelCase", "UPPER_CASE", "PascalCase"],
         "selector": "variable",
         "leadingUnderscore": "allow"
       },
       {
-        "format": [
-          "camelCase",
-          "PascalCase"
-        ],
+        "format": ["camelCase", "PascalCase"],
         "selector": "function"
       },
       {
-        "format": [
-          "PascalCase"
-        ],
+        "format": ["PascalCase"],
         "selector": "interface"
       },
       {
-        "format": [
-          "PascalCase"
-        ],
+        "format": ["PascalCase"],
         "selector": "typeAlias"
       }
     ],
     "import/order": [
       "error",
       {
-        "groups": [
-          "builtin",
-          "external",
-          [
-            "parent",
-            "sibling"
-          ],
-          "index"
-        ],
+        "groups": ["builtin", "external", ["parent", "sibling"], "index"],
         "pathGroups": [
           {
             "pattern": "@/**",
@@ -86,7 +66,6 @@
         },
         "newlines-between": "always"
       }
-    ],
-    "react/react-in-jsx-scope": "off"
+    ]
   }
 }
