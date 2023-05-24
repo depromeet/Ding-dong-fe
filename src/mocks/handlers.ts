@@ -1,5 +1,5 @@
-import userMockHandler from './user/user.mockHandler';
+import testerMockHandler from './tester/tester.mockHandler';
 
-const handlers = [...userMockHandler];
+const handlers = [...testerMockHandler];
 
 export default handlers;
