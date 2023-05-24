@@ -1,8 +1,6 @@
 const initMocks = () => {
   const isServer = typeof window === undefined;
 
-  console.log(isServer);
-
   if (isServer) {
     (async () => {
       const { server } = await import('./server');
