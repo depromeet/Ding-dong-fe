@@ -23,7 +23,7 @@
     "simple-import-sort/exports": "error",
     "react/react-in-jsx-scope": "off",
     "react/function-component-definition": [
-      2,
+      "error",
       {
         "namedComponents": "arrow-function",
         "unnamedComponents": "arrow-function"
