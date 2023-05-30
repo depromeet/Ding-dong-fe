@@ -72,8 +72,8 @@ jobs:
           key: ${{ needs.job_install_dependencies.outputs.dependency_cache_key }}
 
       - name: Build 
-          if: steps.cache_built_packages.outputs.cache-hit == ''
-          run: pnpm run build
+        if: steps.cache_built_packages.outputs.cache-hit == ''
+        run: pnpm run build
       outputs:
         dependency_cache_key: ${{ needs.job_install_dependencies.outputs.dependency_cache_key }}
 
