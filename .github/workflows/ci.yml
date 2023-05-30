@@ -8,44 +8,73 @@ on:
 
 jobs:
   install-dependencies:
+    name: Install Dependencies
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v3
+      - name: Check out current commit
+        uses: actions/checkout@v2
 
-      - name: Install Node.js
-        uses: actions/setup-node@v3
+      - name: Set up Node
+        uses: actions/setup-node@v1
         with:
           node-version: 18
 
-      - uses: pnpm/action-setup@v2
-        name: Install pnpm
-        id: pnpm-install
-        with:
-          version: 8
-          run_install: false
+      - name: Compute dependency cache key
+        id: compute_lockfile_hash
+        run: echo "::set-output name=hash::${{ hashFiles('package-lock.json') }}"
 
-      - name: Get pnpm store directory
-        id: pnpm-cache
-        shell: bash
-        run: |
-          echo "STORE_PATH=$(pnpm store path)" >> $GITHUB_OUTPUT
-
-      - uses: actions/cache@v3
-        name: Setup pnpm cache
+      - name: Check dependency cache
+        uses: actions/cache@v2
+        id: cache_dependencies
         with:
-          path: ${{ steps.pnpm-cache.outputs.STORE_PATH }}
-          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
-          restore-keys: |
-            ${{ runner.os }}-pnpm-store-
+          path: ${{ env.CACHED_DEPENDENCY_PATHS }}
+          key: ${{ steps.compute_lockfile_hash.outputs.hash }}
 
       - name: Install dependencies
-        run: pnpm install
+        if: steps.cache_dependencies.outputs.cache-hit == ''
+        run: npm install
+    outputs:
+      dependency_cache_key: ${{ steps.compute_lockfile_hash.outputs.hash }}
+
+  check_lint:
+    name: Check Lint
+    runs-on: ubuntu-latest
+    needs: install_dependencies
+    steps:
+      - name: Check out current commit
+        uses: actions/checkout@v2
+
+      - name: Set up Node
+        uses: actions/setup-node@v1
+        with:
+          node-version: 18
 
       - name: Check Lint
         run: pnpm run lint
-        if: ${{ always() }}
 
-      - name: Build
-        run: pnpm run build
-        if: ${{ always() }}
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    needs: install_dependencies
+    steps:
+      - name: Check out current commit
+        uses: actions/checkout@v2
+
+      - name: Set up Node
+        uses: actions/setup-node@v1
+        with:
+          node-version: 18
+
+      - name: Check dependency cache
+        uses: actions/cache@v2
+        with:
+          path: ${{ env.CACHED_DEPENDENCY_PATHS }}
+          key: ${{ needs.job_install_dependencies.outputs.dependency_cache_key }}
+
+      - name: Build 
+          if: steps.cache_built_packages.outputs.cache-hit == ''
+          run: pnpm run build
+      outputs:
+        dependency_cache_key: ${{ needs.job_install_dependencies.outputs.dependency_cache_key }}
+
+
