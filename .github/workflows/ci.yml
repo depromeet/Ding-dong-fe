@@ -37,7 +37,7 @@ jobs:
 
       - name: Install dependencies
         if: steps.cache_dependencies.outputs.cache-hit == ''
-        run: npm install
+        run: pnpm install
     outputs:
       dependency_cache_key: ${{ steps.compute_lockfile_hash.outputs.hash }}
 
