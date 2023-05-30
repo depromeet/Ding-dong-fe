@@ -78,10 +78,8 @@ jobs:
           path: ${{ env.CACHED_BUILD_PATHS }}
           key: ${{ env.BUILD_CACHE_KEY }}
 
-      - name: Build 
+      - name: Build
         if: steps.cache_built_packages.outputs.cache-hit == ''
         run: pnpm run build
-      outputs:
-        dependency_cache_key: ${{ needs.install_dependencies.outputs.dependency_cache_key }}
-
-
+    outputs:
+      dependency_cache_key: ${{ needs.install_dependencies.outputs.dependency_cache_key }}
