@@ -6,8 +6,13 @@ on:
   push:
     branches: [main, ci-test]
 
+env:
+  CACHED_DEPENDENCY_PATHS: ${{ github.workspace }}/node_modules
+  CACHED_BUILD_PATHS: ${{ github.workspace }}/.next
+  BUILD_CACHE_KEY: ${{ github.sha }}
+
 jobs:
-  install-dependencies:
+  install_dependencies:
     name: Install Dependencies
     runs-on: ubuntu-latest
     steps:
