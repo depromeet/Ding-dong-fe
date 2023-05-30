@@ -24,6 +24,13 @@ jobs:
         with:
           node-version: 18
 
+      - uses: pnpm/action-setup@v2
+        name: Install pnpm
+        id: pnpm-install
+        with:
+          version: 8
+          run_install: false
+
       - name: Compute dependency cache key
         id: compute_lockfile_hash
         run: echo "::set-output name=hash::${{ hashFiles('pnpm-lock.yaml') }}"
@@ -54,6 +61,13 @@ jobs:
         with:
           node-version: 18
 
+      - uses: pnpm/action-setup@v2
+        name: Install pnpm
+        id: pnpm-install
+        with:
+          version: 7
+          run_install: false
+
       - name: Check Lint
         run: pnpm run lint
 
@@ -69,6 +83,13 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: 18
+
+      - uses: pnpm/action-setup@v2
+        name: Install pnpm
+        id: pnpm-install
+        with:
+          version: 8
+          run_install: false
 
       - name: Check dependency cache
         uses: actions/cache@v2
