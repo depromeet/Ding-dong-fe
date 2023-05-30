@@ -2,9 +2,9 @@ name: 'ci'
 
 on:
   pull_request:
-    branches: [main,ci-test]
+    branches: [main, ci-test]
   push:
-    branches: [main,ci-test]
+    branches: [main, ci-test]
 
 jobs:
   install-dependencies:
@@ -38,14 +38,14 @@ jobs:
           key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
             ${{ runner.os }}-pnpm-store-
-            
+
       - name: Install dependencies
         run: pnpm install
 
       - name: Check Lint
-        - run: pnpm run lint
-          if: ${{ always() }}
+        run: pnpm run lint
+        if: ${{ always() }}
 
       - name: Build
-        - run: pnpm run build
-          if: ${{ always() }}
+        run: pnpm run build
+        if: ${{ always() }}
