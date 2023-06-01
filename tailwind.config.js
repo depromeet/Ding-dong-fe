@@ -30,16 +30,17 @@ module.exports = {
       },
       fontSize: {
         // title
-        'title-xl': ['1.8rem', { fontWeight: '700', lineHeight: '140%' }],
-        'title-l': ['1.6rem', { fontWeight: '700', lineHeight: '140%' }],
-        'title-m': ['1.5rem', { fontWeight: '700', lineHeight: '140%' }],
-        'title-s': ['1.4rem', { fontWeight: '700', lineHeight: '140%' }],
+        h1: [pxToRem(24), { fontWeight: '700', lineHeight: '140%' }],
+        h2: [pxToRem(22), { fontWeight: '700', lineHeight: '140%' }],
+        h3: [pxToRem(20), { fontWeight: '700', lineHeight: '145%' }],
+        h4: [pxToRem(18), { fontWeight: '700', lineHeight: '145%' }],
+        h5: [pxToRem(16), { fontWeight: '500', lineHeight: '145%' }],
         // body
-        'body-l': ['1.6rem', { fontWeight: '500', lineHeight: '150%' }],
-        'body-m': ['1.5rem', { fontWeight: '500', lineHeight: '150%' }],
-        'body-s': ['1.4rem', { fontWeight: '400', lineHeight: '150%' }],
+        b1: [pxToRem(15), { fontWeight: '500', lineHeight: '145%' }],
+        b2: [pxToRem(14), { fontWeight: '500', lineHeight: '145%' }],
+        b3: [pxToRem(13), { fontWeight: '400', lineHeight: '145%' }],
         // detail
-        detail: ['1.5rem', { fontWeight: '400', lineHeight: '100%' }],
+        detail: [pxToRem(12), { fontWeight: '400', lineHeight: '125%' }],
       },
       colors: {
         primary: {
