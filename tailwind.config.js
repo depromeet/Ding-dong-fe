@@ -28,6 +28,67 @@ module.exports = {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
         'gradient-conic': 'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
       },
+      fontSize: {
+        // title
+        'title-xl': ['1.8rem', { fontWeight: '700', lineHeight: '140%' }],
+        'title-l': ['1.6rem', { fontWeight: '700', lineHeight: '140%' }],
+        'title-m': ['1.5rem', { fontWeight: '700', lineHeight: '140%' }],
+        'title-s': ['1.4rem', { fontWeight: '700', lineHeight: '140%' }],
+        // body
+        'body-l': ['1.6rem', { fontWeight: '500', lineHeight: '150%' }],
+        'body-m': ['1.5rem', { fontWeight: '500', lineHeight: '150%' }],
+        'body-s': ['1.4rem', { fontWeight: '400', lineHeight: '150%' }],
+        // detail
+        detail: ['1.5rem', { fontWeight: '400', lineHeight: '100%' }],
+      },
+      colors: {
+        primary: {
+          100: '#EAE8FF',
+          400: '#7B70FF',
+          500: '#5445FF',
+          700: '#3024AC',
+        },
+        white: '#FFFFFF',
+        black: '#090909',
+        grey: {
+          50: '#FAFAFA',
+          100: '#F5F5F5',
+          200: '#EFEFEF',
+          300: '#E4E4E4',
+          400: '#C0C0C0',
+          500: '#949494',
+          600: '#777777',
+          700: '#555555',
+          800: '#2A2A2A',
+          900: '#111111',
+        },
+        blue: {
+          50: '#F7F7FF',
+          100: '#EAE8FF',
+          200: '#CBC7FF',
+          300: '#A39BFF',
+          400: '#7B70FF',
+          500: '#5445FF',
+          600: '#4739D7',
+          700: '#3024AC',
+          800: '#2E2E7A',
+        },
+        positive: '#5445FF',
+        error: '#FF465C',
+        opacity: {
+          100: 'rgba(0, 0, 0, 0.4)',
+          200: 'rgba(0, 0, 0, 0.7)',
+        },
+      },
+      spacing: {
+        ...declareSpace(),
+      },
+      // TODO: 아직 폰트가 정해지지 않아 기본 값으로 넣어두었습니다. 폰트 지정 후 수정이 필요합니다.
+      fontFamily: {
+        Pretendard: ['Pretendard Variable', 'Pretendard'],
+        sans: ['Graphik', 'sans-serif'],
+        serif: ['Merriweather', 'serif'],
+      },
     },
   },
   plugins: [],
