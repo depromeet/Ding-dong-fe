@@ -1,9 +1,10 @@
-import Tester from '@/components/Tester';
+import HomePage from '@/app/home/page';
 
 const Home = () => {
   return (
     <main>
-      <Tester />
+      {/* <Tester /> */}
+      <HomePage />
     </main>
   );
 };
