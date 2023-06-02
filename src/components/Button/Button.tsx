@@ -1,9 +1,9 @@
-import { ReactNode } from 'react';
+import { ButtonHTMLAttributes, ReactNode } from 'react';
 
 type ButtonSize = 'small' | 'medium' | 'large';
 type ButtonColor = 'primary' | 'secondary';
 
-type ButtonProps = {
+type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
   size: ButtonSize;
   color: ButtonColor;
   disabled?: boolean;
