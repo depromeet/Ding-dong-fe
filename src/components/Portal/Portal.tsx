@@ -1,19 +1,15 @@
 'use client';
 
-import { PropsWithChildren, useEffect, useState } from 'react';
+import { PropsWithChildren } from 'react';
 import ReactDOM from 'react-dom';
 
+import useIsMounted from '@/hooks/useIsMounted';
+
 const Portal = ({ children }: PropsWithChildren) => {
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-    return () => setMounted(false);
-  }, []);
-
+  const isMounted = useIsMounted();
   const element = document.querySelector('#portal');
 
-  if (!element || !mounted) return null;
+  if (!element || !isMounted) return null;
   return ReactDOM.createPortal(children, element);
 };
 
