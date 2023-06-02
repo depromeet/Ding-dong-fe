@@ -6,9 +6,9 @@ import Portal from '@/components/Portal';
 
 type PopupProps = {
   isOpen: boolean;
-  title: string;
-  description: string;
-  buttons: ReactNode;
+  title?: string;
+  description?: string;
+  buttons?: ReactNode;
 };
 
 const Popup = ({ isOpen, title, description, buttons }: PopupProps) => {
