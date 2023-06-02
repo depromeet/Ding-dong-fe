@@ -32,18 +32,16 @@ export const Default: Story = {
 export default meta;
 
 export const Positive: Story = {
-  render: () => {
-    return (
-      <Popup
-        isOpen={true}
-        title="타이틀"
-        description="세부 내용"
-        buttons={
-          <Button size="medium" color="primary">
-            {'버튼'}
-          </Button>
-        }
-      />
-    );
+  args: {
+    isOpen: true,
+    title: '타이틀',
+    description: '세부 내용',
+    buttons: (
+      <>
+        <Button size="medium" color="primary">
+          {'버튼'}
+        </Button>
+      </>
+    ),
   },
 };
