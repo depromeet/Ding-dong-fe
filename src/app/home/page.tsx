@@ -2,9 +2,16 @@
 
 import { signOut, useSession } from 'next-auth/react';
 import SignIn from '../api/auth/signin/page';
+import { useEffect } from 'react';
+import { redirect } from 'next/navigation';
 
 const Home = () => {
   const { data: session } = useSession();
+  useEffect(() => {
+    if (session) {
+      redirect('/onboarding');
+    }
+  }, [session]);
   return (
     <div className="flex h-screen flex-col justify-between px-6 pb-20 pt-28">
       <div>
