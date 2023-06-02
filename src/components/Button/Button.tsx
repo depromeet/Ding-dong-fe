@@ -6,7 +6,7 @@ type ButtonColor = 'primary' | 'secondary';
 type ButtonProps = {
   size: ButtonSize;
   color: ButtonColor;
-  disabled: boolean;
+  disabled?: boolean;
   width?: string;
   children: ReactNode;
 };
@@ -22,16 +22,22 @@ const sizes: Record<ButtonSize, string> = {
   large: 'h-12 text-base rounded-xl',
 };
 
-const Button = ({ size, color, disabled, width, children, ...props }: ButtonProps) => {
+const Button = ({
+  size,
+  color,
+  disabled = false,
+  width = 'w-full',
+  children,
+  ...props
+}: ButtonProps) => {
   const buttonColor = colors[color];
   const buttonSize = sizes[size];
-  const w = width ?? 'w-full';
 
   return (
     <button
       {...props}
       disabled={disabled}
-      className={`${buttonColor} ${buttonSize} ${w} font-bold active:bg-gray-500 active:text-white disabled:bg-slate-100 disabled:text-slate-200`}
+      className={`${buttonColor} ${buttonSize} ${width} font-bold active:bg-gray-500 active:text-white disabled:bg-slate-100 disabled:text-slate-200`}
     >
       {children}
     </button>
