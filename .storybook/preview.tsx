@@ -19,6 +19,7 @@ const preview: Preview = {
     Story => (
       <QueryClientProvider client={queryClient}>
         <Story />
+        <div id="portal" />
       </QueryClientProvider>
     ),
   ],
