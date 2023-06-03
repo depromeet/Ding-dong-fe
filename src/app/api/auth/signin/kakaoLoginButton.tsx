@@ -6,7 +6,7 @@ type KakaoLoginButtonProps = {
   provider: ClientSafeProvider;
 };
 
-const kakaoLoginButton = ({ provider }: KakaoLoginButtonProps) => {
+const KakaoLoginButton = ({ provider }: KakaoLoginButtonProps) => {
   return (
     <div>
       <button onClick={() => signIn(provider.id, { redirect: true, callbackUrl: '/home' })}>
@@ -21,4 +21,4 @@ const kakaoLoginButton = ({ provider }: KakaoLoginButtonProps) => {
     </div>
   );
 };
-export default kakaoLoginButton;
+export default KakaoLoginButton;

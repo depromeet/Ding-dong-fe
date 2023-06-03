@@ -1,4 +1,5 @@
-'use client';
+import 'server-only';
+
 import { getProviders } from 'next-auth/react';
 
 import Kakao from './kakaoLoginButton';
