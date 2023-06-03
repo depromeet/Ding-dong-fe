@@ -1,12 +1,12 @@
 'use client';
-import { ClientSafeProvider, signIn } from 'next-auth/react';
 import Image from 'next/image';
+import { ClientSafeProvider, signIn } from 'next-auth/react';
 
-type kakaoLoginButtonProps = {
+type KakaoLoginButtonProps = {
   provider: ClientSafeProvider;
 };
 
-const kakaoLoginButton = ({ provider }: kakaoLoginButtonProps) => {
+const kakaoLoginButton = ({ provider }: KakaoLoginButtonProps) => {
   return (
     <div>
       <button onClick={() => signIn(provider.id, { redirect: true, callbackUrl: '/home' })}>
