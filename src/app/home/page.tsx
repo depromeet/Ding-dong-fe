@@ -1,9 +1,10 @@
 'use client';
 
-import { signOut, useSession } from 'next-auth/react';
-import SignIn from '@/app/api/auth/signin/page';
-import { useEffect } from 'react';
 import { redirect } from 'next/navigation';
+import { signOut, useSession } from 'next-auth/react';
+import { useEffect } from 'react';
+
+import SignIn from '@/app/api/auth/signin/page';
 
 const Home = () => {
   const { data: session } = useSession();
