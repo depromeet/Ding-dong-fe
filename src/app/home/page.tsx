@@ -1,7 +1,7 @@
 'use client';
 
 import { signOut, useSession } from 'next-auth/react';
-import SignIn from '../api/auth/signin/page';
+import SignIn from '@/app/api/auth/signin/page';
 import { useEffect } from 'react';
 import { redirect } from 'next/navigation';
 
