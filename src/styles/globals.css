@@ -4,6 +4,20 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 214, 219, 220;
+  --background-end-rgb: 255, 255, 255;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --foreground-rgb: 255, 255, 255;
+    --background-start-rgb: 0, 0, 0;
+    --background-end-rgb: 0, 0, 0;
+  }
+}
+
 @layer base {
   html {
     /* 현재 tailwind기본 설정입니다. 필요한 Normalize 혹은 Reset을 추가해주시면 됩니다. */
@@ -19,5 +33,6 @@
     min-height: 100vh;
     margin: 0 auto;
     padding: 0 20px;
+    color: rgb(var(--foreground-rgb));
   }
 }
