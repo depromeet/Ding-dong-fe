@@ -27,7 +27,10 @@ const Home = () => {
           <button onClick={() => signOut()}>Sign out</button>
         </div>
       ) : (
-        <SignIn />
+        <>
+          {/* @ts-expect-error Server Component */}
+          <SignIn />
+        </>
       )}
     </div>
   );
