@@ -2,9 +2,9 @@ name: 'ci'
 
 on:
   pull_request:
-    branches: [main, DEP-32-fe-github-action-script]
+    branches: [main]
   push:
-    branches: [main, DEP-32-fe-github-action-script]
+    branches: [main]
 
 env:
   CACHED_DEPENDENCY_PATHS: ${{ github.workspace }}/node_modules
