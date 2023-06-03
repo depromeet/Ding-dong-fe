@@ -1,17 +1,6 @@
-'use client';
-
-import { signOut, useSession } from 'next-auth/react';
 import SignIn from '@/app/api/auth/signin/page';
-import { useEffect } from 'react';
-import { redirect } from 'next/navigation';
 
 const Home = () => {
-  const { data: session } = useSession();
-  useEffect(() => {
-    if (session) {
-      redirect('/onboarding');
-    }
-  }, [session]);
   return (
     <div className="flex h-screen flex-col justify-between px-6 pb-20 pt-28">
       <div>
@@ -21,17 +10,8 @@ const Home = () => {
         </div>
       </div>
 
-      {session ? (
-        <div>
-          환영합니다 {session?.user?.email} <br />
-          <button onClick={() => signOut()}>Sign out</button>
-        </div>
-      ) : (
-        <>
-          {/* @ts-expect-error Server Component */}
-          <SignIn />
-        </>
-      )}
+      {/* @ts-expect-error Server Component */}
+      <SignIn />
     </div>
   );
 };
