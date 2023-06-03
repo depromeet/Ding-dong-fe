@@ -2,8 +2,8 @@ import Image from 'next/image';
 
 const SendNickname = () => {
   return (
-    <div className="h-screen w-full px-6 py-16" style={{ background: '#212D2E' }}>
-      <p className="bg-[##212D2E] text-lg font-semibold">
+    <div className="h-screen w-full bg-[#212D2E] px-6 py-16">
+      <p className="text-lg font-semibold text-[#EFEFEF]">
         반가워요! <br /> 앞으로 당신을 뭐라고 불러드릴까요?
       </p>
       <div className="mt-48">
