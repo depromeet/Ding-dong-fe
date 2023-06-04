@@ -60,6 +60,7 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: 18
+          cache: pnpm
 
       - uses: pnpm/action-setup@v2
         name: Install pnpm
@@ -81,11 +82,21 @@ jobs:
           path: ${{ env.CACHED_BUILD_PATHS }}
           key: ${{ env.BUILD_CACHE_KEY }}
 
+      - uses: actions/checkout@v2
+      - run: touch .env.development
+      - run: echo "${{ secrets.ENV_DEVELOPMENT }}" > .env.development
+
+      - uses: actions/checkout@v2
+      - run: touch .env.production
+      - run: echo "${{ secrets.ENV_PRODUCTION }}" > .env.production
+
+      - name: Install
+        run: pnpm i
+
       - name: Build
         if: steps.cache_built_packages.outputs.cache-hit == ''
         run: pnpm run build
 
-      ##
       - name: Docker build
         run: |
           docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}

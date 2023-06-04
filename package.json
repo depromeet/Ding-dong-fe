@@ -9,7 +9,7 @@
     "lint": "next lint",
     "prepare": "husky install",
     "sb": "storybook dev -p 6006",
-    "build-sb": "storybook build",
+    "build-storybook": "storybook build",
     "msw": "NEXT_PUBLIC_API_MOCKING=enabled next dev"
   },
   "dependencies": {
@@ -19,12 +19,15 @@
     "@types/react": "18.2.6",
     "@types/react-dom": "18.2.4",
     "axios": "^1.4.0",
+    "chromatic": "^6.18.0",
     "eslint-config-next": "13.4.3",
     "msw": "^1.2.1",
     "next": "13.4.3",
+    "next-auth": "^4.22.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-hook-form": "^7.43.9",
+    "server-only": "^0.0.1",
     "tailwindcss": "3.3.2",
     "zustand": "^4.3.8"
   },
@@ -68,5 +71,7 @@
   },
   "msw": {
     "workerDirectory": "public"
-  }
+  },
+  "readme": "ERROR: No README data found!",
+  "_id": "13th-7team-fe@0.1.0"
 }

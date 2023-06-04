@@ -8,7 +8,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 // TODO: Provider폴더 구조 정해지면 수정해야합니다!
 const queryClient = new QueryClient();
 
-import '../src/app/globals.css';
+import '../src/styles/globals.css';
 
 // Initialize MSW
 initialize();
