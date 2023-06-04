@@ -5,15 +5,12 @@ import { ReactNode } from 'react';
 import Portal from '@/components/Portal';
 
 type PopupProps = {
-  isOpen: boolean;
   title?: string;
   description?: string;
   buttons?: ReactNode;
 };
 
-const Popup = ({ isOpen, title, description, buttons }: PopupProps) => {
-  if (!isOpen) return null;
-
+const Popup = ({ title, description, buttons }: PopupProps) => {
   return (
     <Portal>
       <div className="fixed left-0 top-0 h-full w-full bg-black/50">

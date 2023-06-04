@@ -13,7 +13,6 @@ type Story = StoryObj<typeof Popup>;
 
 export const Default: Story = {
   args: {
-    isOpen: true,
     title: '타이틀',
     description: '세부 내용',
     buttons: (
@@ -33,7 +32,6 @@ export default meta;
 
 export const Positive: Story = {
   args: {
-    isOpen: true,
     title: '타이틀',
     description: '세부 내용',
     buttons: (
