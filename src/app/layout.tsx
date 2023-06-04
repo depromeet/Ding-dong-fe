@@ -15,6 +15,7 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <html lang="en">
       <body className={inter.className}>
+        <div id="portal" />
         <Provider>{children}</Provider>
       </body>
     </html>
