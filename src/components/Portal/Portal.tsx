@@ -8,7 +8,7 @@ import useIsMounted from '@/hooks/useIsMounted';
 
 const Portal = ({ children }: PropsWithChildren) => {
   const isMounted = useIsMounted();
-  const element = document.querySelector('#portal');
+  const element = document.getElementById('portal');
 
   if (!element || !isMounted) return null;
   return ReactDOM.createPortal(
