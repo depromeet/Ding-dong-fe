@@ -1,9 +1,10 @@
 import { NextApiRequest, NextApiResponse } from 'next';
+import { NextRequest } from 'next/server';
 import NextAuth from 'next-auth/next';
 import KakaoProvider from 'next-auth/providers/kakao';
 
-const auth = async (req: NextApiRequest, res: NextApiResponse) => {
-  return NextAuth(req, res, {
+const auth = async (req: NextRequest, res: NextApiResponse) => {
+  return NextAuth(req as unknown as NextApiRequest, res, {
     providers: [
       KakaoProvider({
         clientId: process.env.KAKAO_CLIENT_ID ?? '',
