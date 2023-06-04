@@ -44,7 +44,7 @@ jobs:
 
       - name: Install dependencies
         if: steps.cache_dependencies.outputs.cache-hit == ''
-        run: pnpm install
+        run: pnpm install --no-frozen-lockfile
     outputs:
       dependency_cache_key: ${{ steps.compute_lockfile_hash.outputs.hash }}
 
@@ -91,7 +91,7 @@ jobs:
       - run: echo "${{ secrets.ENV_PRODUCTION }}" > .env.production
 
       - name: Install
-        run: pnpm i
+        run: pnpm install --no-frozen-lockfile
 
       - name: Build
         if: steps.cache_built_packages.outputs.cache-hit == ''
