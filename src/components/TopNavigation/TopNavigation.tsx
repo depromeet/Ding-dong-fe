@@ -29,6 +29,10 @@ type TopNavigationProps = {
    */
   rightButtonElement?: ReactNode;
   backLink?: string;
+  /**
+   * border-bottom 컬러 값이 주어지면 표시합니다. ex) color-primary
+   */
+  bottomBorderColor?: string;
 };
 
 const TopNavigation = ({
@@ -37,6 +41,7 @@ const TopNavigation = ({
   titleElement,
   rightButtonElement,
   backLink,
+  bottomBorderColor,
 }: TopNavigationProps) => {
   const router = useRouter();
 
@@ -53,9 +58,11 @@ const TopNavigation = ({
   };
 
   const BackButtonComponent = BackButton[backButtonType];
-
+  const borderBottomStyle = bottomBorderColor ? `border-b-${bottomBorderColor} border-b-[1px]` : '';
   return (
-    <nav className="flex h-[44px] items-center bg-white">
+    <nav
+      className={`fixed left-0 right-0 top-0 flex h-[44px] w-full items-center bg-white ${borderBottomStyle}`}
+    >
       <button className="flex w-1/3 justify-start" onClick={handleClickBackButton}>
         <BackButtonComponent />
       </button>
