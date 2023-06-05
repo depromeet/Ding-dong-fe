@@ -3,10 +3,23 @@
 import { useRouter } from 'next/navigation';
 import { ReactNode } from 'react';
 
-import { ChevronLeftIcon } from '@/components/Icon';
+import { ArrowLeftIcon, CancelIcon, ChevronLeftIcon } from '@/components/Icon';
+
+const BackButton = {
+  chevron: ChevronLeftIcon,
+  cancel: CancelIcon,
+  arrow: ArrowLeftIcon,
+};
+
+type BackButtonType = keyof typeof BackButton;
 
 type TopNavigationProps = {
   title?: string;
+  /**
+   * 좌측 아이콘 타입
+   * @default 'chevron'
+   */
+  backButtonType?: BackButtonType;
   /**
    * 좌측 아이콘을 클릭할 때 동작하는 함수, 값을 넣지 않으면 기본적으로 router.back이 실행됩니다.
    */
@@ -17,7 +30,12 @@ type TopNavigationProps = {
   rightButtonElement?: ReactNode;
 };
 
-const TopNavigation = ({ title, onClickBackButton, rightButtonElement }: TopNavigationProps) => {
+const TopNavigation = ({
+  title,
+  backButtonType = 'chevron',
+  onClickBackButton,
+  rightButtonElement,
+}: TopNavigationProps) => {
   const router = useRouter();
 
   const handleClickBackButton = () => {
@@ -29,10 +47,12 @@ const TopNavigation = ({ title, onClickBackButton, rightButtonElement }: TopNavi
     router.back();
   };
 
+  const BackButtonComponent = BackButton[backButtonType];
+
   return (
     <nav className="flex h-[44px] items-center bg-white">
       <button className="flex w-1/3 justify-start" onClick={handleClickBackButton}>
-        <ChevronLeftIcon />
+        <BackButtonComponent />
       </button>
       {title && <h1 className="flex w-1/3 justify-center">{title}</h1>}
       {rightButtonElement && <div className="flex w-1/3 justify-end">{rightButtonElement}</div>}

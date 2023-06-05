@@ -22,7 +22,11 @@ export const Primary: Story = {
   render: () => <TopNavigation />,
 };
 
-export const TitleWithBackButton: Story = {
+export const CancelBackButton: Story = {
+  render: () => <TopNavigation backButtonType="cancel" />,
+};
+
+export const TitleWithDBackButton: Story = {
   render: () => <TopNavigation title="Title" />,
 };
 
