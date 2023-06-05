@@ -21,6 +21,7 @@
     "axios": "^1.4.0",
     "chromatic": "^6.18.0",
     "eslint-config-next": "13.4.3",
+    "framer-motion": "^10.12.16",
     "msw": "^1.2.1",
     "next": "13.4.3",
     "next-auth": "^4.22.1",
