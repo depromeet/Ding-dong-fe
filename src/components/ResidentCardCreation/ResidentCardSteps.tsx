@@ -3,7 +3,7 @@
 import { useCallback, useState } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 
-import { Steps } from '@/components/ResidentCardCreation/Form';
+import { ResidentCardForm, Steps } from '@/components/ResidentCardCreation/Form';
 
 const steps: Steps[] = ['BOARDING', 'PROFILE', 'KEYWORD', 'KEYWORD_CONTENT', 'COMPLETE'];
 
@@ -25,7 +25,11 @@ export const ResidentCardSteps = () => {
           <button onClick={onNext}>행성 만들기</button>
         </div>
       )}
-      {['PROFILE', 'KEYWORD', 'KEYWORD_CONTENT'].includes(steps[stepOrder]) && <div>form</div>}
+      {['PROFILE', 'KEYWORD', 'KEYWORD_CONTENT'].includes(steps[stepOrder]) && (
+        <div>
+          <ResidentCardForm steps={steps} stepOrder={stepOrder} onNext={onNext} onPrev={onPrev} />
+        </div>
+      )}
       {steps[stepOrder] === 'COMPLETE' && <div>complete</div>}
     </FormProvider>
   );
