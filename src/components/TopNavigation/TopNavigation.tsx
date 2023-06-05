@@ -61,7 +61,7 @@ const TopNavigation = ({
   const borderBottomStyle = bottomBorderColor ? `border-b-${bottomBorderColor} border-b-[1px]` : '';
   return (
     <nav
-      className={`fixed left-0 right-0 top-0 flex h-[44px] w-full items-center bg-white ${borderBottomStyle}`}
+      className={`fixed left-0 right-0 top-0 z-top1 flex h-[44px] w-full items-center bg-white ${borderBottomStyle}`}
     >
       <button className="flex w-1/3 justify-start" onClick={handleClickBackButton}>
         <BackButtonComponent />
