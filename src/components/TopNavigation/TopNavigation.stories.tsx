@@ -26,6 +26,10 @@ export const CancelBackButton: Story = {
   render: () => <TopNavigation backButtonType="cancel" />,
 };
 
+export const BackButtonWithCustomLink: Story = {
+  render: () => <TopNavigation backLink="/custom-link" />,
+};
+
 export const TitleWithDBackButton: Story = {
   render: () => <TopNavigation titleElement="Title" />,
 };

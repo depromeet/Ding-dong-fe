@@ -28,6 +28,7 @@ type TopNavigationProps = {
    * 이벤트가 등록된 ReactNode를 넘겨야 합니다.
    */
   rightButtonElement?: ReactNode;
+  backLink?: string;
 };
 
 const TopNavigation = ({
@@ -35,6 +36,7 @@ const TopNavigation = ({
   onClickBackButton,
   titleElement,
   rightButtonElement,
+  backLink,
 }: TopNavigationProps) => {
   const router = useRouter();
 
@@ -43,7 +45,10 @@ const TopNavigation = ({
       onClickBackButton();
       return;
     }
-    // backLink
+    if (backLink) {
+      router.push(backLink);
+      return;
+    }
     router.back();
   };
 
