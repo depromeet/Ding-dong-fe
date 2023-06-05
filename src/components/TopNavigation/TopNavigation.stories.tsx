@@ -27,17 +27,30 @@ export const CancelBackButton: Story = {
 };
 
 export const TitleWithDBackButton: Story = {
-  render: () => <TopNavigation title="Title" />,
+  render: () => <TopNavigation titleElement="Title" />,
+};
+
+export const TitleWithTwoLine: Story = {
+  render: () => (
+    <TopNavigation
+      titleElement={
+        <div className="flex flex-col items-center justify-center">
+          <span className="text-b3 text-grey-500">김피피</span>
+          <span className="text-grey-900">주민정보</span>
+        </div>
+      }
+    />
+  ),
 };
 
 export const TitleWithRightButton: Story = {
-  render: () => <TopNavigation title="Title" />,
+  render: () => <TopNavigation titleElement="Title" />,
 };
 
 export const TitleWithCloseButton: Story = {
   render: () => (
     <TopNavigation
-      title="Title"
+      titleElement="Title"
       rightButtonElement={<button className="text-h5 text-primary-500">다음</button>}
     />
   ),
