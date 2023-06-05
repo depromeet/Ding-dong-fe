@@ -47,15 +47,11 @@ export const TitleWithTwoLine: Story = {
   ),
 };
 
-export const TitleWithRightButton: Story = {
-  render: () => <TopNavigation titleElement="Title" />,
-};
-
 export const BottomBorder: Story = {
   render: () => <TopNavigation titleElement="Title" bottomBorderColor="primary-500" />,
 };
 
-export const TitleWithCloseButton: Story = {
+export const TitleWithRightButton: Story = {
   render: () => (
     <TopNavigation
       titleElement="Title"
