@@ -1,10 +1,12 @@
 import HomePage from '@/app/home/page';
+import { KeywordInput } from '@/components/KeywordInput';
 
 const Home = () => {
   return (
     <main>
       {/* <Tester /> */}
-      <HomePage />
+      {/* <HomePage /> */}
+      <KeywordInput />
     </main>
   );
 };
