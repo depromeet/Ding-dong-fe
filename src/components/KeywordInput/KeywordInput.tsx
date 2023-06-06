@@ -18,6 +18,12 @@ const addKeywordListAvoidDuplicate = (keyword: string, keywordList: string[]) =>
   return newKeywordList;
 };
 
+const deleteKeywordListAvoidDuplicate = (keyword: string, keywordList: string[]) => {
+  const newKeywordList = keywordList.filter(item => item !== keyword);
+
+  return newKeywordList;
+};
+
 // eslint-disable-next-line no-empty-pattern
 export const KeywordInput = ({}: KeywordInputProps) => {
   const inputRef = useRef<HTMLInputElement>(null);
@@ -40,6 +46,10 @@ export const KeywordInput = ({}: KeywordInputProps) => {
     if (keyword === '') return;
     setActiveKeywordList(prev => addKeywordListAvoidDuplicate(keyword, prev));
     resetInputValue();
+  };
+
+  const deleteKeyword = (keyword: string) => {
+    setActiveKeywordList(prev => deleteKeywordListAvoidDuplicate(keyword, prev));
   };
 
   const handleKeyUp = (event: KeyboardEvent<HTMLInputElement>) => {
@@ -69,7 +79,13 @@ export const KeywordInput = ({}: KeywordInputProps) => {
       <div className="flex min-h-[56px] bg-grey-50 px-20px py-12px ">
         <ul className="flex w-full flex-wrap items-center gap-x-4px gap-y-8px">
           {activeKeywordList.map(selectedKeyword => (
-            <Chip key={selectedKeyword} text={selectedKeyword} isSelected={true} />
+            <Chip
+              key={selectedKeyword}
+              text={selectedKeyword}
+              isSelected={true}
+              themeType="close"
+              handleClickIcon={() => deleteKeyword(selectedKeyword)}
+            />
           ))}
           <input
             ref={inputRef}
