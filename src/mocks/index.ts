@@ -1,16 +1,12 @@
-const initMocks = () => {
-  const isServer = typeof window === undefined;
+const initMocks = async () => {
+  const isServer = typeof window === 'undefined';
 
   if (isServer) {
-    (async () => {
-      const { server } = await import('./server');
-      server.listen();
-    })();
+    const { server } = await require('./server');
+    server.listen({ onUnhandledRequest: 'bypass' });
   } else {
-    (async () => {
-      const { worker } = await import('./browser');
-      worker.start();
-    })();
+    const { worker } = await require('./browser');
+    worker.start({ onUnhandledRequest: 'bypass' });
   }
 };
 
