@@ -12,7 +12,7 @@ type ResidentCardFormProps = {
 
 export const ResidentCardForm = ({ steps, stepOrder, onNext, onPrev }: ResidentCardFormProps) => {
   const { handleSubmit } = useFormContext();
-  const onSubmit = data => console.log(data);
+  const onSubmit = () => console.log('제출');
 
   return (
     <div>
