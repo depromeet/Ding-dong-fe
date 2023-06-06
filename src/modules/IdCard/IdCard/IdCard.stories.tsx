@@ -28,7 +28,15 @@ export const Tobby: Story = {
       aboutMe="안녕하세요 저는 N년차 개발자구요 :) 너무 보고싶었어요 다들 잘부탁드립니다!"
       nickname="유토비"
       characterType="TOBBY"
-      keywordTitles={['엽기떡기', '르세라핌', 'FE', 'EPL']}
+      keywordTitles={[
+        '엽기떡기 시키기',
+        '르세라핌 최고',
+        '뉴진스가 더 최고',
+        'FE 3년차',
+        '맛집 추천 받아요',
+        '코딩하는게 취미',
+        '퐁퐁퐁퐁퐁',
+      ]}
     />
   ),
 };

@@ -36,6 +36,7 @@ export const IdCard = ({
         <p className="mb-3 mt-3.5 text-b2">{aboutMe}</p>
         <div className="flex max-h-14 flex-wrap gap-1.5 overflow-hidden">
           {keywordTitles.map(keywordTitle => (
+            // TODO: 태그 2줄 이상 길어지면 ... 처리 필요
             <Tag key={keywordTitle} type={characterType} label={keywordTitle} />
           ))}
         </div>
