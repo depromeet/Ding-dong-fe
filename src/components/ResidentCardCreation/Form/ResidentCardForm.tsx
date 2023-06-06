@@ -3,6 +3,8 @@ import { useFormContext } from 'react-hook-form';
 
 import { Steps } from '@/components/ResidentCardCreation/ResidentCardCreation.type';
 
+import { ProfileStep } from '../Step';
+
 type ResidentCardFormProps = {
   steps: Steps[];
   stepOrder: number;
@@ -25,7 +27,7 @@ export const ResidentCardForm = ({ steps, stepOrder, onNext, onPrev }: ResidentC
         <button onClick={onPrev}>이전</button>
       </div>
       <form onSubmit={handleSubmit(onSubmit)}>
-        {steps[stepOrder] === 'PROFILE' && <div>이름 및 소개</div>}
+        {steps[stepOrder] === 'PROFILE' && <ProfileStep />}
         {steps[stepOrder] === 'KEYWORD' && <div>키워드 생성</div>}
         {steps[stepOrder] === 'KEYWORD_CONTENT' && <div>키워드 컨텐츠 만들기</div>}
       </form>
