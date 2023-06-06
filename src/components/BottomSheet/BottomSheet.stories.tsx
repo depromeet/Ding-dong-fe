@@ -93,4 +93,22 @@ export const Long: Story = {
   render: () => <LongBottomSheetWithHooks />,
 };
 
+const WithoutButtonBottomSheetWithHooks = () => {
+  const bottomSheetHandlers = useBottomSheet();
+  return (
+    <div>
+      <Button size="medium" color="primary" onClick={bottomSheetHandlers.onOpen}>
+        열기
+      </Button>
+      <BottomSheet {...bottomSheetHandlers}>
+        <BottomSheet.Header>제목</BottomSheet.Header>
+        <BottomSheet.Content>내용</BottomSheet.Content>
+      </BottomSheet>
+    </div>
+  );
+};
+export const WithoutButton: Story = {
+  render: () => <WithoutButtonBottomSheetWithHooks />,
+};
+
 export default meta;
