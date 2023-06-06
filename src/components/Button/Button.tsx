@@ -3,7 +3,7 @@ import { ButtonHTMLAttributes, ReactNode } from 'react';
 type ButtonSize = 'small' | 'medium' | 'large';
 type ButtonColor = 'primary' | 'secondary';
 
-type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
+export type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
   size: ButtonSize;
   color: ButtonColor;
   disabled?: boolean;
@@ -27,6 +27,7 @@ const Button = ({
   color,
   disabled = false,
   width = 'w-full',
+  className,
   children,
   ...props
 }: ButtonProps) => {
@@ -37,7 +38,9 @@ const Button = ({
     <button
       {...props}
       disabled={disabled}
-      className={`${buttonColor} ${buttonSize} ${width} font-bold active:bg-gray-500 active:text-white disabled:bg-slate-100 disabled:text-slate-200`}
+      className={`${buttonColor} ${buttonSize} ${width} font-bold active:bg-gray-500 active:text-white disabled:bg-slate-100 disabled:text-slate-200 ${
+        className ?? ''
+      }`}
     >
       {children}
     </button>
