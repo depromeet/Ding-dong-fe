@@ -20,15 +20,12 @@ export const ProfileStep = () => {
       <h1 className="text-h1">{title}</h1>
       <div className="mx-auto mt-20px h-[88px] w-[92px] rounded-full bg-amber-500" />
       <div className={`${fieldTitleStyle}`}>이름</div>
-      <input
-        {...register('nickname', { required: true })}
-        className={`${fieldStyle} px-14px py-12px`}
-      />
+      <input {...register('nickname', { required: true })} className={`${fieldStyle} p-12px`} />
       <div className={`${fieldTitleStyle} mt-16px`}>소개</div>
       <textarea
         {...register('aboutMe', { maxLength: TEXT_MAX_LENGTH })}
         onChange={onTextareaHandler}
-        className={`${fieldStyle} p-14px`}
+        className={`${fieldStyle} p-12px`}
       />
       <div className="text-right text-detail text-grey-500">{textCount}/50</div>
     </div>
