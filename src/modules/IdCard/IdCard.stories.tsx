@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import { IdCard } from './IdCard';
+import { IdCard } from './IdCard.client';
 
 const meta: Meta<typeof IdCard> = {
   title: 'IdCard',
