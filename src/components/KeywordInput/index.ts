@@ -1,1 +1,1 @@
-export { default } from './KeywordInput';
+export { KeywordInput } from './KeywordInput';

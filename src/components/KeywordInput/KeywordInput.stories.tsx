@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import KeywordInput from './KeywordInput';
+import { KeywordInput } from './KeywordInput';
 
 const meta: Meta<typeof KeywordInput> = {
   title: 'CATEGORY/KeywordInput',

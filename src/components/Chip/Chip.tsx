@@ -31,7 +31,12 @@ const icons: Record<ChipThemeType, ReactNode> = {
   plus: <>+</>,
 };
 
-const Chip = ({ text, themeType = 'default', isSelected = false, handleClickIcon }: ChipProps) => {
+export const Chip = ({
+  text,
+  themeType = 'default',
+  isSelected = false,
+  handleClickIcon,
+}: ChipProps) => {
   const colorType = isSelected ? 'selected' : 'default';
   const isDefault = themeType === 'default';
   return (
@@ -43,5 +48,3 @@ const Chip = ({ text, themeType = 'default', isSelected = false, handleClickIcon
     </div>
   );
 };
-
-export default Chip;
