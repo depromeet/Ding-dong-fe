@@ -67,7 +67,7 @@
       "eslint --ext .tsx --ext .ts ./src --fix"
     ],
     "src/**": [
-      "prettier --write \"**/*.{js,jsx,ts,tsx,json,md,css}\""
+      "prettier --write \"**/*.{js,jsx,ts,tsx,md,css}\""
     ]
   },
   "msw": {
