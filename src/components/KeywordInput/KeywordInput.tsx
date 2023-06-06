@@ -1,13 +1,18 @@
 'use client';
 
-import { ChangeEvent, KeyboardEvent, useState } from 'react';
+import { ChangeEvent, KeyboardEvent, useEffect, useRef, useState } from 'react';
 
 import { Chip } from '@/components/Chip/Chip';
 
 type KeywordInputProps = object;
 
+const DEFAULT_INPUT_WIDTH = 32; // 동적으로 input width를 정할 때 최소 너비
+const DEFAULT_WORD_WIDTH = 15; // 한 글자당 최소 너비
+const isOverMaxKeywordListLength = (len: number) => len > 7;
+const isOverMaxInputValue = (len: number) => len > 8;
+
 const addKeywordListAvoidDuplicate = (keyword: string, keywordList: string[]) => {
-  if (keywordList.length > 7) return keywordList;
+  if (isOverMaxKeywordListLength(keywordList.length)) return keywordList;
   const newKeywordList = keywordList.filter(item => item !== keyword).concat(keyword);
 
   return newKeywordList;
@@ -15,6 +20,7 @@ const addKeywordListAvoidDuplicate = (keyword: string, keywordList: string[]) =>
 
 // eslint-disable-next-line no-empty-pattern
 export const KeywordInput = ({}: KeywordInputProps) => {
+  const inputRef = useRef<HTMLInputElement>(null);
   const [inputValue, setInputValue] = useState('');
   const [activeKeywordList, setActiveKeywordList] = useState<string[]>([]);
 
@@ -22,7 +28,7 @@ export const KeywordInput = ({}: KeywordInputProps) => {
 
   const onChange = (event: ChangeEvent<HTMLInputElement>) => {
     const currentInputValue = event.target.value;
-    if (currentInputValue.length > 8) return;
+    if (isOverMaxInputValue(currentInputValue.length)) return;
     setInputValue(currentInputValue);
   };
 
@@ -43,15 +49,30 @@ export const KeywordInput = ({}: KeywordInputProps) => {
     }
   };
 
+  useEffect(() => {
+    const inputLength =
+      inputValue.length === 0 ? DEFAULT_INPUT_WIDTH : inputValue.length * DEFAULT_WORD_WIDTH;
+    const inputElement = inputRef.current;
+    if (inputElement) {
+      inputElement.style.width = 'auto'; // Reset the width to auto
+      if (isEmptyKeywordList) {
+        inputElement.style.width = '100%';
+      } else {
+        inputElement.style.width = `${inputLength}px`; // Set the width to match the content
+      }
+    }
+  }, [inputValue, activeKeywordList.length]);
+
   return (
     <div className="flex w-full flex-col px-20px">
       <h3>라벨</h3>
       <div className="flex min-h-[56px] bg-grey-50 px-20px py-12px ">
-        <ul className="flex w-full flex-wrap gap-x-4px gap-y-8px">
+        <ul className="flex w-full flex-wrap items-center gap-x-4px gap-y-8px">
           {activeKeywordList.map(selectedKeyword => (
             <Chip key={selectedKeyword} text={selectedKeyword} isSelected={true} />
           ))}
           <input
+            ref={inputRef}
             type="text"
             value={inputValue}
             onKeyUp={handleKeyUp}
