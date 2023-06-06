@@ -3,25 +3,29 @@
 import { AnimatePresence, motion } from 'framer-motion';
 import { PropsWithChildren } from 'react';
 
-import {
-  BottomSheetContent,
-  BottomSheetFooter,
-  BottomSheetHeader,
-  BottomSheetWrapper,
-  UseBottomSheetReturn,
-} from '@/components/BottomSheet';
+import { BottomSheetContent } from '@/components/BottomSheet/BottomSheetContent';
+import { BottomSheetFooter } from '@/components/BottomSheet/BottomSheetFooter';
+import { BottomSheetHeader } from '@/components/BottomSheet/BottomSheetHeader';
+import { BottomSheetWrapper } from '@/components/BottomSheet/BottomSheetWrapper';
+import { UseBottomSheetReturn } from '@/components/BottomSheet/useBottomSheet';
 import Portal from '@/components/Portal';
 
-type BottomSheetProps = PropsWithChildren & UseBottomSheetReturn;
-const BottomSheet = ({ children, isOpen }: BottomSheetProps) => {
+export type BottomSheetProps = PropsWithChildren & UseBottomSheetReturn;
+const BottomSheet = ({ children, isOpen, onClose }: BottomSheetProps) => {
   return (
     <Portal>
       {isOpen && (
         <AnimatePresence>
-          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
-            <BottomSheetWrapper></BottomSheetWrapper>
+          <motion.div
+            key="wrapper"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+          >
+            <BottomSheetWrapper onClose={onClose}></BottomSheetWrapper>
           </motion.div>
           <motion.div
+            key="sheet"
             initial={{ y: 300, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{
