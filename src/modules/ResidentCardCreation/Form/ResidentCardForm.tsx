@@ -1,7 +1,7 @@
 'use client';
 import { useFormContext } from 'react-hook-form';
 
-import { Steps } from '@/components/ResidentCardCreation/ResidentCardCreation.type';
+import { Steps } from '@/modules/ResidentCardCreation/ResidentCardCreation.type';
 
 import { ProfileStep } from '../Step';
 
