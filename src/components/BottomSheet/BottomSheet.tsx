@@ -23,6 +23,10 @@ const SheetVariants = {
   exit: { y: 300, opacity: 0, transition: { duration: 0.5 } },
 };
 
+export const MIN_Y = 212; // 바텀시트가 최대로 높이 올라갔을 때의 y 값
+export const MAX_Y = window.innerHeight - 80; // 바텀시트가 최소로 내려갔을 때의 y 값
+export const BOTTOM_SHEET_HEIGHT = window.innerHeight - MIN_Y;
+
 export type BottomSheetProps = PropsWithChildren & UseBottomSheetReturn;
 const BottomSheet = ({ children, isOpen, onClose }: BottomSheetProps) => {
   return (
@@ -34,7 +38,7 @@ const BottomSheet = ({ children, isOpen, onClose }: BottomSheetProps) => {
             <motion.div
               key="sheet"
               {...SheetVariants}
-              className="fixed bottom-0 left-0 w-full rounded-t-[20px] bg-white px-5 py-6"
+              className="fixed bottom-0 left-0 flex max-h-[calc(100vh-212px)] w-full flex-col rounded-t-[20px] bg-white px-5 py-6"
             >
               {children}
             </motion.div>
