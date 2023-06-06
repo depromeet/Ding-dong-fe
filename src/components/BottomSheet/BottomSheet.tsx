@@ -8,30 +8,34 @@ import {
   BottomSheetFooter,
   BottomSheetHeader,
   BottomSheetWrapper,
+  UseBottomSheetReturn,
 } from '@/components/BottomSheet';
 import Portal from '@/components/Portal';
 
-const BottomSheet = ({ children }: PropsWithChildren) => {
+type BottomSheetProps = PropsWithChildren & UseBottomSheetReturn;
+const BottomSheet = ({ children, isOpen }: BottomSheetProps) => {
   return (
     <Portal>
-      <AnimatePresence>
-        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
-          <BottomSheetWrapper></BottomSheetWrapper>
-        </motion.div>
-        <motion.div
-          initial={{ y: 300, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{
-            duration: 0.5,
-            delay: 0.5,
-            ease: [0, 0.71, 0.2, 1.01],
-          }}
-          exit={{ y: 300, opacity: 0 }}
-          className="fixed bottom-0 left-0 w-full rounded-t-[20px] bg-white px-5 py-6"
-        >
-          {children}
-        </motion.div>
-      </AnimatePresence>
+      {isOpen && (
+        <AnimatePresence>
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+            <BottomSheetWrapper></BottomSheetWrapper>
+          </motion.div>
+          <motion.div
+            initial={{ y: 300, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{
+              duration: 0.5,
+              delay: 0.5,
+              ease: [0, 0.71, 0.2, 1.01],
+            }}
+            exit={{ y: 300, opacity: 0 }}
+            className="fixed bottom-0 left-0 w-full rounded-t-[20px] bg-white px-5 py-6"
+          >
+            {children}
+          </motion.div>
+        </AnimatePresence>
+      )}
     </Portal>
   );
 };
