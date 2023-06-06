@@ -9,6 +9,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 const queryClient = new QueryClient();
 
 import '../src/styles/globals.css';
+import { INITIAL_VIEWPORTS } from '@storybook/addon-viewport';
 
 // Initialize MSW
 initialize();
@@ -38,6 +39,12 @@ const preview: Preview = {
       };
 
       return config;
+    },
+  },
+  parameters: {
+    viewport: {
+      viewports: INITIAL_VIEWPORTS,
+      defaultViewport: 'iphone6',
     },
   },
 };

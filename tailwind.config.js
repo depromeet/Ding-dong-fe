@@ -80,6 +80,31 @@ module.exports = {
           100: 'rgba(0, 0, 0, 0.4)',
           200: 'rgba(0, 0, 0, 0.7)',
         },
+        // NOTE: 캐릭터에 따라 페이지들에서 색상이 달라지기 때문에 추가하였습니다.(ex 주민증, 태그, 주민증 세부 등)
+        buddy: {
+          100: '#F5FCFD',
+          200: '#ECFBFF',
+          400: '#B7EEFF',
+          700: '#49D3FF',
+        },
+        tobby: {
+          100: '#FAF6FF',
+          200: '#F4ECFF',
+          400: '#E3D2FF',
+          700: '#BF98FF',
+        },
+        pipi: {
+          100: '#F3F5FF',
+          200: '#EBEEFF',
+          400: '#C6CFFF',
+          700: '#889BFF',
+        },
+        true: {
+          100: '#F5F9FF',
+          200: '#EBF3FF',
+          400: '#C4DCFF',
+          700: '#76ADFF',
+        },
       },
       spacing: {
         ...declareSpace(),
@@ -89,6 +114,15 @@ module.exports = {
         Pretendard: ['Pretendard Variable', 'Pretendard'],
         sans: ['Graphik', 'sans-serif'],
         serif: ['Merriweather', 'serif'],
+      },
+      zIndex: {
+        toast: '1000',
+        modal: '500',
+        top1: '100',
+        top2: '50',
+        mid1: '25',
+        mid2: '10',
+        below: '-1',
       },
     },
   },
