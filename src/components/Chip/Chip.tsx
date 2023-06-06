@@ -3,7 +3,7 @@ import { ButtonHTMLAttributes, ReactNode } from 'react';
 type ChipThemeType = 'default' | 'close' | 'plus';
 type ChipColor = 'default' | 'selected';
 
-type ChipProps = {
+type ChipProps = ButtonHTMLAttributes<HTMLButtonElement> & {
   text: string;
   /**
    *  'default' | 'close' | 'plus'의 타입을 지정합니다.
@@ -36,15 +36,17 @@ export const Chip = ({
   themeType = 'default',
   isSelected = false,
   handleClickIcon,
+  onClick,
 }: ChipProps) => {
   const colorType = isSelected ? 'selected' : 'default';
   const isDefault = themeType === 'default';
   return (
-    <div
-      className={`${colors[colorType]} flex h-[30px] w-fit items-center justify-center gap-1.5 rounded-[50px] border-[1px] px-8px py-12px text-b3`}
+    <button
+      onClick={onClick}
+      className={`${colors[colorType]} } : flex h-[30px] w-fit items-center justify-center gap-1.5 rounded-[50px] border-[1px] px-8px py-12px text-b3`}
     >
       <span>{text}</span>
       {!isDefault && <button onClick={handleClickIcon}>{icons[themeType]}</button>}
-    </div>
+    </button>
   );
 };
