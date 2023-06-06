@@ -13,17 +13,21 @@ const meta: Meta<typeof BottomSheet> = {
 type Story = StoryObj<typeof BottomSheet>;
 
 const BottomSheetWithHooks = () => {
-  const { onClose, onOpen, isOpen } = useBottomSheet({});
+  const bottomSheetHandlers = useBottomSheet();
   return (
     <div>
-      <Button size="medium" color="primary" onClick={onOpen}>
+      <Button size="medium" color="primary" onClick={bottomSheetHandlers.onOpen}>
         열기
       </Button>
-      <BottomSheet isOpen={isOpen}>
+      <BottomSheet {...bottomSheetHandlers}>
         <BottomSheet.Header>제목</BottomSheet.Header>
         <BottomSheet.Content>내용</BottomSheet.Content>
         <BottomSheet.Footer>
-          <BottomSheet.Footer.Button onClick={onClose} size="large" color="primary">
+          <BottomSheet.Footer.Button
+            onClick={bottomSheetHandlers.onClose}
+            size="large"
+            color="primary"
+          >
             확인
           </BottomSheet.Footer.Button>
         </BottomSheet.Footer>
