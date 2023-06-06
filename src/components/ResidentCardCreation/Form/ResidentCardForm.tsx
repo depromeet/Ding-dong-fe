@@ -1,7 +1,7 @@
 'use client';
 import { useFormContext } from 'react-hook-form';
 
-export type Steps = 'BOARDING' | 'PROFILE' | 'KEYWORD' | 'KEYWORD_CONTENT' | 'COMPLETE';
+import { Steps } from '@/components/ResidentCardCreation/ResidentCardCreation.type';
 
 type ResidentCardFormProps = {
   steps: Steps[];

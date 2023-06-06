@@ -3,7 +3,8 @@
 import { useCallback, useState } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 
-import { ResidentCardForm, Steps } from '@/components/ResidentCardCreation/Form';
+import { ResidentCardForm } from '@/components/ResidentCardCreation/Form';
+import { Steps } from '@/components/ResidentCardCreation/ResidentCardCreation.type';
 
 const steps: Steps[] = ['BOARDING', 'PROFILE', 'KEYWORD', 'KEYWORD_CONTENT', 'COMPLETE'];
 
