@@ -30,21 +30,25 @@ export const IdCard = ({
   const bgColor = bgColors[characterType];
 
   return (
-    <div className={`${bgColor} rounded-2xl p-5`}>
-      <p className="text-h1">{nickname}</p>
-      <p className="mb-3 mt-3.5 text-b2">{aboutMe}</p>
-      <div className="flex gap-1.5">
-        {keywordTitles.map(keywordTitle => (
-          <Tag key={keywordTitle} type={characterType} label={keywordTitle} />
-        ))}
+    <div className="w-full">
+      <div className={`${bgColor} rounded-t-2xl p-5`}>
+        <p className="text-h1">{nickname}</p>
+        <p className="mb-3 mt-3.5 text-b2">{aboutMe}</p>
+        <div className="flex max-h-14 flex-wrap gap-1.5 overflow-hidden">
+          {keywordTitles.map(keywordTitle => (
+            <Tag key={keywordTitle} type={characterType} label={keywordTitle} />
+          ))}
+        </div>
       </div>
-      <Image
-        src={`/assets/images/${characterType}.png`}
-        alt="character image"
-        width={300}
-        height={310}
-        priority
-      />
+      <div className={`${bgColor} relative w-full rounded-b-2xl pb-[83%]`}>
+        <Image
+          src={`/assets/images/${characterType}.png`}
+          alt="character image"
+          fill
+          object-fit="contain"
+          object-position="center"
+        />
+      </div>
     </div>
   );
 };
