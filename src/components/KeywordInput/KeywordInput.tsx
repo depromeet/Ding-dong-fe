@@ -10,7 +10,6 @@ import { useInputAutoSize } from './useInputAutoSize';
 
 type KeywordInputProps = {
   id: string;
-  label: string;
   placeholder: string;
   keywordLabel: string;
   keywordOptions: OptionType[];
@@ -22,7 +21,6 @@ type KeywordInputProps = {
 
 export const KeywordInput = ({
   id,
-  label,
   placeholder,
   keywordLabel,
   keywordOptions,
@@ -69,7 +67,6 @@ export const KeywordInput = ({
 
   return (
     <div className="flex w-full flex-col">
-      <h3 className="mx-20px py-24px text-h2 text-black">{label}</h3>
       <div
         onClick={handleClickBackground}
         className="mb-28px flex min-h-[56px] bg-grey-50 px-20px py-12px"

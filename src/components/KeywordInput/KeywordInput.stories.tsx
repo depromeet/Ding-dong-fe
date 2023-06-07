@@ -52,7 +52,6 @@ const KeywordInputWithRhf = () => {
       render={({ field: { onChange, value, name }, fieldState: { error } }) => (
         <KeywordInput
           id={name}
-          label={'이웃 주민에게 자신을 소개할' + '\n' + '키워드를 적어주세요!'}
           placeholder="1개 이상의 키워드를 추가해주세요."
           keywordLabel="이런 키워드는 어때요?"
           activeKeywordList={value}
