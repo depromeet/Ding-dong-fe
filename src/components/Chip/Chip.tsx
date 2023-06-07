@@ -1,4 +1,6 @@
-import { ButtonHTMLAttributes, ReactNode } from 'react';
+import { ButtonHTMLAttributes } from 'react';
+
+import { CancelIcon, PlusIcon } from '@/components/Icon';
 
 type ChipThemeType = 'default' | 'close' | 'plus';
 type ChipColor = 'default' | 'selected';
@@ -25,10 +27,15 @@ const colors: Record<ChipColor, string> = {
   selected: 'bg-black text-white',
 };
 
-const icons: Record<ChipThemeType, ReactNode> = {
-  default: <></>, // isDefault로 걸러져서 없어도되는데 타입지정을 어캐하지..
-  close: <>X</>,
-  plus: <>+</>,
+const iconColors: Record<ChipColor, string> = {
+  default: '',
+  selected: 'fill-white',
+};
+
+const icons: Record<ChipThemeType, (props: any) => JSX.Element> = {
+  default: () => <></>,
+  close: CancelIcon,
+  plus: PlusIcon,
 };
 
 export const Chip = ({
@@ -39,14 +46,18 @@ export const Chip = ({
   onClick,
 }: ChipProps) => {
   const colorType = isSelected ? 'selected' : 'default';
-  const isDefault = themeType === 'default';
+  const ButtonIcon = icons[themeType];
   return (
     <button
       onClick={onClick}
-      className={`${colors[colorType]} } : flex h-[30px] w-fit items-center justify-center gap-1.5 rounded-[50px] border-[1px] px-8px py-12px text-b3`}
+      className={`${colors[colorType]} flex h-[30px] w-fit items-center justify-center gap-1.5 rounded-[50px] border-[1px] px-8px py-12px text-b3`}
     >
       <span>{text}</span>
-      {!isDefault && <button onClick={handleClickIcon}>{icons[themeType]}</button>}
+      {
+        <button onClick={handleClickIcon}>
+          <ButtonIcon className={`${iconColors[colorType]}`} />
+        </button>
+      }
     </button>
   );
 };

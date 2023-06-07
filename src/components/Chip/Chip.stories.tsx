@@ -26,3 +26,7 @@ export const WithCancelIcon: Story = {
 export const WithPlusIcon: Story = {
   render: () => <Chip text="텍스트" themeType="plus" />,
 };
+
+export const SelectedWithIcon: Story = {
+  render: () => <Chip text="텍스트" isSelected themeType="close" />,
+};
