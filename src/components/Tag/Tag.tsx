@@ -6,10 +6,10 @@ type TagProps = {
 };
 
 const colors: Record<CharacterType, string> = {
-  buddy: 'text-buddy-700 bg-buddy-200 border-buddy-400',
-  tobby: 'text-tobby-700 bg-tobby-200 border-tobby-400',
-  pipi: 'text-pipi-700 bg-pipi-200 border-pipi-400',
-  true: 'text-true-700 bg-true-200 border-true-400',
+  BUDDY: 'text-buddy-700 bg-buddy-200 border-buddy-400',
+  TOBBY: 'text-tobby-700 bg-tobby-200 border-tobby-400',
+  PIPI: 'text-pipi-700 bg-pipi-200 border-pipi-400',
+  TRUE: 'text-true-700 bg-true-200 border-true-400',
 };
 
 const getCharacterColor = (type: CharacterType) => {
