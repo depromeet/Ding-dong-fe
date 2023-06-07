@@ -1,6 +1,6 @@
 'use client';
 
-import { ChangeEvent, KeyboardEvent, useState } from 'react';
+import { ChangeEvent, KeyboardEvent, MouseEvent, useRef, useState } from 'react';
 
 import { Chip } from '@/components/Chip/Chip';
 
@@ -38,6 +38,14 @@ export const KeywordInput = ({}: KeywordInputProps) => {
     activeKeywordListLength: activeKeywordList.length,
   });
 
+  const shouldFocusInput = () => {
+    inputRef.current?.focus();
+  };
+
+  const handleClickBackground = () => {
+    shouldFocusInput();
+  };
+
   const onChange = (event: ChangeEvent<HTMLInputElement>) => {
     const currentInputValue = event.target.value;
     if (isOverMaxInputValue(currentInputValue.length)) return;
@@ -68,7 +76,7 @@ export const KeywordInput = ({}: KeywordInputProps) => {
   return (
     <div className="flex w-full flex-col px-20px">
       <h3>라벨</h3>
-      <div className="flex min-h-[56px] bg-grey-50 px-20px py-12px ">
+      <div onClick={handleClickBackground} className="flex min-h-[56px] bg-grey-50 px-20px py-12px">
         <ul className="flex w-full flex-wrap items-center gap-x-4px gap-y-8px">
           {activeKeywordList.map(selectedKeyword => (
             <Chip
@@ -76,6 +84,7 @@ export const KeywordInput = ({}: KeywordInputProps) => {
               text={selectedKeyword}
               isSelected={true}
               themeType="close"
+              onClick={(event: MouseEvent) => event.stopPropagation()} // handleClickBackground이 자식 요소로 전파되는 걸 막습니다.
               handleClickIcon={() => deleteKeyword(selectedKeyword)}
             />
           ))}
@@ -86,7 +95,7 @@ export const KeywordInput = ({}: KeywordInputProps) => {
             onKeyUp={handleKeyUp}
             onChange={onChange}
             placeholder="1개 이상의 키워드를 입력해주세요."
-            className={`active:none bg-inherit text-b3 text-grey-900 placeholder:text-b3 placeholder:text-grey-400 ${
+            className={`active:none h-[30px] bg-inherit text-b3 text-grey-900 placeholder:text-b3 placeholder:text-grey-400 ${
               isEmptyKeywordList || 'placeholder:text-transparent'
             }`}
           />
