@@ -1,5 +1,5 @@
 'use client';
-import { useCallback, useState } from 'react';
+import { ChangeEvent, useCallback, useState } from 'react';
 import { useFormContext } from 'react-hook-form';
 
 const fieldTitleStyle = 'text-b2  text-grey-500';
@@ -11,7 +11,7 @@ const TEXT_MAX_LENGTH = 50;
 export const ProfileStep = () => {
   const { register } = useFormContext();
   const [textCount, setTextCount] = useState(0);
-  const onTextareaHandler = useCallback(e => {
+  const onTextareaHandler = useCallback((e: ChangeEvent<HTMLTextAreaElement>) => {
     e.target.value = e.target.value.slice(0, TEXT_MAX_LENGTH);
     setTextCount(e.target.value.length);
   }, []);
