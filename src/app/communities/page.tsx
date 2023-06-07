@@ -3,7 +3,7 @@ import Image from 'next/image';
 import Button from '@/components/Button/Button';
 import TextButton from '@/components/Button/TextButton';
 
-const Home = () => {
+const Communities = () => {
   return (
     <div className="flex h-screen flex-col justify-center">
       <h1 className="mb-4 mt-1 text-h2 text-grey-900">아직 소속된 행성이 없네요!</h1>
@@ -24,4 +24,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default Communities;
