@@ -11,7 +11,7 @@ type Story = StoryObj<typeof Tag>;
 
 export const Default: Story = {
   args: {
-    type: 'true',
+    type: 'TRUE',
     label: '태그',
   },
 };
@@ -20,21 +20,21 @@ export default meta;
 
 export const Tobby: Story = {
   args: {
-    type: 'tobby',
+    type: 'TOBBY',
     label: '태그',
   },
 };
 
 export const Buddy: Story = {
   args: {
-    type: 'buddy',
+    type: 'BUDDY',
     label: '태그',
   },
 };
 
 export const Pipi: Story = {
   args: {
-    type: 'pipi',
+    type: 'PIPI',
     label: '태그',
   },
 };
