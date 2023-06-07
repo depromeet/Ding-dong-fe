@@ -1,3 +1,5 @@
+import { twJoin as tailwindJoin } from 'tailwind-merge';
+
 import { ClassNameType } from '@/types/util';
 
 /**
@@ -10,3 +12,11 @@ import { ClassNameType } from '@/types/util';
 export const twJoinVariable = (...args: ClassNameType[]) => {
   return args.filter(Boolean).join(' ');
 };
+
+/**
+ * 클래스 문자열만 결합하고 충돌하는 클래스는 처리하지 않습니다.
+ * https://github.com/dcastil/tailwind-merge/blob/v1.13.0/docs/when-and-how-to-use-it.md#joining-internal-classes
+ * @param classLists className
+ * @returns string
+ */
+export const twJoin = (...classLists: ClassNameType[]) => tailwindJoin(classLists);
