@@ -1,6 +1,6 @@
 import type { StoryObj } from '@storybook/react';
 
-import { ResidentCardSteps } from './ResidentCardSteps';
+import { ResidentCardSteps } from './IdCardSteps';
 
 export default {
   title: 'ResidentCardSteps',
