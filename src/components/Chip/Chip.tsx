@@ -53,11 +53,7 @@ export const Chip = ({
       className={`${colors[colorType]} flex h-[30px] w-fit items-center justify-center gap-1.5 rounded-[50px] border-[1px] px-8px py-12px text-b3`}
     >
       <span>{text}</span>
-      {
-        <button onClick={handleClickIcon}>
-          <ButtonIcon className={`${iconColors[colorType]}`} />
-        </button>
-      }
+      {<ButtonIcon onClick={handleClickIcon} className={`${iconColors[colorType]}`} />}
     </button>
   );
 };
