@@ -53,11 +53,11 @@ export const KeywordInput = ({
 
   // event handler
 
-  const handleClickBackground = () => {
+  const onClickBackground = () => {
     shouldFocusInput();
   };
 
-  const handleKeyUp = (event: KeyboardEvent<HTMLInputElement>) => {
+  const onKeyUp = (event: KeyboardEvent<HTMLInputElement>) => {
     // rn으로 실행했을 때도 정상적으로 작동했습니다.
     if (event.key === 'Enter') {
       addKeyword(inputValue);
@@ -68,7 +68,7 @@ export const KeywordInput = ({
   return (
     <div className="flex w-full flex-col">
       <div
-        onClick={handleClickBackground}
+        onClick={onClickBackground}
         className="mb-28px flex min-h-[56px] bg-grey-50 px-20px py-12px"
       >
         <ul className="flex w-full flex-wrap items-center gap-x-4px gap-y-8px">
@@ -86,7 +86,7 @@ export const KeywordInput = ({
             ref={inputRef}
             type="text"
             value={inputValue}
-            onKeyUp={handleKeyUp}
+            onKeyUp={onKeyUp}
             onChange={onChangeInput}
             placeholder={placeholder}
             className={`active:none h-[30px] bg-inherit text-b3 text-grey-900 placeholder:text-b3 placeholder:text-grey-400 ${
