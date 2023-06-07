@@ -1,1 +1,2 @@
-export { KeywordInput } from './KeywordInput';
+export * from './KeywordInput';
+export * from './keywordInput.type';

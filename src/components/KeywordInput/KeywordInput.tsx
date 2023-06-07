@@ -8,23 +8,26 @@ import { OptionType } from './keywordInput.type';
 import { useInputAutoSize } from './useInputAutoSize';
 
 type KeywordInputProps = {
+  id: string;
   label: string;
   placeholder: string;
   keywordLabel: string;
   keywordOptions: OptionType[];
+  activeKeywordList: OptionType[];
   onChange: (...event: any[]) => void; // rhf의 onChange타입입니다.
 };
 
 export const KeywordInput = ({
+  id,
   label,
   placeholder,
   keywordLabel,
   keywordOptions,
+  activeKeywordList,
   onChange,
 }: KeywordInputProps) => {
   const inputRef = useRef<HTMLInputElement>(null);
   const [inputValue, setInputValue] = useState('');
-  const [activeKeywordList, setActiveKeywordList] = useState<OptionType[]>([]);
 
   const isEmptyKeywordList = activeKeywordList.length === 0;
 
@@ -46,12 +49,24 @@ export const KeywordInput = ({
 
   const addKeyword = (keyword: string) => {
     if (keyword === '') return;
-    setActiveKeywordList(prev => addKeywordListAvoidDuplicate(keyword, prev));
+    const filteredKeywordList = addKeywordListAvoidDuplicate(keyword, activeKeywordList);
+    onChange({
+      target: {
+        id,
+        value: filteredKeywordList,
+      },
+    });
     resetInputValue();
   };
 
   const deleteKeyword = (keyword: string) => {
-    setActiveKeywordList(prev => deleteKeywordListAvoidDuplicate(keyword, prev));
+    const filteredKeywordList = deleteKeywordListAvoidDuplicate(keyword, activeKeywordList);
+    onChange({
+      target: {
+        id,
+        value: filteredKeywordList,
+      },
+    });
   };
 
   // event handler
@@ -77,8 +92,8 @@ export const KeywordInput = ({
   };
 
   return (
-    <div className="mx-20px flex w-full flex-col">
-      <h3 className="py-24px text-h2 text-black">{label}</h3>
+    <div className="flex w-full flex-col">
+      <h3 className="mx-20px py-24px text-h2 text-black">{label}</h3>
       <div
         onClick={handleClickBackground}
         className="mb-28px flex min-h-[56px] bg-grey-50 px-20px py-12px"
@@ -107,7 +122,7 @@ export const KeywordInput = ({
           />
         </ul>
       </div>
-      <div>
+      <div className="mx-20px">
         <label className="text-b2 text-grey-400">{keywordLabel}</label>
         <ul className="flex flex-wrap gap-x-8px gap-y-12px py-16px">
           {keywordOptions.map(({ text }) => (

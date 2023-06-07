@@ -1,10 +1,11 @@
 import type { Meta, StoryObj } from '@storybook/react';
+import { Controller, useForm } from 'react-hook-form';
 
 import { KeywordInput } from './KeywordInput';
 import { OptionType } from './keywordInput.type';
 
 const meta: Meta<typeof KeywordInput> = {
-  title: 'CATEGORY/KeywordInput',
+  title: 'KeywordInput',
   component: KeywordInput,
   args: {},
 };
@@ -37,14 +38,32 @@ const TEMP_RECOMMEND_KEYWORD_LIST: OptionType[] = [
   },
 ];
 
-export const Primary: Story = {
-  render: () => (
-    <KeywordInput
-      label={'이웃 주민에게 자신을 소개할' + '\n' + '키워드를 적어주세요!'}
-      placeholder="1개 이상의 키워드를 추가해주세요."
-      keywordLabel="이런 키워드는 어때요?"
-      keywordOptions={TEMP_RECOMMEND_KEYWORD_LIST}
-      onChange={event => console.log(event)} // rhf onchange handler
+const KeywordInputWithRhf = () => {
+  const { control, watch } = useForm({
+    defaultValues: {
+      keywords: [],
+    },
+  });
+  console.log(watch(['keywords']));
+  return (
+    <Controller
+      name="keywords"
+      control={control}
+      render={({ field: { onChange, value, name }, fieldState: { error } }) => (
+        <KeywordInput
+          id={name}
+          label={'이웃 주민에게 자신을 소개할' + '\n' + '키워드를 적어주세요!'}
+          placeholder="1개 이상의 키워드를 추가해주세요."
+          keywordLabel="이런 키워드는 어때요?"
+          activeKeywordList={value}
+          keywordOptions={TEMP_RECOMMEND_KEYWORD_LIST}
+          onChange={onChange} // rhf onchange handler
+        />
+      )}
     />
-  ),
+  );
+};
+
+export const Primary: Story = {
+  render: () => <KeywordInputWithRhf />,
 };
