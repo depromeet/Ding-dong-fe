@@ -9,9 +9,7 @@ import { ClassNameType } from '@/types/util';
  * @param args className
  * @returns string
  */
-export const twJoinVariable = (...args: ClassNameType[]) => {
-  return args.filter(Boolean).join(' ');
-};
+export const twJoinVariable = (...args: ClassNameType[]) => args.filter(Boolean).join(' ');
 
 /**
  * 클래스 문자열만 결합하고 충돌하는 클래스는 처리하지 않습니다.
@@ -29,3 +27,11 @@ export const twJoin = (...classLists: ClassNameType[]) => tailwindJoin(classList
  * @returns string
  */
 export const twMerge = (...classLists: ClassNameType[]) => tailwindMerge(classLists);
+
+/**
+ * twJoinVariable -> twMerge 순으로 적용됩니다.
+ * @param classLists className
+ * @returns string
+ */
+export const twMergeJoinVariable = (...classLists: ClassNameType[]) =>
+  twJoinVariable(twMerge(...classLists));
