@@ -6,7 +6,6 @@ type UseInputAutoSizeProps = {
   activeKeywordListLength: number;
 };
 
-// TODO: 외부에서 주입 받을 수 있게 수정하기
 const DEFAULT_INPUT_WIDTH = 32; // 동적으로 input width를 정할 때 최소 너비
 const DEFAULT_WORD_WIDTH = 15; // 한 글자당 최소 너비
 

@@ -58,6 +58,8 @@ const KeywordInputWithRhf = () => {
           activeKeywordList={value}
           keywordOptions={TEMP_RECOMMEND_KEYWORD_LIST}
           onChange={onChange} // rhf onchange handler
+          maxActiveKeywordListLength={7}
+          maxInputLength={8}
         />
       )}
     />

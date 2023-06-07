@@ -1,8 +1,9 @@
 'use client';
 
-import { ChangeEvent, KeyboardEvent, MouseEvent, useRef, useState } from 'react';
+import { KeyboardEvent, MouseEvent, useRef } from 'react';
 
 import { Chip } from '@/components/Chip/Chip';
+import { useKeywordInput } from '@/components/KeywordInput/useKeywordInput.hooks';
 
 import { OptionType } from './keywordInput.type';
 import { useInputAutoSize } from './useInputAutoSize';
@@ -15,6 +16,8 @@ type KeywordInputProps = {
   keywordOptions: OptionType[];
   activeKeywordList: OptionType[];
   onChange: (...event: any[]) => void; // rhf의 onChange타입입니다.
+  maxActiveKeywordListLength: number;
+  maxInputLength: number;
 };
 
 export const KeywordInput = ({
@@ -25,11 +28,20 @@ export const KeywordInput = ({
   keywordOptions,
   activeKeywordList,
   onChange,
+  maxActiveKeywordListLength,
+  maxInputLength,
 }: KeywordInputProps) => {
   const inputRef = useRef<HTMLInputElement>(null);
-  const [inputValue, setInputValue] = useState('');
 
   const isEmptyKeywordList = activeKeywordList.length === 0;
+
+  const { inputValue, onChangeInput, addKeyword, deleteKeyword } = useKeywordInput({
+    id,
+    activeKeywordList,
+    onChange,
+    maxActiveKeywordListLength,
+    maxInputLength,
+  });
 
   useInputAutoSize({
     inputRef,
@@ -37,50 +49,14 @@ export const KeywordInput = ({
     activeKeywordListLength: activeKeywordList.length,
   });
 
-  // function
-
   const shouldFocusInput = () => {
     inputRef.current?.focus();
-  };
-
-  const resetInputValue = () => {
-    setInputValue('');
-  };
-
-  const addKeyword = (keyword: string) => {
-    if (keyword === '') return;
-    const filteredKeywordList = addKeywordListAvoidDuplicate(keyword, activeKeywordList);
-    onChange({
-      target: {
-        id,
-        value: filteredKeywordList,
-      },
-    });
-    resetInputValue();
-  };
-
-  const deleteKeyword = (keyword: string) => {
-    const filteredKeywordList = deleteKeywordListAvoidDuplicate(keyword, activeKeywordList);
-    onChange({
-      target: {
-        id,
-        value: filteredKeywordList,
-      },
-    });
   };
 
   // event handler
 
   const handleClickBackground = () => {
     shouldFocusInput();
-  };
-
-  const onChangeInput = (event: ChangeEvent<HTMLInputElement>) => {
-    const currentInputValue = event.target.value;
-
-    if (isOverMaxInputValue(currentInputValue.length)) return;
-
-    setInputValue(currentInputValue);
   };
 
   const handleKeyUp = (event: KeyboardEvent<HTMLInputElement>) => {
@@ -132,28 +108,4 @@ export const KeywordInput = ({
       </div>
     </div>
   );
-};
-
-const isOverMaxKeywordListLength = (len: number) => len > 7;
-const isOverMaxInputValue = (len: number) => len > 8;
-
-const createKeyword = (text: string) => {
-  return {
-    text,
-  };
-};
-
-const addKeywordListAvoidDuplicate = (keyword: string, keywordList: OptionType[]) => {
-  if (isOverMaxKeywordListLength(keywordList.length)) return keywordList;
-  const newKeywordList = keywordList
-    .filter(({ text }) => text !== keyword)
-    .concat(createKeyword(keyword));
-
-  return newKeywordList;
-};
-
-const deleteKeywordListAvoidDuplicate = (keyword: string, keywordList: OptionType[]) => {
-  const newKeywordList = keywordList.filter(({ text }) => text !== keyword);
-
-  return newKeywordList;
 };
