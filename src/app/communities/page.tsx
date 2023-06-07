@@ -2,7 +2,7 @@ import Image from 'next/image';
 
 import PlanetNavigationButtons from '@/app/communities/PlanetNavigationButtons.client';
 
-const Communities = () => {
+const CommunitiesPage = () => {
   return (
     <div className="flex h-screen flex-col justify-center">
       <h1 className="mb-4 mt-1 text-h2 text-grey-900">아직 소속된 행성이 없네요!</h1>
@@ -13,4 +13,4 @@ const Communities = () => {
   );
 };
 
-export default Communities;
+export default CommunitiesPage;
