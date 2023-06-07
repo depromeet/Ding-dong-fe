@@ -1,6 +1,6 @@
 import Image from 'next/image';
 
-import PlanetNavigationButtons from '@/app/communities/PlanetNavigationButtons.client';
+import PlanetNavigationButtons from '@/modules/PlanetEnterButtons/PlanetEnterButtons';
 
 const CommunitiesPage = () => {
   return (
