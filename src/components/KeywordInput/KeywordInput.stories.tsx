@@ -39,17 +39,16 @@ const TEMP_RECOMMEND_KEYWORD_LIST: OptionType[] = [
 ];
 
 const KeywordInputWithRhf = () => {
-  const { control, watch } = useForm({
+  const { control } = useForm({
     defaultValues: {
       keywords: [],
     },
   });
-  console.log(watch(['keywords']));
   return (
     <Controller
       name="keywords"
       control={control}
-      render={({ field: { onChange, value, name }, fieldState: { error } }) => (
+      render={({ field: { onChange, value, name } }) => (
         <KeywordInput
           id={name}
           placeholder="1개 이상의 키워드를 추가해주세요."
