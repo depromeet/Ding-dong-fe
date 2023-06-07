@@ -1,13 +1,13 @@
 'use client';
 
-import { ChangeEvent, KeyboardEvent, useEffect, useRef, useState } from 'react';
+import { ChangeEvent, KeyboardEvent, useState } from 'react';
 
 import { Chip } from '@/components/Chip/Chip';
 
+import { useInputAutoSize } from './useInputAutoSize';
+
 type KeywordInputProps = object;
 
-const DEFAULT_INPUT_WIDTH = 32; // 동적으로 input width를 정할 때 최소 너비
-const DEFAULT_WORD_WIDTH = 15; // 한 글자당 최소 너비
 const isOverMaxKeywordListLength = (len: number) => len > 7;
 const isOverMaxInputValue = (len: number) => len > 8;
 
@@ -31,6 +31,12 @@ export const KeywordInput = ({}: KeywordInputProps) => {
   const [activeKeywordList, setActiveKeywordList] = useState<string[]>([]);
 
   const isEmptyKeywordList = activeKeywordList.length === 0;
+
+  useInputAutoSize({
+    inputRef,
+    inputValue,
+    activeKeywordListLength: activeKeywordList.length,
+  });
 
   const onChange = (event: ChangeEvent<HTMLInputElement>) => {
     const currentInputValue = event.target.value;
@@ -58,20 +64,6 @@ export const KeywordInput = ({}: KeywordInputProps) => {
       addKeyword(inputValue);
     }
   };
-
-  useEffect(() => {
-    const inputLength =
-      inputValue.length === 0 ? DEFAULT_INPUT_WIDTH : inputValue.length * DEFAULT_WORD_WIDTH;
-    const inputElement = inputRef.current;
-    if (inputElement) {
-      inputElement.style.width = 'auto'; // Reset the width to auto
-      if (isEmptyKeywordList) {
-        inputElement.style.width = '100%';
-      } else {
-        inputElement.style.width = `${inputLength}px`; // Set the width to match the content
-      }
-    }
-  }, [inputValue, activeKeywordList.length]);
 
   return (
     <div className="flex w-full flex-col px-20px">
