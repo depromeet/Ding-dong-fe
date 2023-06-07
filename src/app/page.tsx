@@ -1,11 +1,9 @@
-import HomePage from '@/app/home/page';
-import { KeywordInput } from '@/components/KeywordInput';
+import CommunitiesPage from '@/app/communities/page';
 
 const Home = () => {
   return (
     <main>
-      {/* <HomePage /> */}
-      <KeywordInput />
+      <CommunitiesPage />
     </main>
   );
 };

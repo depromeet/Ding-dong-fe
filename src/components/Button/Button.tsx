@@ -13,13 +13,13 @@ export type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
 
 const colors: Record<ButtonColor, string> = {
   primary: 'bg-black text-white',
-  secondary: 'bg-neutral-200 text-gray-600',
+  secondary: 'bg-grey-200 text-grey-700',
 };
 
 const sizes: Record<ButtonSize, string> = {
-  small: 'h-7 text-xs rounded-lg',
+  small: 'h-[30px] text-xs rounded-lg',
   medium: 'h-11 text-sm rounded-xl',
-  large: 'h-12 text-base rounded-xl',
+  large: 'h-[52px] text-base rounded-xl',
 };
 
 const Button = ({
@@ -38,7 +38,7 @@ const Button = ({
     <button
       {...props}
       disabled={disabled}
-      className={`${buttonColor} ${buttonSize} ${width} font-bold active:bg-gray-500 active:text-white disabled:bg-slate-100 disabled:text-slate-200 ${
+      className={`${buttonColor} ${buttonSize} ${width} font-bold active:bg-grey-600 active:text-white disabled:bg-grey-100 disabled:text-grey-300 ${
         className ?? ''
       }`}
     >
