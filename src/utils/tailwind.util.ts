@@ -1,4 +1,4 @@
-import { twJoin as tailwindJoin } from 'tailwind-merge';
+import { twJoin as tailwindJoin, twMerge as tailwindMerge } from 'tailwind-merge';
 
 import { ClassNameType } from '@/types/util';
 
@@ -20,3 +20,12 @@ export const twJoinVariable = (...args: ClassNameType[]) => {
  * @returns string
  */
 export const twJoin = (...classLists: ClassNameType[]) => tailwindJoin(classLists);
+
+/**
+ * 클래스 문자열을 결합하고 총돌하는 클래스를 우선순위(뒤에 선언한 속성이 override)에 따라 처리
+ * ex) twMerge("bg-black", className)
+ * https://github.com/dcastil/tailwind-merge/blob/v1.13.0/docs/when-and-how-to-use-it.md#merging-internal-classes-with-classname-prop
+ * @param classLists className
+ * @returns string
+ */
+export const twMerge = (...classLists: ClassNameType[]) => tailwindMerge(classLists);
