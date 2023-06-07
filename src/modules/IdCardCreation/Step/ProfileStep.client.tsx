@@ -9,12 +9,13 @@ const title = '이웃 주민에게\n 자신을 소개해주세요!';
 const TEXT_MAX_LENGTH = 50;
 
 export const ProfileStep = () => {
-  const { register } = useFormContext();
+  const { register, watch } = useFormContext();
   const [textCount, setTextCount] = useState(0);
   const onTextareaHandler = useCallback(e => {
     e.target.value = e.target.value.slice(0, TEXT_MAX_LENGTH);
     setTextCount(e.target.value.length);
   }, []);
+  console.log(watch());
   return (
     <div>
       <h1 className="text-h1">{title}</h1>
