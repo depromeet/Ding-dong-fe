@@ -3,7 +3,7 @@
 import Button from '@/components/Button/Button';
 import TextButton from '@/components/Button/TextButton';
 
-const PlanetNavigationButtons = () => {
+export const PlanetEnterButtons = () => {
   return (
     <div className="-mt-10">
       <TextButton
@@ -23,5 +23,3 @@ const PlanetNavigationButtons = () => {
     </div>
   );
 };
-
-export default PlanetNavigationButtons;

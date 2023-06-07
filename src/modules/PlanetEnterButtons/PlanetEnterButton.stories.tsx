@@ -1,18 +1,18 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import PlanetNavigationButtons from './PlanetEnterButtons';
+import { PlanetEnterButtons } from '@/modules/PlanetEnterButtons';
 
-const meta: Meta<typeof PlanetNavigationButtons> = {
-  title: 'PlanetNavigationButtons',
-  component: PlanetNavigationButtons,
+const meta: Meta<typeof PlanetEnterButtons> = {
+  title: 'PlanetEnterButtons',
+  component: PlanetEnterButtons,
 };
 
-type Story = StoryObj<typeof PlanetNavigationButtons>;
+type Story = StoryObj<typeof PlanetEnterButtons>;
 
 export const Default: Story = {
   render: () => (
     <div className="mt-10">
-      <PlanetNavigationButtons />
+      <PlanetEnterButtons />
     </div>
   ),
 };
