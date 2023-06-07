@@ -1,7 +1,7 @@
 'use client';
 import { useFormContext } from 'react-hook-form';
 
-import { Steps } from '@/modules/ResidentCardCreation/ResidentCardCreation.type';
+import { Steps } from '@/modules/IdCardCreation/IdCardCreation.type';
 
 import { ProfileStep } from '../Step';
 
@@ -12,7 +12,7 @@ type ResidentCardFormProps = {
   onPrev: () => void;
 };
 
-export const ResidentCardForm = ({ steps, stepOrder, onNext, onPrev }: ResidentCardFormProps) => {
+export const IdCardForm = ({ steps, stepOrder, onNext, onPrev }: ResidentCardFormProps) => {
   const { handleSubmit } = useFormContext();
   const onSubmit = () => console.log('제출');
 

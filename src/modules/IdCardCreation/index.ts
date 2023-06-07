@@ -1,3 +1,3 @@
 export * from './Form';
-export * from './ResidentCardSteps';
+export * from './IdCardSteps';
 export * from './Step';
