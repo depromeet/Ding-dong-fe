@@ -1,6 +1,7 @@
 import type { Meta } from '@storybook/react';
 
 import { ArrowLeftIcon, CancelIcon, ChevronLeftIcon } from '@/components/Icon';
+import { QuestionCircleIcon } from '@/components/Icon/QuestionCircleIcon';
 
 const meta: Meta = {
   title: 'icon',
@@ -18,4 +19,8 @@ export const ArrowLeft = {
 
 export const Cancel = {
   render: () => <CancelIcon />,
+};
+
+export const QuestionCircle = {
+  render: () => <QuestionCircleIcon />,
 };
