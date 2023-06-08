@@ -1,1 +1,1 @@
-export * from './response/sliceResponse';
+export * from './response';
