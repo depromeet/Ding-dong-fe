@@ -8,14 +8,20 @@ import { Steps } from '@/modules/IdCardCreation/IdCardCreation.type';
 
 const steps: Steps[] = ['BOARDING', 'PROFILE', 'KEYWORD', 'KEYWORD_CONTENT', 'COMPLETE'];
 
-type Data = {
+export type Data = {
   nickname: string;
   aboutMe: string;
   keywords: { title: string; imageUrl: string; content: string }[];
 };
 
 export const ResidentCardSteps = () => {
-  const methods = useForm();
+  const methods = useForm({
+    defaultValues: {
+      nickname: '',
+      aboutMe: '',
+      keywords: [],
+    },
+  });
   const [stepOrder, setStepOrder] = useState<number>(0);
   const onNext = useCallback(() => {
     setStepOrder(stepOrder + 1);
