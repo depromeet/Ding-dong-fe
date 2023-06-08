@@ -18,16 +18,17 @@ type IdCardDetailPageProps = {
 
 const IdCardDetailPage = async ({ params: { id } }: IdCardDetailPageProps) => {
   const { data } = await idCardApi.getIdCardDetail(id);
+  const idCardDetailsDto = data.idCardDetailsDto;
 
-  const bgColor = bgColors[data.idCardDetailsDto.characterType];
+  const bgColor = bgColors[idCardDetailsDto.characterType];
 
   return (
     <main>
       <TopNavigation bgColor={bgColor} />
       <div className={`${bgColor} pt-[44px]`}>
-        <Intro {...data.idCardDetailsDto} />
+        <Intro {...idCardDetailsDto} />
         <div className="flex flex-col gap-4 bg-white px-5 py-6">
-          {data.idCardDetailsDto.keywords.map(keyword => (
+          {idCardDetailsDto.keywords.map(keyword => (
             <KeywordContentCard key={keyword.keywordId} {...keyword} />
           ))}
         </div>
