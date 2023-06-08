@@ -1,5 +1,7 @@
 import Image from 'next/image';
+import { ReactNode, useState } from 'react';
 
+import BottomSheet, { useBottomSheet } from '@/components/BottomSheet';
 import Button from '@/components/Button/Button';
 import TextButton from '@/components/Button/TextButton';
 import { QuestionCircleIcon } from '@/components/Icon';
@@ -10,14 +12,16 @@ type BoardingStepProps = {
   onNext: VoidFunction;
 };
 
-type SubStepType = {
-  id: string;
+type SubStepType = 'explainIdCard' | 'explainHowToEditIdCard';
+
+type SubStepDetailType = {
+  id: SubStepType;
   label: string;
   image: string;
   helperText: string;
 };
 
-const subStepList: SubStepType[] = [
+const subStepList: SubStepDetailType[] = [
   {
     id: 'explainIdCard',
     label: '행성에 거주하기 위해\n우선 주민증을 발급받아야 해!',
@@ -32,18 +36,40 @@ const subStepList: SubStepType[] = [
   },
 ];
 
+const subStepBottomSheet: Record<
+  SubStepType,
+  { header: ReactNode; content: ReactNode; footerButton: ReactNode }
+> = {
+  explainIdCard: {
+    header: <h3>주민증이란?</h3>,
+    content: <div className="h-[202px] w-full bg-grey-500"></div>,
+    footerButton: '확인했어요',
+  },
+  explainHowToEditIdCard: {
+    header: <h3>주민증 수정 안내</h3>,
+    content: <div className="h-[202px] w-full bg-grey-500"></div>,
+    footerButton: '확인했어요',
+  },
+};
+
 export const BoardingStep = ({ planetName, onNext }: BoardingStepProps) => {
-  const onClickHelperText = (id: SubStepType['id']) => {
-    // id에 맞는 동작진행하기
+  const [currentIdx, setCurrentIdx] = useState<SubStepType>('explainIdCard');
+  const bottomSheetHandlers = useBottomSheet();
+  const onClickHelperText = (id: SubStepType) => {
+    setCurrentIdx(id);
+    bottomSheetHandlers.onOpen();
   };
+
+  const bottomSheetContent = subStepBottomSheet[currentIdx];
+
   return (
     <div>
-      <h1 className="mb-16px text-h2 text-grey-900">{planetName}에 온걸 환영해!</h1>
+      <h1 className="mb-16px mt-[64px] text-h2 text-grey-900">{planetName}에 온걸 환영해!</h1>
       <Swiper slidesPerView="auto" pagination={{ clickable: true }} allowTouchMove>
         {subStepList.map(({ id, label, image, helperText }) => (
           <SwiperSlide key={id}>
             <div className="pb-32px">
-              <p className="mb-[80px]">{label}</p>
+              <p className="text-b1 text-grey-700">{label}</p>
               <div className="flex flex-col items-center justify-center">
                 <Image
                   src={`/assets/images/${image}.png`}
@@ -65,6 +91,19 @@ export const BoardingStep = ({ planetName, onNext }: BoardingStepProps) => {
       <Button color="primary" size="large" onClick={onNext} className="mt-52px">
         주민증 만들기
       </Button>
+      <BottomSheet {...bottomSheetHandlers}>
+        <BottomSheet.Header>{bottomSheetContent.header}</BottomSheet.Header>
+        <BottomSheet.Content>{bottomSheetContent.content}</BottomSheet.Content>
+        <BottomSheet.Footer>
+          <BottomSheet.Footer.Button
+            onClick={bottomSheetHandlers.onClose}
+            size="large"
+            color="primary"
+          >
+            {bottomSheetContent.footerButton}
+          </BottomSheet.Footer.Button>
+        </BottomSheet.Footer>
+      </BottomSheet>
     </div>
   );
 };
