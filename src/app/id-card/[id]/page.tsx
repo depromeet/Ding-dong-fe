@@ -10,8 +10,15 @@ const bgColors: Record<CharacterType, string> = {
   TRUE: 'bg-true-100',
 };
 
-const IdCardDetailPage = async ({ params }: { params: { id: string } }) => {
-  const { data } = await idCardApi.getIdCardDetail(params.id);
+type IdCardDetailPageProps = {
+  params: {
+    id: string;
+  };
+};
+
+const IdCardDetailPage = async ({ params: { id } }: IdCardDetailPageProps) => {
+  const { data } = await idCardApi.getIdCardDetail(id);
+
   const bgColor = bgColors[data.idCardDetailsDto.characterType];
 
   return (
