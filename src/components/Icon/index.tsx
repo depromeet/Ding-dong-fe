@@ -1,3 +1,4 @@
-export { default as ArrowLeftIcon } from './ArrowLeftIcon';
-export { default as CancelIcon } from './CancelIcon';
-export { default as ChevronLeftIcon } from './ChevronLeftIcon';
+export { ArrowLeftIcon } from './ArrowLeftIcon';
+export { CancelIcon } from './CancelIcon';
+export { ChevronLeftIcon } from './ChevronLeftIcon';
+export { PlusIcon } from './PlusIcon';
