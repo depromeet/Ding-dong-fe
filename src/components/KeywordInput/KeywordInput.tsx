@@ -1,5 +1,4 @@
 'use client';
-
 import { KeyboardEvent, MouseEvent, useRef } from 'react';
 
 import { Chip } from '@/components/Chip/Chip';
@@ -65,6 +64,8 @@ export const KeywordInput = ({
     }
   };
 
+  console.log('activeKeywordList', activeKeywordList);
+
   return (
     <div className="flex w-full flex-col">
       <div
@@ -72,14 +73,14 @@ export const KeywordInput = ({
         className="mb-28px flex min-h-[56px] bg-grey-50 px-20px py-12px"
       >
         <ul className="flex w-full flex-wrap items-center gap-x-4px gap-y-8px">
-          {activeKeywordList.map(({ text }) => (
+          {activeKeywordList.map(({ title }) => (
             <Chip
-              key={text}
-              text={text}
+              key={title}
+              text={title}
               isSelected={true}
               themeType="close"
               onClick={(event: MouseEvent) => event.stopPropagation()} // handleClickBackground이 자식 요소로 전파되는 걸 막습니다.
-              handleClickIcon={() => deleteKeyword(text)}
+              handleClickIcon={() => deleteKeyword(title)}
             />
           ))}
           <input
@@ -98,8 +99,8 @@ export const KeywordInput = ({
       <div className="mx-20px">
         <label className="text-b2 text-grey-400">{keywordLabel}</label>
         <ul className="flex flex-wrap gap-x-8px gap-y-12px py-16px">
-          {keywordOptions.map(({ text }) => (
-            <Chip key={text} text={text} onClick={() => addKeyword(text)} />
+          {keywordOptions.map(({ title }) => (
+            <Chip key={title} text={title} onClick={() => addKeyword(title)} />
           ))}
         </ul>
       </div>

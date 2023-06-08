@@ -19,29 +19,41 @@ type Story = StoryObj<typeof KeywordInput>;
  */
 const TEMP_RECOMMEND_KEYWORD_LIST: OptionType[] = [
   {
-    text: '재치 발랄',
+    title: '재치 발랄',
+    imageUrl: '',
+    content: '',
   },
   {
-    text: '엽기 떡볶이',
+    title: '엽기 떡볶이',
+    imageUrl: '',
+    content: '',
   },
   {
-    text: '맛집투어',
+    title: '맛집투어',
+    imageUrl: '',
+    content: '',
   },
   {
-    text: 'FE 짱짱',
+    title: 'FE 짱짱',
+    imageUrl: '',
+    content: '',
   },
   {
-    text: '7팀 최고',
+    title: '7팀 최고',
+    imageUrl: '',
+    content: '',
   },
   {
-    text: '디프만 최고~',
+    title: '디프만 최고~',
+    imageUrl: '',
+    content: '',
   },
 ];
 
 const KeywordInputWithRhf = () => {
   const { control } = useForm({
     defaultValues: {
-      keywords: [],
+      keywords: [] as OptionType[],
     },
   });
   return (

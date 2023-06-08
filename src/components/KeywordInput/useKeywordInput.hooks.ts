@@ -33,23 +33,26 @@ export const useKeywordInput = ({
     setInputValue(currentInputValue);
   };
 
-  const createKeyword = (text: string) => {
+  const createKeyword = (title: string) => {
     return {
-      text,
+      title,
+      imageUrl: '',
+      content: '',
     };
   };
 
   const addKeywordListAvoidDuplicate = (keyword: string, keywordList: OptionType[]) => {
     if (isOverMaxKeywordListLength(keywordList.length)) return keywordList;
-    const newKeywordList = keywordList
-      .filter(({ text }) => text !== keyword)
-      .concat(createKeyword(keyword));
+    const newKeywordList = [
+      ...keywordList.filter(({ title }) => title !== keyword),
+      createKeyword(keyword),
+    ];
 
     return newKeywordList;
   };
 
   const deleteKeywordListAvoidDuplicate = (keyword: string, keywordList: OptionType[]) => {
-    const newKeywordList = keywordList.filter(({ text }) => text !== keyword);
+    const newKeywordList = keywordList.filter(({ title }) => title !== keyword);
 
     return newKeywordList;
   };
