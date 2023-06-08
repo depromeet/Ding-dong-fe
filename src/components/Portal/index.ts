@@ -1,2 +1,2 @@
-export { default as AnimatedPortal } from './AnimatedPortal';
-export { default } from './Portal';
+export * from './AnimatedPortal';
+export * from './Portal';

@@ -8,7 +8,7 @@ import { BottomSheetFooter } from '@/components/BottomSheet/BottomSheetFooter';
 import { BottomSheetHeader } from '@/components/BottomSheet/BottomSheetHeader';
 import { BottomSheetWrapper } from '@/components/BottomSheet/BottomSheetWrapper';
 import { UseBottomSheetReturn } from '@/components/BottomSheet/useBottomSheet';
-import Portal from '@/components/Portal';
+import { Portal } from '@/components/Portal';
 
 const WrapperVariants = {
   initial: { opacity: 0 },
