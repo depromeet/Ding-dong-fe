@@ -24,35 +24,18 @@ export const Swiper = ({
   const swiperRef = useRef<SwiperReact.SwiperRef>(null);
   SwiperCore.use([Autoplay]); // don't need navigation anymore
 
-  const prevSlide = () => {
-    swiperRef.current?.swiper.slidePrev();
-  };
-
-  const nextSlide = () => {
-    swiperRef.current?.swiper.slideNext();
-  };
-
   return (
     <SwiperReact.Swiper
       ref={swiperRef}
       modules={[Navigation, Pagination]}
       spaceBetween={spaceBetween}
-      slidesPerView={slidesPerView}
       pagination={pagination}
+      slidesPerView={slidesPerView}
       scrollbar={scrollbar}
       onSwiper={onSwiper}
       allowTouchMove={allowTouchMove}
       onSlideChange={onSlideChange}
     >
-      {/* TODO: 리팩토링 필요 */}
-      {/* <span slot="container-start">
-        <div className="left-floating-el" onClick={prevSlide}>
-          prev floating element
-        </div>
-        <div className="right-floating-el" onClick={nextSlide}>
-          next floating element
-        </div>
-      </span> */}
       {children}
     </SwiperReact.Swiper>
   );
