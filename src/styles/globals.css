@@ -22,4 +22,7 @@
     color: rgb(var(--foreground-rgb));
     white-space: pre-line;
   }
+  input:focus {
+    outline: none;
+  }
 }
