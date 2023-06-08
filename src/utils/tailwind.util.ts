@@ -33,5 +33,4 @@ export const twMerge = (...classLists: ClassNameType[]) => tailwindMerge(classLi
  * @param classLists className
  * @returns string
  */
-export const twMergeJoinVariable = (...classLists: ClassNameType[]) =>
-  twJoinVariable(twMerge(...classLists));
+export const tw = (...classLists: ClassNameType[]) => twJoinVariable(twMerge(...classLists));
