@@ -2,8 +2,9 @@
 import { useFormContext } from 'react-hook-form';
 
 import { Steps } from '@/modules/IdCardCreation/IdCardCreation.type';
+import { KeywordStep } from '@/modules/IdCardCreation/Step/KeywordStep.client';
 
-import { ProfileStep } from '../Step';
+import { KeywordContentStep, ProfileStep } from '../Step';
 
 type ResidentCardFormProps = {
   steps: Steps[];
@@ -28,8 +29,8 @@ export const IdCardForm = ({ steps, stepOrder, onNext, onPrev }: ResidentCardFor
       </div>
       <form onSubmit={handleSubmit(onSubmit)}>
         {steps[stepOrder] === 'PROFILE' && <ProfileStep />}
-        {steps[stepOrder] === 'KEYWORD' && <div>키워드 생성</div>}
-        {steps[stepOrder] === 'KEYWORD_CONTENT' && <div>키워드 컨텐츠 만들기</div>}
+        {steps[stepOrder] === 'KEYWORD' && <KeywordStep />}
+        {steps[stepOrder] === 'KEYWORD_CONTENT' && <KeywordContentStep />}
       </form>
     </div>
   );
