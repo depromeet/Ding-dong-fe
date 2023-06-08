@@ -27,6 +27,23 @@ export const Primary: Story = {
   ),
 };
 
+export const CustomBullet: Story = {
+  render: () => (
+    <Swiper
+      spaceBetween={50}
+      slidesPerView={1}
+      pagination={{ clickable: true }}
+      bulletCss="bg-green-500"
+    >
+      {SwiperSlideChildren.map((child, idx) => (
+        <SwiperSlide key={idx}>
+          <div className="h-[500px] w-[375px]">{child}</div>
+        </SwiperSlide>
+      ))}
+    </Swiper>
+  ),
+};
+
 export const PreventTouchMove: Story = {
   render: () => (
     <Swiper

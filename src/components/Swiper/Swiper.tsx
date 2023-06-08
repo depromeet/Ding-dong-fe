@@ -6,10 +6,13 @@ import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
 
 import { PropsWithChildren, useRef } from 'react';
-import SwiperCore, { Autoplay, Navigation, Pagination } from 'swiper';
+import { Navigation, Pagination, Scrollbar } from 'swiper';
 import * as SwiperReact from 'swiper/react';
 
-type SwiperProps = PropsWithChildren & SwiperReact.SwiperProps;
+type SwiperProps = PropsWithChildren &
+  SwiperReact.SwiperProps & {
+    bulletCss?: string;
+  };
 
 export const Swiper = ({
   spaceBetween,
@@ -19,17 +22,25 @@ export const Swiper = ({
   onSwiper,
   onSlideChange,
   allowTouchMove,
+  bulletCss,
   children,
 }: SwiperProps) => {
   const swiperRef = useRef<SwiperReact.SwiperRef>(null);
-  SwiperCore.use([Autoplay]); // don't need navigation anymore
+
+  const customPagination = pagination &&
+    typeof pagination !== 'boolean' && {
+      ...pagination,
+      renderBullet: function (index: number, className: string) {
+        return `<span class="${className} !${bulletCss}"></span>`;
+      },
+    };
 
   return (
     <SwiperReact.Swiper
       ref={swiperRef}
-      modules={[Navigation, Pagination]}
+      modules={[Navigation, Pagination, Scrollbar]}
       spaceBetween={spaceBetween}
-      pagination={pagination}
+      pagination={customPagination}
       slidesPerView={slidesPerView}
       scrollbar={scrollbar}
       onSwiper={onSwiper}
