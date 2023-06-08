@@ -3,8 +3,8 @@
 import { useCallback, useState } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 
-import { ResidentCardForm } from '@/components/ResidentCardCreation/Form';
-import { Steps } from '@/components/ResidentCardCreation/ResidentCardCreation.type';
+import { IdCardForm } from '@/modules/IdCardCreation/Form';
+import { Steps } from '@/modules/IdCardCreation/IdCardCreation.type';
 
 const steps: Steps[] = ['BOARDING', 'PROFILE', 'KEYWORD', 'KEYWORD_CONTENT', 'COMPLETE'];
 
@@ -28,7 +28,7 @@ export const ResidentCardSteps = () => {
       )}
       {['PROFILE', 'KEYWORD', 'KEYWORD_CONTENT'].includes(steps[stepOrder]) && (
         <div>
-          <ResidentCardForm steps={steps} stepOrder={stepOrder} onNext={onNext} onPrev={onPrev} />
+          <IdCardForm steps={steps} stepOrder={stepOrder} onNext={onNext} onPrev={onPrev} />
         </div>
       )}
       {steps[stepOrder] === 'COMPLETE' && <div>complete</div>}
