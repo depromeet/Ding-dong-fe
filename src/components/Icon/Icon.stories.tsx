@@ -1,9 +1,9 @@
 import type { Meta } from '@storybook/react';
 
-import { ArrowLeftIcon, CancelIcon, ChevronLeftIcon } from '@/components/Icon';
+import { ArrowLeftIcon, CancelIcon, ChevronLeftIcon, PlusIcon } from '@/components/Icon';
 
 const meta: Meta = {
-  title: 'icon',
+  title: 'Icon',
 };
 
 export default meta;
@@ -18,4 +18,8 @@ export const ArrowLeft = {
 
 export const Cancel = {
   render: () => <CancelIcon />,
+};
+
+export const Plus = {
+  render: () => <PlusIcon />,
 };

@@ -1,7 +1,7 @@
 import SignIn from '@/app/api/auth/signin/page';
 import SessionRedirect from '@/app/api/auth/signin/sessionRedirect';
 
-const Home = () => {
+const SignInPage = () => {
   return (
     <>
       <SessionRedirect />
@@ -12,7 +12,6 @@ const Home = () => {
             graphic
           </div>
         </div>
-
         {/* @ts-expect-error Server Component */}
         <SignIn />
       </div>
@@ -20,4 +19,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default SignInPage;

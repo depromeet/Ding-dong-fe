@@ -1,7 +1,10 @@
 'use client';
 import { useFormContext } from 'react-hook-form';
 
-import { Steps } from '@/components/ResidentCardCreation/ResidentCardCreation.type';
+import { Steps } from '@/modules/IdCardCreation/IdCardCreation.type';
+import { KeywordStep } from '@/modules/IdCardCreation/Step/KeywordStep.client';
+
+import { KeywordContentStep, ProfileStep } from '../Step';
 
 type ResidentCardFormProps = {
   steps: Steps[];
@@ -10,7 +13,7 @@ type ResidentCardFormProps = {
   onPrev: () => void;
 };
 
-export const ResidentCardForm = ({ steps, stepOrder, onNext, onPrev }: ResidentCardFormProps) => {
+export const IdCardForm = ({ steps, stepOrder, onNext, onPrev }: ResidentCardFormProps) => {
   const { handleSubmit } = useFormContext();
   const onSubmit = () => console.log('제출');
 
@@ -25,9 +28,9 @@ export const ResidentCardForm = ({ steps, stepOrder, onNext, onPrev }: ResidentC
         <button onClick={onPrev}>이전</button>
       </div>
       <form onSubmit={handleSubmit(onSubmit)}>
-        {steps[stepOrder] === 'PROFILE' && <div>이름 및 소개</div>}
-        {steps[stepOrder] === 'KEYWORD' && <div>키워드 생성</div>}
-        {steps[stepOrder] === 'KEYWORD_CONTENT' && <div>키워드 컨텐츠 만들기</div>}
+        {steps[stepOrder] === 'PROFILE' && <ProfileStep />}
+        {steps[stepOrder] === 'KEYWORD' && <KeywordStep />}
+        {steps[stepOrder] === 'KEYWORD_CONTENT' && <KeywordContentStep />}
       </form>
     </div>
   );

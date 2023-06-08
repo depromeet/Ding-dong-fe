@@ -32,6 +32,10 @@ const preview: Preview = {
         date: /Date$/,
       },
     },
+    viewport: {
+      viewports: INITIAL_VIEWPORTS,
+      defaultViewport: 'iphone6',
+    },
     webpackFinal: async config => {
       config.resolve.alias = {
         ...config.resolve.alias,
@@ -39,12 +43,6 @@ const preview: Preview = {
       };
 
       return config;
-    },
-  },
-  parameters: {
-    viewport: {
-      viewports: INITIAL_VIEWPORTS,
-      defaultViewport: 'iphone6',
     },
   },
 };
