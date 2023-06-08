@@ -17,7 +17,7 @@ const SwiperSlideChildren = [<div>1</div>, <div>2</div>, <div>3</div>, <div>4</d
 
 export const Primary: Story = {
   render: () => (
-    <Swiper spaceBetween={50} slidesPerView={1} navigation pagination={{ clickable: true }}>
+    <Swiper spaceBetween={50} slidesPerView={1} pagination={{ clickable: true }}>
       {SwiperSlideChildren.map((child, idx) => (
         <SwiperSlide key={idx}>
           <div className="h-[500px] w-[375px]">{child}</div>
@@ -35,18 +35,6 @@ export const PreventTouchMove: Story = {
       pagination={{ clickable: true }}
       allowTouchMove={false}
     >
-      {SwiperSlideChildren.map((child, idx) => (
-        <SwiperSlide key={idx}>
-          <div className="h-[500px] w-[375px]">{child}</div>
-        </SwiperSlide>
-      ))}
-    </Swiper>
-  ),
-};
-
-export const PaginationClickable: Story = {
-  render: () => (
-    <Swiper spaceBetween={50} slidesPerView={1} pagination={{ clickable: true }}>
       {SwiperSlideChildren.map((child, idx) => (
         <SwiperSlide key={idx}>
           <div className="h-[500px] w-[375px]">{child}</div>
