@@ -6,7 +6,7 @@ type SwiperCardProps = PropsWithChildren;
 export const SwiperSlide = ({ children, ...rest }: SwiperCardProps) => {
   return (
     <SwiperReact.SwiperSlide>
-      <div className="text-blue h-[500px] w-[375px]" {...rest}>
+      <div className="text-blue h-full w-full" {...rest}>
         {children}
       </div>
     </SwiperReact.SwiperSlide>

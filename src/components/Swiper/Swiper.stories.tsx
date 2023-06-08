@@ -19,7 +19,9 @@ export const Primary: Story = {
   render: () => (
     <Swiper spaceBetween={50} slidesPerView={1} navigation pagination={{ clickable: true }}>
       {SwiperSlideChildren.map((child, idx) => (
-        <SwiperSlide key={idx}>{child}</SwiperSlide>
+        <SwiperSlide key={idx}>
+          <div className="h-[500px] w-[375px]">{child}</div>
+        </SwiperSlide>
       ))}
     </Swiper>
   ),
@@ -34,7 +36,9 @@ export const PreventTouchMove: Story = {
       allowTouchMove={false}
     >
       {SwiperSlideChildren.map((child, idx) => (
-        <SwiperSlide key={idx}>{child}</SwiperSlide>
+        <SwiperSlide key={idx}>
+          <div className="h-[500px] w-[375px]">{child}</div>
+        </SwiperSlide>
       ))}
     </Swiper>
   ),
@@ -44,7 +48,9 @@ export const PaginationClickable: Story = {
   render: () => (
     <Swiper spaceBetween={50} slidesPerView={1} pagination={{ clickable: true }}>
       {SwiperSlideChildren.map((child, idx) => (
-        <SwiperSlide key={idx}>{child}</SwiperSlide>
+        <SwiperSlide key={idx}>
+          <div className="h-[500px] w-[375px]">{child}</div>
+        </SwiperSlide>
       ))}
     </Swiper>
   ),
@@ -54,7 +60,9 @@ export const ScrollbarDraggable: Story = {
   render: () => (
     <Swiper spaceBetween={50} slidesPerView={1} scrollbar={{ draggable: true }}>
       {SwiperSlideChildren.map((child, idx) => (
-        <SwiperSlide key={idx}>{child}</SwiperSlide>
+        <SwiperSlide key={idx}>
+          <div className="h-[500px] w-[375px]">{child}</div>
+        </SwiperSlide>
       ))}
     </Swiper>
   ),
