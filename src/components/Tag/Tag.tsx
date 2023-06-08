@@ -1,4 +1,4 @@
-import { CharacterType } from '@/types/user';
+import { CharacterType } from '@/types/user.type';
 
 type TagProps = {
   type: CharacterType;
