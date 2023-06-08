@@ -2,7 +2,7 @@ import { Keyword } from './keyword';
 
 export type CharacterType = {
   PIPI: { group: 'FIRST'; korean: '피피'; english: 'Pipi' };
-  LUNA: { group: 'FIRST'; korean: '루나'; english: 'Luna' };
+  TRUE: { group: 'FIRST'; korean: '트루'; english: 'True' };
   TOBBY: { group: 'FIRST'; korean: '토비'; english: 'Tobby' };
   BUDDY: { group: 'FIRST'; korean: '버디'; english: 'Buddy' };
 };
