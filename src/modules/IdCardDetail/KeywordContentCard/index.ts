@@ -1,1 +1,1 @@
-export * from './KeywordContentCard';
+export * from './KeywordContentCard.server';

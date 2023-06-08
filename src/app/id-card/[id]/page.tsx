@@ -1,7 +1,7 @@
 import TopNavigation from '@/components/TopNavigation/TopNavigation';
 import idCardApi from '@/lib/api/domain/id-cards.api';
 import { Intro } from '@/modules/IdCardDetail/Intro';
-import { KeywordContentCard } from '@/modules/IdCardDetail/KeywordContentCard/KeywordContentCard';
+import { KeywordContentCard } from '@/modules/IdCardDetail/KeywordContentCard/KeywordContentCard.server';
 import { CharacterType } from '@/types/user.type';
 
 const bgColors: Record<CharacterType, string> = {
