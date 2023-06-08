@@ -3,7 +3,7 @@
 import Image from 'next/image';
 
 import Tag from '@/components/Tag/Tag';
-import { CharacterType } from '@/types/user.type';
+import { CharacterType } from '@/types/id-cards.type';
 
 type IdCardProps = {
   idCardId: number;

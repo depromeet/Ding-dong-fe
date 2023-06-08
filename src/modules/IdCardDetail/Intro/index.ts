@@ -1,1 +1,1 @@
-export * from './Intro';
+export * from './Intro.server';
