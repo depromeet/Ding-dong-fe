@@ -34,7 +34,7 @@ const BottomSheet = ({ children, isOpen, onClose }: BottomSheetProps) => {
             <motion.div
               key="sheet"
               {...SheetVariants}
-              className={`fixed bottom-0 left-0 flex max-h-[calc(100vh-212px)] w-full flex-col rounded-t-[20px] bg-white px-5 py-6`}
+              className={`fixed bottom-0 left-0 z-top1 flex max-h-[calc(100vh-212px)] w-full flex-col rounded-t-[20px] bg-white px-5 py-6`}
             >
               {children}
             </motion.div>
