@@ -31,7 +31,7 @@ export const ResidentCardSteps = () => {
   }, [stepOrder]);
 
   return (
-    <FormProvider<Data> {...methods}>
+    <FormProvider {...methods}>
       {steps[stepOrder] === 'BOARDING' && (
         <div>
           <div>borading</div>
