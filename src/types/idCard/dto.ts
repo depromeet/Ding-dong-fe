@@ -1,4 +1,4 @@
-import { Keyword } from './keyword';
+export type CreateKeyword = Omit<Keyword, 'keywordId'>;
 
 export type CharacterType = {
   PIPI: { group: 'FIRST'; korean: '피피'; english: 'Pipi' };
@@ -14,4 +14,11 @@ export type IdCardDetail = {
   profileImageUrl: string;
   keywords: Keyword[];
   characterType: keyof CharacterType;
+};
+
+export type Keyword = {
+  keywordId: number;
+  title: string;
+  imageUrl: string;
+  content: string;
 };
