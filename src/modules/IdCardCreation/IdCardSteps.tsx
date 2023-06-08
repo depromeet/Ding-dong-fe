@@ -5,6 +5,7 @@ import { FormProvider, useForm } from 'react-hook-form';
 
 import { IdCardForm } from '@/modules/IdCardCreation/Form';
 import { Steps } from '@/modules/IdCardCreation/IdCardCreation.type';
+import { BoardingStep } from '@/modules/IdCardCreation/Step/BoardingStep.client';
 
 const steps: Steps[] = ['BOARDING', 'PROFILE', 'KEYWORD', 'KEYWORD_CONTENT', 'COMPLETE'];
 
@@ -20,12 +21,8 @@ export const ResidentCardSteps = () => {
 
   return (
     <FormProvider {...methods}>
-      {steps[stepOrder] === 'BOARDING' && (
-        <div>
-          <div>borading</div>
-          <button onClick={onNext}>행성 만들기</button>
-        </div>
-      )}
+      {/* planetName 주입이 필요합니다. */}
+      {steps[stepOrder] === 'BOARDING' && <BoardingStep planetName="Dingdong" onNext={onNext} />}
       {['PROFILE', 'KEYWORD', 'KEYWORD_CONTENT'].includes(steps[stepOrder]) && (
         <div>
           <IdCardForm steps={steps} stepOrder={stepOrder} onNext={onNext} onPrev={onPrev} />
