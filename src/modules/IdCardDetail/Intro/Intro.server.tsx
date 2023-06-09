@@ -1,5 +1,3 @@
-import 'server-only';
-
 import Tag from '@/components/Tag/Tag';
 import { CharacterType, IdCardType } from '@/types/id-cards.type';
 

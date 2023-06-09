@@ -1,3 +1,5 @@
+import 'server-only';
+
 import Image from 'next/image';
 
 import { PlanetEnterButtons } from '@/modules/PlanetEnterButtons';

@@ -1,5 +1,3 @@
-import 'server-only';
-
 import Image from 'next/image';
 
 import { KeywordType } from '@/types/id-cards.type';

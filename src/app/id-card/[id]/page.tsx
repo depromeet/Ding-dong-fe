@@ -1,3 +1,5 @@
+import 'server-only';
+
 import TopNavigation from '@/components/TopNavigation/TopNavigation';
 import idCardApi from '@/lib/api/domain/id-cards.api';
 import { Intro, KeywordContentCard } from '@/modules/IdCardDetail';
