@@ -1,4 +1,4 @@
-export type SliceResponse<T> = {
+export type SliceResponseType<T> = {
   content: T[];
   page: number;
   size: number;
