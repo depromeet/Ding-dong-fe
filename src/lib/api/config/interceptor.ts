@@ -1,9 +1,40 @@
 import { AxiosError, AxiosResponse, InternalAxiosRequestConfig } from 'axios';
 
+import { ACCESS_TOKEN_EXPIRE_MARGIN_SECOND } from '@/middleware';
+import { AuthResponseType } from '@/types/auth';
+
 import { ApiError } from './customError';
 
 export const onRequest = (config: InternalAxiosRequestConfig) => {
-  return config;
+  try {
+    const auth: Partial<AuthResponseType> = {};
+    for (const cookie of document.cookie.split('; ')) {
+      const [key, value] = cookie.split('=');
+      if (key === 'accessToken') {
+        auth.accessToken = value;
+      }
+      if (key === 'refreshToken') {
+        auth.refreshToken = value;
+      }
+      if (key === 'accessTokenExpireDate') {
+        auth.accessTokenExpireDate = new Date(value).getTime();
+      }
+    }
+    const { accessToken, refreshToken, accessTokenExpireDate } = auth;
+    const isAccessTokenExpired =
+      isNaN(accessTokenExpireDate ?? 0) ??
+      (accessTokenExpireDate ?? 0) - new Date().getTime() < ACCESS_TOKEN_EXPIRE_MARGIN_SECOND;
+    if (accessToken && !isAccessTokenExpired) {
+      config.headers.Authorization = `Bearer ${accessToken}`;
+      return config;
+    } else if (isAccessTokenExpired) {
+      // token refresh 로직 처리
+      return config;
+    }
+    throw new Error('로그인이 필요합니다.');
+  } catch (error) {
+    return Promise.reject(error);
+  }
 };
 
 export const onRequestError = (error: AxiosError) => {
