@@ -1,4 +1,4 @@
-import { CharacterType } from '@/types/user';
+import { CharacterType } from '@/types/id-cards.type';
 
 type TagProps = {
   type: CharacterType;

@@ -1,1 +1,1 @@
-export * from './PlanetEnterButtons';
+export * from './PlanetEnterButtons.client';
