@@ -1,10 +1,17 @@
-import SignIn from '@/app/api/auth/signin/page';
-import SessionRedirect from '@/app/api/auth/signin/sessionRedirect';
+import { redirect } from 'next/navigation';
+import { getServerSession } from 'next-auth';
 
-const SignInPage = () => {
+import { authOptions } from '@/app/auth/[...nextauth]/route';
+
+import { SignInProviders } from './signInProviders';
+
+const SignInPage = async () => {
+  const session = await getServerSession(authOptions);
+  if (session) {
+    redirect('/');
+  }
   return (
     <>
-      <SessionRedirect />
       <div className="flex h-screen flex-col justify-between px-6 pb-20 pt-28">
         <div>
           <div className="text-4xl">LOGO</div>
@@ -13,7 +20,7 @@ const SignInPage = () => {
           </div>
         </div>
         {/* @ts-expect-error Server Component */}
-        <SignIn />
+        <SignInProviders />
       </div>
     </>
   );

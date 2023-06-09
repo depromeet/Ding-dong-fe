@@ -9,7 +9,10 @@ type KakaoLoginButtonProps = {
 const KakaoLoginButton = ({ provider }: KakaoLoginButtonProps) => {
   return (
     <div>
-      <button onClick={() => signIn(provider.id, { redirect: true, callbackUrl: '/home' })}>
+      <a
+        // href={`https://kauth.kakao.com/oauth/authorize?client_id=${process.env.KAKAO_CLIENT_ID}&redirect_uri=${process.env.KAKAO_REDIRECT_URI}&response_type=code`}
+        onClick={() => signIn(provider.id, { redirect: true, callbackUrl: '/auth/callback/kakao' })}
+      >
         <Image
           src="/assets/images/kakao_login_large_wide.png"
           alt="KakaoButtonImage"
@@ -17,7 +20,7 @@ const KakaoLoginButton = ({ provider }: KakaoLoginButtonProps) => {
           height={200}
           priority
         />
-      </button>
+      </a>
     </div>
   );
 };
