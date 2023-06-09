@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import { useFormContext } from 'react-hook-form';
 
+import { CancelIcon } from '@/components/Icon';
 import { IdCardCreationForm } from '@/modules/IdCardCreation/IdCardCreation.type';
 
 type ImagePreviewProps = {
@@ -21,5 +22,12 @@ export const ImagePreview = ({ index }: ImagePreviewProps) => {
     }
   }, [imageFileList]);
 
-  return imagePreview ? <img src={imagePreview} alt="image preview" /> : null;
+  return imagePreview ? (
+    <div className="relative">
+      <img src={imagePreview} alt="image preview" />
+      <div className="absolute right-[12px] top-[12px] flex h-[16px] w-[16px]  items-center justify-center rounded-full bg-grey-800">
+        <CancelIcon className="block h-[8px] w-[8px] fill-white" />
+      </div>
+    </div>
+  ) : null;
 };
