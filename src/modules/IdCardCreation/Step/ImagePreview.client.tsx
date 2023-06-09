@@ -24,7 +24,11 @@ export const ImagePreview = ({ index }: ImagePreviewProps) => {
 
   return imagePreview ? (
     <div className="relative">
-      <img src={imagePreview} alt="image preview" />
+      <img
+        src={imagePreview}
+        className="mx-auto my-0 max-h-[192px] max-w-[308px] object-contain"
+        alt="image preview"
+      />
       <div className="absolute right-[12px] top-[12px] flex h-[16px] w-[16px]  items-center justify-center rounded-full bg-grey-800">
         <CancelIcon className="block h-[8px] w-[8px] fill-white" />
       </div>
