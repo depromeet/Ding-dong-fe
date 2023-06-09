@@ -3,13 +3,13 @@
 import { AnimatePresence, motion, MotionProps } from 'framer-motion';
 import { PropsWithChildren } from 'react';
 
-import Portal from '@/components/Portal';
+import { Portal } from '@/components/Portal';
 
 type AnimatedPortalProps = {
   motionProps: MotionProps;
 } & PropsWithChildren;
 
-const AnimatedPortal = ({ children, motionProps }: AnimatedPortalProps) => {
+export const AnimatedPortal = ({ children, motionProps }: AnimatedPortalProps) => {
   return (
     <Portal>
       <AnimatePresence>
@@ -18,5 +18,3 @@ const AnimatedPortal = ({ children, motionProps }: AnimatedPortalProps) => {
     </Portal>
   );
 };
-
-export default AnimatedPortal;

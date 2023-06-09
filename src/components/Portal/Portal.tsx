@@ -5,7 +5,7 @@ import { createPortal } from 'react-dom';
 
 import useIsMounted from '@/hooks/useIsMounted';
 
-const Portal = ({ children }: PropsWithChildren) => {
+export const Portal = ({ children }: PropsWithChildren) => {
   const ref = useRef<Element | null>(null);
   const isMounted = useIsMounted();
 
@@ -17,5 +17,3 @@ const Portal = ({ children }: PropsWithChildren) => {
 
   return createPortal(children, ref.current);
 };
-
-export default Portal;
