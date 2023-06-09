@@ -6,6 +6,7 @@ import { FormProvider, useForm } from 'react-hook-form';
 import { IdCardForm } from '@/modules/IdCardCreation/Form';
 import { Steps } from '@/modules/IdCardCreation/IdCardCreation.type';
 import { BoardingStep } from '@/modules/IdCardCreation/Step/BoardingStep.client';
+import { CompleteStep } from '@/modules/IdCardCreation/Step/CompleteStep';
 
 const steps: Steps[] = ['BOARDING', 'PROFILE', 'KEYWORD', 'KEYWORD_CONTENT', 'COMPLETE'];
 
@@ -40,7 +41,11 @@ export const ResidentCardSteps = () => {
           <IdCardForm steps={steps} stepOrder={stepOrder} onNext={onNext} onPrev={onPrev} />
         </div>
       )}
-      {steps[stepOrder] === 'COMPLETE' && <div>complete</div>}
+      {steps[stepOrder] === 'COMPLETE' && (
+        <div>
+          <CompleteStep />
+        </div>
+      )}
     </FormProvider>
   );
 };
