@@ -1,20 +1,23 @@
 'use client';
-import { useFieldArray, useFormContext } from 'react-hook-form';
+import { useFormContext } from 'react-hook-form';
+
+import { ImagePreview } from '@/modules/IdCardCreation/Step/ImagePreview.client';
 
 const title = '나를 소개하는 키워드의\n 설명을 적어주세요!';
 
 export const KeywordContentStep = () => {
-  const { control, register } = useFormContext<Data>();
-  const { fields } = useFieldArray({ name: 'keywords', control });
+  const { register, watch } = useFormContext();
+  const { keywords } = watch();
 
   return (
     <div>
       <h1 className="text-h1">{title}</h1>
       <div>
-        {fields.map((field, index) => {
+        {keywords.map((keyword, index) => {
           return (
-            <div key={field.id}>
-              <div>{field.title}</div>
+            <div key={index}>
+              <div>{keyword.title}</div>
+              <ImagePreview index={index} />
               <textarea {...register(`keywords.${index}.content`)} />
               <label
                 htmlFor={`keywords.${index}.imageUrl`}
