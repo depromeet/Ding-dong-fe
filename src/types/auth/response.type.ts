@@ -1,25 +1,25 @@
-export type AuthResponse = {
+export type AuthResponseType = {
   accessToken: string;
   refreshToken: string;
   userId: number;
   accessTokenExpireDate: number;
 };
 
-export type KakaoProperties = {
+export type KakaoPropertiesType = {
   nickname: string;
   profile_image: string;
   thumbnail_image: string;
 };
 
-export type KakaoAccount = {
+export type KakaoAccountType = {
   email: string;
   age_range: string;
   birthday: string;
   gender: string;
 };
 
-export type KakaoUserInfoResponse = {
+export type KakaoUserInfoResponseType = {
   id: string;
-  properties: KakaoProperties;
-  kakao_account: KakaoAccount;
+  properties: KakaoPropertiesType;
+  kakao_account: KakaoAccountType;
 };
