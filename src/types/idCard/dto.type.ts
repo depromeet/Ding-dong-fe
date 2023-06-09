@@ -1,4 +1,4 @@
-export type CreateKeyword = Omit<Keyword, 'keywordId'>;
+export type CreateKeywordType = Omit<KeywordType, 'keywordId'>;
 
 export type CharacterType = {
   PIPI: { group: 'FIRST'; korean: '피피'; english: 'Pipi' };
@@ -7,16 +7,16 @@ export type CharacterType = {
   BUDDY: { group: 'FIRST'; korean: '버디'; english: 'Buddy' };
 };
 
-export type IdCardDetail = {
+export type IdCardDetailType = {
   idCardId: number;
   nickname: string;
   aboutMe: string;
   profileImageUrl: string;
-  keywords: Keyword[];
+  keywords: KeywordType[];
   characterType: keyof CharacterType;
 };
 
-export type Keyword = {
+export type KeywordType = {
   keywordId: number;
   title: string;
   imageUrl: string;
