@@ -4,5 +4,5 @@ export type Steps = 'BOARDING' | 'PROFILE' | 'KEYWORD' | 'KEYWORD_CONTENT' | 'CO
 export type IdCardCreationForm = {
   nickname: string;
   aboutMe: string;
-  keywords: { title: string; imageUrl: string; content: string }[];
+  keywords: { title: string; imageUrl: FileList; content: string }[];
 };
