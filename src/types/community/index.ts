@@ -1,2 +1,2 @@
-export * from './dto';
-export * from './response';
+export * from './dto.type';
+export * from './response.type';
