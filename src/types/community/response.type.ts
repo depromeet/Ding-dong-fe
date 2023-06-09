@@ -2,6 +2,6 @@ import { SliceResponse } from '@/types/api';
 import { CommunitySummaryType } from '@/types/community';
 import { CommunityIdCardSummaryType } from '@/types/community';
 
-export type CommunitiesResponse = CommunitySummaryType[];
+export type CommunitiesResponseType = CommunitySummaryType[];
 
-export type CommunityIdCardsResponse = SliceResponse<CommunityIdCardSummaryType>;
+export type CommunityIdCardsResponseType = SliceResponse<CommunityIdCardSummaryType>;

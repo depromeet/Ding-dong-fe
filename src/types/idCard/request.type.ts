@@ -1,6 +1,6 @@
 import { CreateKeywordType } from '@/types/idCard';
 
-export type CreateIdCardRequest = {
+export type CreateIdCardRequestType = {
   communityId: number;
   nickname: string;
   aboutMe: string;

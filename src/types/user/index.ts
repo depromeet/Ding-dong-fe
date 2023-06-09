@@ -1,3 +1,3 @@
-export * from './dto';
-export * from './request';
-export * from './response';
+export * from './dto.type';
+export * from './request.type';
+export * from './response.type';
