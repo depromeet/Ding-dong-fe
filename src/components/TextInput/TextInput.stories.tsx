@@ -19,15 +19,16 @@ const KeywordInputWithRhf = ({ ...rest }) => {
     formState: { errors },
   } = useForm({
     defaultValues: {
-      'input-sb': '',
+      inputSb: '',
     },
   });
+
   return (
     <TextInput
       {...register}
       placeholder="텍스트 영역"
       label="라벨"
-      errorMessage={errors['input-sb']?.message}
+      errorMessage={errors['inputSb']?.message}
       {...rest}
     />
   );
@@ -55,4 +56,8 @@ export const Disabled: Story = {
 
 export const Information: Story = {
   render: () => <KeywordInputWithRhf infoMessage="성공했습니다~" />,
+};
+
+export const MaxLength: Story = {
+  render: () => <KeywordInputWithRhf maxLength={16} />,
 };

@@ -1,4 +1,5 @@
-import { forwardRef, InputHTMLAttributes, memo } from 'react';
+'use client';
+import { ChangeEvent, forwardRef, InputHTMLAttributes, memo, useCallback, useState } from 'react';
 
 import { ClassNameType } from '@/types/util';
 import { tw } from '@/utils/tailwind.util';
@@ -8,6 +9,7 @@ type TextInputProps = InputHTMLAttributes<HTMLInputElement> & {
   labelClassName?: ClassNameType;
   errorMessage?: string;
   infoMessage?: string;
+  value?: string; // Text Input이기 때문에 타입을 한정하였습니다. (기본 InputHTMLAttributes의 value 타입: string | number | readonly string[] | undefined)
 };
 
 export const TextInput = memo(
@@ -17,7 +19,7 @@ export const TextInput = memo(
         label,
         labelClassName,
         required = false,
-        id,
+        name,
         placeholder,
         value,
         onChange,
@@ -26,10 +28,22 @@ export const TextInput = memo(
         infoMessage,
         type = 'text',
         disabled,
+        maxLength,
         ...rest
       },
       ref,
     ) => {
+      const [textCount, setTextCount] = useState(0);
+
+      const onChangeHandler = useCallback(
+        (e: ChangeEvent<HTMLInputElement>) => {
+          onChange && onChange(e);
+          e.target.value = e.target.value.slice(0, maxLength);
+          setTextCount(e.target.value.length);
+        },
+        [maxLength, onChange],
+      );
+
       const requiredPseudoCss =
         required &&
         'after:content-[" "] after:inline-block after:w-[4px] after:h-[4px] after:rounded-full after:bg-[#FF5555] after:absolute after:top-0 after:right-[-10px] ';
@@ -37,6 +51,8 @@ export const TextInput = memo(
       const infoCss =
         infoMessage && 'border-[1px] border-blue-500 focus:border-blue-500 caret-blue-500';
       const disabledCss = disabled && 'cursor-not-allowed';
+
+      const isMaxInputLengthProvided = !!maxLength;
 
       return (
         <div className="flex w-full flex-col p-2">
@@ -46,17 +62,17 @@ export const TextInput = memo(
               labelClassName,
               requiredPseudoCss,
             )}
-            htmlFor={id}
+            htmlFor={`text-input-${name}`}
           >
             {label}
           </label>
-          <div className="flex items-center">
+          <div className="flex flex-col items-center">
             <input
-              id={id}
+              id={`text-input-${name}`}
               ref={ref}
               type={type}
               className={tw(
-                'mt-2px text-grey-90 w-full rounded-[6px] border-[0.5px] border-solid border-grey-100 bg-grey-50 px-12pxr py-14pxr text-b1',
+                'text-grey-90 mt-2pxr w-full rounded-[6px] border-[0.5px] border-solid border-grey-100 bg-grey-50 px-12pxr py-14pxr text-b1',
                 'focus:border-[1px] focus:border-primary-500 focus:caret-primary-500',
                 errorCss,
                 infoCss,
@@ -64,12 +80,19 @@ export const TextInput = memo(
               )}
               placeholder={placeholder}
               value={value}
-              onChange={onChange}
+              onChange={onChangeHandler}
               onBlur={onBlur}
               disabled={disabled}
               autoComplete="off"
               {...rest}
             />
+            {isMaxInputLengthProvided && (
+              <div className="mt-8pxr flex w-full justify-end gap-1pxr text-detail text-grey-500">
+                <span>{textCount}</span>
+                <span>/</span>
+                <span>{maxLength}</span>
+              </div>
+            )}
           </div>
           {errorMessage && <p className="mt-8pxr text-detail text-error">{errorMessage}</p>}
           {infoMessage && <p className="mt-8pxr text-detail text-blue-500">{infoMessage}</p>}
