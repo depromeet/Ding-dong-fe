@@ -27,7 +27,6 @@ const TextInputWithRhf = ({ ...rest }) => {
     <TextInput
       {...register}
       placeholder="텍스트 영역"
-      label="라벨"
       errorMessage={errors['inputSb']?.message}
       {...rest}
     />
@@ -39,25 +38,29 @@ export const Primary: Story = {
 };
 
 export const CustomLabel: Story = {
+  render: () => <TextInputWithRhf label="라벨" labelClassName="text-h1 text-primary-700" />,
+};
+
+export const NoLabel: Story = {
   render: () => <TextInputWithRhf labelClassName="text-h1 text-primary-700" />,
 };
 
 export const Required: Story = {
-  render: () => <TextInputWithRhf required />,
+  render: () => <TextInputWithRhf label="라벨" required />,
 };
 
 export const Error: Story = {
-  render: () => <TextInputWithRhf errorMessage="오류가 발생했습니다." />,
+  render: () => <TextInputWithRhf label="라벨" errorMessage="오류가 발생했습니다." />,
 };
 
 export const Disabled: Story = {
-  render: () => <TextInputWithRhf disabled />,
+  render: () => <TextInputWithRhf label="라벨" disabled />,
 };
 
 export const Information: Story = {
-  render: () => <TextInputWithRhf infoMessage="성공했습니다~" />,
+  render: () => <TextInputWithRhf label="라벨" infoMessage="성공했습니다~" />,
 };
 
 export const MaxLength: Story = {
-  render: () => <TextInputWithRhf maxLength={16} />,
+  render: () => <TextInputWithRhf label="라벨" maxLength={16} />,
 };

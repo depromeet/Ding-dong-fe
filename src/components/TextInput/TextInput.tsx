@@ -5,7 +5,7 @@ import { ClassNameType } from '@/types/util';
 import { tw } from '@/utils/tailwind.util';
 
 type TextInputProps = InputHTMLAttributes<HTMLInputElement> & {
-  label: string;
+  label?: string;
   labelClassName?: ClassNameType;
   inputClassName?: ClassNameType;
   errorMessage?: string;
@@ -58,16 +58,18 @@ export const TextInput = memo(
 
       return (
         <div className="flex w-full flex-col">
-          <label
-            className={tw(
-              'font-b2 relative mb-8pxr w-fit text-grey-500',
-              labelClassName,
-              requiredPseudoCss,
-            )}
-            htmlFor={`text-input-${name}`}
-          >
-            {label}
-          </label>
+          {label && (
+            <label
+              className={tw(
+                'font-b2 relative mb-8pxr w-fit text-grey-500',
+                labelClassName,
+                requiredPseudoCss,
+              )}
+              htmlFor={`text-input-${name}`}
+            >
+              {label}
+            </label>
+          )}
           <div className="flex flex-col items-center">
             <input
               id={`text-input-${name}`}
