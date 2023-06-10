@@ -1,6 +1,6 @@
-import { IdCardDetailType } from '@/types/idCard';
+import { IdCardDetailModel } from '@/types/idCard';
 
-export type CommunityIdCardSummaryModel = Omit<IdCardDetailType, 'profileImageUrl'>;
+export type CommunityIdCardSummaryModel = Omit<IdCardDetailModel, 'profileImageUrl'>;
 
 export type CommunitySummaryModel = {
   communityId: number;

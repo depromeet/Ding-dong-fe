@@ -1,8 +1,8 @@
 import Image from 'next/image';
 
-import { KeywordType } from '@/types/idCard';
+import { KeywordModel } from '@/types/idCard';
 
-export const KeywordContentCard = ({ keywordId, title, imageUrl, content }: KeywordType) => {
+export const KeywordContentCard = ({ keywordId, title, imageUrl, content }: KeywordModel) => {
   // TODO: 이미지 사진 사이즈 조절
   return (
     <div className="flex w-full flex-col gap-2.5 rounded-xl bg-grey-100 px-3.5 py-2.5">
