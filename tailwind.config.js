@@ -43,6 +43,7 @@ module.exports = {
         b3: [pxToRem(13), { fontWeight: '400', lineHeight: '145%' }],
         // detail
         detail: [pxToRem(12), { fontWeight: '400', lineHeight: '125%' }],
+        ...declarePxr(),
       },
       colors: {
         primary: {
