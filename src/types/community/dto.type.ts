@@ -4,7 +4,9 @@ export type CommunityIdCardSummaryType = Omit<IdCardDetailType, 'profileImageUrl
 
 export type CommunitySummaryType = {
   communityId: number;
-  thumbnailImageUrl: string;
+  logoImageUrl: string;
   coverImageUrl: string;
   title: string;
+  idCardCount: number;
+  description: string;
 };
