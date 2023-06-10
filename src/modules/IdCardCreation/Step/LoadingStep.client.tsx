@@ -9,7 +9,7 @@ type LoadingStepProps = {
 export const LoadingStep = ({ planetName }: LoadingStepProps) => {
   return (
     <div>
-      <h1 className="mb-[90px] px-20px text-h2 text-grey-900">{`${planetName}으로\n광속으로 이동중...`}</h1>
+      <h1 className="mb-[90px] px-20pxr text-h2 text-grey-900">{`${planetName}으로\n광속으로 이동중...`}</h1>
       <div className="w-full">
         <Image
           src={`/assets/images/planet-with-shadow.png`}
