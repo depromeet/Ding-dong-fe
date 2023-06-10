@@ -6,7 +6,7 @@ import { FormProvider, useForm } from 'react-hook-form';
 import { IdCardForm } from '@/modules/IdCardCreation/Form';
 import { Steps } from '@/modules/IdCardCreation/IdCardCreation.type';
 import { BoardingStep } from '@/modules/IdCardCreation/Step/BoardingStep.client';
-import { CompleteStep } from '@/modules/IdCardCreation/Step/CompleteStep';
+import { CompleteStep } from '@/modules/IdCardCreation/Step/CompleteStep.client';
 
 const steps: Steps[] = ['BOARDING', 'PROFILE', 'KEYWORD', 'KEYWORD_CONTENT', 'COMPLETE'];
 
