@@ -1,11 +1,11 @@
 import 'server-only';
 
 import TopNavigation from '@/components/TopNavigation/TopNavigation';
-import idCardApi from '@/lib/api/domain/id-cards.api';
+import idCardApi from '@/lib/api/domain/idCard.api';
 import { Intro, KeywordContentCard } from '@/modules/IdCardDetail';
-import { CharacterType } from '@/types/id-cards.type';
+import { CharacterType } from '@/types/idCard';
 
-const bgColors: Record<CharacterType, string> = {
+const bgColors: Record<keyof CharacterType, string> = {
   BUDDY: 'bg-buddy-100',
   TOBBY: 'bg-tobby-100',
   PIPI: 'bg-pipi-100',
