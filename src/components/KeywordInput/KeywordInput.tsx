@@ -70,9 +70,9 @@ export const KeywordInput = ({
     <div className="flex w-full flex-col">
       <div
         onClick={onClickBackground}
-        className="mb-28px flex min-h-[56px] bg-grey-50 px-20px py-12px"
+        className="mb-28px flex min-h-[56px] bg-grey-50 px-20pxr py-12pxr"
       >
-        <ul className="flex w-full flex-wrap items-center gap-x-4px gap-y-8px">
+        <ul className="flex w-full flex-wrap items-center gap-x-4pxr gap-y-8pxr">
           {activeKeywordList.map(({ title }) => (
             <Chip
               key={title}
@@ -96,9 +96,9 @@ export const KeywordInput = ({
           />
         </ul>
       </div>
-      <div className="mx-20px">
+      <div className="mx-20pxr">
         <label className="text-b2 text-grey-400">{keywordLabel}</label>
-        <ul className="flex flex-wrap gap-x-8px gap-y-12px py-16px">
+        <ul className="flex flex-wrap gap-x-8pxr gap-y-12pxr py-16pxr">
           {keywordOptions.map(({ title }) => (
             <Chip key={title} text={title} onClick={() => addKeyword(title)} />
           ))}
