@@ -8,7 +8,7 @@ export const createCommunity = (idx: number): CommunitySummaryType => ({
   coverImageUrl: faker.image.avatar(),
   title: faker.lorem.sentence(),
   idCardCount: faker.number.int(),
-  description: faker.lorem.paragraph(),
+  description: faker.lorem.lines(2),
 });
 
 export const createCommunities = (n: number) =>
