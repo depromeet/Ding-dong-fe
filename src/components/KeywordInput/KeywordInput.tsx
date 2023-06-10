@@ -64,13 +64,11 @@ export const KeywordInput = ({
     }
   };
 
-  console.log('activeKeywordList', activeKeywordList);
-
   return (
     <div className="flex w-full flex-col">
       <div
         onClick={onClickBackground}
-        className="mb-28px flex min-h-[56px] bg-grey-50 px-20pxr py-12pxr"
+        className="mb-28pxr flex min-h-[56px] bg-grey-50 px-20pxr py-12pxr"
       >
         <ul className="flex w-full flex-wrap items-center gap-x-4pxr gap-y-8pxr">
           {activeKeywordList.map(({ title }) => (
