@@ -4,14 +4,14 @@ import { useEffect, useState } from 'react';
 import { useFormContext } from 'react-hook-form';
 
 import { CancelIcon } from '@/components/Icon';
-import { IdCardCreationForm } from '@/modules/IdCardCreation/IdCardCreation.type';
+import { IdCardCreationFormType } from '@/types/idCard';
 
 type ImagePreviewProps = {
   index: number;
 };
 
 export const ImagePreview = ({ index }: ImagePreviewProps) => {
-  const { watch } = useFormContext<IdCardCreationForm>();
+  const { watch } = useFormContext<IdCardCreationFormType>();
   const [imagePreview, setImagePreview] = useState('');
   const { keywords } = watch();
   const imageFileList = keywords[index].imageUrl;

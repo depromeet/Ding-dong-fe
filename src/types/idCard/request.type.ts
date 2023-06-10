@@ -1,4 +1,6 @@
-import { CreateKeywordType } from '@/types/idCard';
+import { KeywordType } from '@/types/idCard/dto.type';
+
+export type CreateKeywordType = Pick<KeywordType, 'title' | 'content'> & { imageUrl: FileList };
 
 export type CreateIdCardRequestType = {
   communityId: number;

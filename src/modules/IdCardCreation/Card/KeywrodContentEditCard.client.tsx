@@ -2,12 +2,12 @@ import { KeywordContentCard } from '@/modules/IdCardDetail';
 import { ImagePreview } from '@/modules/IdCardCreation/Step/ImagePreview.client';
 import { useFormContext } from 'react-hook-form';
 import { useCallback, useState } from 'react';
-import { KeywordField } from '@/modules/IdCardCreation/IdCardCreation.type';
 import { tw } from '@/utils/tailwind.util';
+import { CreateKeywordType } from '@/types/idCard';
 
 type KeywordContentEditCardProps = {
   className?: string;
-  keyword: KeywordField;
+  keyword: CreateKeywordType;
   index: number;
 };
 
@@ -37,7 +37,7 @@ export const KeywordContentEditCard = ({
             {...register(`keywords.${index}.content`)}
             onFocus={onTextFocus}
             onBlur={onTextBlur}
-            className="w-full bg-grey-100"
+            className="w-full resize-none bg-grey-100"
           />
         }
       />

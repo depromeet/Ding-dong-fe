@@ -4,13 +4,13 @@ import { useCallback, useState } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 
 import { IdCardCreationForm } from '@/modules/IdCardCreation/Form';
-import { Steps } from '@/modules/IdCardCreation/IdCardCreation.type';
 import { BoardingStep } from '@/modules/IdCardCreation/Step/BoardingStep.client';
+import { IdCardCreationFormType, Steps } from '@/types/idCard/creation.type';
 
 const steps: Steps[] = ['BOARDING', 'PROFILE', 'KEYWORD', 'KEYWORD_CONTENT', 'COMPLETE'];
 
 export const IdCardCreationSteps = () => {
-  const methods = useForm<IdCardCreationForm>({
+  const methods = useForm<IdCardCreationFormType>({
     defaultValues: {
       nickname: '',
       aboutMe: '',
