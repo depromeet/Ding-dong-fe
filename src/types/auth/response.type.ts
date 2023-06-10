@@ -1,25 +1,14 @@
-export type AuthResponseType = {
+import { KakaoAccountModel, KakaoPropertiesModel } from '@/types/auth/model.type';
+
+export type AuthResponse = {
   accessToken: string;
   refreshToken: string;
   userId: number;
   accessTokenExpireDate: number;
 };
 
-export type KakaoPropertiesType = {
-  nickname: string;
-  profile_image: string;
-  thumbnail_image: string;
-};
-
-export type KakaoAccountType = {
-  email: string;
-  age_range: string;
-  birthday: string;
-  gender: string;
-};
-
-export type KakaoUserInfoResponseType = {
+export type KakaoUserInfoResponse = {
   id: string;
-  properties: KakaoPropertiesType;
-  kakao_account: KakaoAccountType;
+  properties: KakaoPropertiesModel;
+  kakao_account: KakaoAccountModel;
 };
