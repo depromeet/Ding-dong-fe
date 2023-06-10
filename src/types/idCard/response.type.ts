@@ -4,4 +4,6 @@ export type CommentCountResponseType = {
   count: number;
 };
 
-export type IdCardDetailResponseType = IdCardDetailType;
+export type IdCardDetailResponseType = {
+  idCardDetailsDto: IdCardDetailType;
+};

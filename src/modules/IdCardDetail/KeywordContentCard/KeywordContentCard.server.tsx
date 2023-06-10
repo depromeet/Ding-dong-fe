@@ -1,6 +1,6 @@
 import Image from 'next/image';
 
-import { KeywordType } from '@/types/id-cards.type';
+import { KeywordType } from '@/types/idCard';
 
 export const KeywordContentCard = ({ keywordId, title, imageUrl, content }: KeywordType) => {
   // TODO: 이미지 사진 사이즈 조절

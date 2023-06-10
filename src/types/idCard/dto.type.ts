@@ -7,6 +7,8 @@ export type CharacterType = {
   BUDDY: { group: 'FIRST'; korean: '버디'; english: 'Buddy' };
 };
 
+export type CharacterNameType = keyof CharacterType;
+
 export type IdCardDetailType = {
   idCardId: number;
   nickname: string;

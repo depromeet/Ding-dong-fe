@@ -5,8 +5,6 @@ import {
   InternalAxiosRequestConfig,
 } from 'axios';
 
-import { IdCardType } from '@/types/id-cards.type';
-
 // 서버에서 정해진 format이 있으면 수정해서 사용하면 됩니다
 export type CustomResponseFormat<T = any> = T;
 
@@ -32,7 +30,3 @@ export interface BaseResponseType<T> extends AxiosResponse<T> {
   data: T;
   message: string;
 }
-
-export type GetIdCardDetailType = {
-  idCardDetailsDto: IdCardType;
-};
