@@ -7,7 +7,7 @@ export const BottomSheetWrapper = ({
   onClose,
 }: Pick<BottomSheetProps, 'children' | 'onClose'>) => {
   return (
-    <div onClick={onClose} className="fixed left-0 top-0 h-full w-full bg-gray-900/70">
+    <div onClick={onClose} className="fixed left-0 top-0 z-top2 h-full w-full bg-gray-900/70">
       {children}
     </div>
   );
