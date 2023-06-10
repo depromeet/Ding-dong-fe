@@ -57,7 +57,7 @@ export const TextInput = memo(
       const isMaxInputLengthProvided = !!maxLength;
 
       return (
-        <div className="flex w-full flex-col p-2">
+        <div className="flex w-full flex-col">
           <label
             className={tw(
               'font-b2 relative mb-8pxr w-fit text-grey-500',
