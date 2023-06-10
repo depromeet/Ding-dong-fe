@@ -5,4 +5,7 @@ export const REQUEST_API = {
   IDCARDS: {
     DETAIL: '/id-cards',
   },
+  COMMUNITINY: {
+    USERS: '/communities/users',
+  },
 };
