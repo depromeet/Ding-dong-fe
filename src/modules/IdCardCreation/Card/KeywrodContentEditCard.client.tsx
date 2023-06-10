@@ -1,7 +1,9 @@
+'use client';
+
 import { KeywordContentCard } from '@/modules/IdCardDetail';
 import { ImagePreview } from '@/modules/IdCardCreation/Step/ImagePreview.client';
 import { useFormContext } from 'react-hook-form';
-import { useCallback, useState } from 'react';
+import { useCallback, useRef, useState } from 'react';
 import { tw } from '@/utils/tailwind.util';
 import { CreateKeywordModel } from '@/types/idCard';
 
@@ -18,6 +20,11 @@ export const KeywordContentEditCard = ({
 }: KeywordContentEditCardProps) => {
   const { register } = useFormContext();
   const [textFocus, setTextFocus] = useState<boolean>();
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
+
+  const onCardClick = useCallback(() => {
+    if (textareaRef.current) textareaRef.current.focus();
+  }, []);
 
   const onTextFocus = useCallback(() => {
     setTextFocus(true);
@@ -30,6 +37,7 @@ export const KeywordContentEditCard = ({
     <div className={tw(className)}>
       <KeywordContentCard
         className={`${textFocus ? 'border-[1px] border-solid border-primary-500' : ''}`}
+        onClick={onCardClick}
         title={keyword.title}
         image={<ImagePreview index={index} />}
         content={
@@ -37,6 +45,7 @@ export const KeywordContentEditCard = ({
             {...register(`keywords.${index}.content`)}
             onFocus={onTextFocus}
             onBlur={onTextBlur}
+            ref={textareaRef}
             className="w-full resize-none bg-grey-100"
           />
         }
