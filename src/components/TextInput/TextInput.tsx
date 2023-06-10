@@ -7,6 +7,7 @@ import { tw } from '@/utils/tailwind.util';
 type TextInputProps = InputHTMLAttributes<HTMLInputElement> & {
   label: string;
   labelClassName?: ClassNameType;
+  inputClassName?: ClassNameType;
   errorMessage?: string;
   infoMessage?: string;
   value?: string; // Text Input이기 때문에 타입을 한정하였습니다. (기본 InputHTMLAttributes의 value 타입: string | number | readonly string[] | undefined)
@@ -18,7 +19,8 @@ export const TextInput = memo(
       {
         label,
         labelClassName,
-        required = false,
+        inputClassName,
+        required,
         name,
         placeholder,
         value,
@@ -77,6 +79,7 @@ export const TextInput = memo(
                 errorCss,
                 infoCss,
                 disabledCss,
+                inputClassName,
               )}
               placeholder={placeholder}
               value={value}
