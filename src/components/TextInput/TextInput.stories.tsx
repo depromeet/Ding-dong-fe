@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form';
 import { TextInput } from './index';
 
 const meta: Meta<typeof TextInput> = {
-  title: 'CATEGORY/TextInput',
+  title: 'TextInput',
   component: TextInput,
   args: {},
 };
@@ -13,7 +13,7 @@ export default meta;
 
 type Story = StoryObj<typeof TextInput>;
 
-const KeywordInputWithRhf = ({ ...rest }) => {
+const TextInputWithRhf = ({ ...rest }) => {
   const {
     register,
     formState: { errors },
@@ -35,29 +35,29 @@ const KeywordInputWithRhf = ({ ...rest }) => {
 };
 
 export const Primary: Story = {
-  render: () => <KeywordInputWithRhf />,
+  render: () => <TextInputWithRhf />,
 };
 
 export const CustomLabel: Story = {
-  render: () => <KeywordInputWithRhf labelClassName="text-h1 text-primary-700" />,
+  render: () => <TextInputWithRhf labelClassName="text-h1 text-primary-700" />,
 };
 
 export const Required: Story = {
-  render: () => <KeywordInputWithRhf required />,
+  render: () => <TextInputWithRhf required />,
 };
 
 export const Error: Story = {
-  render: () => <KeywordInputWithRhf errorMessage="오류가 발생했습니다." />,
+  render: () => <TextInputWithRhf errorMessage="오류가 발생했습니다." />,
 };
 
 export const Disabled: Story = {
-  render: () => <KeywordInputWithRhf disabled />,
+  render: () => <TextInputWithRhf disabled />,
 };
 
 export const Information: Story = {
-  render: () => <KeywordInputWithRhf infoMessage="성공했습니다~" />,
+  render: () => <TextInputWithRhf infoMessage="성공했습니다~" />,
 };
 
 export const MaxLength: Story = {
-  render: () => <KeywordInputWithRhf maxLength={16} />,
+  render: () => <TextInputWithRhf maxLength={16} />,
 };
