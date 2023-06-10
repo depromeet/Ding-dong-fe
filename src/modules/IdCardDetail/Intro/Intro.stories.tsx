@@ -12,7 +12,7 @@ type Story = StoryObj<typeof Intro>;
 export const Default: Story = {
   render: () => (
     <Intro
-      idCardId={'1'}
+      idCardId={1}
       aboutMe="안녕하세요 저는 N년차 개발자구요 :) 너무 보고싶었어요 다들 잘부탁드립니다!"
       nickname="이트루"
       characterType="TRUE"
