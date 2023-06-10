@@ -15,11 +15,10 @@ export const KeywordContentCard = ({
   className,
 }: KeywordContentCardProps) => {
   return (
-    <div
-      className={tw('flex w-full flex-col gap-2.5 rounded-xl bg-grey-100 px-3.5 py-2.5', className)}
-    >
-      <p className="text-base font-semibold text-grey-900">{title}</p>
-      <div className="flex flex-col gap-2">
+    <div className={tw('w-full rounded-xl bg-grey-100', className)}>
+      <p className="px-[14px] py-[10px] text-base  font-semibold text-grey-900">{title}</p>
+      <div className="border-[0.5px] border-solid border-grey-200" />
+      <div className="flex flex-col gap-2 px-[14px] pb-[20px] pt-[8px] ">
         {image}
         <p className="text-[15px] font-normal text-grey-800">{content}</p>
       </div>
