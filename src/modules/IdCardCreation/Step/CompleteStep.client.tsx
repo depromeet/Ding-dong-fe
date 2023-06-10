@@ -14,11 +14,11 @@ export const CompleteStep = () => {
   return (
     // TODO: 지금은 커뮤니티 정보가 없는데 나중에 커뮤니티 타이틀 추가
     <div>
-      <p className="text-h2 text-grey-900">
+      <h2 className="text-h2 text-grey-900">
         {'짜잔!'}
         {/**타이틀 자리 */}
-      </p>
-      <p className="text-h2 text-grey-900">{'주민증이 발급되었어요!'}</p>
+      </h2>
+      <h2 className="text-h2 text-grey-900">{'주민증이 발급되었어요!'}</h2>
       <IdCard
         idCardId={values.id}
         aboutMe={aboutMe}
