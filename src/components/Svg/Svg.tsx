@@ -42,7 +42,7 @@ export const Svg = ({
 }: PropsWithChildren<SvgProps>) => {
   const w = width ?? size ?? 24;
   const h = height ?? size ?? 24;
-  const vb = viewBox ?? `0 0 24 24`;
+  const vb = viewBox ?? `0 0 ${w} ${h}`;
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
