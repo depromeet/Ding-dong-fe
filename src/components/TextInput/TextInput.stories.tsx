@@ -64,3 +64,9 @@ export const Information: Story = {
 export const MaxLength: Story = {
   render: () => <TextInputWithRhf label="라벨" maxLength={16} />,
 };
+
+export const MaxLengthError: Story = {
+  render: () => (
+    <TextInputWithRhf label="라벨" errorMessage="오류가 발생했습니다." maxLength={16} />
+  ),
+};

@@ -91,16 +91,20 @@ export const TextInput = memo(
               autoComplete="off"
               {...rest}
             />
+          </div>
+          <div className="mt-8pxr flex justify-between">
+            <div className="">
+              {errorMessage && <p className="text-detail text-error">{errorMessage}</p>}
+              {infoMessage && <p className="text-detail text-blue-500">{infoMessage}</p>}
+            </div>
             {isMaxInputLengthProvided && (
-              <div className="mt-8pxr flex w-full justify-end gap-1pxr text-detail text-grey-500">
+              <div className="flex justify-end gap-1pxr text-detail text-grey-500">
                 <span>{textCount}</span>
                 <span>/</span>
                 <span>{maxLength}</span>
               </div>
             )}
           </div>
-          {errorMessage && <p className="mt-8pxr text-detail text-error">{errorMessage}</p>}
-          {infoMessage && <p className="mt-8pxr text-detail text-blue-500">{infoMessage}</p>}
         </div>
       );
     },
