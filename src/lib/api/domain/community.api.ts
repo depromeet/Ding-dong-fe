@@ -2,9 +2,9 @@ import { BaseResponseType } from '@/lib/api/config/api.types';
 import publicApi from '@/lib/api/config/publicApi';
 import { CommunityIdCardsResponse } from '@/types/community';
 
-const getCommunityIdCards = (id: string, page: number, size: number) =>
+const getCommunityIdCards = (id: string, pageParam: number) =>
   publicApi.get<BaseResponseType<CommunityIdCardsResponse>>(
-    `/communities/${id}/idCards&page=${page}&size=${size}`,
+    `/communities/${id}/idCards?page=${pageParam}&size=10`,
   );
 
 const communityApi = {
