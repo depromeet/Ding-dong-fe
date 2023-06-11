@@ -89,6 +89,8 @@ export const TextArea = memo(
               inputClassName,
             )}
           >
+            {/* header + Image가 들어갈 영역, story - WithKeywordContent참고 */}
+            {children}
             <textarea
               id={`text-area-${name}`}
               ref={ref}
