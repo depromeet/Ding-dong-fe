@@ -1,4 +1,4 @@
-import { SignInProviders } from './signInProviders';
+import { SignInProviders } from './signInProviders.server';
 
 const SignInPage = async () => {
   return (
