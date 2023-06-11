@@ -2,30 +2,30 @@
 
 import Image from 'next/image';
 import { CameraIcon } from '@/components/Icon/CameraIcon';
-import { forwardRef, InputHTMLAttributes, memo, useCallback, useState } from 'react';
+import { forwardRef, InputHTMLAttributes, memo, useState } from 'react';
 import { tw } from '@/utils/tailwind.util';
+import { faker } from '@faker-js/faker/locale/ko';
 
 type ProfileImageEditProps = InputHTMLAttributes<HTMLInputElement> & {
   defaultProfileImage: string;
+  fieldName: string;
+  setValue: (name: string, value: unknown, config?: Object) => void;
   className?: string;
 };
 
 const ProfileImageEditComponent = forwardRef<HTMLInputElement, ProfileImageEditProps>(
-  ({ defaultProfileImage, className, ...rest }, ref) => {
+  ({ defaultProfileImage, className, fieldName, setValue, ...rest }, ref) => {
     const [profileImage, setProfileImage] = useState<string>(defaultProfileImage);
 
-    const onChange = useCallback(
-      e => {
-        const imageFileList = e.target.files;
-        if (imageFileList && imageFileList.length > 0) {
-          if (profileImage) URL.revokeObjectURL(profileImage);
-
-          const file = imageFileList[0];
-          setProfileImage(URL.createObjectURL(file));
-        }
-      },
-      [profileImage, setProfileImage],
-    );
+    const onChange = e => {
+      const imageFileList = e.target.files;
+      if (imageFileList && imageFileList.length > 0) {
+        //TODO: S3 로직 추가 예정
+        const fakerImage = faker.image.avatar();
+        setProfileImage(fakerImage);
+        setValue(fieldName, fakerImage);
+      }
+    };
 
     return (
       <div className={tw('relative w-fit', className)}>
@@ -37,13 +37,13 @@ const ProfileImageEditComponent = forwardRef<HTMLInputElement, ProfileImageEditP
           alt="profile image"
         />
         <label
-          htmlFor="profile-image-edit"
+          htmlFor={fieldName}
           className="absolute bottom-[0px] right-[0px] block flex h-[26px] w-[26px]  items-center justify-center rounded-full bg-grey-100"
         >
           <CameraIcon className="block" />
         </label>
         <input
-          id="profile-image-edit"
+          id={fieldName}
           className="hidden"
           ref={ref}
           {...rest}

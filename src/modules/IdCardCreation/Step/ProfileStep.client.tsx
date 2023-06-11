@@ -11,7 +11,7 @@ const title = '이웃 주민에게\n 자신을 소개해주세요!';
 const TEXT_MAX_LENGTH = 50;
 
 export const ProfileStep = () => {
-  const { register } = useFormContext();
+  const { register, setValue } = useFormContext();
   const [textCount, setTextCount] = useState(0);
   const onTextareaHandler = useCallback((e: ChangeEvent<HTMLTextAreaElement>) => {
     e.target.value = e.target.value.slice(0, TEXT_MAX_LENGTH);
@@ -23,8 +23,9 @@ export const ProfileStep = () => {
       {/*TODO: API 붙이면 faker 없앨 예정*/}
       <ProfileImageEdit
         className="mt-20px mx-auto"
+        fieldName="profileImageUrl"
         defaultProfileImage={faker.image.avatar()}
-        {...register('profile')}
+        setValue={setValue}
       />
       <div className={`${fieldTitleStyle}`}>이름</div>
       <input {...register('nickname', { required: true })} className={`${fieldStyle} p-12pxr`} />
