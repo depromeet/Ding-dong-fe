@@ -1,64 +1,70 @@
 import { NextRequest, NextResponse } from 'next/server';
 
 import { ROOT_API_URL } from '@/lib/api/config/requestUrl';
-import { AuthResponseType } from '@/types/auth';
+import { AUTH_COOKIE_KEYS, AuthResponseType } from '@/types/auth';
 
 import { FetchResponseType } from './lib/api/config/api.types';
+import { generateCookiesKeyValues, getAccessToken } from './utils/auth/tokenHandlers';
 
 export const ACCESS_TOKEN_EXPIRE_MARGIN_SECOND = 60;
+
+// Authorization이 필요한 페이지 경로를 저장합니다.
+const PRIVATE_ROUTES = ['/accounts'];
 
 const middleware = async (request: NextRequest) => {
   if (request.nextUrl.pathname.startsWith('/auth/callback/kakao')) {
     const authCode = request.nextUrl.searchParams.get('code');
 
     if (!authCode) {
-      // 로그아웃 요청 분기
-      return NextResponse.redirect(new URL('/', request.url));
+      // TODO: 에러 메시지 고도화: 카카오 인증 실패
+      return NextResponse.redirect(new URL('/auth/signin', request.url));
     }
     const authResponse = await fetch(`${ROOT_API_URL}/auth/login/kakao?authCode=${authCode}`);
+
     if (!authResponse.ok) {
-      // 로그인 에러 처리
+      // TODO: 에러 메시지 고도화: 서버 로그인 실패
       return NextResponse.redirect(new URL('/auth/signin', request.url));
     }
 
     const authJson: FetchResponseType<AuthResponseType> = await authResponse.json();
-
     const { data, success } = authJson;
     if (!success) {
+      // TODO: 에러 메시지 고도화: 서버 로그인 데이터 파싱 실패
       return NextResponse.redirect(new URL('/auth/signin', request.url));
     }
 
     const response = NextResponse.redirect(new URL('/', request.url));
-    response.cookies.set('accessToken', data.accessToken);
-    response.cookies.set('refreshToken', data.refreshToken);
-    const now = new Date();
-    now.setSeconds(now.getSeconds() + data.accessTokenExpireDate);
-    response.cookies.set('accessTokenExpireDate', now.toString());
-    response.cookies.set('userId', data.userId.toString());
+    for (const [cookieKey, cookieValue] of generateCookiesKeyValues(data)) {
+      response.cookies.set(cookieKey, cookieValue.toString());
+    }
     return response;
   }
-  if (request.nextUrl.pathname.startsWith('/accounts')) {
-    const requestHeaders = new Headers(request.headers);
-    const accessToken = request.cookies.get('accessToken')?.value;
-    const accessTokenExpireDateTime = new Date(
-      request.cookies.get('accessTokenExpireDate')?.value ?? '',
-    ).getTime();
-    const isAccessTokenExpired =
-      isNaN(accessTokenExpireDateTime) ??
-      accessTokenExpireDateTime - new Date().getTime() < ACCESS_TOKEN_EXPIRE_MARGIN_SECOND;
-    if (accessToken && !isAccessTokenExpired) {
-      requestHeaders.set('Authorization', `Bearer ${accessToken}`);
-      console.log('accessToken', accessToken);
-      console.log(requestHeaders);
-    } else if (isAccessTokenExpired) {
-      // token refresh 로직 처리
+
+  // 인증이 필요한 페이지
+  for (let i = 0; i < PRIVATE_ROUTES.length; i++) {
+    if (request.nextUrl.pathname.startsWith(PRIVATE_ROUTES[i])) {
+      const requestHeaders = new Headers(request.headers);
+      const accessToken = request.cookies.get(AUTH_COOKIE_KEYS.accessToken)?.value;
+      const accessTokenExpireDate = Number(
+        request.cookies.get(AUTH_COOKIE_KEYS.accessTokenExpireDate)?.value,
+      );
+      const validAccessToken = getAccessToken({ accessToken, accessTokenExpireDate });
+      if (validAccessToken) {
+        requestHeaders.set('Authorization', `Bearer ${accessToken}`);
+        return NextResponse.next();
+      }
+      // server-side 로그아웃 처리
+      for (const cookieKey of Object.values(AUTH_COOKIE_KEYS)) {
+        request.cookies.delete(cookieKey);
+      }
       return NextResponse.redirect(new URL('/auth/signin', request.url));
     }
-    return NextResponse.next();
   }
 };
 
 const config = {
-  matcher: ['/auth/callback/kakao/(.*)', 'accounts'],
+  // middleware가 적용될 페이지를 설정해 두어야 SC에서의 api 요청이 정상적으로 작동합니다.
+  // https://nextjs.org/docs/app/building-your-application/routing/middleware#matcher
+  matcher: ['/auth/callback/kakao/(.*)', ...PRIVATE_ROUTES],
 };
 export { config, middleware };
