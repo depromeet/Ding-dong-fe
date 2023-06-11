@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 
 import { ROOT_API_URL } from '@/lib/api/config/requestUrl';
-import { AUTH_COOKIE_KEYS, AuthResponseType } from '@/types/auth';
+import { AUTH_COOKIE_KEYS, AuthResponse } from '@/types/auth';
 
 import { FetchResponseType } from './lib/api/config/api.types';
 import { generateCookiesKeyValues, getAccessToken } from './utils/auth/tokenHandlers';
@@ -26,7 +26,7 @@ const middleware = async (request: NextRequest) => {
       return NextResponse.redirect(new URL('/auth/signin', request.url));
     }
 
-    const authJson: FetchResponseType<AuthResponseType> = await authResponse.json();
+    const authJson: FetchResponseType<AuthResponse> = await authResponse.json();
     const { data, success } = authJson;
     if (!success) {
       // TODO: 에러 메시지 고도화: 서버 로그인 데이터 파싱 실패

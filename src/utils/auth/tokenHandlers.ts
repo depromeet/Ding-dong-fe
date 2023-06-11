@@ -1,10 +1,10 @@
-import { AUTH_COOKIE_KEYS, AuthResponseType } from '@/types/auth';
+import { AUTH_COOKIE_KEYS, AuthResponse } from '@/types/auth';
 
 const ACCESS_TOKEN_EXPIRE_MARGIN_SECOND = 60;
 
 const generateCookiesKeyValues = (
-  authResponse: AuthResponseType,
-): [string, AuthResponseType[keyof AuthResponseType]][] => {
+  authResponse: AuthResponse,
+): [string, AuthResponse[keyof AuthResponse]][] => {
   const {
     accessToken,
     refreshToken,
@@ -21,7 +21,7 @@ const generateCookiesKeyValues = (
     [AUTH_COOKIE_KEYS.accessTokenExpireDate, accessTokenExpireDate.getTime()],
   ];
 };
-const getAccessToken = (authTokens: Partial<AuthResponseType>): string | null => {
+const getAccessToken = (authTokens: Partial<AuthResponse>): string | null => {
   const { accessToken, refreshToken, accessTokenExpireDate } = authTokens;
   const isAccessTokenExpired =
     (accessTokenExpireDate ?? 0) - new Date().getTime() < ACCESS_TOKEN_EXPIRE_MARGIN_SECOND;
@@ -36,8 +36,8 @@ const getAccessToken = (authTokens: Partial<AuthResponseType>): string | null =>
   }
 };
 
-const getAuthTokensByCookie = (cookieString: string): Partial<AuthResponseType> => {
-  const auth: Partial<AuthResponseType> = {};
+const getAuthTokensByCookie = (cookieString: string): Partial<AuthResponse> => {
+  const auth: Partial<AuthResponse> = {};
   for (const cookie of cookieString.split('; ')) {
     const [key, value] = cookie.split('=');
     if (key === AUTH_COOKIE_KEYS.accessToken) {
