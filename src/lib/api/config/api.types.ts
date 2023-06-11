@@ -33,6 +33,6 @@ export interface BaseResponseType<T> extends AxiosResponse<T> {
 
 export type FetchResponseType<T> = {
   success: boolean;
-  statusCode: number;
-  data: T;
+  status: number;
+  data?: T;
 };
