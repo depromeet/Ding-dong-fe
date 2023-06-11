@@ -31,7 +31,20 @@ const IdCardDetailPage = async ({ params: { id } }: IdCardDetailPageProps) => {
         <Intro {...idCardDetailsDto} />
         <div className="flex flex-col gap-4 bg-white px-5 py-6">
           {idCardDetailsDto.keywords.map(keyword => (
-            <KeywordContentCard key={keyword.keywordId} {...keyword} />
+            <KeywordContentCard
+              key={keyword.keywordId}
+              title={keyword.title}
+              image={
+                keyword.imageUrl && (
+                  <Image
+                    src={keyword.imageUrl}
+                    alt={keyword.title}
+                    className="mx-auto my-0 max-h-[192px] max-w-[308px] object-contain"
+                  />
+                )
+              }
+              content={keyword.content}
+            />
           ))}
         </div>
       </div>

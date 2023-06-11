@@ -1,5 +1,3 @@
-export type CreateKeywordType = Omit<KeywordType, 'keywordId'>;
-
 export type CharacterType = {
   PIPI: { group: 'FIRST'; korean: '피피'; english: 'Pipi' };
   TRUE: { group: 'FIRST'; korean: '트루'; english: 'True' };

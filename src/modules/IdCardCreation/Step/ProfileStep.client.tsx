@@ -4,7 +4,7 @@ import { useFormContext } from 'react-hook-form';
 
 const fieldTitleStyle = 'text-b2  text-grey-500';
 const fieldStyle =
-  'border-[0.5px] border-solid mt-2px rounded-[6px] border-grey-100 bg-grey-50 w-full text-b1 focus:outline-none focus:border-primary-500';
+  'border-[0.5px] border-solid mt-2px rounded-[6px] border-grey-100 bg-grey-50 w-full text-b1 focus:border-primary-500';
 const title = '이웃 주민에게\n 자신을 소개해주세요!';
 const TEXT_MAX_LENGTH = 50;
 
