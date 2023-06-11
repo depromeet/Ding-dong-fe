@@ -2,8 +2,11 @@ import type { Meta } from '@storybook/react';
 
 import {
   ArrowLeftIcon,
+  BellIcon,
   CancelIcon,
   ChevronLeftIcon,
+  HomeIcon,
+  PersonIcon,
   PlusIcon,
   QuestionCircleIcon,
 } from '@/components/Icon';
@@ -46,4 +49,16 @@ export const Plus = {
 
 export const QuestionCircle = {
   render: () => <QuestionCircleIcon />,
+};
+
+export const Home = {
+  render: () => <HomeIcon />,
+};
+
+export const Person = {
+  render: () => <PersonIcon />,
+};
+
+export const Bell = {
+  render: () => <BellIcon />,
 };
