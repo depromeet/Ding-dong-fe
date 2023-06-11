@@ -21,7 +21,7 @@ const generateCookiesKeyValues = (
     [AUTH_COOKIE_KEYS.accessTokenExpireDate, accessTokenExpireDate.getTime()],
   ];
 };
-const getAccessToken = (authTokens: Partial<AuthResponse>): string | null => {
+const getAccessToken = async (authTokens: Partial<AuthResponse>): Promise<string | null> => {
   const { accessToken, refreshToken, accessTokenExpireDate } = authTokens;
   const isAccessTokenExpired =
     (accessTokenExpireDate ?? 0) - new Date().getTime() < ACCESS_TOKEN_EXPIRE_MARGIN_SECOND;

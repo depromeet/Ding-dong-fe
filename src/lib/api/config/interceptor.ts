@@ -4,10 +4,10 @@ import { getAccessToken, getAuthTokensByCookie } from '@/utils/auth/tokenHandler
 
 import { ApiError } from './customError';
 
-export const onRequest = (config: InternalAxiosRequestConfig) => {
+export const onRequest = async (config: InternalAxiosRequestConfig) => {
   try {
     const auth = getAuthTokensByCookie(document.cookie);
-    const validAccessToken = getAccessToken(auth);
+    const validAccessToken = await getAccessToken(auth);
     if (validAccessToken) {
       config.headers.Authorization = `Bearer ${validAccessToken}`;
       return config;

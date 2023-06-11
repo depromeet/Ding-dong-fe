@@ -48,7 +48,7 @@ const middleware = async (request: NextRequest) => {
       const accessTokenExpireDate = Number(
         request.cookies.get(AUTH_COOKIE_KEYS.accessTokenExpireDate)?.value,
       );
-      const validAccessToken = getAccessToken({ accessToken, accessTokenExpireDate });
+      const validAccessToken = await getAccessToken({ accessToken, accessTokenExpireDate });
       if (validAccessToken) {
         requestHeaders.set('Authorization', `Bearer ${accessToken}`);
         return NextResponse.next();
