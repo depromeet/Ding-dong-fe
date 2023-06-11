@@ -27,14 +27,20 @@ export const BottomNavigation = () => {
     <nav className="fixed bottom-0 left-0 w-full">
       <Divider />
       <ul className="flex h-[52px] items-center justify-evenly">
-        <li onClick={() => handleNavigation('/communities')}>
-          <HomeIcon className={getSvgcolor('/communities')} />
+        <li>
+          <button onClick={() => handleNavigation('/communities')}>
+            <HomeIcon className={getSvgcolor('/communities')} />
+          </button>
         </li>
-        <li onClick={() => handleNavigation('/notification')}>
-          <BellIcon height={26} className={getSvgcolor('/notification')} />
+        <li>
+          <button onClick={() => handleNavigation('/notification')}>
+            <BellIcon height={26} className={getSvgcolor('/notification')} />
+          </button>
         </li>
-        <li onClick={() => handleNavigation('/my-page')}>
-          <PersonIcon className={getSvgcolor('/my-page')} />
+        <li>
+          <button onClick={() => handleNavigation('/my-page')}>
+            <PersonIcon className={getSvgcolor('/my-page')} />
+          </button>
         </li>
       </ul>
     </nav>
