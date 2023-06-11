@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useFormContext } from 'react-hook-form';
 
 import { CancelIcon } from '@/components/Icon';
@@ -15,12 +15,20 @@ export const ImagePreview = ({ index }: ImagePreviewProps) => {
   const [imagePreview, setImagePreview] = useState('');
   const { keywords } = watch();
   const imageFileList = keywords[index].imageUrl;
+
   useEffect(() => {
     if (imageFileList && imageFileList.length > 0) {
-      const file = imageFileList[0];
+      if (imagePreview) URL.revokeObjectURL(imagePreview);
+
+      const file = imageFileList[0]; // fileblob
       setImagePreview(URL.createObjectURL(file));
     }
   }, [imageFileList]);
+
+  const onCancelClick = useCallback(() => {
+    if (imagePreview) URL.revokeObjectURL(imagePreview);
+    setImagePreview('');
+  }, []);
 
   return imagePreview ? (
     <div className="relative">
@@ -30,7 +38,7 @@ export const ImagePreview = ({ index }: ImagePreviewProps) => {
         alt="image preview"
       />
       <div className="absolute right-[12px] top-[12px] flex h-[16px] w-[16px]  items-center justify-center rounded-full bg-grey-800">
-        <CancelIcon size={8} className="block fill-white" />
+        <CancelIcon size={8} className="block fill-white"  onClick={onCancelClick} />
       </div>
     </div>
   ) : null;
