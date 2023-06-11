@@ -1,6 +1,8 @@
+import { PropsWithChildren } from 'react';
+
 import { BottomNavigation } from '@/components/BottomNavigation';
 
-const Layout = ({ children }: { children: React.ReactNode }) => {
+const Layout = ({ children }: PropsWithChildren) => {
   return (
     <div>
       {children}
