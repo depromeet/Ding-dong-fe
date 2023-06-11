@@ -1,19 +1,20 @@
 'use client';
 
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 
 import Tag from '@/components/Tag/Tag';
-import { CharacterNameType } from '@/types/idCard';
+import { CharacterNameModel } from '@/types/idCard';
 
 type IdCardProps = {
   idCardId: number;
   nickname: string;
   aboutMe: string;
-  characterType: CharacterNameType;
+  characterType: CharacterNameModel;
   keywordTitles: string[];
 };
 
-const bgColors: Record<CharacterNameType, string> = {
+const bgColors: Record<CharacterNameModel, string> = {
   BUDDY: 'bg-buddy-400',
   TOBBY: 'bg-tobby-400',
   PIPI: 'bg-pipi-400',
@@ -28,15 +29,20 @@ export const IdCard = ({
   keywordTitles,
 }: IdCardProps) => {
   const bgColor = bgColors[characterType];
+  const router = useRouter();
+
+  const handleClickIdCard = () => {
+    router.push(`/id-card/${idCardId}`);
+  };
 
   return (
-    <div className="w-full">
+    <div className="w-full" onClick={handleClickIdCard}>
       <div className={`${bgColor} rounded-t-2xl p-5`}>
         <p className="text-h1">{nickname}</p>
         <p className="mb-3 mt-3.5 text-b2">{aboutMe}</p>
         <div className="flex max-h-14 flex-wrap gap-1.5 overflow-hidden">
           {keywordTitles.map(keywordTitle => (
-            // TODO: 태그 2줄 이상 길어지면 ... 처리 필요
+            //TODO: 태그 2줄 이상 길어지면 ... 처리 필요
             <Tag key={keywordTitle} type={characterType} label={keywordTitle} />
           ))}
         </div>

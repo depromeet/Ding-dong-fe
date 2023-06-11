@@ -1,3 +1,3 @@
-import { UserInfoType } from './dto.type';
+import { UserInfoModel } from './model.type';
 
-export type UserInfoResponseType = UserInfoType;
+export type UserInfoResponse = UserInfoModel;

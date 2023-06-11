@@ -1,1 +1,1 @@
-export * from './IdCardForm';
+export * from './IdCardCreationForm';
