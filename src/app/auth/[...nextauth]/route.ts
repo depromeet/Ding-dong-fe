@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import { NextRequest } from 'next/server';
-import { AuthOptions, CookiesOptions } from 'next-auth';
+import { CookiesOptions } from 'next-auth';
 import NextAuth from 'next-auth/next';
 import KakaoProvider from 'next-auth/providers/kakao';
 
