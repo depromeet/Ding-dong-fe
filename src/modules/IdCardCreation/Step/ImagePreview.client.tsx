@@ -4,14 +4,14 @@ import { useEffect, useState } from 'react';
 import { useFormContext } from 'react-hook-form';
 
 import { CancelIcon } from '@/components/Icon';
-import { IdCardCreationFormType } from '@/types/idCard';
+import { IdCardCreationFormModel } from '@/types/idCard';
 
 type ImagePreviewProps = {
   index: number;
 };
 
 export const ImagePreview = ({ index }: ImagePreviewProps) => {
-  const { watch } = useFormContext<IdCardCreationFormType>();
+  const { watch } = useFormContext<IdCardCreationFormModel>();
   const [imagePreview, setImagePreview] = useState('');
   const { keywords } = watch();
   const imageFileList = keywords[index].imageUrl;
@@ -30,7 +30,7 @@ export const ImagePreview = ({ index }: ImagePreviewProps) => {
         alt="image preview"
       />
       <div className="absolute right-[12px] top-[12px] flex h-[16px] w-[16px]  items-center justify-center rounded-full bg-grey-800">
-        <CancelIcon className="block h-[8px] w-[8px] fill-white" />
+        <CancelIcon size={8} className="block fill-white" />
       </div>
     </div>
   ) : null;

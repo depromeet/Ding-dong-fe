@@ -1,7 +1,9 @@
-import { IdCardDetailType } from '@/types/idCard';
+import { IdCardDetailModel } from '@/types/idCard';
 
-export type CommentCountResponseType = {
+export type CommentCountResponse = {
   count: number;
 };
 
-export type IdCardDetailResponseType = IdCardDetailType;
+export type IdCardDetailResponse = {
+  idCardDetailsDto: IdCardDetailModel;
+};

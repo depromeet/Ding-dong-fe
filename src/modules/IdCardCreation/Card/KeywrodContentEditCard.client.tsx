@@ -3,11 +3,11 @@ import { ImagePreview } from '@/modules/IdCardCreation/Step/ImagePreview.client'
 import { useFormContext } from 'react-hook-form';
 import { useCallback, useState } from 'react';
 import { tw } from '@/utils/tailwind.util';
-import { CreateKeywordType } from '@/types/idCard';
+import { CreateKeywordModel } from '@/types/idCard';
 
 type KeywordContentEditCardProps = {
   className?: string;
-  keyword: CreateKeywordType;
+  keyword: CreateKeywordModel;
   index: number;
 };
 

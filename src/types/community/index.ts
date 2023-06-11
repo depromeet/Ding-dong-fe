@@ -1,2 +1,2 @@
-export * from './dto.type';
+export * from './model.type';
 export * from './response.type';

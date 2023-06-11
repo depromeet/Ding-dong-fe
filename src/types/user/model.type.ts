@@ -1,4 +1,4 @@
-export type UserInfoType = {
+export type UserInfoModel = {
   userId: number;
   email: string;
   nickname: string;

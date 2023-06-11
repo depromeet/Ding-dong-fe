@@ -1,16 +1,18 @@
 /** @type {import('tailwindcss').Config} */
 
+const MAX_SPACE_UNIT = 200;
+
 const pxToRem = (px, base = 16) => `${px / base}rem`;
 
 /**
- * 픽셀 단위의 space(margin, padding) 값을 선언하고, 해당 값들의 rem 단위 변환 값을 반환합니다.
- * ex) key: 2px -> value: "0.125rem"
+ * 픽셀 단위의 값을 선언하면, 해댕 값을 rem으로 변환되어 DOM에 적용됩니다.
+ * ex) key: 2pxr -> value: "0.125rem"
  * @returns {Object} 픽셀 값들을 키로 가지고 해당 값들의 rem 단위 변환 값을 값으로 가지는 객체입니다.
  */
-const declareSpace = () => {
-  const numbers = [2, 4, 8, 12, 16, 20, 24, 28, 32, 36, 40, 44, 48, 52];
+const declarePxr = () => {
+  const numbers = [...Array.from({ length: MAX_SPACE_UNIT }, (_, idx) => idx + 1)];
   const spacing = numbers.reduce((acc, px) => {
-    acc[`${px}px`] = pxToRem(px);
+    acc[`${px}pxr`] = pxToRem(px);
     return acc;
   }, {});
   return spacing;
@@ -41,6 +43,7 @@ module.exports = {
         b3: [pxToRem(13), { fontWeight: '400', lineHeight: '145%' }],
         // detail
         detail: [pxToRem(12), { fontWeight: '400', lineHeight: '125%' }],
+        ...declarePxr(),
       },
       colors: {
         primary: {
@@ -107,7 +110,7 @@ module.exports = {
         },
       },
       spacing: {
-        ...declareSpace(),
+        ...declarePxr(),
       },
       // TODO: 아직 폰트가 정해지지 않아 기본 값으로 넣어두었습니다. 폰트 지정 후 수정이 필요합니다.
       fontFamily: {

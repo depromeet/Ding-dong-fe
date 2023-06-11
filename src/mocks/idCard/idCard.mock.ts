@@ -1,9 +1,9 @@
 import { faker } from '@faker-js/faker/locale/ko';
 
-import { IdCardType } from '@/types/id-cards.type';
+import { IdCardDetailModel } from '@/types/idCard';
 
-export const createIdCard = (): IdCardType => ({
-  idCardId: faker.string.uuid(),
+export const createIdCard = (): IdCardDetailModel => ({
+  idCardId: faker.number.int(),
   nickname: faker.person.fullName(),
   profileImageUrl: faker.image.avatar(),
   aboutMe: faker.lorem.paragraph(),

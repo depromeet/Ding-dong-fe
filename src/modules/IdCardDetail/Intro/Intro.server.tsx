@@ -1,7 +1,7 @@
 import Tag from '@/components/Tag/Tag';
-import { CharacterType, IdCardType } from '@/types/id-cards.type';
+import { CharacterNameModel, IdCardDetailModel } from '@/types/idCard';
 
-const bgColors: Record<CharacterType, string> = {
+const bgColors: Record<CharacterNameModel, string> = {
   BUDDY: 'bg-buddy-100',
   TOBBY: 'bg-tobby-100',
   PIPI: 'bg-pipi-100',
@@ -15,7 +15,7 @@ export const Intro = ({
   aboutMe,
   keywords,
   characterType,
-}: IdCardType) => {
+}: IdCardDetailModel) => {
   const bgColor = bgColors[characterType];
 
   return (
