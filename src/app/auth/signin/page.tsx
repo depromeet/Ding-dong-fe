@@ -1,15 +1,6 @@
-import { redirect } from 'next/navigation';
-import { getServerSession } from 'next-auth';
-
-import { authOptions } from '@/app/auth/[...nextauth]/route';
-
 import { SignInProviders } from './signInProviders';
 
 const SignInPage = async () => {
-  const session = await getServerSession(authOptions);
-  if (session) {
-    redirect('/');
-  }
   return (
     <>
       <div className="flex h-screen flex-col justify-between px-6 pb-20 pt-28">
