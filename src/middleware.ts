@@ -1,9 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 
-import { ROOT_API_URL } from '@/lib/api/config/requestUrl';
 import { AUTH_COOKIE_KEYS, AuthResponse } from '@/types/auth';
 
-import { FetchResponseType } from './lib/api/config/api.types';
+import { PublicFetch } from './lib/api/config/publicFetch';
 import { generateCookiesKeyValues, getAccessToken } from './utils/auth/tokenHandlers';
 
 export const ACCESS_TOKEN_EXPIRE_MARGIN_SECOND = 60;
@@ -19,17 +18,12 @@ const middleware = async (request: NextRequest) => {
       // TODO: 에러 메시지 고도화: 카카오 인증 실패
       return NextResponse.redirect(new URL('/auth/signin', request.url));
     }
-    const authResponse = await fetch(`${ROOT_API_URL}/auth/login/kakao?authCode=${authCode}`);
 
-    if (!authResponse.ok) {
-      // TODO: 에러 메시지 고도화: 서버 로그인 실패
-      return NextResponse.redirect(new URL('/auth/signin', request.url));
-    }
-
-    const authJson: FetchResponseType<AuthResponse> = await authResponse.json();
-    const { data, success } = authJson;
-    if (!success) {
-      // TODO: 에러 메시지 고도화: 서버 로그인 데이터 파싱 실패
+    const { data, success } = await PublicFetch.get<AuthResponse>(
+      `/auth/login/kakao?authCode=${authCode}`,
+    );
+    if (!success || !data) {
+      // TODO: 에러 메시지 고도화: 로그인 실패
       return NextResponse.redirect(new URL('/auth/signin', request.url));
     }
 
@@ -51,7 +45,12 @@ const middleware = async (request: NextRequest) => {
       const validAccessToken = await getAccessToken({ accessToken, accessTokenExpireDate });
       if (validAccessToken) {
         requestHeaders.set('Authorization', `Bearer ${accessToken}`);
-        return NextResponse.next();
+        const response = NextResponse.next({
+          request: {
+            headers: requestHeaders,
+          },
+        });
+        return response;
       }
       // server-side 로그아웃 처리
       for (const cookieKey of Object.values(AUTH_COOKIE_KEYS)) {
