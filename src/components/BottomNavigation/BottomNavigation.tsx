@@ -24,7 +24,7 @@ export const BottomNavigation = () => {
   };
 
   return (
-    <nav>
+    <nav className="fixed bottom-0 left-0 w-full">
       <Divider />
       <ul className="flex h-[52px] items-center justify-evenly">
         <li onClick={() => handleNavigation('/communities')}>
