@@ -2,7 +2,7 @@ import 'server-only';
 
 import { getProviders } from 'next-auth/react';
 
-import Kakao from './kakaoLoginButton';
+import Kakao from './kakaoLoginButton.client';
 
 const SignInProviders = async () => {
   const providers = await getProviders();
