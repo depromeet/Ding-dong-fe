@@ -6,6 +6,7 @@ import {
   ChevronLeftIcon,
   PlusIcon,
   QuestionCircleIcon,
+  CameraIcon,
 } from '@/components/Icon';
 
 const meta: Meta = {
@@ -46,4 +47,8 @@ export const Plus = {
 
 export const QuestionCircle = {
   render: () => <QuestionCircleIcon />,
+};
+
+export const Camera = {
+  render: () => <CameraIcon />,
 };
