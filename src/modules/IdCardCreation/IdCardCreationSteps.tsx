@@ -3,21 +3,14 @@
 import { useCallback, useState } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 
-import { IdCardForm } from '@/modules/IdCardCreation/Form';
-import { Steps } from '@/modules/IdCardCreation/IdCardCreation.type';
+import { IdCardCreationForm } from '@/modules/IdCardCreation/Form';
 import { BoardingStep } from '@/modules/IdCardCreation/Step/BoardingStep.client';
 import { CompleteStep } from '@/modules/IdCardCreation/Step/CompleteStep.client';
-
+import { IdCardCreationFormModel, Steps } from '@/types/idCard/creation.type';
 const steps: Steps[] = ['BOARDING', 'PROFILE', 'KEYWORD', 'KEYWORD_CONTENT', 'COMPLETE'];
 
-export type Data = {
-  nickname: string;
-  aboutMe: string;
-  keywords: { title: string; imageUrl: string; content: string }[];
-};
-
-export const ResidentCardSteps = () => {
-  const methods = useForm({
+export const IdCardCreationSteps = () => {
+  const methods = useForm<IdCardCreationFormModel>({
     defaultValues: {
       nickname: '',
       aboutMe: '',
@@ -38,7 +31,7 @@ export const ResidentCardSteps = () => {
       {steps[stepOrder] === 'BOARDING' && <BoardingStep planetName="Dingdong" onNext={onNext} />}
       {['PROFILE', 'KEYWORD', 'KEYWORD_CONTENT'].includes(steps[stepOrder]) && (
         <div>
-          <IdCardForm steps={steps} stepOrder={stepOrder} onNext={onNext} onPrev={onPrev} />
+          <IdCardCreationForm steps={steps} stepOrder={stepOrder} onNext={onNext} onPrev={onPrev} />
         </div>
       )}
       {steps[stepOrder] === 'COMPLETE' && (

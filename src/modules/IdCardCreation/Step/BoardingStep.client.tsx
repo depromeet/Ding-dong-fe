@@ -64,11 +64,11 @@ export const BoardingStep = ({ planetName, onNext }: BoardingStepProps) => {
 
   return (
     <div>
-      <h1 className="mb-16px mt-[64px] text-h2 text-grey-900">{planetName}에 온걸 환영해!</h1>
+      <h1 className="mb-16pxr mt-[64px] text-h2 text-grey-900">{planetName}에 온걸 환영해!</h1>
       <Swiper slidesPerView="auto" pagination={{ clickable: true }} allowTouchMove>
         {subStepList.map(({ id, label, image, helperText }) => (
           <SwiperSlide key={id}>
-            <div className="pb-32px">
+            <div className="pb-32pxr">
               <p className="text-b1 text-grey-700">{label}</p>
               <div className="flex flex-col items-center justify-center">
                 <Image
@@ -79,7 +79,10 @@ export const BoardingStep = ({ planetName, onNext }: BoardingStepProps) => {
                   width={259}
                   height={267}
                 />
-                <TextButton className="mb-32px  flex gap-4px" onClick={() => onClickHelperText(id)}>
+                <TextButton
+                  className="mb-32pxr  flex gap-4pxr"
+                  onClick={() => onClickHelperText(id)}
+                >
                   <QuestionCircleIcon />
                   <span className="text-b3 text-grey-600">{helperText}</span>
                 </TextButton>
@@ -88,7 +91,7 @@ export const BoardingStep = ({ planetName, onNext }: BoardingStepProps) => {
           </SwiperSlide>
         ))}
       </Swiper>
-      <Button color="primary" size="large" onClick={onNext} className="mt-52px">
+      <Button color="primary" size="large" onClick={onNext} className="mt-52pxr">
         주민증 만들기
       </Button>
       <BottomSheet {...bottomSheetHandlers}>

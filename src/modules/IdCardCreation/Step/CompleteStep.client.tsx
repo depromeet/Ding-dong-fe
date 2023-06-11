@@ -4,13 +4,13 @@ import { useFormContext } from 'react-hook-form';
 
 import Button from '@/components/Button/Button';
 import { IdCard } from '@/modules/IdCard/IdCard.client';
-import { KeywordType } from '@/types/idCard';
+import { KeywordModel } from '@/types/idCard';
 
 export const CompleteStep = () => {
   const { getValues } = useFormContext();
   const values = getValues();
   const { nickname, aboutMe, keywords } = values;
-  const keywordTitles = keywords.map((keyword: KeywordType) => keyword.title);
+  const keywordTitles = keywords.map((keyword: KeywordModel) => keyword.title);
   return (
     // TODO: 지금은 커뮤니티 정보가 없는데 나중에 커뮤니티 타이틀 추가
     <div>

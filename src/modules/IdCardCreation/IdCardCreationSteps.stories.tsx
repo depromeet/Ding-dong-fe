@@ -2,17 +2,16 @@ import type { StoryObj } from '@storybook/react';
 
 import Button from '@/components/Button/Button';
 import { IdCard } from '@/modules/IdCard/IdCard.client';
-import { LoadingStep } from '@/modules/IdCardCreation/Step';
-import { BoardingStep } from '@/modules/IdCardCreation/Step';
+import { BoardingStep, LoadingStep } from '@/modules/IdCardCreation/Step';
 
-import { ResidentCardSteps } from './IdCardSteps';
+import { IdCardCreationSteps } from './IdCardCreationSteps';
 
 export default {
-  title: 'ResidentCardSteps',
-  component: ResidentCardSteps,
+  title: 'IdCardSteps',
+  component: IdCardCreationSteps,
 };
 
-type Story = StoryObj<typeof ResidentCardSteps>;
+type Story = StoryObj<typeof IdCardCreationSteps>;
 
 export const Default: Story = {};
 

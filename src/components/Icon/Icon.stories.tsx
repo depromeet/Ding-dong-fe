@@ -12,10 +12,20 @@ const meta: Meta = {
   title: 'Icon',
 };
 
+// Icon 폴더의 파일명을 알파벳순서로 정렬해주세요~
+
 export default meta;
 
-export const ChevronLeft = {
-  render: () => <ChevronLeftIcon />,
+export const ColorFillIcon = {
+  render: () => <ArrowLeftIcon className="fill-green-600 stroke-2" />,
+};
+
+export const ResizeIcon = {
+  render: () => <ArrowLeftIcon size={100} />,
+};
+
+export const HoverActiveIcon = {
+  render: () => <ArrowLeftIcon size={100} className="hover:fill-cyan-700" />,
 };
 
 export const ArrowLeft = {
@@ -26,9 +36,14 @@ export const Cancel = {
   render: () => <CancelIcon />,
 };
 
-export const QuestionCircle = {
-  render: () => <QuestionCircleIcon />,
+export const ChevronLeft = {
+  render: () => <ChevronLeftIcon />,
 };
+
 export const Plus = {
   render: () => <PlusIcon />,
+};
+
+export const QuestionCircle = {
+  render: () => <QuestionCircleIcon />,
 };

@@ -4,17 +4,17 @@ import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 
 import Tag from '@/components/Tag/Tag';
-import { CharacterNameType } from '@/types/idCard';
+import { CharacterNameModel } from '@/types/idCard';
 
 type IdCardProps = {
   idCardId: number;
   nickname: string;
   aboutMe: string;
-  characterType: CharacterNameType;
+  characterType: CharacterNameModel;
   keywordTitles: string[];
 };
 
-const bgColors: Record<CharacterNameType, string> = {
+const bgColors: Record<CharacterNameModel, string> = {
   BUDDY: 'bg-buddy-400',
   TOBBY: 'bg-tobby-400',
   PIPI: 'bg-pipi-400',

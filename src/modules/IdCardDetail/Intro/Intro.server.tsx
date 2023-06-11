@@ -1,21 +1,16 @@
 import Tag from '@/components/Tag/Tag';
-import { CharacterNameType, IdCardDetailType } from '@/types/idCard';
+import { CharacterNameModel, IdCardDetailModel } from '@/types/idCard';
 
-const bgColors: Record<CharacterNameType, string> = {
+const bgColors: Record<CharacterNameModel, string> = {
   BUDDY: 'bg-buddy-100',
   TOBBY: 'bg-tobby-100',
   PIPI: 'bg-pipi-100',
   TRUE: 'bg-true-100',
 };
 
-export const Intro = ({
-  idCardId,
-  nickname,
-  profileImageUrl,
-  aboutMe,
-  keywords,
-  characterType,
-}: IdCardDetailType) => {
+type IntorProps = Omit<IdCardDetailModel, 'idCardId' | 'profileImageUrl'>;
+
+export const Intro = ({ nickname, aboutMe, keywords, characterType }: IntorProps) => {
   const bgColor = bgColors[characterType];
 
   return (
