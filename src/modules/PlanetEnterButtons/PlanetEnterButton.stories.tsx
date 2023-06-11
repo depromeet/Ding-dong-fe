@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import { PlanetEnterButtons } from '@/modules/PlanetEnterButtons';
+import { PlanetEnterButtons } from './PlanetEnterButtons.client';
 
 const meta: Meta<typeof PlanetEnterButtons> = {
   title: 'PlanetEnterButtons',

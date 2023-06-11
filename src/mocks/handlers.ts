@@ -1,5 +1,5 @@
-import testerMockHandler from './tester/tester.mockHandler';
+import idCardMockHandler from '@/mocks/idCard/idCard.mockHandler';
 
-const handlers = [...testerMockHandler];
+const handlers = [...idCardMockHandler];
 
 export default handlers;
