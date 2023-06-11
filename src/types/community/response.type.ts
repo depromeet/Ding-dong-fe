@@ -4,4 +4,6 @@ import { CommunityIdCardSummaryModel } from '@/types/community';
 
 export type CommunitiesResponse = CommunitySummaryModel[];
 
-export type CommunityIdCardsResponse = SliceResponse<CommunityIdCardSummaryModel>;
+export type CommunityIdCardsResponse = {
+  communityIdCardsDtos: SliceResponse<CommunityIdCardSummaryModel>;
+};
