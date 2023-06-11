@@ -36,6 +36,9 @@ const preview: Preview = {
       viewports: INITIAL_VIEWPORTS,
       defaultViewport: 'iphone6',
     },
+    nextjs: {
+      appDirectory: true,
+    },
     webpackFinal: async config => {
       config.resolve.alias = {
         ...config.resolve.alias,
