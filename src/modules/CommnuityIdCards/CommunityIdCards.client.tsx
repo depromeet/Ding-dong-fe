@@ -8,6 +8,7 @@ import { IdCard } from '@/modules/IdCard';
 import { CommunityIdCardsModel } from '@/types/community';
 
 export const CommunityIdCards = () => {
+  console.log('CommunityIdCards');
   // TODO: 커뮤니티 id 값 수정해야함
   const { data: communityIdCards, fetchNextPage } = useGetCommunityIdCards({
     id: '1',

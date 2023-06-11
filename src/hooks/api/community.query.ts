@@ -14,6 +14,7 @@ export const useGetCommunityIdCards = ({ id, pageParam }: ComunityIdCardsRequest
           ? data.data.communityIdCardsDtos.page + 1
           : undefined,
       refetchOnWindowFocus: false,
+      enabled: false,
     },
   );
 };
