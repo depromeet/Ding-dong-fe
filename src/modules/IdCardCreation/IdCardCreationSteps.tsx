@@ -14,10 +14,16 @@ export const IdCardCreationSteps = () => {
     defaultValues: {
       nickname: '',
       aboutMe: '',
-      keywords: [],
+      keywords: [
+        {
+          title: '일요일',
+          imageUrl: '',
+          content: '',
+        },
+      ],
     },
   });
-  const [stepOrder, setStepOrder] = useState<number>(0);
+  const [stepOrder, setStepOrder] = useState<number>(3);
   const onNext = useCallback(() => {
     setStepOrder(stepOrder + 1);
   }, [stepOrder]);

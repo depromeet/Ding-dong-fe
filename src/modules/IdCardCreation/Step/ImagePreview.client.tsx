@@ -5,7 +5,6 @@ import { useFormContext } from 'react-hook-form';
 
 import { CancelIcon } from '@/components/Icon';
 import { IdCardCreationFormModel } from '@/types/idCard';
-import Image from 'next/image';
 type ImagePreviewProps = {
   index: number;
 };
@@ -31,16 +30,19 @@ export const ImagePreview = ({ index }: ImagePreviewProps) => {
   }, []);
 
   return imagePreview ? (
-    <div className="relative">
-      <Image
+    <div className="relative mx-auto my-0 w-fit">
+      <img
         src={imagePreview}
-        width={308}
-        height={192}
-        className="mx-auto my-0 max-h-[192px] max-w-[308px] object-contain"
+        className="max-h-[192px] max-w-[308px] object-contain"
         alt="image preview"
       />
       <div className="absolute right-[12px] top-[12px] flex h-[16px] w-[16px]  items-center justify-center rounded-full bg-grey-800">
-        <CancelIcon size={8} className="block fill-white"  onClick={onCancelClick} />
+        <CancelIcon
+          size={8}
+          viewBox={'0 0 16 16'}
+          className="block fill-white"
+          onClick={onCancelClick}
+        />
       </div>
     </div>
   ) : null;
