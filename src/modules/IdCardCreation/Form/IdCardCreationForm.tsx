@@ -6,14 +6,19 @@ import { KeywordStep } from '@/modules/IdCardCreation/Step/KeywordStep.client';
 
 import { KeywordContentStep, ProfileStep } from '../Step';
 
-type ResidentCardFormProps = {
+type IdCardCreationFormProps = {
   steps: Steps[];
   stepOrder: number;
   onNext: () => void;
   onPrev: () => void;
 };
 
-export const IdCardForm = ({ steps, stepOrder, onNext, onPrev }: ResidentCardFormProps) => {
+export const IdCardCreationForm = ({
+  steps,
+  stepOrder,
+  onNext,
+  onPrev,
+}: IdCardCreationFormProps) => {
   const { handleSubmit } = useFormContext();
   const onSubmit = () => console.log('제출');
 

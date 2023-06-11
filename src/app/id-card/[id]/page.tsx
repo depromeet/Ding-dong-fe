@@ -4,6 +4,7 @@ import TopNavigation from '@/components/TopNavigation/TopNavigation';
 import idCardApi from '@/lib/api/domain/idCard.api';
 import { Intro, KeywordContentCard } from '@/modules/IdCardDetail';
 import { CharacterNameModel } from '@/types/idCard';
+import Image from 'next/image';
 
 const bgColors: Record<CharacterNameModel, string> = {
   BUDDY: 'bg-buddy-100',
@@ -31,7 +32,20 @@ const IdCardDetailPage = async ({ params: { id } }: IdCardDetailPageProps) => {
         <Intro {...idCardDetailsDto} />
         <div className="flex flex-col gap-4 bg-white px-5 py-6">
           {idCardDetailsDto.keywords.map(keyword => (
-            <KeywordContentCard key={keyword.keywordId} {...keyword} />
+            <KeywordContentCard
+              key={keyword.keywordId}
+              title={keyword.title}
+              image={
+                keyword.imageUrl && (
+                  <Image
+                    src={keyword.imageUrl}
+                    alt={keyword.title}
+                    className="mx-auto my-0 max-h-[192px] max-w-[308px] object-contain"
+                  />
+                )
+              }
+              content={keyword.content}
+            />
           ))}
         </div>
       </div>

@@ -1,8 +1,3 @@
-import { CreateKeywordModel } from '@/types/idCard';
+import { IdCardCreationFormModel } from '@/types/idCard';
 
-export type CreateIdCardRequest = {
-  communityId: number;
-  nickname: string;
-  aboutMe: string;
-  keywords: CreateKeywordModel[];
-};
+export type CreateIdCardRequest = IdCardCreationFormModel;
