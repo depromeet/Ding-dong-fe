@@ -5,6 +5,13 @@ export type AuthResponseType = {
   accessTokenExpireDate: number;
 };
 
+export const AUTH_COOKIE_KEYS: Record<string, string> = {
+  accessToken: 'dingdong_at',
+  refreshToken: 'dingdong_rt',
+  userId: 'dingdong_uid',
+  accessTokenExpireDate: 'dingdong_at_expire_date',
+} as const;
+
 export type KakaoPropertiesType = {
   nickname: string;
   profile_image: string;
