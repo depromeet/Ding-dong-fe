@@ -26,17 +26,17 @@ export const BottomNavigation = () => {
   return (
     <nav>
       <Divider />
-      <div className="flex h-[52px] items-center justify-evenly">
-        <div onClick={() => handleNavigation('/communities')}>
+      <ul className="flex h-[52px] items-center justify-evenly">
+        <li onClick={() => handleNavigation('/communities')}>
           <HomeIcon className={getSvgcolor('/communities')} />
-        </div>
-        <div onClick={() => handleNavigation('/notification')}>
+        </li>
+        <li onClick={() => handleNavigation('/notification')}>
           <BellIcon height={26} className={getSvgcolor('/notification')} />
-        </div>
-        <div onClick={() => handleNavigation('/my-page')}>
+        </li>
+        <li onClick={() => handleNavigation('/my-page')}>
           <PersonIcon className={getSvgcolor('/my-page')} />
-        </div>
-      </div>
+        </li>
+      </ul>
     </nav>
   );
 };
