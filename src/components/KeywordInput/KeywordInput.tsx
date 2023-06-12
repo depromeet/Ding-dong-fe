@@ -6,13 +6,14 @@ import { useKeywordInput } from '~/components/KeywordInput/useKeywordInput.hooks
 
 import { OptionType } from './keywordInput.type';
 import { useInputAutoSize } from './useInputAutoSize';
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
+
 type KeywordInputProps = {
   id: string;
   placeholder: string;
   keywordLabel: string;
   keywordOptions: OptionType[];
   activeKeywordList: OptionType[];
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   onChange: (...event: any[]) => void; // rhf의 onChange타입입니다.
   maxActiveKeywordListLength: number;
   maxInputLength: number;
