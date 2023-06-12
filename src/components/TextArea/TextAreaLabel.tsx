@@ -5,11 +5,13 @@ import { ClassNameType } from '@/types/util';
 import { tw } from '@/utils/tailwind.util';
 
 type TextAreaLabelProps = {
+  name: string;
   required?: boolean;
   className?: ClassNameType;
 };
 
 export const TextAreaLabel = ({
+  name,
   required,
   className,
   children,
