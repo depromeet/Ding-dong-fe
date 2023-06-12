@@ -32,5 +32,5 @@ export const createCommunityIdCards = (
   content: Array.from({ length: n }, (_, idx) => createCommunityIdCard(idx)),
   page,
   size,
-  hasNext: page === 3,
+  hasNext: page === 5,
 });

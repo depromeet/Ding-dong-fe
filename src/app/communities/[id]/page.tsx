@@ -8,13 +8,10 @@ import getQueryClient from '@/lib/tanstackQuery/getQueryClient';
 import { CommunityIdCards } from '@/modules/CommnuityIdCards';
 
 const page = async () => {
-  console.log('page');
   const queryClient = getQueryClient();
   // TODO: 커뮤니티 id 값 수정해야함
   await queryClient.prefetchQuery(community.idCards('1', 1), () => {
-    console.log('prefetchQuery');
     return communityApi.getCommunityIdCards('1', 1).then(data => {
-      console.log(data);
       return {
         pages: [data],
       };

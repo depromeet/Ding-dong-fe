@@ -8,7 +8,6 @@ import { IdCard } from '@/modules/IdCard';
 import { CommunityIdCardsModel } from '@/types/community';
 
 export const CommunityIdCards = () => {
-  console.log('CommunityIdCards');
   // TODO: 커뮤니티 id 값 수정해야함
   const { data: communityIdCards, fetchNextPage } = useGetCommunityIdCards({
     id: '1',
@@ -25,7 +24,7 @@ export const CommunityIdCards = () => {
   return (
     <div className="flex flex-col gap-18pxr">
       {communityIdCards?.pages.map(page => {
-        return page.data?.communityIdCardsDtos.content.map((idCard: CommunityIdCardsModel) => {
+        return page.communityIdCardsDtos.content.map((idCard: CommunityIdCardsModel) => {
           return <IdCard key={idCard.idCardId} {...idCard} />;
         });
       })}

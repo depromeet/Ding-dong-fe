@@ -10,9 +10,7 @@ export const useGetCommunityIdCards = ({ id, pageParam }: ComunityIdCardsRequest
     ({ pageParam = 0 }) => communityApi.getCommunityIdCards(id, pageParam),
     {
       getNextPageParam: data =>
-        !data.data.communityIdCardsDtos.hasNext
-          ? data.data.communityIdCardsDtos.page + 1
-          : undefined,
+        !data.communityIdCardsDtos.hasNext ? data.communityIdCardsDtos.page + 1 : undefined,
       refetchOnWindowFocus: false,
       enabled: false,
     },
