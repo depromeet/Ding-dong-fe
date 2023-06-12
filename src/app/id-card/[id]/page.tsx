@@ -2,7 +2,7 @@ import 'server-only';
 
 import Image from 'next/image';
 
-import TopNavigation from '@/components/TopNavigation/TopNavigation';
+import { TopNavigation } from '@/components/TopNavigation';
 import idCardApi from '@/lib/api/domain/idCard.api';
 import { Intro, KeywordContentCard } from '@/modules/IdCardDetail';
 import { CharacterNameModel } from '@/types/idCard';
@@ -28,7 +28,11 @@ const IdCardDetailPage = async ({ params: { id } }: IdCardDetailPageProps) => {
 
   return (
     <main>
-      <TopNavigation bgColor={bgColor} />
+      <TopNavigation bgColor={bgColor}>
+        <TopNavigation.Left>
+          <TopNavigation.BackButton />
+        </TopNavigation.Left>
+      </TopNavigation>
       <div className={`${bgColor} pt-[44px]`}>
         <Intro {...idCardDetailsDto} />
         <div className="flex flex-col gap-4 bg-white px-5 py-6">
