@@ -2,11 +2,13 @@ import { CharacterNameModel, IdCardDetailModel } from '@/types/idCard';
 
 export type CommunityIdCardSummaryModel = Omit<IdCardDetailModel, 'profileImageUrl'>;
 
-export type CommunitySummaryModel = {
+export type CommunityDetailModel = {
   communityId: number;
-  thumbnailImageUrl: string;
+  logoImageUrl: string;
   coverImageUrl: string;
   title: string;
+  idCardCount: number;
+  description: string;
 };
 
 export type CommunityIdCardsModel = {

@@ -1,7 +1,7 @@
 import { rest } from 'msw';
 
-import { ROOT_API_URL } from '@/lib/api/config/requestUrl';
-import { createCommunityIdCards } from '@/mocks/community/community.mock';
+import { REQUEST_API, ROOT_API_URL } from '@/lib/api/config/requestUrl';
+import { createCommunityDetail, createCommunityIdCards } from '@/mocks/community/community.mock';
 
 const communityMockHandler = [
   // GET: api/communities/1/idCards
@@ -15,6 +15,9 @@ const communityMockHandler = [
         communityIdCardsDtos: createCommunityIdCards(10, page, 10),
       }),
     );
+  }),
+  rest.get(`${ROOT_API_URL}${REQUEST_API.COMMUNITINY.INDEX}/:id`, (req, res, ctx) => {
+    return res(ctx.status(200), ctx.json({ communityDetailsDto: createCommunityDetail() }));
   }),
 ];
 
