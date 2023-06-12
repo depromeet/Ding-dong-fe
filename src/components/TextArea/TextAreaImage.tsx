@@ -1,7 +1,7 @@
 'use client';
 import Image from 'next/image';
 
-import { tw } from '@/utils/tailwind.util';
+import { tw } from '~/utils/tailwind.util';
 
 type SafeNumber = number | `${number}`;
 

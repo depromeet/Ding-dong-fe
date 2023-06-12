@@ -1,4 +1,4 @@
-import { KakaoAccountModel, KakaoPropertiesModel } from '@/types/auth/model.type';
+import { KakaoAccountModel, KakaoPropertiesModel } from '~/types/auth/model.type';
 
 export type AuthResponse = {
   accessToken: string;

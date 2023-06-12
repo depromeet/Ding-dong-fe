@@ -1,6 +1,6 @@
 import { ComponentProps } from 'react';
 
-import { Svg } from '@/components/Svg';
+import { Svg } from '~/components/Svg';
 
 export const ArrowLeftIcon = ({
   className,

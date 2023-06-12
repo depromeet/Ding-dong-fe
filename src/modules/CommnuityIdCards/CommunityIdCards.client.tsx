@@ -3,9 +3,9 @@
 import { useEffect } from 'react';
 import { useInView } from 'react-intersection-observer';
 
-import { useGetCommunityIdCards } from '@/hooks/api/community.query';
-import { IdCard } from '@/modules/IdCard';
-import { CommunityIdCardsModel } from '@/types/community';
+import { useGetCommunityIdCards } from '~/hooks/api/community.query';
+import { IdCard } from '~/modules/IdCard';
+import { CommunityIdCardsModel } from '~/types/community';
 
 export const CommunityIdCards = () => {
   // TODO: 커뮤니티 id 값 수정해야함

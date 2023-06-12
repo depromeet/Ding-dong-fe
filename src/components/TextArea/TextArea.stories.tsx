@@ -2,7 +2,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { useForm } from 'react-hook-form';
 
-import { TextArea, useTextArea } from '@/components/TextArea';
+import { TextArea, useTextArea } from '~/components/TextArea';
 
 const meta: Meta<typeof TextArea> = {
   title: 'TextArea',

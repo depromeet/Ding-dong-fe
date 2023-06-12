@@ -1,7 +1,7 @@
 import { rest } from 'msw';
 
-import { ROOT_API_URL } from '@/lib/api/config/requestUrl';
-import { createCommunityIdCards } from '@/mocks/community/community.mock';
+import { ROOT_API_URL } from '~/lib/api/config/requestUrl';
+import { createCommunityIdCards } from '~/mocks/community/community.mock';
 
 const communityMockHandler = [
   // GET: api/communities/1/idCards

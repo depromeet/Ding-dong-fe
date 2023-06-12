@@ -59,7 +59,7 @@
         "groups": ["builtin", "external", ["parent", "sibling"], "index"],
         "pathGroups": [
           {
-            "pattern": "@/**",
+            "pattern": "~/**",
             "group": "external",
             "position": "after"
           }

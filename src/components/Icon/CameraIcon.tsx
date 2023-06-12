@@ -1,7 +1,7 @@
 import { ComponentProps } from 'react';
 
-import { Svg } from '@/components/Svg';
-import { tw } from '@/utils/tailwind.util';
+import { Svg } from '~/components/Svg';
+import { tw } from '~/utils/tailwind.util';
 
 export const CameraIcon = ({ width, height, className, ...rest }: ComponentProps<typeof Svg>) => {
   return (

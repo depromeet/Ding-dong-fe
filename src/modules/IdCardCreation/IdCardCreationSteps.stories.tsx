@@ -1,8 +1,8 @@
 import type { StoryObj } from '@storybook/react';
 
-import Button from '@/components/Button/Button';
-import { IdCard } from '@/modules/IdCard/IdCard.client';
-import { BoardingStep, LoadingStep } from '@/modules/IdCardCreation/Step';
+import Button from '~/components/Button/Button';
+import { IdCard } from '~/modules/IdCard/IdCard.client';
+import { BoardingStep, LoadingStep } from '~/modules/IdCardCreation/Step';
 
 import { IdCardCreationSteps } from './IdCardCreationSteps';
 

@@ -1,7 +1,7 @@
 'use client';
 import { forwardRef, TextareaHTMLAttributes } from 'react';
 
-import { tw } from '@/utils/tailwind.util';
+import { tw } from '~/utils/tailwind.util';
 
 type TextAreaContentProps = TextareaHTMLAttributes<HTMLTextAreaElement> & object;
 

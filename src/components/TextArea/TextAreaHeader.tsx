@@ -2,7 +2,7 @@
 
 import { PropsWithChildren } from 'react';
 
-import { tw } from '@/utils/tailwind.util';
+import { tw } from '~/utils/tailwind.util';
 
 type TextAreaHeaderProps = {
   className?: string;

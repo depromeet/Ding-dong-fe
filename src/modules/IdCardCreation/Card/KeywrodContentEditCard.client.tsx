@@ -4,10 +4,10 @@ import { faker } from '@faker-js/faker/locale/ko';
 import { ChangeEvent, useCallback, useRef, useState } from 'react';
 import { useFormContext } from 'react-hook-form';
 
-import { KeywordContentImage } from '@/modules/IdCardCreation/Step/KeywordContentImage.client';
-import { KeywordContentCard } from '@/modules/IdCardDetail';
-import { CreateKeywordModel } from '@/types/idCard';
-import { tw } from '@/utils/tailwind.util';
+import { KeywordContentImage } from '~/modules/IdCardCreation/Step/KeywordContentImage.client';
+import { KeywordContentCard } from '~/modules/IdCardDetail';
+import { CreateKeywordModel } from '~/types/idCard';
+import { tw } from '~/utils/tailwind.util';
 
 type KeywordContentEditCardProps = {
   className?: string;

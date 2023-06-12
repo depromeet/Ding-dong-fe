@@ -1,4 +1,4 @@
-import { KeywordModel } from '@/types/idCard/model.type';
+import { KeywordModel } from '~/types/idCard/model.type';
 
 export type Steps = 'BOARDING' | 'PROFILE' | 'KEYWORD' | 'KEYWORD_CONTENT' | 'COMPLETE';
 

@@ -10,7 +10,7 @@ import {
   PersonIcon,
   PlusIcon,
   QuestionCircleIcon,
-} from '@/components/Icon';
+} from '~/components/Icon';
 
 const meta: Meta = {
   title: 'Icon',
