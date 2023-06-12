@@ -9,7 +9,9 @@ type KakaoLoginButtonProps = {
 const KakaoLoginButton = ({ provider }: KakaoLoginButtonProps) => {
   return (
     <div>
-      <button onClick={() => signIn(provider.id, { redirect: true, callbackUrl: '/home' })}>
+      <button
+        onClick={() => signIn(provider.id, { redirect: true, callbackUrl: '/auth/callback/kakao' })}
+      >
         <Image
           src="/assets/images/kakao_login_large_wide.png"
           alt="KakaoButtonImage"
