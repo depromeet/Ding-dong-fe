@@ -1,7 +1,8 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 import type { Meta, StoryObj } from '@storybook/react';
 import { useForm } from 'react-hook-form';
 
-import { TextInput } from './index';
+import { TextInput, useTextInput } from './index';
 
 const meta: Meta<typeof TextInput> = {
   title: 'TextInput',
@@ -13,60 +14,152 @@ export default meta;
 
 type Story = StoryObj<typeof TextInput>;
 
-const TextInputWithRhf = ({ ...rest }) => {
-  const {
-    register,
-    formState: { errors },
-  } = useForm({
+const MAX_LENGTH = 16;
+
+const useStorybookWithRhf = () => {
+  const { register } = useForm({
     defaultValues: {
-      inputSb: '',
+      textInputSb: '',
     },
   });
 
-  return (
-    <TextInput
-      {...register}
-      placeholder="텍스트 영역"
-      errorMessage={errors['inputSb']?.message}
-      {...rest}
-    />
-  );
+  const { textCount, onChangeHandler } = useTextInput({
+    onChange: register('textInputSb').onChange,
+    maxLength: MAX_LENGTH,
+  });
+
+  return {
+    register,
+    onChangeHandler,
+    textCount,
+  };
 };
 
 export const Primary: Story = {
-  render: () => <TextInputWithRhf />,
+  render: () => {
+    const { register, onChangeHandler } = useStorybookWithRhf();
+    return (
+      <TextInput>
+        <TextInput.Label>라벨</TextInput.Label>
+        <TextInput.Border>
+          <TextInput.Content {...register('textInputSb')} onChange={onChangeHandler} />
+        </TextInput.Border>
+      </TextInput>
+    );
+  },
 };
 
 export const CustomLabel: Story = {
-  render: () => <TextInputWithRhf label="라벨" labelClassName="text-h1 text-primary-700" />,
-};
-
-export const NoLabel: Story = {
-  render: () => <TextInputWithRhf labelClassName="text-h1 text-primary-700" />,
+  render: () => {
+    const { register, onChangeHandler } = useStorybookWithRhf();
+    return (
+      <TextInput>
+        <TextInput.Label labelClassName="text-h1 text-primary-700">라벨</TextInput.Label>
+        <TextInput.Border>
+          <TextInput.Content {...register('textInputSb')} onChange={onChangeHandler} />
+        </TextInput.Border>
+      </TextInput>
+    );
+  },
 };
 
 export const Required: Story = {
-  render: () => <TextInputWithRhf label="라벨" required />,
+  render: () => {
+    const { register, onChangeHandler } = useStorybookWithRhf();
+    return (
+      <TextInput>
+        <TextInput.Label required>라벨</TextInput.Label>
+        <TextInput.Border>
+          <TextInput.Content {...register('textInputSb')} onChange={onChangeHandler} />
+        </TextInput.Border>
+      </TextInput>
+    );
+  },
+};
+
+export const NoLabel: Story = {
+  render: () => {
+    const { register, onChangeHandler } = useStorybookWithRhf();
+    return (
+      <TextInput>
+        <TextInput.Border>
+          <TextInput.Content {...register('textInputSb')} onChange={onChangeHandler} />
+        </TextInput.Border>
+      </TextInput>
+    );
+  },
 };
 
 export const Error: Story = {
-  render: () => <TextInputWithRhf label="라벨" errorMessage="오류가 발생했습니다." />,
+  render: () => {
+    const { register, onChangeHandler } = useStorybookWithRhf();
+    return (
+      <TextInput>
+        <TextInput.Label>라벨</TextInput.Label>
+        <TextInput.Border errorMessage="오류가 발생했습니다.">
+          <TextInput.Content {...register('textInputSb')} onChange={onChangeHandler} />
+        </TextInput.Border>
+      </TextInput>
+    );
+  },
 };
 
 export const Disabled: Story = {
-  render: () => <TextInputWithRhf label="라벨" disabled />,
+  render: () => {
+    const { register, onChangeHandler } = useStorybookWithRhf();
+    return (
+      <TextInput>
+        <TextInput.Label>라벨</TextInput.Label>
+        <TextInput.Border disabled>
+          <TextInput.Content disabled {...register('textInputSb')} onChange={onChangeHandler} />
+        </TextInput.Border>
+      </TextInput>
+    );
+  },
 };
 
 export const Information: Story = {
-  render: () => <TextInputWithRhf label="라벨" infoMessage="성공했습니다~" />,
+  render: () => {
+    const { register, onChangeHandler } = useStorybookWithRhf();
+    return (
+      <TextInput>
+        <TextInput.Label>라벨</TextInput.Label>
+        <TextInput.Border infoMessage="성공했습니다~">
+          <TextInput.Content {...register('textInputSb')} onChange={onChangeHandler} />
+        </TextInput.Border>
+      </TextInput>
+    );
+  },
 };
 
 export const MaxLength: Story = {
-  render: () => <TextInputWithRhf label="라벨" maxLength={16} />,
+  render: () => {
+    const { register, onChangeHandler, textCount } = useStorybookWithRhf();
+    return (
+      <TextInput>
+        <TextInput.Label>라벨</TextInput.Label>
+        <TextInput.Border textCount={textCount} maxLength={MAX_LENGTH}>
+          <TextInput.Content {...register('textInputSb')} onChange={onChangeHandler} />
+        </TextInput.Border>
+      </TextInput>
+    );
+  },
 };
 
 export const MaxLengthError: Story = {
-  render: () => (
-    <TextInputWithRhf label="라벨" errorMessage="오류가 발생했습니다." maxLength={16} />
-  ),
+  render: () => {
+    const { register, onChangeHandler, textCount } = useStorybookWithRhf();
+    return (
+      <TextInput>
+        <TextInput.Label>라벨</TextInput.Label>
+        <TextInput.Border
+          errorMessage="오류가 발생했습니다."
+          textCount={textCount}
+          maxLength={MAX_LENGTH}
+        >
+          <TextInput.Content {...register('textInputSb')} onChange={onChangeHandler} />
+        </TextInput.Border>
+      </TextInput>
+    );
+  },
 };
