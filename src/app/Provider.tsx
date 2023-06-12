@@ -17,7 +17,7 @@ const Provider = ({ children }: { children: React.ReactNode }) => {
 
   return (
     <>
-      <SessionProvider>
+      <SessionProvider basePath="/auth">
         <QueryClientProvider client={queryClient}>
           {children}
           <ReactQueryDevtools initialIsOpen={false} />

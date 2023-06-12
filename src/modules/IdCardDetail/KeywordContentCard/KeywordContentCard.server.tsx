@@ -1,4 +1,5 @@
 import { ReactNode } from 'react';
+
 import { tw } from '@/utils/tailwind.util';
 
 type KeywordContentCardProps = {
