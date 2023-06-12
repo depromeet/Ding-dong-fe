@@ -80,7 +80,7 @@ export const WithLabel: Story = {
     const { register, onChangeHandler } = useStorybookWithRhf();
     return (
       <TextArea>
-        <TextArea.Label label="라벨" />
+        <TextArea.Label>라벨</TextArea.Label>
         <TextArea.Border>
           <TextArea.Content {...register('textareaSb')} onChange={onChangeHandler} />
         </TextArea.Border>
@@ -94,7 +94,7 @@ export const CustomLabel: Story = {
     const { register, onChangeHandler } = useStorybookWithRhf();
     return (
       <TextArea>
-        <TextArea.Label label="라벨" className="text-h1 text-primary-700" />
+        <TextArea.Label className="text-h1 text-primary-700">라벨</TextArea.Label>
         <TextArea.Border>
           <TextArea.Content {...register('textareaSb')} onChange={onChangeHandler} />
         </TextArea.Border>
@@ -108,7 +108,7 @@ export const Required: Story = {
     const { register, onChangeHandler } = useStorybookWithRhf();
     return (
       <TextArea>
-        <TextArea.Label label="라벨" required />
+        <TextArea.Label required>라벨</TextArea.Label>
         <TextArea.Border>
           <TextArea.Content {...register('textareaSb')} onChange={onChangeHandler} />
         </TextArea.Border>
@@ -122,7 +122,7 @@ export const Error: Story = {
     const { register, onChangeHandler } = useStorybookWithRhf();
     return (
       <TextArea>
-        <TextArea.Label label="라벨" required />
+        <TextArea.Label required>라벨</TextArea.Label>
         <TextArea.Border errorMessage="오류가 발생했습니다.">
           <TextArea.Content {...register('textareaSb')} onChange={onChangeHandler} />
         </TextArea.Border>
@@ -136,7 +136,7 @@ export const Disabled: Story = {
     const { register, onChangeHandler } = useStorybookWithRhf();
     return (
       <TextArea>
-        <TextArea.Label label="라벨" required />
+        <TextArea.Label required>라벨</TextArea.Label>
         <TextArea.Border disabled>
           <TextArea.Content {...register('textareaSb')} disabled onChange={onChangeHandler} />
         </TextArea.Border>
@@ -150,7 +150,7 @@ export const Information: Story = {
     const { register, onChangeHandler } = useStorybookWithRhf();
     return (
       <TextArea>
-        <TextArea.Label label="라벨" required />
+        <TextArea.Label required>라벨</TextArea.Label>
         <TextArea.Border infoMessage="성공했습니다~">
           <TextArea.Content {...register('textareaSb')} onChange={onChangeHandler} />
         </TextArea.Border>
@@ -164,7 +164,7 @@ export const MaxLength: Story = {
     const { register, onChangeHandler, textCount } = useStorybookWithRhf();
     return (
       <TextArea>
-        <TextArea.Label label="라벨" required />
+        <TextArea.Label required>라벨</TextArea.Label>
         <TextArea.Border textCount={textCount} maxLength={50}>
           <TextArea.Content {...register('textareaSb')} onChange={onChangeHandler} />
         </TextArea.Border>
@@ -178,7 +178,7 @@ export const MaxLengthError: Story = {
     const { register, onChangeHandler, textCount } = useStorybookWithRhf();
     return (
       <TextArea>
-        <TextArea.Label label="라벨" required />
+        <TextArea.Label required>라벨</TextArea.Label>
         <TextArea.Border errorMessage="오류가 발생했습니다." textCount={textCount} maxLength={50}>
           <TextArea.Content {...register('textareaSb')} onChange={onChangeHandler} />
         </TextArea.Border>
