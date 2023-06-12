@@ -25,12 +25,6 @@ export interface ErrorResponseType {
   message: string;
 }
 
-export interface BaseResponseType<T> extends AxiosResponse<T> {
-  status: number;
-  data: T;
-  message: string;
-}
-
 export type FetchResponseType<T> = {
   success: boolean;
   status: number;
