@@ -28,7 +28,9 @@ export const ProfileStep = () => {
       <h1 className="text-h1">{title}</h1>
       <div className="mx-auto mt-20pxr h-[88px] w-[92px] rounded-full bg-amber-500" />
       <TextInput>
-        <TextInput.Label required>이름</TextInput.Label>
+        <TextInput.Label name="nickname" required>
+          이름
+        </TextInput.Label>
         <TextInput.Border textCount={textCount} maxLength={TEXT_MAX_LENGTH}>
           <TextInput.Content
             {...(register('nickname'), { required: true })}
