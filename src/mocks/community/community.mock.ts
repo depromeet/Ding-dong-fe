@@ -41,5 +41,5 @@ export const createCommunityDetail = (): CommunityDetailModel => ({
   coverImageUrl: faker.image.avatar(),
   title: faker.lorem.sentence(),
   idCardCount: faker.number.int(),
-  description: faker.lorem.paragraph(),
+  description: faker.lorem.lines(2),
 });
