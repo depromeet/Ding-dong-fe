@@ -1,7 +1,7 @@
 import { ChangeEvent, useState } from 'react';
 
 import { OptionType } from './keywordInput.type';
-
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 type UseKeywordInputProps = {
   id: string;
   activeKeywordList: OptionType[];

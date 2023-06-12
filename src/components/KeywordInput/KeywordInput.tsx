@@ -6,7 +6,7 @@ import { useKeywordInput } from '@/components/KeywordInput/useKeywordInput.hooks
 
 import { OptionType } from './keywordInput.type';
 import { useInputAutoSize } from './useInputAutoSize';
-
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 type KeywordInputProps = {
   id: string;
   placeholder: string;

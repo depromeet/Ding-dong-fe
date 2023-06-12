@@ -31,7 +31,7 @@ const iconColors: Record<ChipColor, string> = {
   default: '',
   selected: 'fill-white',
 };
-
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const icons: Record<ChipThemeType, (props: any) => JSX.Element> = {
   default: () => <></>,
   close: CancelIcon,
@@ -53,7 +53,7 @@ export const Chip = ({
       className={`${colors[colorType]} flex h-[30px] w-fit items-center justify-center gap-1.5 rounded-[50px] border-[1px] px-8pxr py-12pxr text-b3`}
     >
       <span>{text}</span>
-      {<ButtonIcon onClick={handleClickIcon} className={`${iconColors[colorType]}`} />}
+      <ButtonIcon onClick={handleClickIcon} className={`${iconColors[colorType]}`} />
     </button>
   );
 };

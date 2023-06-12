@@ -29,7 +29,7 @@ export const KeywordContentImage = ({ index }: KeywordContentImageProps) => {
       <div className="absolute right-[12px] top-[12px] flex h-[16px] w-[16px]  items-center justify-center rounded-full bg-grey-800">
         <CancelIcon
           size={8}
-          viewBox={'0 0 16 16'}
+          viewBox="0 0 16 16"
           className="block fill-white"
           onClick={onCancelClick}
         />
