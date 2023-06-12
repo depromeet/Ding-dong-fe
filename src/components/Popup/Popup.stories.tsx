@@ -18,10 +18,10 @@ export const Default: Story = {
     buttons: (
       <>
         <Button size="medium" color="primary">
-          {'버튼'}
+          버튼
         </Button>
         <Button size="medium" color="secondary">
-          {'버튼'}
+          버튼
         </Button>
       </>
     ),
@@ -37,7 +37,7 @@ export const Positive: Story = {
     buttons: (
       <>
         <Button size="medium" color="primary">
-          {'버튼'}
+          버튼
         </Button>
       </>
     ),
