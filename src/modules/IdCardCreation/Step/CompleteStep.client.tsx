@@ -2,9 +2,9 @@
 
 import { useFormContext } from 'react-hook-form';
 
-import Button from '@/components/Button/Button';
-import { IdCard } from '@/modules/IdCard/IdCard.client';
-import { KeywordModel } from '@/types/idCard';
+import Button from '~/components/Button/Button';
+import { IdCard } from '~/modules/IdCard/IdCard.client';
+import { KeywordModel } from '~/types/idCard';
 
 export const CompleteStep = () => {
   const { getValues } = useFormContext();

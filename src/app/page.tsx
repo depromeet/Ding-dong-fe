@@ -1,4 +1,4 @@
-import CommunitiesPage from '@/app/communities/page';
+import CommunitiesPage from '~/app/communities/page';
 
 const Home = () => {
   return (

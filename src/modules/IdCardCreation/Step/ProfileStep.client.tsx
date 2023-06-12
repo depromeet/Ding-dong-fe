@@ -3,8 +3,8 @@ import { faker } from '@faker-js/faker/locale/ko';
 import { ChangeEvent, useCallback, useState } from 'react';
 import { useFormContext } from 'react-hook-form';
 
-import { ProfileImageEdit } from '@/components/ProfileImageEdit';
-import { TextInput, useTextInput } from '@/components/TextInput';
+import { ProfileImageEdit } from '~/components/ProfileImageEdit';
+import { TextInput, useTextInput } from '~/components/TextInput';
 
 const fieldTitleStyle = 'text-b2  text-grey-500';
 const fieldStyle =
@@ -40,7 +40,7 @@ export const ProfileStep = () => {
         </TextInput.Label>
         <TextInput.Border textCount={textCount} maxLength={TEXT_MAX_LENGTH}>
           <TextInput.Content
-            {...(register('nickname'), { required: true })}
+            {...register('nickname', { required: true })}
             onChange={onChangeHandler}
           />
         </TextInput.Border>

@@ -2,8 +2,8 @@
 
 import { usePathname, useRouter } from 'next/navigation';
 
-import { Divider } from '@/components/Divider';
-import { BellIcon, HomeIcon, PersonIcon } from '@/components/Icon';
+import { Divider } from '~/components/Divider';
+import { BellIcon, HomeIcon, PersonIcon } from '~/components/Icon';
 
 type BottomNavigationPath = '/communities' | '/notification' | '/my-page';
 

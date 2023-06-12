@@ -1,6 +1,6 @@
 import { ButtonHTMLAttributes } from 'react';
 
-import { CancelIcon, PlusIcon } from '@/components/Icon';
+import { CancelIcon, PlusIcon } from '~/components/Icon';
 
 type ChipThemeType = 'default' | 'close' | 'plus';
 type ChipColor = 'default' | 'selected';

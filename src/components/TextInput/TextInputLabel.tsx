@@ -1,8 +1,8 @@
 'use client';
 import { PropsWithChildren } from 'react';
 
-import { ClassNameType } from '@/types/util';
-import { tw } from '@/utils/tailwind.util';
+import { ClassNameType } from '~/types/util';
+import { tw } from '~/utils/tailwind.util';
 
 type TextInputLabelProps = {
   name: string;

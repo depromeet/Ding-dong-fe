@@ -4,8 +4,8 @@ import { faker } from '@faker-js/faker/locale/ko';
 import Image from 'next/image';
 import { forwardRef, InputHTMLAttributes, memo, useState } from 'react';
 
-import { CameraIcon } from '@/components/Icon/CameraIcon';
-import { tw } from '@/utils/tailwind.util';
+import { CameraIcon } from '~/components/Icon/CameraIcon';
+import { tw } from '~/utils/tailwind.util';
 
 type ProfileImageEditProps = InputHTMLAttributes<HTMLInputElement> & {
   defaultProfileImage: string;

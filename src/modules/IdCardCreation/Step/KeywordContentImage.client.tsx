@@ -3,8 +3,8 @@
 import { useCallback } from 'react';
 import { useFormContext } from 'react-hook-form';
 
-import { CancelIcon } from '@/components/Icon';
-import { IdCardCreationFormModel } from '@/types/idCard';
+import { CancelIcon } from '~/components/Icon';
+import { IdCardCreationFormModel } from '~/types/idCard';
 type KeywordContentImageProps = {
   index: number;
 };

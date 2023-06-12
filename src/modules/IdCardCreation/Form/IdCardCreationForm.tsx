@@ -1,8 +1,8 @@
 'use client';
 import { useFormContext } from 'react-hook-form';
 
-import { KeywordStep } from '@/modules/IdCardCreation/Step/KeywordStep.client';
-import { Steps } from '@/types/idCard';
+import { KeywordStep } from '~/modules/IdCardCreation/Step/KeywordStep.client';
+import { Steps } from '~/types/idCard';
 
 import { KeywordContentStep, ProfileStep } from '../Step';
 
