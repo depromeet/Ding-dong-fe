@@ -4,18 +4,18 @@ import { PropsWithChildren } from 'react';
 import { ClassNameType } from '@/types/util';
 import { tw } from '@/utils/tailwind.util';
 
-type TextInputLabelProps = {
+type TextAreaLabelProps = {
   name: string;
   required?: boolean;
   className?: ClassNameType;
 };
 
-export const TextInputLabel = ({
+export const TextAreaLabel = ({
   name,
   required,
   className,
   children,
-}: PropsWithChildren<TextInputLabelProps>) => {
+}: PropsWithChildren<TextAreaLabelProps>) => {
   const requiredPseudoCss =
     required &&
     'after:content-[" "] after:inline-block after:w-[4px] after:h-[4px] after:rounded-full after:bg-[#FF5555] after:absolute after:top-0 after:right-[-10px] ';
@@ -23,7 +23,7 @@ export const TextInputLabel = ({
   return (
     <label
       className={tw('font-b2 relative mb-8pxr w-fit text-grey-500', className, requiredPseudoCss)}
-      htmlFor={`text-input-${name}`}
+      htmlFor={`text-area-${name}`}
     >
       {children}
     </label>
