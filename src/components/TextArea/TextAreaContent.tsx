@@ -1,4 +1,5 @@
 /* eslint-disable react/prop-types */
+'use client';
 import { forwardRef, memo, TextareaHTMLAttributes } from 'react';
 
 import { tw } from '@/utils/tailwind.util';

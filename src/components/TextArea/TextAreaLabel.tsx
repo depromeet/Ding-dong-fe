@@ -1,3 +1,4 @@
+'use client';
 import { ClassNameType } from '@/types/util';
 import { tw } from '@/utils/tailwind.util';
 

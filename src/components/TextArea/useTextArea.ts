@@ -1,3 +1,4 @@
+'use client';
 import { ChangeEvent, ChangeEventHandler, useCallback, useState } from 'react';
 
 export type UseTextAreaProps = {
