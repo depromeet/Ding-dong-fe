@@ -94,7 +94,7 @@ export const CustomLabel: Story = {
     const { register, onChangeHandler } = useStorybookWithRhf();
     return (
       <TextArea>
-        <TextArea.Label label="라벨" labelClassName="text-h1 text-primary-700" />
+        <TextArea.Label label="라벨" className="text-h1 text-primary-700" />
         <TextArea.Border>
           <TextArea.Content {...register('textareaSb')} onChange={onChangeHandler} />
         </TextArea.Border>
