@@ -1,3 +1,4 @@
+'use client';
 import { forwardRef, InputHTMLAttributes, memo } from 'react';
 
 import { ClassNameType } from '@/types/util';

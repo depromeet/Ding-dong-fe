@@ -1,3 +1,4 @@
+'use client';
 import { PropsWithChildren } from 'react';
 
 import { tw } from '@/utils/tailwind.util';

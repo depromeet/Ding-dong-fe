@@ -1,3 +1,4 @@
+'use client';
 import { PropsWithChildren } from 'react';
 
 import { ClassNameType } from '@/types/util';
