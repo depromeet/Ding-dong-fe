@@ -1,4 +1,4 @@
-import { IdCardDetailModel } from '@/types/idCard';
+import { IdCardDetailModel } from '~/types/idCard';
 
 export type CommentCountResponse = {
   count: number;

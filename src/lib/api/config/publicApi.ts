@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import { CustomInstance } from '@/lib/api/config/api.types';
+import { CustomInstance } from '~/lib/api/config/api.types';
 
 import { onResponse, onResponseError } from './interceptor';
 import { ROOT_API_URL } from './requestUrl';

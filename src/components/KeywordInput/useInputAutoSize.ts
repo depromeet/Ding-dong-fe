@@ -37,5 +37,5 @@ export const useInputAutoSize = ({
 
     resetWidth(inputElement);
     setInputWidth(inputElement);
-  }, [inputValue, activeKeywordListLength]);
+  }, [inputRef, setInputWidth, inputValue, activeKeywordListLength]);
 };

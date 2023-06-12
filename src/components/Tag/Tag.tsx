@@ -1,4 +1,4 @@
-import { CharacterNameModel } from '@/types/idCard';
+import { CharacterNameModel } from '~/types/idCard';
 
 type TagProps = {
   type: CharacterNameModel;

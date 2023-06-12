@@ -1,3 +1,3 @@
-import { IdCardCreationFormModel } from '@/types/idCard';
+import { IdCardCreationFormModel } from '~/types/idCard';
 
 export type CreateIdCardRequest = IdCardCreationFormModel;

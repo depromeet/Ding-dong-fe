@@ -1,7 +1,7 @@
 import { faker } from '@faker-js/faker/locale/ko';
 
-import { SliceResponse } from '@/types/api';
-import { CommunityIdCardsModel } from '@/types/community';
+import { SliceResponse } from '~/types/api';
+import { CommunityIdCardsModel } from '~/types/community';
 
 export const createCommunityIdCard = (idx: number): CommunityIdCardsModel => ({
   idCardId: idx,

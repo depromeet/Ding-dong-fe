@@ -2,7 +2,7 @@
 
 import { ReactNode } from 'react';
 
-import { AnimatedPortal } from '@/components/Portal';
+import { AnimatedPortal } from '~/components/Portal';
 
 type PopupProps = {
   title?: string;

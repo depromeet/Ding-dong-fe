@@ -1,8 +1,8 @@
 'use client';
 import { useFormContext } from 'react-hook-form';
 
-import { KeywordStep } from '@/modules/IdCardCreation/Step/KeywordStep.client';
-import { Steps } from '@/types/idCard';
+import { KeywordStep } from '~/modules/IdCardCreation/Step/KeywordStep.client';
+import { Steps } from '~/types/idCard';
 
 import { KeywordContentStep, ProfileStep } from '../Step';
 
@@ -24,9 +24,9 @@ export const IdCardCreationForm = ({
 
   return (
     <div>
-      <div key={'Top navigation'}>
+      <div key="Top navigation">
         {steps[stepOrder] === 'KEYWORD_CONTENT' ? (
-          <button type={'submit'}>제출</button>
+          <button type="submit">제출</button>
         ) : (
           <button onClick={onNext}>다음</button>
         )}

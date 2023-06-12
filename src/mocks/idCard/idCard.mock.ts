@@ -1,6 +1,6 @@
 import { faker } from '@faker-js/faker/locale/ko';
 
-import { IdCardDetailModel } from '@/types/idCard';
+import { IdCardDetailModel } from '~/types/idCard';
 
 export const createIdCard = (): IdCardDetailModel => ({
   idCardId: faker.number.int(),

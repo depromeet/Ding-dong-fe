@@ -1,4 +1,4 @@
-import { AUTH_COOKIE_KEYS, AuthResponse } from '@/types/auth';
+import { AUTH_COOKIE_KEYS, AuthResponse } from '~/types/auth';
 
 const ACCESS_TOKEN_EXPIRE_MARGIN_SECOND = 60;
 

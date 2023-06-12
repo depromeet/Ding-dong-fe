@@ -1,12 +1,12 @@
 'use client';
 import { KeyboardEvent, MouseEvent, useRef } from 'react';
 
-import { Chip } from '@/components/Chip/Chip';
-import { useKeywordInput } from '@/components/KeywordInput/useKeywordInput.hooks';
+import { Chip } from '~/components/Chip/Chip';
+import { useKeywordInput } from '~/components/KeywordInput/useKeywordInput.hooks';
 
 import { OptionType } from './keywordInput.type';
 import { useInputAutoSize } from './useInputAutoSize';
-
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 type KeywordInputProps = {
   id: string;
   placeholder: string;
