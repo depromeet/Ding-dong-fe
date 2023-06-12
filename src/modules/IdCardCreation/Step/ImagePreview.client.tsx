@@ -24,6 +24,7 @@ export const ImagePreview = ({ index }: ImagePreviewProps) => {
 
   return imagePreview ? (
     <div className="relative">
+      {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
         src={imagePreview}
         className="mx-auto my-0 max-h-[192px] max-w-[308px] object-contain"

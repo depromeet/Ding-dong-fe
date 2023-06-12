@@ -31,7 +31,7 @@ const iconColors: Record<ChipColor, string> = {
   default: '',
   selected: 'fill-white',
 };
-
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const icons: Record<ChipThemeType, (props: any) => JSX.Element> = {
   default: () => <></>,
   close: CancelIcon,
