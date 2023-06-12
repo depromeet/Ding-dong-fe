@@ -1,4 +1,4 @@
-import { IdCardDetailModel } from '@/types/idCard';
+import { CharacterNameModel, IdCardDetailModel } from '@/types/idCard';
 
 export type CommunityIdCardSummaryModel = Omit<IdCardDetailModel, 'profileImageUrl'>;
 
@@ -7,4 +7,12 @@ export type CommunitySummaryModel = {
   thumbnailImageUrl: string;
   coverImageUrl: string;
   title: string;
+};
+
+export type CommunityIdCardsModel = {
+  idCardId: number;
+  nickname: string;
+  aboutMe: string;
+  characterType: CharacterNameModel;
+  keywordTitles: string[];
 };
