@@ -42,14 +42,11 @@ const getAuthTokensByCookie = (cookieString: string): Partial<AuthResponse> => {
     const [key, value] = cookie.split('=');
     if (key === AUTH_COOKIE_KEYS.accessToken) {
       auth.accessToken = value;
-    }
-    if (key === AUTH_COOKIE_KEYS.refreshToken) {
+    } else if (key === AUTH_COOKIE_KEYS.refreshToken) {
       auth.refreshToken = value;
-    }
-    if (key === AUTH_COOKIE_KEYS.userId) {
+    } else if (key === AUTH_COOKIE_KEYS.userId) {
       auth.userId = Number(value);
-    }
-    if (key === AUTH_COOKIE_KEYS.accessTokenExpireDate) {
+    } else if (key === AUTH_COOKIE_KEYS.accessTokenExpireDate) {
       auth.accessTokenExpireDate = Number(value);
     }
   }

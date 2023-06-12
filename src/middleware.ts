@@ -35,29 +35,31 @@ const middleware = async (request: NextRequest) => {
   }
 
   // 인증이 필요한 페이지
-  for (let i = 0; i < PRIVATE_ROUTES.length; i++) {
-    if (request.nextUrl.pathname.startsWith(PRIVATE_ROUTES[i])) {
-      const requestHeaders = new Headers(request.headers);
-      const accessToken = request.cookies.get(AUTH_COOKIE_KEYS.accessToken)?.value;
-      const accessTokenExpireDate = Number(
-        request.cookies.get(AUTH_COOKIE_KEYS.accessTokenExpireDate)?.value,
-      );
-      const validAccessToken = await getAccessToken({ accessToken, accessTokenExpireDate });
-      if (validAccessToken) {
-        requestHeaders.set('Authorization', `Bearer ${accessToken}`);
-        const response = NextResponse.next({
-          request: {
-            headers: requestHeaders,
-          },
-        });
-        return response;
-      }
-      // server-side 로그아웃 처리
-      for (const cookieKey of Object.values(AUTH_COOKIE_KEYS)) {
-        request.cookies.delete(cookieKey);
-      }
-      return NextResponse.redirect(new URL('/auth/signin', request.url));
+  const currentPrivateRoute = PRIVATE_ROUTES.find(route =>
+    request.nextUrl.pathname.startsWith(route),
+  );
+
+  if (currentPrivateRoute) {
+    const requestHeaders = new Headers(request.headers);
+    const accessToken = request.cookies.get(AUTH_COOKIE_KEYS.accessToken)?.value;
+    const accessTokenExpireDate = Number(
+      request.cookies.get(AUTH_COOKIE_KEYS.accessTokenExpireDate)?.value,
+    );
+    const validAccessToken = await getAccessToken({ accessToken, accessTokenExpireDate });
+    if (validAccessToken) {
+      requestHeaders.set('Authorization', `Bearer ${accessToken}`);
+      const response = NextResponse.next({
+        request: {
+          headers: requestHeaders,
+        },
+      });
+      return response;
     }
+    // server-side 로그아웃 처리
+    for (const cookieKey of Object.values(AUTH_COOKIE_KEYS)) {
+      request.cookies.delete(cookieKey);
+    }
+    return NextResponse.redirect(new URL('/auth/signin', request.url));
   }
 };
 
