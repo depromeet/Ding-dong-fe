@@ -3,6 +3,7 @@ import type { Meta } from '@storybook/react';
 import {
   ArrowLeftIcon,
   BellIcon,
+  CameraIcon,
   CancelIcon,
   ChevronLeftIcon,
   HomeIcon,
@@ -61,4 +62,8 @@ export const Person = {
 
 export const Bell = {
   render: () => <BellIcon />,
+};
+
+export const Camera = {
+  render: () => <CameraIcon />,
 };
