@@ -6,7 +6,6 @@ const meta: Meta<typeof TopNavigation> = {
   title: 'TopNavigation',
   component: TopNavigation,
   args: {},
-  parameters: {},
 };
 
 export default meta;
@@ -14,7 +13,15 @@ export default meta;
 type Story = StoryObj<typeof TopNavigation>;
 
 export const Primary: Story = {
-  render: () => <TopNavigation></TopNavigation>,
+  render: () => {
+    return (
+      <TopNavigation>
+        <TopNavigation.Left>
+          <TopNavigation.BackButton />
+        </TopNavigation.Left>
+      </TopNavigation>
+    );
+  },
 };
 
 export const CancelBackButton: Story = {
