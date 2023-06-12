@@ -1,11 +1,12 @@
 'use client';
 
 import { KeywordContentCard } from '@/modules/IdCardDetail';
-import { ImagePreview } from '@/modules/IdCardCreation/Step/ImagePreview.client';
 import { useFormContext } from 'react-hook-form';
 import { useCallback, useRef, useState } from 'react';
 import { tw } from '@/utils/tailwind.util';
 import { CreateKeywordModel } from '@/types/idCard';
+import { faker } from '@faker-js/faker/locale/ko';
+import { KeywordContentImage } from '@/modules/IdCardCreation/Step/KeywordContentImage.client';
 
 type KeywordContentEditCardProps = {
   className?: string;
@@ -18,7 +19,7 @@ export const KeywordContentEditCard = ({
   keyword,
   index,
 }: KeywordContentEditCardProps) => {
-  const { register } = useFormContext();
+  const { register, setValue } = useFormContext();
   const [textFocus, setTextFocus] = useState<boolean>();
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
@@ -33,13 +34,25 @@ export const KeywordContentEditCard = ({
     setTextFocus(false);
   }, []);
 
+  const onImageChange = useCallback(
+    e => {
+      const imageFileList = e.target.files;
+      if (imageFileList && imageFileList.length > 0) {
+        //TODO: S3 로직 추가 예정
+        const fakerImage = faker.image.avatar();
+        setValue(`keywords.${index}.imageUrl`, fakerImage);
+      }
+    },
+    [setValue],
+  );
+
   return (
     <div className={tw(className)}>
       <KeywordContentCard
         className={`${textFocus ? 'border-[1px] border-solid border-primary-500' : ''}`}
         onClick={onCardClick}
         title={keyword.title}
-        image={<ImagePreview index={index} />}
+        image={<KeywordContentImage index={index} />}
         content={
           <textarea
             {...register(`keywords.${index}.content`)}
@@ -60,6 +73,7 @@ export const KeywordContentEditCard = ({
         <input
           id={`keywords.${index}.imageUrl`}
           {...register(`keywords.${index}.imageUrl`)}
+          onChange={onImageChange}
           type="file"
           accept="image/*"
           className="hidden"

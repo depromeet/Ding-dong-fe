@@ -1,38 +1,28 @@
 'use client';
 
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback } from 'react';
 import { useFormContext } from 'react-hook-form';
 
 import { CancelIcon } from '@/components/Icon';
 import { IdCardCreationFormModel } from '@/types/idCard';
-type ImagePreviewProps = {
+type KeywordContentImageProps = {
   index: number;
 };
 
-export const ImagePreview = ({ index }: ImagePreviewProps) => {
-  const { watch } = useFormContext<IdCardCreationFormModel>();
-  const [imagePreview, setImagePreview] = useState('');
+export const KeywordContentImage = ({ index }: KeywordContentImageProps) => {
+  const { watch, setValue } = useFormContext<IdCardCreationFormModel>();
   const { keywords } = watch();
-  const imageFileList = keywords[index].imageUrl;
-
-  useEffect(() => {
-    if (imageFileList && imageFileList.length > 0) {
-      if (imagePreview) URL.revokeObjectURL(imagePreview);
-
-      const file = imageFileList[0]; // fileblob
-      setImagePreview(URL.createObjectURL(file));
-    }
-  }, [imageFileList]);
+  const imageUrl = keywords[index].imageUrl;
 
   const onCancelClick = useCallback(() => {
-    if (imagePreview) URL.revokeObjectURL(imagePreview);
-    setImagePreview('');
-  }, []);
+    //TODO: S3 로직 추가 예정
+    setValue(`keywords.${index}.imageUrl`, '');
+  }, [setValue]);
 
-  return imagePreview ? (
+  return imageUrl ? (
     <div className="relative mx-auto my-0 w-fit">
       <img
-        src={imagePreview}
+        src={imageUrl}
         className="max-h-[192px] max-w-[308px] object-contain"
         alt="image preview"
       />

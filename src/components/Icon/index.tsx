@@ -3,3 +3,4 @@ export { CancelIcon } from './CancelIcon';
 export { ChevronLeftIcon } from './ChevronLeftIcon';
 export { PlusIcon } from './PlusIcon';
 export { QuestionCircleIcon } from './QuestionCircleIcon';
+export * from './CameraIcon';
