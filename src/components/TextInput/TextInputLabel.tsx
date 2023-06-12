@@ -6,12 +6,12 @@ import { tw } from '@/utils/tailwind.util';
 
 type TextInputLabelProps = {
   required?: boolean;
-  labelClassName?: ClassNameType;
+  className?: ClassNameType;
 };
 
 export const TextInputLabel = ({
   required,
-  labelClassName,
+  className,
   children,
 }: PropsWithChildren<TextInputLabelProps>) => {
   const requiredPseudoCss =
@@ -20,11 +20,7 @@ export const TextInputLabel = ({
 
   return (
     <label
-      className={tw(
-        'font-b2 relative mb-8pxr w-fit text-grey-500',
-        labelClassName,
-        requiredPseudoCss,
-      )}
+      className={tw('font-b2 relative mb-8pxr w-fit text-grey-500', className, requiredPseudoCss)}
       htmlFor={`text-input-${name}`}
     >
       {children}

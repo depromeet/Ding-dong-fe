@@ -54,7 +54,7 @@ export const CustomLabel: Story = {
     const { register, onChangeHandler } = useStorybookWithRhf();
     return (
       <TextInput>
-        <TextInput.Label labelClassName="text-h1 text-primary-700">라벨</TextInput.Label>
+        <TextInput.Label className="text-h1 text-primary-700">라벨</TextInput.Label>
         <TextInput.Border>
           <TextInput.Content {...register('textInputSb')} onChange={onChangeHandler} />
         </TextInput.Border>
