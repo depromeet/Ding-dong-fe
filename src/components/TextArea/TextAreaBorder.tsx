@@ -38,7 +38,7 @@ export const TextAreaBorder = ({
         {children}
       </div>
       <div className="mt-8pxr flex justify-between">
-        <div className="">
+        <div>
           {errorMessage && <p className="text-detail text-error">{errorMessage}</p>}
           {infoMessage && <p className="text-detail text-blue-500">{infoMessage}</p>}
         </div>
