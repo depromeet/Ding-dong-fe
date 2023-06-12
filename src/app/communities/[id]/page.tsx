@@ -20,11 +20,13 @@ const page = async () => {
   });
   const dehydratedState = dehydrate(queryClient);
 
+  // TODO: 커뮤니티 id 값 수정해야함
+  const { communityDetailsDto } = await communityApi.getCommunityDetail('1');
+
   return (
     <Hydrate state={dehydratedState}>
       <div>
-        <CommunityDetail />
-        <h3 className="mb-16pxr text-h3 text-grey-800">{'우리 행성 주민을 소개할게요!'}</h3>
+        <CommunityDetail {...communityDetailsDto} />
         <CommunityIdCards />
       </div>
     </Hydrate>
