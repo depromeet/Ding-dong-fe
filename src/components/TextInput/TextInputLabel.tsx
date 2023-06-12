@@ -5,11 +5,13 @@ import { ClassNameType } from '@/types/util';
 import { tw } from '@/utils/tailwind.util';
 
 type TextInputLabelProps = {
+  name: string;
   required?: boolean;
   className?: ClassNameType;
 };
 
 export const TextInputLabel = ({
+  name,
   required,
   className,
   children,
