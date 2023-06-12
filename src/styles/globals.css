@@ -22,6 +22,7 @@
     color: rgb(var(--foreground-rgb));
     white-space: pre-line;
   }
+  textarea:focus,
   input:focus {
     outline: none;
   }
