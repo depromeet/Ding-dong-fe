@@ -1,15 +1,16 @@
 'use client';
 
-import Image from 'next/image';
-import { CameraIcon } from '@/components/Icon/CameraIcon';
-import { forwardRef, InputHTMLAttributes, memo, useState } from 'react';
-import { tw } from '@/utils/tailwind.util';
 import { faker } from '@faker-js/faker/locale/ko';
+import Image from 'next/image';
+import { forwardRef, InputHTMLAttributes, memo, useState } from 'react';
+
+import { CameraIcon } from '@/components/Icon/CameraIcon';
+import { tw } from '@/utils/tailwind.util';
 
 type ProfileImageEditProps = InputHTMLAttributes<HTMLInputElement> & {
   defaultProfileImage: string;
   fieldName: string;
-  setValue: (name: string, value: unknown, config?: Object) => void;
+  setValue: (name: string, value: unknown, config?: unknown) => void;
   className?: string;
 };
 
@@ -55,5 +56,5 @@ const ProfileImageEditComponent = forwardRef<HTMLInputElement, ProfileImageEditP
     );
   },
 );
-
+ProfileImageEditComponent.displayName = 'ProfileImageEdit';
 export const ProfileImageEdit = memo(ProfileImageEditComponent);
