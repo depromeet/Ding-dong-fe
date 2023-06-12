@@ -1,5 +1,3 @@
-export type CreateKeywordModel = Omit<KeywordModel, 'keywordId'>;
-
 export type CharacterModel = {
   PIPI: { group: 'FIRST'; korean: '피피'; english: 'Pipi' };
   TRUE: { group: 'FIRST'; korean: '트루'; english: 'True' };

@@ -1,19 +1,24 @@
 'use client';
 import { useFormContext } from 'react-hook-form';
 
-import { Steps } from '@/modules/IdCardCreation/IdCardCreation.type';
 import { KeywordStep } from '@/modules/IdCardCreation/Step/KeywordStep.client';
+import { Steps } from '@/types/idCard';
 
 import { KeywordContentStep, ProfileStep } from '../Step';
 
-type ResidentCardFormProps = {
+type IdCardCreationFormProps = {
   steps: Steps[];
   stepOrder: number;
   onNext: () => void;
   onPrev: () => void;
 };
 
-export const IdCardForm = ({ steps, stepOrder, onNext, onPrev }: ResidentCardFormProps) => {
+export const IdCardCreationForm = ({
+  steps,
+  stepOrder,
+  onNext,
+  onPrev,
+}: IdCardCreationFormProps) => {
   const { handleSubmit } = useFormContext();
   const onSubmit = () => console.log('제출');
 
