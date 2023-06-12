@@ -10,7 +10,7 @@ import { tw } from '@/utils/tailwind.util';
 type ProfileImageEditProps = InputHTMLAttributes<HTMLInputElement> & {
   defaultProfileImage: string;
   fieldName: string;
-  setValue: (name: string, value: unknown, config?: unknown) => void;
+  setValue: UseFormSetValue<FieldValues>;
   className?: string;
 };
 
@@ -18,7 +18,7 @@ const ProfileImageEditComponent = forwardRef<HTMLInputElement, ProfileImageEditP
   ({ defaultProfileImage, className, fieldName, setValue, ...rest }, ref) => {
     const [profileImage, setProfileImage] = useState<string>(defaultProfileImage);
 
-    const onChange = e => {
+    const onChange = (e: ChangeEvent<HTMLInputElement>) => {
       const imageFileList = e.target.files;
       if (imageFileList && imageFileList.length > 0) {
         //TODO: S3 로직 추가 예정

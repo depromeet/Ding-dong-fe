@@ -7,6 +7,7 @@ type KeywordContentCardProps = {
   image: ReactNode | null;
   content: ReactNode | string;
   className?: string;
+  onClick?: () => void;
 };
 
 export const KeywordContentCard = ({
@@ -14,10 +15,11 @@ export const KeywordContentCard = ({
   image,
   content,
   className,
+  onClick,
   ...props
 }: KeywordContentCardProps) => {
   return (
-    <div className={tw('w-full rounded-xl bg-grey-100', className)} {...props}>
+    <div className={tw('w-full rounded-xl bg-grey-100', className)} onClick={onClick} {...props}>
       <p className="px-[14px] py-[10px] text-base  font-semibold text-grey-900">{title}</p>
       <div className="border-[0.5px] border-solid border-grey-200" />
       <div className="flex flex-col gap-2 px-[14px] pb-[20px] pt-[8px] ">

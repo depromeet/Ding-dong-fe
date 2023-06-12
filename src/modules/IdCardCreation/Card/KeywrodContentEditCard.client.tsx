@@ -1,7 +1,7 @@
 'use client';
 
 import { faker } from '@faker-js/faker/locale/ko';
-import { useCallback, useRef, useState } from 'react';
+import { ChangeEvent, useCallback, useRef, useState } from 'react';
 import { useFormContext } from 'react-hook-form';
 
 import { KeywordContentImage } from '@/modules/IdCardCreation/Step/KeywordContentImage.client';
@@ -36,7 +36,7 @@ export const KeywordContentEditCard = ({
   }, []);
 
   const onImageChange = useCallback(
-    e => {
+    (e: ChangeEvent<HTMLInputElement>) => {
       const imageFileList = e.target.files;
       if (imageFileList && imageFileList.length > 0) {
         //TODO: S3 로직 추가 예정
