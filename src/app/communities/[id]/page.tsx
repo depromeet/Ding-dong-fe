@@ -5,7 +5,7 @@ import { dehydrate, Hydrate } from '@tanstack/react-query';
 import { community } from '@/hooks/api/queryKey.type';
 import communityApi from '@/lib/api/domain/community.api';
 import getQueryClient from '@/lib/tanstackQuery/getQueryClient';
-import { CommunityIdCards } from '@/modules/CommnuityIdCards';
+import { CommunityIdCards } from '@/modules/CommunityIdCards';
 
 const page = async () => {
   const queryClient = getQueryClient();
