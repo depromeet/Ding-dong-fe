@@ -5,6 +5,6 @@ export type CommunityIdCardsResponse = {
   communityIdCardsDtos: SliceResponse<CommunityIdCardsModel>;
 };
 
-export type CommunityDetailResponseType = {
+export type CommunityDetailResponse = {
   communityDetailsDto: CommunityDetailModel;
 };
