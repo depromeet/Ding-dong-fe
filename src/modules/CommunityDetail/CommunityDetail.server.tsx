@@ -18,7 +18,7 @@ export const CommunityDetail = ({
         height={180}
         src={coverImageUrl}
         alt={`${title} cover image`}
-        style={{ height: '180px' }}
+        style={{ height: '180px', objectFit: 'cover' }}
       />
       <div className="w-full">
         <div className="absolute mx-[20px] -mt-60pxr flex items-center gap-12pxr rounded-3xl border border-grey-100 bg-white p-16pxr">
