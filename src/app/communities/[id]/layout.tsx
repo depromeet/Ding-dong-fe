@@ -5,7 +5,7 @@ import TopNavigation from '@/components/TopNavigation/TopNavigation';
 
 const Layout = ({ children }: PropsWithChildren) => {
   return (
-    <div>
+    <div className="pt-[44px]">
       <TopNavigation />
       {children}
       <BottomNavigation />

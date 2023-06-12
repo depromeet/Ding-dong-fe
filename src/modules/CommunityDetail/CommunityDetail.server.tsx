@@ -13,10 +13,15 @@ export const CommunityDetail = ({
 }: CommunityDetailProps) => {
   return (
     <div>
-      {/*// TODO:이미지 사이즈 조절 필요*/}
-      <Image width={400} height={180} src={coverImageUrl} alt={`${title} cover image`} />
+      <Image
+        width={400}
+        height={180}
+        src={coverImageUrl}
+        alt={`${title} cover image`}
+        style={{ height: '180px' }}
+      />
       <div className="w-full">
-        <div className="absolute mx-[20px] -mt-60pxr flex h-[92pxr] items-center gap-12pxr rounded-3xl border border-grey-100 bg-white p-16pxr">
+        <div className="absolute mx-[20px] -mt-60pxr flex items-center gap-12pxr rounded-3xl border border-grey-100 bg-white p-16pxr">
           <div className="h-60pxr w-60pxr">
             <Image
               width={60}
