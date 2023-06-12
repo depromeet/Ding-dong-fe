@@ -1,10 +1,8 @@
-import SignIn from '@/app/api/auth/signin/page';
-import SessionRedirect from '@/app/api/auth/signin/sessionRedirect';
+import { SignInProviders } from './signInProviders.server';
 
-const SignInPage = () => {
+const SignInPage = async () => {
   return (
     <>
-      <SessionRedirect />
       <div className="flex h-screen flex-col justify-between px-6 pb-20 pt-28">
         <div>
           <div className="text-4xl">LOGO</div>
@@ -13,7 +11,7 @@ const SignInPage = () => {
           </div>
         </div>
         {/* @ts-expect-error Server Component */}
-        <SignIn />
+        <SignInProviders />
       </div>
     </>
   );

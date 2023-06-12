@@ -2,9 +2,9 @@ import 'server-only';
 
 import { getProviders } from 'next-auth/react';
 
-import Kakao from './kakaoLoginButton';
+import Kakao from './kakaoLoginButton.client';
 
-const SignIn = async () => {
+const SignInProviders = async () => {
   const providers = await getProviders();
   if (!providers) return <></>;
   return (
@@ -18,4 +18,4 @@ const SignIn = async () => {
   );
 };
 
-export default SignIn;
+export { SignInProviders };
