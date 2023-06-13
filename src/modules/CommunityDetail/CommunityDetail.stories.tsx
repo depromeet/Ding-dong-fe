@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import { CommunityDetail } from '@/modules/CommunityDetail/CommunityDetail.server';
+import { CommunityDetail } from '~/modules/CommunityDetail/CommunityDetail.server';
 
 const meta: Meta<typeof CommunityDetail> = {
   title: 'CommunityDetail',

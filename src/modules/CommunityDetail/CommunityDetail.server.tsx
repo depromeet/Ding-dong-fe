@@ -1,6 +1,6 @@
 import Image from 'next/image';
 
-import { CommunityDetailModel } from '@/types/community';
+import { CommunityDetailModel } from '~/types/community';
 
 type CommunityDetailProps = Omit<CommunityDetailModel, 'communityId'>;
 
