@@ -2,7 +2,7 @@ import 'server-only';
 
 import Image from 'next/image';
 
-import idCardApi from '~/api/domain/idCard.api';
+import { getIdCardDetail } from '~/api/domain/idCard.api';
 import TopNavigation from '~/components/TopNavigation/TopNavigation';
 import { Intro, KeywordContentCard } from '~/modules/IdCardDetail';
 import { CharacterNameModel } from '~/types/idCard';
@@ -21,7 +21,7 @@ type IdCardDetailPageProps = {
 };
 
 const IdCardDetailPage = async ({ params: { id } }: IdCardDetailPageProps) => {
-  const { idCardDetailsDto } = await idCardApi.getIdCardDetail(id);
+  const { idCardDetailsDto } = await getIdCardDetail(id);
 
   const bgColor = bgColors[idCardDetailsDto.characterType];
 

@@ -1,12 +1,5 @@
-import publicApi from '~/api/config/publicApi';
-import { REQUEST_API } from '~/api/config/requestUrl';
+import privateApi from '~/api/config/privateApi';
 import { IdCardDetailResponse } from '~/types/idCard';
 
-const getIdCardDetail = (id: string) =>
-  publicApi.get<IdCardDetailResponse>(`${REQUEST_API.IDCARD.DETAIL}/${id}`);
-
-const idCardApi = {
-  getIdCardDetail,
-};
-
-export default idCardApi;
+export const getIdCardDetail = (id: string) =>
+  privateApi.get<IdCardDetailResponse>(`/id-cards/${id}`);

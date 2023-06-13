@@ -2,8 +2,11 @@ import 'server-only';
 
 import { dehydrate, Hydrate } from '@tanstack/react-query';
 
-import communityApi from '~/api/domain/community.api';
-import { community } from '~/hooks/api/queryKey.type';
+import {
+  COMMUNITY_KEYS,
+  getCommunityDetail,
+  getCommunityIdCards,
+} from '~/api/domain/community.api';
 import getQueryClient from '~/lib/tanstackQuery/getQueryClient';
 import { CommunityDetail } from '~/modules/CommunityDetail';
 import { CommunityIdCards } from '~/modules/CommunityIdCards';
@@ -11,8 +14,10 @@ import { CommunityIdCards } from '~/modules/CommunityIdCards';
 const page = async () => {
   const queryClient = getQueryClient();
   // TODO: 커뮤니티 id 값 수정해야함
-  await queryClient.prefetchQuery(community.idCards('1', 1), () => {
-    return communityApi.getCommunityIdCards('1', 1).then(data => {
+  const id = '1';
+  const pageParam = 1;
+  await queryClient.prefetchQuery([COMMUNITY_KEYS.COMMUNITY_ID_CARDS, { id, pageParam }], () => {
+    return getCommunityIdCards({ id, pageParam }).then(data => {
       return {
         pages: [data],
       };
@@ -21,7 +26,7 @@ const page = async () => {
   const dehydratedState = dehydrate(queryClient);
 
   // TODO: 커뮤니티 id 값 수정해야함
-  const { communityDetailsDto } = await communityApi.getCommunityDetail('1');
+  const { communityDetailsDto } = await getCommunityDetail(id);
 
   return (
     <Hydrate state={dehydratedState}>
