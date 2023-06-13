@@ -1,4 +1,4 @@
-import publicApi from '~/lib/api/config/publicApi';
+import publicApi from '~/api/config/publicApi';
 import { CommunityDetailResponse, CommunityIdCardsResponse } from '~/types/community';
 
 const getCommunityIdCards = (id: string, pageParam: number) =>

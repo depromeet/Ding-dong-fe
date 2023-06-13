@@ -2,8 +2,8 @@ import 'server-only';
 
 import Image from 'next/image';
 
+import idCardApi from '~/api/domain/idCard.api';
 import TopNavigation from '~/components/TopNavigation/TopNavigation';
-import idCardApi from '~/lib/api/domain/idCard.api';
 import { Intro, KeywordContentCard } from '~/modules/IdCardDetail';
 import { CharacterNameModel } from '~/types/idCard';
 

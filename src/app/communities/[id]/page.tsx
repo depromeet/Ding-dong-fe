@@ -2,8 +2,8 @@ import 'server-only';
 
 import { dehydrate, Hydrate } from '@tanstack/react-query';
 
+import communityApi from '~/api/domain/community.api';
 import { community } from '~/hooks/api/queryKey.type';
-import communityApi from '~/lib/api/domain/community.api';
 import getQueryClient from '~/lib/tanstackQuery/getQueryClient';
 import { CommunityDetail } from '~/modules/CommunityDetail';
 import { CommunityIdCards } from '~/modules/CommunityIdCards';

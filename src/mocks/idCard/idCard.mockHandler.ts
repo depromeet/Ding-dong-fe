@@ -1,6 +1,6 @@
 import { rest } from 'msw';
 
-import { REQUEST_API, ROOT_API_URL } from '~/lib/api/config/requestUrl';
+import { REQUEST_API, ROOT_API_URL } from '~/api/config/requestUrl';
 import { createIdCard } from '~/mocks/idCard/idCard.mock';
 
 const idCardMockHandler = [

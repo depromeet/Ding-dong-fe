@@ -1,5 +1,5 @@
-import publicApi from '~/lib/api/config/publicApi';
-import { REQUEST_API } from '~/lib/api/config/requestUrl';
+import publicApi from '~/api/config/publicApi';
+import { REQUEST_API } from '~/api/config/requestUrl';
 import { IdCardDetailResponse } from '~/types/idCard';
 
 const getIdCardDetail = (id: string) =>

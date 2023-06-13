@@ -1,6 +1,6 @@
 import 'server-only';
 
-import { PrivateFetch } from '~/lib/api/config/privateFetch';
+import { PrivateFetch } from '~/api/config/privateFetch';
 
 import CallApiTest from './callApiTest';
 
