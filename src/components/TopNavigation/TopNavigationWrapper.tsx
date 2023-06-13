@@ -1,4 +1,3 @@
-'use client';
 import { PropsWithChildren } from 'react';
 
 type TopNavigationWrapperProps = {
@@ -8,7 +7,6 @@ type TopNavigationWrapperProps = {
   bottomBorderColor?: string;
   bgColor?: string;
 };
-
 export const TopNavigationWrapper = ({
   bottomBorderColor,
   bgColor = 'bg-white',

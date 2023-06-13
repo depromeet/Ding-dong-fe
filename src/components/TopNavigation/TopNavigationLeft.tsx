@@ -1,4 +1,3 @@
-'use client';
 import { PropsWithChildren } from 'react';
 
 export const TopNavigationLeft = ({ children }: PropsWithChildren) => {
