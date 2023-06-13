@@ -1,7 +1,5 @@
 import 'server-only';
 
-import Image from 'next/image';
-
 import { getIdCardDetail } from '~/api/domain/idCard.api';
 import TopNavigation from '~/components/TopNavigation/TopNavigation';
 import { Intro, KeywordContentCard } from '~/modules/IdCardDetail';
@@ -37,7 +35,7 @@ const IdCardDetailPage = async ({ params: { id } }: IdCardDetailPageProps) => {
               title={keyword.title}
               image={
                 keyword.imageUrl && (
-                  <Image
+                  <img
                     src={keyword.imageUrl}
                     alt={keyword.title}
                     className="mx-auto my-0 max-h-[192px] max-w-[308px] object-contain"
