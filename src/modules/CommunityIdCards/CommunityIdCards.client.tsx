@@ -3,7 +3,7 @@
 import { useEffect } from 'react';
 import { useInView } from 'react-intersection-observer';
 
-import { useGetCommunityIdCards } from '~/hooks/api/community.query';
+import { useGetCommunityIdCards } from '~/api/domain/community.api';
 import { IdCard } from '~/modules/IdCard';
 import { CommunityIdCardsModel } from '~/types/community';
 
