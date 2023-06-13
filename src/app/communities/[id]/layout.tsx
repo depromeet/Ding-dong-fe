@@ -1,7 +1,7 @@
 import { PropsWithChildren } from 'react';
 
 import { BottomNavigation } from '~/components/BottomNavigation';
-import TopNavigation from '~/components/TopNavigation/TopNavigation';
+import { TopNavigation } from '~/components/TopNavigation';
 
 const Layout = ({ children }: PropsWithChildren) => {
   return (
