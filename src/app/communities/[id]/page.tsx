@@ -3,7 +3,7 @@ import 'server-only';
 import { dehydrate, Hydrate } from '@tanstack/react-query';
 
 import {
-  COMMUNITY_KEYS,
+  communityQueryKey,
   getCommunityDetail,
   getCommunityIdCards,
 } from '~/api/domain/community.api';
@@ -16,7 +16,7 @@ const page = async () => {
   // TODO: 커뮤니티 id 값 수정해야함
   const id = '1';
   const pageParam = 1;
-  await queryClient.prefetchQuery([COMMUNITY_KEYS.COMMUNITY_ID_CARDS, { id, pageParam }], () => {
+  await queryClient.prefetchQuery(communityQueryKey.idCards(id, pageParam), () => {
     return getCommunityIdCards({ id, pageParam }).then(data => {
       return {
         pages: [data],

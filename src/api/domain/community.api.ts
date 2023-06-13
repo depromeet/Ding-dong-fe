@@ -4,8 +4,8 @@ import privateApi from '~/api/config/privateApi';
 import { CommunityDetailResponse, CommunityIdCardsResponse } from '~/types/community';
 import { CommunityIdCardsRequest } from '~/types/community/request.type';
 
-export const COMMUNITY_KEYS = {
-  COMMUNITY_ID_CARDS: 'getCommunityIdCards',
+export const communityQueryKey = {
+  idCards: (id: string, pageParam: number) => ['getCommunityIdCards', id, pageParam],
 };
 
 export const getCommunityIdCards = ({ id, pageParam }: CommunityIdCardsRequest) =>
@@ -13,7 +13,7 @@ export const getCommunityIdCards = ({ id, pageParam }: CommunityIdCardsRequest) 
 
 export const useGetCommunityIdCards = ({ id, pageParam }: CommunityIdCardsRequest) => {
   return useInfiniteQuery(
-    [COMMUNITY_KEYS.COMMUNITY_ID_CARDS, { id, pageParam }],
+    communityQueryKey.idCards(id, pageParam),
     ({ pageParam = 0 }) => getCommunityIdCards({ id, pageParam }),
     {
       getNextPageParam: data =>
