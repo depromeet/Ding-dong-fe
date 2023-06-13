@@ -29,7 +29,7 @@ export const IdCardCreationSteps = () => {
   }, [stepOrder]);
 
   useEffect(() => {
-    const loadingShow = setTimeout(() => onNext(), 80000);
+    const loadingShow = setTimeout(() => onNext(), 2000);
     return () => clearTimeout(loadingShow);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -37,13 +37,22 @@ export const IdCardCreationSteps = () => {
   return (
     <FormProvider {...methods}>
       {/* planetName 주입이 필요합니다. */}
-      {/* top navigation */}
-      {steps[stepOrder] === 'LOADING' && <LoadingStep planetName="Ding dong" />}
-      {steps[stepOrder] === 'BOARDING' && <BoardingStep planetName="Dingdong" onNext={onNext} />}
-      {['PROFILE', 'KEYWORD', 'KEYWORD_CONTENT'].includes(steps[stepOrder]) && (
-        <IdCardCreationForm steps={steps} stepOrder={stepOrder} onNext={onNext} onPrev={onPrev} />
-      )}
-      {steps[stepOrder] === 'COMPLETE' && <CompleteStep />}
+      <div key="Top navigation">
+        {steps[stepOrder] === 'KEYWORD_CONTENT' ? (
+          <button type="submit">제출</button>
+        ) : (
+          <button onClick={onNext}>다음</button>
+        )}
+        <button onClick={onPrev}>이전</button>
+      </div>
+      <div className="px-20pxr">
+        {steps[stepOrder] === 'LOADING' && <LoadingStep planetName="Ding dong" />}
+        {steps[stepOrder] === 'BOARDING' && <BoardingStep planetName="Dingdong" onNext={onNext} />}
+        {['PROFILE', 'KEYWORD', 'KEYWORD_CONTENT'].includes(steps[stepOrder]) && (
+          <IdCardCreationForm step={steps[stepOrder]} />
+        )}
+        {steps[stepOrder] === 'COMPLETE' && <CompleteStep />}
+      </div>
     </FormProvider>
   );
 };

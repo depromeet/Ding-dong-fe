@@ -13,30 +13,15 @@ type IdCardCreationFormProps = {
   onPrev: () => void;
 };
 
-export const IdCardCreationForm = ({
-  steps,
-  stepOrder,
-  onNext,
-  onPrev,
-}: IdCardCreationFormProps) => {
+export const IdCardCreationForm = ({ step }: IdCardCreationFormProps) => {
   const { handleSubmit } = useFormContext();
   const onSubmit = () => console.log('제출');
 
   return (
-    <div>
-      <div key="Top navigation">
-        {steps[stepOrder] === 'KEYWORD_CONTENT' ? (
-          <button type="submit">제출</button>
-        ) : (
-          <button onClick={onNext}>다음</button>
-        )}
-        <button onClick={onPrev}>이전</button>
-      </div>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        {steps[stepOrder] === 'PROFILE' && <ProfileStep />}
-        {steps[stepOrder] === 'KEYWORD' && <KeywordStep />}
-        {steps[stepOrder] === 'KEYWORD_CONTENT' && <KeywordContentStep />}
-      </form>
-    </div>
+    <form onSubmit={handleSubmit(onSubmit)} className="mt-24pxr">
+      {step === 'PROFILE' && <ProfileStep />}
+      {step === 'KEYWORD' && <KeywordStep />}
+      {step === 'KEYWORD_CONTENT' && <KeywordContentStep />}
+    </form>
   );
 };
