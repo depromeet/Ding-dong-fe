@@ -2,7 +2,8 @@
 
 import { faker } from '@faker-js/faker/locale/ko';
 import Image from 'next/image';
-import { forwardRef, InputHTMLAttributes, memo, useState } from 'react';
+import { ChangeEvent, forwardRef, InputHTMLAttributes, memo, useState } from 'react';
+import { FieldValues, UseFormSetValue } from 'react-hook-form';
 
 import { CameraIcon } from '~/components/Icon/CameraIcon';
 import { tw } from '~/utils/tailwind.util';

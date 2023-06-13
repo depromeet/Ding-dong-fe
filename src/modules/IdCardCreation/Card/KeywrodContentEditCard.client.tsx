@@ -44,7 +44,7 @@ export const KeywordContentEditCard = ({
         setValue(`keywords.${index}.imageUrl`, fakerImage);
       }
     },
-    [setValue],
+    [index, setValue],
   );
 
   return (

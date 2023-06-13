@@ -20,6 +20,7 @@ export const useInputAutoSize = ({
     inputElement.style.width = 'auto';
   };
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const setInputWidth = (inputElement: HTMLInputElement) => {
     const inputLength =
       inputValue.length === 0 ? DEFAULT_INPUT_WIDTH : inputValue.length * DEFAULT_WORD_WIDTH;
@@ -37,5 +38,5 @@ export const useInputAutoSize = ({
 
     resetWidth(inputElement);
     setInputWidth(inputElement);
-  }, [inputRef, setInputWidth, inputValue, activeKeywordListLength]);
+  }, [inputRef, setInputWidth]);
 };

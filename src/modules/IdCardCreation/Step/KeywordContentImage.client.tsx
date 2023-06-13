@@ -17,10 +17,11 @@ export const KeywordContentImage = ({ index }: KeywordContentImageProps) => {
   const onCancelClick = useCallback(() => {
     //TODO: S3 로직 추가 예정
     setValue(`keywords.${index}.imageUrl`, '');
-  }, [setValue]);
+  }, [index, setValue]);
 
   return imageUrl ? (
     <div className="relative mx-auto my-0 w-fit">
+      {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
         src={imageUrl}
         className="max-h-[192px] max-w-[308px] object-contain"
