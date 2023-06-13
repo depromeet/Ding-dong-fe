@@ -1,6 +1,6 @@
 import { twJoin as tailwindJoin, twMerge as tailwindMerge } from 'tailwind-merge';
 
-import { ClassNameType } from '@/types/util';
+import { ClassNameType } from '~/types/util';
 
 /**
  * className에 변수를 사용할 때(variant를 줘야할 때), 변수를 따로 선언하지 않을 수 있도록 도와주는 함수

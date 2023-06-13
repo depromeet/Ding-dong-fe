@@ -3,13 +3,14 @@ import type { Meta } from '@storybook/react';
 import {
   ArrowLeftIcon,
   BellIcon,
+  CameraIcon,
   CancelIcon,
   ChevronLeftIcon,
   HomeIcon,
   PersonIcon,
   PlusIcon,
   QuestionCircleIcon,
-} from '@/components/Icon';
+} from '~/components/Icon';
 
 const meta: Meta = {
   title: 'Icon',
@@ -61,4 +62,8 @@ export const Person = {
 
 export const Bell = {
   render: () => <BellIcon />,
+};
+
+export const Camera = {
+  render: () => <CameraIcon />,
 };

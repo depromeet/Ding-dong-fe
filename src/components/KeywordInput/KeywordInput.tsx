@@ -1,8 +1,8 @@
 'use client';
 import { KeyboardEvent, MouseEvent, useRef } from 'react';
 
-import { Chip } from '@/components/Chip/Chip';
-import { useKeywordInput } from '@/components/KeywordInput/useKeywordInput.hooks';
+import { Chip } from '~/components/Chip/Chip';
+import { useKeywordInput } from '~/components/KeywordInput/useKeywordInput.hooks';
 
 import { OptionType } from './keywordInput.type';
 import { useInputAutoSize } from './useInputAutoSize';
@@ -13,6 +13,7 @@ type KeywordInputProps = {
   keywordLabel: string;
   keywordOptions: OptionType[];
   activeKeywordList: OptionType[];
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   onChange: (...event: any[]) => void; // rhf의 onChange타입입니다.
   maxActiveKeywordListLength: number;
   maxInputLength: number;

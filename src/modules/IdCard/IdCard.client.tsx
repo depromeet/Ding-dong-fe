@@ -3,8 +3,8 @@
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 
-import Tag from '@/components/Tag/Tag';
-import { CharacterNameModel } from '@/types/idCard';
+import Tag from '~/components/Tag/Tag';
+import { CharacterNameModel } from '~/types/idCard';
 
 type IdCardProps = {
   idCardId: number;

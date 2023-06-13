@@ -1,6 +1,6 @@
 import { AxiosError, AxiosResponse, InternalAxiosRequestConfig } from 'axios';
 
-import { getAccessToken, getAuthTokensByCookie } from '@/utils/auth/tokenHandlers';
+import { getAccessToken, getAuthTokensByCookie } from '~/utils/auth/tokenHandlers';
 
 import { ApiError } from './customError';
 

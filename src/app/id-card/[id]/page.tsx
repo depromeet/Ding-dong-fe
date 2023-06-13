@@ -2,10 +2,10 @@ import 'server-only';
 
 import Image from 'next/image';
 
-import { TopNavigation } from '@/components/TopNavigation';
-import idCardApi from '@/lib/api/domain/idCard.api';
-import { Intro, KeywordContentCard } from '@/modules/IdCardDetail';
-import { CharacterNameModel } from '@/types/idCard';
+import { TopNavigation } from '~/components/TopNavigation';
+import idCardApi from '~/lib/api/domain/idCard.api';
+import { Intro, KeywordContentCard } from '~/modules/IdCardDetail';
+import { CharacterNameModel } from '~/types/idCard';
 
 const bgColors: Record<CharacterNameModel, string> = {
   BUDDY: 'bg-buddy-100',

@@ -2,7 +2,7 @@
 
 import { PropsWithChildren } from 'react';
 
-import { BottomSheetFooterButton } from '@/components/BottomSheet/BottomSheetFooterButton';
+import { BottomSheetFooterButton } from '~/components/BottomSheet/BottomSheetFooterButton';
 
 export const BottomSheetFooter = ({ children }: PropsWithChildren) => {
   return <div>{children}</div>;

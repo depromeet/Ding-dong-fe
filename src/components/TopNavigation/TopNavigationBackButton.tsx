@@ -1,7 +1,7 @@
 'use client';
 import { useRouter } from 'next/navigation';
 
-import { ArrowLeftIcon, CancelIcon, ChevronLeftIcon } from '@/components/Icon';
+import { ArrowLeftIcon, CancelIcon, ChevronLeftIcon } from '~/components/Icon';
 
 const BackButton = {
   chevron: ChevronLeftIcon,

@@ -5,6 +5,7 @@ import { OptionType } from './keywordInput.type';
 type UseKeywordInputProps = {
   id: string;
   activeKeywordList: OptionType[];
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   onChange: (...event: any[]) => void; // rhf의 onChange타입입니다.
   maxActiveKeywordListLength: number;
   maxInputLength: number;

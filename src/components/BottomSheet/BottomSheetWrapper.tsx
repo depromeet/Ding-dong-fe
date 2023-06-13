@@ -1,6 +1,6 @@
 'use client';
 
-import { BottomSheetProps } from '@/components/BottomSheet/BottomSheet';
+import { BottomSheetProps } from '~/components/BottomSheet/BottomSheet';
 
 export const BottomSheetWrapper = ({
   children,

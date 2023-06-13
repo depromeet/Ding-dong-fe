@@ -40,7 +40,7 @@ export const Primary: Story = {
     const { register, onChangeHandler } = useStorybookWithRhf();
     return (
       <TextInput>
-        <TextInput.Label>라벨</TextInput.Label>
+        <TextInput.Label name="textInputSb">라벨</TextInput.Label>
         <TextInput.Border>
           <TextInput.Content {...register('textInputSb')} onChange={onChangeHandler} />
         </TextInput.Border>
@@ -54,7 +54,9 @@ export const CustomLabel: Story = {
     const { register, onChangeHandler } = useStorybookWithRhf();
     return (
       <TextInput>
-        <TextInput.Label className="text-h1 text-primary-700">라벨</TextInput.Label>
+        <TextInput.Label name="textInputSb" className="text-h1 text-primary-700">
+          라벨
+        </TextInput.Label>
         <TextInput.Border>
           <TextInput.Content {...register('textInputSb')} onChange={onChangeHandler} />
         </TextInput.Border>
@@ -68,7 +70,9 @@ export const Required: Story = {
     const { register, onChangeHandler } = useStorybookWithRhf();
     return (
       <TextInput>
-        <TextInput.Label required>라벨</TextInput.Label>
+        <TextInput.Label name="textInputSb" required>
+          라벨
+        </TextInput.Label>
         <TextInput.Border>
           <TextInput.Content {...register('textInputSb')} onChange={onChangeHandler} />
         </TextInput.Border>
@@ -95,7 +99,7 @@ export const Error: Story = {
     const { register, onChangeHandler } = useStorybookWithRhf();
     return (
       <TextInput>
-        <TextInput.Label>라벨</TextInput.Label>
+        <TextInput.Label name="textInputSb">라벨</TextInput.Label>
         <TextInput.Border errorMessage="오류가 발생했습니다.">
           <TextInput.Content {...register('textInputSb')} onChange={onChangeHandler} />
         </TextInput.Border>
@@ -109,7 +113,7 @@ export const Disabled: Story = {
     const { register, onChangeHandler } = useStorybookWithRhf();
     return (
       <TextInput>
-        <TextInput.Label>라벨</TextInput.Label>
+        <TextInput.Label name="textInputSb">라벨</TextInput.Label>
         <TextInput.Border disabled>
           <TextInput.Content disabled {...register('textInputSb')} onChange={onChangeHandler} />
         </TextInput.Border>
@@ -123,7 +127,7 @@ export const Information: Story = {
     const { register, onChangeHandler } = useStorybookWithRhf();
     return (
       <TextInput>
-        <TextInput.Label>라벨</TextInput.Label>
+        <TextInput.Label name="textInputSb">라벨</TextInput.Label>
         <TextInput.Border infoMessage="성공했습니다~">
           <TextInput.Content {...register('textInputSb')} onChange={onChangeHandler} />
         </TextInput.Border>
@@ -137,7 +141,7 @@ export const MaxLength: Story = {
     const { register, onChangeHandler, textCount } = useStorybookWithRhf();
     return (
       <TextInput>
-        <TextInput.Label>라벨</TextInput.Label>
+        <TextInput.Label name="textInputSb">라벨</TextInput.Label>
         <TextInput.Border textCount={textCount} maxLength={MAX_LENGTH}>
           <TextInput.Content {...register('textInputSb')} onChange={onChangeHandler} />
         </TextInput.Border>
@@ -151,7 +155,7 @@ export const MaxLengthError: Story = {
     const { register, onChangeHandler, textCount } = useStorybookWithRhf();
     return (
       <TextInput>
-        <TextInput.Label>라벨</TextInput.Label>
+        <TextInput.Label name="textInputSb">라벨</TextInput.Label>
         <TextInput.Border
           errorMessage="오류가 발생했습니다."
           textCount={textCount}

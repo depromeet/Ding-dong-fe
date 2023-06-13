@@ -1,4 +1,4 @@
-import { CharacterNameModel, IdCardDetailModel } from '@/types/idCard';
+import { CharacterNameModel, IdCardDetailModel } from '~/types/idCard';
 
 export type CommunityIdCardSummaryModel = Omit<IdCardDetailModel, 'profileImageUrl'>;
 

@@ -1,5 +1,5 @@
-import Tag from '@/components/Tag/Tag';
-import { CharacterNameModel, IdCardDetailModel } from '@/types/idCard';
+import Tag from '~/components/Tag/Tag';
+import { CharacterNameModel, IdCardDetailModel } from '~/types/idCard';
 
 const bgColors: Record<CharacterNameModel, string> = {
   BUDDY: 'bg-buddy-100',
