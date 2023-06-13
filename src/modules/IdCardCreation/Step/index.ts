@@ -1,4 +1,5 @@
 export * from './BoardingStep.client';
+export * from './CompleteStep.client';
 export * from './KeywordContentImage.client';
 export * from './KeywordContentStep.client';
 export * from './KeywordStep.client';
