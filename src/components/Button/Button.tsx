@@ -17,9 +17,9 @@ const colors: Record<ButtonColor, string> = {
 };
 
 const sizes: Record<ButtonSize, string> = {
-  small: 'h-[30px] text-xs rounded-lg',
-  medium: 'h-11 text-sm rounded-xl',
-  large: 'h-[52px] text-base rounded-xl',
+  small: 'py-8pxr text-xs rounded-lg',
+  medium: 'py-13pxr text-sm rounded-xl',
+  large: 'py-16pxr text-base rounded-xl',
 };
 
 const Button = ({

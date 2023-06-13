@@ -26,7 +26,7 @@ export const BottomNavigation = () => {
   return (
     <nav className="fixed bottom-0 left-0 w-full">
       <Divider />
-      <ul className="flex h-[52px] items-center justify-evenly">
+      <ul className="flex h-[52px] items-center justify-evenly bg-white">
         <li>
           <button onClick={() => handleNavigation('/communities')}>
             <HomeIcon className={getSvgcolor('/communities')} />

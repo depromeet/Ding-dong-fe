@@ -1,7 +1,7 @@
 import { faker } from '@faker-js/faker/locale/ko';
 
 import { SliceResponse } from '~/types/api';
-import { CommunityIdCardsModel } from '~/types/community';
+import { CommunityDetailModel, CommunityIdCardsModel } from '~/types/community';
 
 export const createCommunityIdCard = (idx: number): CommunityIdCardsModel => ({
   idCardId: idx,
@@ -33,4 +33,13 @@ export const createCommunityIdCards = (
   page,
   size,
   hasNext: page === 5,
+});
+
+export const createCommunityDetail = (): CommunityDetailModel => ({
+  communityId: 1,
+  logoImageUrl: faker.image.avatar(),
+  coverImageUrl: faker.image.avatar(),
+  title: faker.lorem.sentence(),
+  idCardCount: faker.number.int(),
+  description: faker.lorem.lines(2),
 });

@@ -1,6 +1,6 @@
 import { cookies } from 'next/headers';
 
-import { FetchResponseType } from '~/lib/api/config/api.types';
+import { FetchResponseType } from '~/api/config/api.types';
 import { AUTH_COOKIE_KEYS } from '~/types/auth';
 import { getAccessToken } from '~/utils/auth/tokenHandlers';
 
