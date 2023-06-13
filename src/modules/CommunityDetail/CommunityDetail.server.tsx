@@ -34,8 +34,8 @@ export const CommunityDetail = ({
             />
           </div>
           <div className="flex w-full flex-col gap-8pxr">
-            <p className={'text-sm font-medium text-gray-800'}>{`주민 ${idCardCount}`}</p>
-            <p className={'text-detail text-gray-800'}>{`${description}`}</p>
+            <p className="text-sm font-medium text-gray-800">{`주민 ${idCardCount}`}</p>
+            <p className="text-detail text-gray-800">{`${description}`}</p>
           </div>
         </div>
       </div>
