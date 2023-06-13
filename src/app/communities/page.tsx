@@ -2,7 +2,7 @@ import 'server-only';
 
 import Image from 'next/image';
 
-import { PlanetEnterButtons } from '@/modules/PlanetEnterButtons';
+import { PlanetEnterButtons } from '~/modules/PlanetEnterButtons';
 
 const CommunitiesPage = () => {
   return (

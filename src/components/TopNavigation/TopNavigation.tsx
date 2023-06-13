@@ -3,7 +3,7 @@
 import { useRouter } from 'next/navigation';
 import { ReactNode } from 'react';
 
-import { ArrowLeftIcon, CancelIcon, ChevronLeftIcon } from '@/components/Icon';
+import { ArrowLeftIcon, CancelIcon, ChevronLeftIcon } from '~/components/Icon';
 
 const BackButton = {
   chevron: ChevronLeftIcon,

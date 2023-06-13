@@ -1,5 +1,5 @@
-import { SliceResponse } from '@/types/api';
-import { CommunityDetailModel, CommunityIdCardsModel } from '@/types/community';
+import { SliceResponse } from '~/types/api';
+import { CommunityDetailModel, CommunityIdCardsModel } from '~/types/community';
 
 export type CommunityIdCardsResponse = {
   communityIdCardsDtos: SliceResponse<CommunityIdCardsModel>;

@@ -1,6 +1,6 @@
-import { BaseResponseType } from '@/lib/api/config/api.types';
-import publicApi from '@/lib/api/config/publicApi';
-import { CommunityDetailResponse, CommunityIdCardsResponse } from '@/types/community';
+import { BaseResponseType } from '~/lib/api/config/api.types';
+import publicApi from '~/lib/api/config/publicApi';
+import { CommunityDetailResponse, CommunityIdCardsResponse } from '~/types/community';
 
 const getCommunityIdCards = async (id: string, pageParam: number) => {
   const res = await publicApi

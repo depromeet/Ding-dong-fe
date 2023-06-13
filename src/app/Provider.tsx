@@ -5,7 +5,7 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { SessionProvider } from 'next-auth/react';
 import { useState } from 'react';
 
-import initMocks from '@/mocks';
+import initMocks from '~/mocks';
 
 if (process.env.NEXT_PUBLIC_API_MOCKING === 'enabled') {
   initMocks();
@@ -17,7 +17,7 @@ const Provider = ({ children }: { children: React.ReactNode }) => {
 
   return (
     <>
-      <SessionProvider>
+      <SessionProvider basePath="/auth">
         <QueryClientProvider client={queryClient}>
           {children}
           <ReactQueryDevtools initialIsOpen={false} />

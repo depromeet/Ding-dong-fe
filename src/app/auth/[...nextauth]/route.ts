@@ -1,7 +1,15 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import { NextRequest } from 'next/server';
+import { CookiesOptions } from 'next-auth';
 import NextAuth from 'next-auth/next';
 import KakaoProvider from 'next-auth/providers/kakao';
+
+const cookies: Partial<CookiesOptions> = {
+  csrfToken: {
+    name: 'next-auth.csrf-token',
+    options: {},
+  },
+};
 
 const auth = async (req: NextRequest, res: NextApiResponse) => {
   return NextAuth(req as unknown as NextApiRequest, res, {
@@ -9,8 +17,10 @@ const auth = async (req: NextRequest, res: NextApiResponse) => {
       KakaoProvider({
         clientId: process.env.KAKAO_CLIENT_ID ?? '',
         clientSecret: process.env.KAKAO_CLIENT_SECRET ?? '',
+        authorization: 'https://kauth.kakao.com/oauth/authorize',
       }),
     ],
+    cookies: cookies,
     callbacks: {
       async jwt({ token, account }) {
         if (account?.accessToken) {
@@ -18,9 +28,12 @@ const auth = async (req: NextRequest, res: NextApiResponse) => {
         }
         return token;
       },
+      async session({ session }) {
+        return session;
+      },
     },
     pages: {
-      signIn: '/api/auth/signin',
+      signIn: '/auth/signin',
     },
   });
 };

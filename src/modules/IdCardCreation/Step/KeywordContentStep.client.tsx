@@ -1,8 +1,8 @@
 'use client';
 import { useFormContext } from 'react-hook-form';
 
-import { KeywordContentEditCard } from '@/modules/IdCardCreation/Card';
-import { CreateKeywordModel } from '@/types/idCard';
+import { KeywordContentEditCard } from '~/modules/IdCardCreation/Card';
+import { CreateKeywordModel } from '~/types/idCard';
 
 const title = '나를 소개하는 키워드의\n 설명을 적어주세요!';
 

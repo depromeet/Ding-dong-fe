@@ -6,6 +6,7 @@ import {
 } from 'axios';
 
 // 서버에서 정해진 format이 있으면 수정해서 사용하면 됩니다
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type CustomResponseFormat<T = any> = T;
 
 export interface CustomInstance extends AxiosInstance {
@@ -30,3 +31,9 @@ export interface BaseResponseType<T> extends AxiosResponse<T> {
   data: T;
   message: string;
 }
+
+export type FetchResponseType<T> = {
+  success: boolean;
+  status: number;
+  data?: T;
+};

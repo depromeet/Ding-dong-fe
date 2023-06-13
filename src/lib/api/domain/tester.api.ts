@@ -1,6 +1,6 @@
-import { BaseResponseType } from '@/lib/api/config/api.types';
-import publicApi from '@/lib/api/config/publicApi';
-import { REQUEST_API } from '@/lib/api/config/requestUrl';
+import { BaseResponseType } from '~/lib/api/config/api.types';
+import publicApi from '~/lib/api/config/publicApi';
+import { REQUEST_API } from '~/lib/api/config/requestUrl';
 
 const testerApi = {
   getTester: () =>

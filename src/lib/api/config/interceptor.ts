@@ -1,9 +1,22 @@
 import { AxiosError, AxiosResponse, InternalAxiosRequestConfig } from 'axios';
 
+import { getAccessToken, getAuthTokensByCookie } from '~/utils/auth/tokenHandlers';
+
 import { ApiError } from './customError';
 
-export const onRequest = (config: InternalAxiosRequestConfig) => {
-  return config;
+export const onRequest = async (config: InternalAxiosRequestConfig) => {
+  try {
+    const auth = getAuthTokensByCookie(document.cookie);
+    const validAccessToken = await getAccessToken(auth);
+    if (validAccessToken) {
+      config.headers.Authorization = `Bearer ${validAccessToken}`;
+      return config;
+    }
+    throw new Error('로그인이 필요합니다.');
+  } catch (error) {
+    // client-side 로그아웃 처리
+    return Promise.reject(error);
+  }
 };
 
 export const onRequestError = (error: AxiosError) => {

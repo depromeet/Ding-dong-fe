@@ -1,4 +1,4 @@
-export const ROOT_API_URL = process.env.ROOT_API_URL;
+export const ROOT_API_URL = process.env.ROOT_API_URL ?? 'https://ding-dong-planet.com/api';
 
 export const REQUEST_API = {
   TESTER: '/tester',
