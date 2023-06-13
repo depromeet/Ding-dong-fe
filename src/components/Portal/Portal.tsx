@@ -3,7 +3,7 @@
 import { PropsWithChildren, useEffect, useRef } from 'react';
 import { createPortal } from 'react-dom';
 
-import useIsMounted from '~/hooks/useIsMounted';
+import useIsMounted from '~/hooks/useIsMounted.hooks';
 
 export const Portal = ({ children }: PropsWithChildren) => {
   const ref = useRef<Element | null>(null);
