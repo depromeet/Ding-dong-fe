@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { Chip } from './Chip';
 
 const meta: Meta<typeof Chip> = {
-  title: 'Chip',
+  title: 'components/Chip',
   component: Chip,
   args: {},
 };

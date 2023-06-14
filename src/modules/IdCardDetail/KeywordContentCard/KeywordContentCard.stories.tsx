@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { KeywordContentCard } from './KeywordContentCard.server';
 
 const meta: Meta<typeof KeywordContentCard> = {
-  title: 'KeywordContentCard',
+  title: 'modules/KeywordContentCard',
   component: KeywordContentCard,
 };
 
