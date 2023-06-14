@@ -6,12 +6,12 @@ import { useFormContext } from 'react-hook-form';
 
 import { KeywordContentImage } from '~/modules/IdCardCreation/Step/KeywordContentImage.client';
 import { KeywordContentCard } from '~/modules/IdCardDetail';
-import { CreateKeywordModel } from '~/types/idCard';
+import { FormKeywordModel } from '~/types/idCard';
 import { tw } from '~/utils/tailwind.util';
 
 type KeywordContentEditCardProps = {
   className?: string;
-  keyword: CreateKeywordModel;
+  keyword: FormKeywordModel;
   index: number;
 };
 
