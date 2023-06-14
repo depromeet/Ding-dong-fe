@@ -10,7 +10,7 @@ import { CommunityIdCardsModel } from '~/types/community';
 export const CommunityIdCards = () => {
   // TODO: 커뮤니티 id 값 수정해야함
   const { data: communityIdCards, fetchNextPage } = useGetCommunityIdCards({
-    id: '1',
+    communityId: '1',
     pageParam: 1,
   });
   const { ref, inView } = useInView();

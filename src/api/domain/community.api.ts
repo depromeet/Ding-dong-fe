@@ -5,16 +5,22 @@ import { CommunityDetailResponse, CommunityIdCardsResponse } from '~/types/commu
 import { CommunityIdCardsRequest } from '~/types/community/request.type';
 
 export const communityQueryKey = {
-  idCards: (id: string, pageParam: number) => ['getCommunityIdCards', id, pageParam],
+  idCards: (communityId: string, pageParam: number) => [
+    'getCommunityIdCards',
+    communityId,
+    pageParam,
+  ],
 };
 
-export const getCommunityIdCards = ({ id, pageParam }: CommunityIdCardsRequest) =>
-  privateApi.get<CommunityIdCardsResponse>(`/communities/${id}/idCards?page=${pageParam}&size=10`);
+export const getCommunityIdCards = ({ communityId, pageParam }: CommunityIdCardsRequest) =>
+  privateApi.get<CommunityIdCardsResponse>(
+    `/communities/${communityId}/idCards?page=${pageParam}&size=10`,
+  );
 
-export const useGetCommunityIdCards = ({ id, pageParam }: CommunityIdCardsRequest) => {
+export const useGetCommunityIdCards = ({ communityId, pageParam }: CommunityIdCardsRequest) => {
   return useInfiniteQuery(
-    communityQueryKey.idCards(id, pageParam),
-    ({ pageParam = 0 }) => getCommunityIdCards({ id, pageParam }),
+    communityQueryKey.idCards(communityId, pageParam),
+    ({ pageParam = 0 }) => getCommunityIdCards({ communityId, pageParam }),
     {
       getNextPageParam: data =>
         !data.communityIdCardsDtos.hasNext ? data.communityIdCardsDtos.page + 1 : undefined,
