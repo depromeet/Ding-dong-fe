@@ -1,13 +1,13 @@
 'use client';
 import { useFormContext } from 'react-hook-form';
 
+import { CreationSteps } from '~/modules/IdCardCreation/IdCardCreation.type';
 import { KeywordStep } from '~/modules/IdCardCreation/Step/KeywordStep.client';
-import { Steps } from '~/types/idCard';
 
 import { KeywordContentStep, ProfileStep } from '../Step';
 
 type IdCardCreationFormProps = {
-  steps: Steps[];
+  steps: CreationSteps[];
   stepOrder: number;
   onNext: () => void;
   onPrev: () => void;

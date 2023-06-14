@@ -5,6 +5,8 @@ export type CharacterModel = {
   BUDDY: { group: 'FIRST'; korean: '버디'; english: 'Buddy' };
 };
 
+export type FormKeywordModel = Omit<KeywordModel, 'keywordId'>;
+
 export type CharacterNameModel = keyof CharacterModel;
 
 export type IdCardDetailModel = {
@@ -21,4 +23,21 @@ export type KeywordModel = {
   title: string;
   imageUrl: string;
   content: string;
+};
+
+// id field 추가할 예정입니다
+export type IdCardCreationFormModel = {
+  profileImageUrl: string;
+  communityId: number;
+  nickname: string;
+  aboutMe: string;
+  keywords: FormKeywordModel[];
+};
+
+export type IdCardEditorFormModel = {
+  communityId: number;
+  profileImageUrl: string;
+  nickname: string;
+  aboutMe: string;
+  keywords: FormKeywordModel[];
 };

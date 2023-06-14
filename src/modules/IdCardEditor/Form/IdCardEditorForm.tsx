@@ -1,11 +1,11 @@
 import { useFormContext } from 'react-hook-form';
 
+import { EditorSteps } from '~/modules/IdCardEditor/IdCardEditor.type';
 import {
   EditKeywordContentStep,
   EditKeywordStep,
   EditProfileInfoStep,
 } from '~/modules/IdCardEditor/Step';
-import { EditorSteps } from '~/types/idCard';
 
 type IdCardEditorFormProps = {
   steps: EditorSteps[];

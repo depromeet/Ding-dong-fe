@@ -4,10 +4,11 @@ import { useCallback, useState } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 
 import { IdCardCreationForm } from '~/modules/IdCardCreation/Form';
+import { CreationSteps } from '~/modules/IdCardCreation/IdCardCreation.type';
 import { BoardingStep } from '~/modules/IdCardCreation/Step/BoardingStep.client';
 import { CompleteStep } from '~/modules/IdCardCreation/Step/CompleteStep.client';
-import { IdCardCreationFormModel, Steps } from '~/types/idCard/creation.type';
-const steps: Steps[] = ['BOARDING', 'PROFILE', 'KEYWORD', 'KEYWORD_CONTENT', 'COMPLETE'];
+import { IdCardCreationFormModel } from '~/types/idCard';
+const steps: CreationSteps[] = ['BOARDING', 'PROFILE', 'KEYWORD', 'KEYWORD_CONTENT', 'COMPLETE'];
 
 export const IdCardCreationSteps = () => {
   const methods = useForm<IdCardCreationFormModel>({

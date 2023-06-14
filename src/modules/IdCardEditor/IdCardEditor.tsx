@@ -7,7 +7,8 @@ import { FormProvider, useForm } from 'react-hook-form';
 
 import { TopNavigation } from '~/components/TopNavigation';
 import { IdCardEditorForm } from '~/modules/IdCardEditor/Form';
-import { EditorSteps, IdCardEditorFormModel } from '~/types/idCard';
+import { EditorSteps } from '~/modules/IdCardEditor/IdCardEditor.type';
+import { IdCardEditorFormModel } from '~/types/idCard';
 
 // 순서가 있지는 않음. KEYWORD_CONTENT: 최초 진인접, / PROFILE, KEYWORD은 같은 깊이
 const steps: EditorSteps[] = ['KEYWORD_CONTENT', 'PROFILE', 'KEYWORD'];

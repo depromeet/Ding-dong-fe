@@ -1,4 +1,4 @@
-import { EditorSteps } from '~/types/idCard';
+import { EditorSteps } from '~/modules/IdCardEditor/IdCardEditor.type';
 
 type EditKeywordContentStepProps = {
   onClickMoveTargetStep: (targetStep: EditorSteps) => void;
