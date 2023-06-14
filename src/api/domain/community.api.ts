@@ -1,7 +1,11 @@
 import { useInfiniteQuery } from '@tanstack/react-query';
 
 import privateApi from '~/api/config/privateApi';
-import { CommunityDetailResponse, CommunityIdCardsResponse } from '~/types/community';
+import {
+  CommunityDetailResponse,
+  CommunityIdCardsResponse,
+  CommunityListResponse,
+} from '~/types/community';
 import { CommunityIdCardsRequest } from '~/types/community/request.type';
 
 export const communityQueryKey = {
@@ -33,3 +37,7 @@ export const useGetCommunityIdCards = ({ communityId, pageParam }: CommunityIdCa
 
 export const getCommunityDetail = (id: string) =>
   privateApi.get<CommunityDetailResponse>(`/communities/${id}`);
+
+export const getCommunityList = (userId: string) => {
+  privateApi.get<CommunityListResponse>(`/communities/users/${userId}`);
+};

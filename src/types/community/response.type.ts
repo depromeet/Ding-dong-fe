@@ -1,5 +1,5 @@
 import { SliceResponse } from '~/types/api';
-import { CommunityDetailModel, CommunityIdCardsModel } from '~/types/community';
+import { CommunityDetailModel, CommunityIdCardsModel, CommunityListModel } from '~/types/community';
 
 export type CommunityIdCardsResponse = {
   communityIdCardsDtos: SliceResponse<CommunityIdCardsModel>;
@@ -7,4 +7,8 @@ export type CommunityIdCardsResponse = {
 
 export type CommunityDetailResponse = {
   communityDetailsDto: CommunityDetailModel;
+};
+
+export type CommunityListResponse = {
+  communityListDtos: CommunityListModel[];
 };
