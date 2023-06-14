@@ -3,6 +3,7 @@ export { BellIcon } from './BellIcon';
 export * from './CameraIcon';
 export { CancelIcon } from './CancelIcon';
 export { ChevronLeftIcon } from './ChevronLeftIcon';
+export * from './ChevronRightIcon';
 export { HomeIcon } from './HomeIcon';
 export { PersonIcon } from './PersonIcon';
 export { PlusIcon } from './PlusIcon';

@@ -6,6 +6,7 @@ import {
   CameraIcon,
   CancelIcon,
   ChevronLeftIcon,
+  ChevronRightIcon,
   HomeIcon,
   PersonIcon,
   PlusIcon,
@@ -42,6 +43,10 @@ export const Cancel = {
 
 export const ChevronLeft = {
   render: () => <ChevronLeftIcon />,
+};
+
+export const ChevronRight = {
+  render: () => <ChevronRightIcon />,
 };
 
 export const Plus = {
