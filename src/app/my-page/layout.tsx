@@ -1,14 +1,7 @@
 import { PropsWithChildren } from 'react';
 
-import { BottomNavigation } from '~/components/BottomNavigation';
-
 const Layout = ({ children }: PropsWithChildren) => {
-  return (
-    <div>
-      {children}
-      <BottomNavigation />
-    </div>
-  );
+  return <div>{children}</div>;
 };
 
 export default Layout;
