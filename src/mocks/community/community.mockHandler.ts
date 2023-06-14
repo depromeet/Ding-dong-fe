@@ -8,19 +8,22 @@ import {
 } from '~/mocks/community/community.mock';
 
 const communityMockHandler = [
-  rest.get(`${ROOT_API_URL}/communities/:id/idCards?page=:page&size=10`, (req, res, ctx) => {
-    const { searchParams } = req.url;
-    const page = Number(searchParams.get('page'));
+  rest.get(
+    `${ROOT_API_URL}/communities/:communityId/idCards?page=:page&size=10`,
+    (req, res, ctx) => {
+      const { searchParams } = req.url;
+      const page = Number(searchParams.get('page'));
 
-    return res(
-      ctx.status(200),
-      ctx.json({
-        communityIdCardsDtos: createCommunityIdCards(10, page, 10),
-      }),
-    );
-  }),
+      return res(
+        ctx.status(200),
+        ctx.json({
+          communityIdCardsDtos: createCommunityIdCards(10, page, 10),
+        }),
+      );
+    },
+  ),
 
-  rest.get(`${ROOT_API_URL}/communities/:id`, (req, res, ctx) => {
+  rest.get(`${ROOT_API_URL}/communities/:communityId`, (req, res, ctx) => {
     return res(ctx.status(200), ctx.json({ communityDetailsDto: createCommunityDetail() }));
   }),
 
