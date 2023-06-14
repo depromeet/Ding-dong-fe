@@ -11,7 +11,7 @@ import getQueryClient from '~/lib/tanstackQuery/getQueryClient';
 import { CommunityDetail } from '~/modules/CommunityDetail';
 import { CommunityIdCards } from '~/modules/CommunityIdCards';
 
-const page = async () => {
+const PlanetPage = async () => {
   const queryClient = getQueryClient();
   // TODO: 커뮤니티 id 값 수정해야함
   const id = '1';
@@ -38,4 +38,4 @@ const page = async () => {
   );
 };
 
-export default page;
+export default PlanetPage;
