@@ -1,9 +1,10 @@
 import { Controller, useFormContext } from 'react-hook-form';
 
 import { KeywordInput, OptionType } from '~/components/KeywordInput';
+import { IdCardEditorFormModel } from '~/types/idCard';
 
 export const EditKeywordStep = () => {
-  const { control } = useFormContext();
+  const { control } = useFormContext<IdCardEditorFormModel>();
 
   return (
     <div>
