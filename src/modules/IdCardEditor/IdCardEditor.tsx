@@ -59,9 +59,11 @@ export const IdCardEditor = ({
   const onClickCompleteButton = () => {
     if (isEntry) {
       onSubmit();
+      // TODO: onSubmit이 정상 실행될 때만 뒤로 가기
+      router.back();
       return;
     }
-    router.back();
+    setStepOrder(KEYWORD_CONTENT_STEP);
   };
 
   return (
