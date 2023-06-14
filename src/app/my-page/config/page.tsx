@@ -1,6 +1,7 @@
 'use client';
 import { Divider } from '~/components/Divider';
-import { ChevronRightIcon } from '~/components/Icon';
+import { Menu } from '~/components/Menu';
+import { TopNavigation } from '~/components/TopNavigation';
 
 const MyPageConfig = () => {
   // leavePlanet, exitPlanet
@@ -17,35 +18,32 @@ const MyPageConfig = () => {
   };
 
   return (
-    <main className="pt-[50px]">
-      <div>
-        <h4 className="text-b2 text-grey-500">행성 관리</h4>
-        <ul>
-          <li
-            className="flex w-full justify-between text-b1 text-grey-800"
-            onClick={onClickEscapePlanet}
-          >
+    <main>
+      <TopNavigation>
+        <TopNavigation.Left>
+          <TopNavigation.BackButton />
+        </TopNavigation.Left>
+        <TopNavigation.Title>
+          <h1 className="text-h5 font-semibold text-black">설정</h1>
+        </TopNavigation.Title>
+      </TopNavigation>
+      <div className="pt-[50px]">
+        <Menu>
+          <Menu.Header>행성 관리</Menu.Header>
+          <Menu.Element onClick={onClickEscapePlanet}>
             <span>행성 떠나기</span>
-            <ChevronRightIcon />
-          </li>
-        </ul>
-      </div>
-      <Divider />
-      <div>
-        <h4 className="text-b2 text-grey-500">계정 관리</h4>
-        <ul>
-          <li className="flex w-full justify-between text-b1 text-grey-800" onClick={onClickLogout}>
-            <span> 로그아웃</span>
-            <ChevronRightIcon />
-          </li>
-          <li
-            className="flex w-full justify-between text-b1 text-grey-800"
-            onClick={onClickSignOut}
-          >
-            <span> 회원 탈퇴</span>
-            <ChevronRightIcon />
-          </li>
-        </ul>
+          </Menu.Element>
+        </Menu>
+        <Divider />
+        <Menu>
+          <Menu.Header>계정 관리</Menu.Header>
+          <Menu.Element onClick={onClickLogout}>
+            <span>로그아웃</span>
+          </Menu.Element>
+          <Menu.Element onClick={onClickSignOut}>
+            <span>회원 탈퇴</span>
+          </Menu.Element>
+        </Menu>
       </div>
     </main>
   );
