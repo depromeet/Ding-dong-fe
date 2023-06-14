@@ -38,6 +38,5 @@ export const useGetCommunityIdCards = ({ communityId, pageParam }: CommunityIdCa
 export const getCommunityDetail = (id: string) =>
   privateApi.get<CommunityDetailResponse>(`/communities/${id}`);
 
-export const getCommunityList = (userId: string) => {
+export const getCommunityList = (userId: string) =>
   privateApi.get<CommunityListResponse>(`/communities/users/${userId}`);
-};
