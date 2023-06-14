@@ -1,6 +1,7 @@
 'use client';
 import { useFormContext } from 'react-hook-form';
 
+import { TopNavigation } from '~/components/TopNavigation';
 import { CreationSteps } from '~/modules/IdCardCreation/IdCardCreation.type';
 import { KeywordStep } from '~/modules/IdCardCreation/Step/KeywordStep.client';
 
@@ -13,15 +14,35 @@ type IdCardCreationFormProps = {
   onPrev: () => void;
 };
 
-export const IdCardCreationForm = ({ step }: IdCardCreationFormProps) => {
+export const IdCardCreationForm = ({
+  steps,
+  stepOrder,
+  onNext,
+  onPrev,
+}: IdCardCreationFormProps) => {
   const { handleSubmit } = useFormContext();
   const onSubmit = () => console.log('제출');
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="mt-24pxr">
-      {step === 'PROFILE' && <ProfileStep />}
-      {step === 'KEYWORD' && <KeywordStep />}
-      {step === 'KEYWORD_CONTENT' && <KeywordContentStep />}
-    </form>
+    <div>
+      <TopNavigation bottomBorderColor="primary-500">
+        <TopNavigation.Left>
+          <TopNavigation.BackButton onClickBackButton={onPrev} />
+        </TopNavigation.Left>
+        <TopNavigation.Right>
+          {steps[stepOrder] === 'KEYWORD_CONTENT' ? (
+            <button type="submit">제출</button>
+          ) : (
+            <button onClick={onNext}>다음</button>
+          )}
+        </TopNavigation.Right>
+      </TopNavigation>
+
+      <form onSubmit={handleSubmit(onSubmit)} className="mt-24pxr">
+        {steps[stepOrder] === 'PROFILE' && <ProfileStep />}
+        {steps[stepOrder] === 'KEYWORD' && <KeywordStep />}
+        {steps[stepOrder] === 'KEYWORD_CONTENT' && <KeywordContentStep />}
+      </form>
+    </div>
   );
 };
