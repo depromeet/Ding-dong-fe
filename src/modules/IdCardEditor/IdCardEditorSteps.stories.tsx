@@ -14,7 +14,7 @@ export default meta;
 
 type Story = StoryObj<typeof IdCardEditor>;
 
-// TO
+// TODO: form관련으로 create mock data 수정하기
 const MOCK_ID_CARD = createIdCard();
 const { nickname, profileImageUrl, aboutMe, keywords } = MOCK_ID_CARD;
 
