@@ -23,6 +23,8 @@ const IdCardDetailPage = async ({ params: { id } }: IdCardDetailPageProps) => {
 
   const bgColor = bgColors[idCardDetailsDto.characterType];
 
+  // 로그인한 유저의 id면 수정페이지로 이동할 수 있는 버튼 보이게하기 (다래님이 만들어주심)
+
   return (
     <main>
       <TopNavigation bgColor={bgColor}>
@@ -39,6 +41,7 @@ const IdCardDetailPage = async ({ params: { id } }: IdCardDetailPageProps) => {
               title={keyword.title}
               image={
                 keyword.imageUrl && (
+                  // eslint-disable-next-line @next/next/no-img-element
                   <img
                     src={keyword.imageUrl}
                     alt={keyword.title}
