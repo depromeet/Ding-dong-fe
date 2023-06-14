@@ -6,6 +6,8 @@ import {
   CameraIcon,
   CancelIcon,
   ChevronLeftIcon,
+  ChevronRightIcon,
+  GearFillIcon,
   HomeIcon,
   PersonIcon,
   PlusIcon,
@@ -44,12 +46,20 @@ export const ChevronLeft = {
   render: () => <ChevronLeftIcon />,
 };
 
+export const ChevronRight = {
+  render: () => <ChevronRightIcon />,
+};
+
 export const Plus = {
   render: () => <PlusIcon />,
 };
 
 export const QuestionCircle = {
   render: () => <QuestionCircleIcon />,
+};
+
+export const GearFill = {
+  render: () => <GearFillIcon />,
 };
 
 export const Home = {
