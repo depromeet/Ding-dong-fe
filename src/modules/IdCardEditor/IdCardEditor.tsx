@@ -2,23 +2,25 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import { useState } from 'react';
+import { BaseSyntheticEvent, useState } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 
+import { editIdCardDetail } from '~/api/domain/idCard.api';
 import { TopNavigation } from '~/components/TopNavigation';
 import { IdCardEditorForm } from '~/modules/IdCardEditor/Form';
 import { editorSteps, KEYWORD_CONTENT_STEP } from '~/modules/IdCardEditor/IdCardEditor.constant';
 import { EditorSteps } from '~/modules/IdCardEditor/IdCardEditor.type';
-import { IdCardEditorFormModel } from '~/types/idCard';
+import { IdCardDetailModel, IdCardEditorFormModel } from '~/types/idCard';
 
-type IdCardEditorProps = IdCardEditorFormModel;
+type IdCardEditorProps = IdCardDetailModel;
 
 export const IdCardEditor = ({
-  communityId,
+  idCardId,
   profileImageUrl,
   nickname,
   aboutMe,
   keywords,
+  characterType,
 }: IdCardEditorProps) => {
   const methods = useForm<IdCardEditorFormModel>({
     defaultValues: {
@@ -28,15 +30,21 @@ export const IdCardEditor = ({
       keywords,
     },
   });
+
+  const onSubmit = async (idCardInfo: IdCardEditorFormModel) => {
+    try {
+      const response = await editIdCardDetail({ idCardId, ...idCardInfo });
+      console.log('response', response);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   const router = useRouter();
   const [stepOrder, setStepOrder] = useState<number>(KEYWORD_CONTENT_STEP);
 
   const title = editorSteps[stepOrder] === 'PROFILE' ? '주민 정보 수정' : '주민증 수정';
   const isEntry = stepOrder === KEYWORD_CONTENT_STEP;
-
-  const onSubmit = async () => {
-    new Promise(res => res(1));
-  };
 
   const onClickMoveTargetStep = (targetStep: EditorSteps) => {
     const stepIndex = editorSteps.findIndex(step => step === targetStep);
@@ -53,7 +61,7 @@ export const IdCardEditor = ({
 
   const onClickCompleteButton = () => {
     if (isEntry) {
-      onSubmit();
+      methods.handleSubmit(onSubmit)();
       // TODO: onSubmit이 정상 실행될 때만 뒤로 가기
       router.back();
       return;
