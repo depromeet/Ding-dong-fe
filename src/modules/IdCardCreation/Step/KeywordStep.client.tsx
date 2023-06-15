@@ -25,6 +25,7 @@ export const KeywordStep = () => {
             onChange={onChange} // rhf onchange handler
             maxActiveKeywordListLength={7}
             maxInputLength={8}
+            className="mt-24pxr"
           />
         )}
       />

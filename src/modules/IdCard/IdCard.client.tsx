@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 
 import Tag from '~/components/Tag/Tag';
 import { CharacterNameModel } from '~/types/idCard';
+import { tw } from '~/utils/tailwind.util';
 
 type IdCardProps = {
   idCardId: number;
@@ -12,6 +13,7 @@ type IdCardProps = {
   aboutMe: string;
   characterType: CharacterNameModel;
   keywordTitles: string[];
+  className?: string;
 };
 
 const bgColors: Record<CharacterNameModel, string> = {
@@ -27,6 +29,7 @@ export const IdCard = ({
   aboutMe,
   characterType,
   keywordTitles,
+  className,
 }: IdCardProps) => {
   const bgColor = bgColors[characterType];
   const router = useRouter();
@@ -36,7 +39,7 @@ export const IdCard = ({
   };
 
   return (
-    <div className="w-full" onClick={handleClickIdCard}>
+    <div className={tw('w-full', className)} onClick={handleClickIdCard}>
       <div className={`${bgColor} rounded-t-2xl p-5`}>
         <p className="text-h1">{nickname}</p>
         <p className="mb-3 mt-3.5 text-b2">{aboutMe}</p>
