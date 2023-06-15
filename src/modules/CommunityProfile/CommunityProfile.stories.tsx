@@ -4,7 +4,7 @@ import { CommunityBgImage } from './CommunityBgImage.client';
 import { CommunityProfile } from './CommunityProfile';
 
 const meta: Meta<typeof CommunityProfile> = {
-  title: 'CommunityProfile',
+  title: 'modules/CommunityProfile',
   component: CommunityProfile,
 };
 

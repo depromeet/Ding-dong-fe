@@ -4,7 +4,7 @@ import { CommunityAdmin } from './CommunityAdmin';
 import { CommunityAdminEdit } from './CommunityAdminEdit.client';
 
 const meta: Meta<typeof CommunityAdmin> = {
-  title: 'CommunityAdmin',
+  title: 'modules/CommunityAdmin',
   component: CommunityAdmin,
 };
 
