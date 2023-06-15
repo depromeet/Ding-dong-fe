@@ -7,15 +7,9 @@ import { FormProvider, useForm } from 'react-hook-form';
 
 import { TopNavigation } from '~/components/TopNavigation';
 import { IdCardEditorForm } from '~/modules/IdCardEditor/Form';
+import { editorSteps, KEYWORD_CONTENT_STEP } from '~/modules/IdCardEditor/IdCardEditor.constant';
 import { EditorSteps } from '~/modules/IdCardEditor/IdCardEditor.type';
 import { IdCardEditorFormModel } from '~/types/idCard';
-
-// 순서가 있지는 않음. KEYWORD_CONTENT: 최초 진인접, / PROFILE, KEYWORD은 같은 깊이
-const steps: EditorSteps[] = ['KEYWORD_CONTENT', 'PROFILE', 'KEYWORD'];
-
-const KEYWORD_CONTENT_STEP = 0;
-const PROFILE_STEP = 1;
-const KEYWORD_STEP = 2;
 
 type IdCardEditorProps = IdCardEditorFormModel;
 
@@ -37,7 +31,7 @@ export const IdCardEditor = ({
   const router = useRouter();
   const [stepOrder, setStepOrder] = useState<number>(KEYWORD_CONTENT_STEP);
 
-  const title = steps[stepOrder] === 'PROFILE' ? '주민 정보 수정' : '주민증 수정';
+  const title = editorSteps[stepOrder] === 'PROFILE' ? '주민 정보 수정' : '주민증 수정';
   const isEntry = stepOrder === KEYWORD_CONTENT_STEP;
 
   const onSubmit = async () => {
@@ -45,7 +39,7 @@ export const IdCardEditor = ({
   };
 
   const onClickMoveTargetStep = (targetStep: EditorSteps) => {
-    const stepIndex = steps.findIndex(step => step === targetStep);
+    const stepIndex = editorSteps.findIndex(step => step === targetStep);
     setStepOrder(stepIndex);
   };
 
@@ -80,10 +74,10 @@ export const IdCardEditor = ({
           </button>
         </TopNavigation.Right>
       </TopNavigation>
-      {['PROFILE', 'KEYWORD', 'KEYWORD_CONTENT'].includes(steps[stepOrder]) && (
+      {['PROFILE', 'KEYWORD', 'KEYWORD_CONTENT'].includes(editorSteps[stepOrder]) && (
         <div className="pt-[50px]">
           <IdCardEditorForm
-            steps={steps}
+            steps={editorSteps}
             stepOrder={stepOrder}
             onClickMoveTargetStep={onClickMoveTargetStep}
             onSubmit={onSubmit}
