@@ -1,20 +1,30 @@
 import { useInfiniteQuery } from '@tanstack/react-query';
 
 import privateApi from '~/api/config/privateApi';
-import { CommunityDetailResponse, CommunityIdCardsResponse } from '~/types/community';
+import {
+  CommunityDetailResponse,
+  CommunityIdCardsResponse,
+  CommunityListResponse,
+} from '~/types/community';
 import { CommunityIdCardsRequest } from '~/types/community/request.type';
 
 export const communityQueryKey = {
-  idCards: (id: string, pageParam: number) => ['getCommunityIdCards', id, pageParam],
+  idCards: (communityId: string, pageParam: number) => [
+    'getCommunityIdCards',
+    communityId,
+    pageParam,
+  ],
 };
 
-export const getCommunityIdCards = ({ id, pageParam }: CommunityIdCardsRequest) =>
-  privateApi.get<CommunityIdCardsResponse>(`/communities/${id}/idCards?page=${pageParam}&size=10`);
+export const getCommunityIdCards = ({ communityId, pageParam }: CommunityIdCardsRequest) =>
+  privateApi.get<CommunityIdCardsResponse>(
+    `/communities/${communityId}/idCards?page=${pageParam}&size=10`,
+  );
 
-export const useGetCommunityIdCards = ({ id, pageParam }: CommunityIdCardsRequest) => {
+export const useGetCommunityIdCards = ({ communityId, pageParam }: CommunityIdCardsRequest) => {
   return useInfiniteQuery(
-    communityQueryKey.idCards(id, pageParam),
-    ({ pageParam = 0 }) => getCommunityIdCards({ id, pageParam }),
+    communityQueryKey.idCards(communityId, pageParam),
+    ({ pageParam = 0 }) => getCommunityIdCards({ communityId, pageParam }),
     {
       getNextPageParam: data =>
         !data.communityIdCardsDtos.hasNext ? data.communityIdCardsDtos.page + 1 : undefined,
@@ -27,3 +37,6 @@ export const useGetCommunityIdCards = ({ id, pageParam }: CommunityIdCardsReques
 
 export const getCommunityDetail = (id: string) =>
   privateApi.get<CommunityDetailResponse>(`/communities/${id}`);
+
+export const getCommunityList = (userId: string) =>
+  privateApi.get<CommunityListResponse>(`/communities/users/${userId}`);
