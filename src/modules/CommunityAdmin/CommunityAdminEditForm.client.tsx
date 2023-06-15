@@ -1,6 +1,7 @@
 import { faker } from '@faker-js/faker';
 import { useFormContext } from 'react-hook-form';
 
+import Button from '~/components/Button/Button';
 import { ProfileImageEdit } from '~/components/ProfileImageEdit';
 import { TextArea, useTextArea } from '~/components/TextArea';
 import { TextInput, useTextInput } from '~/components/TextInput';
@@ -33,11 +34,19 @@ export const CommunityAdminEditForm = () => {
         <TextInput.Label name="title" required>
           이름
         </TextInput.Label>
-        <TextInput.Border textCount={textCount} maxLength={TEXT_MAX_LENGTH}>
+        <TextInput.Border
+          textCount={textCount}
+          maxLength={TEXT_MAX_LENGTH}
+          direction="row"
+          className="py-8pxr"
+        >
           <TextInput.Content
             {...register('title', { required: true })}
             onChange={onChangeHandler}
           />
+          <Button size="small" color="secondary" className="w-fit shrink-0 px-12pxr py-8pxr">
+            중복확인
+          </Button>
         </TextInput.Border>
       </TextInput>
       <TextArea>
