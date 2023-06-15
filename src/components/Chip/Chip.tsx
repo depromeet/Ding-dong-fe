@@ -50,7 +50,7 @@ export const Chip = ({
   return (
     <button
       onClick={onClick}
-      className={`${colors[colorType]} flex h-[30px] w-fit items-center justify-center gap-1.5 rounded-[50px] border-[1px] px-8pxr py-12pxr text-b3`}
+      className={`${colors[colorType]} flex w-fit items-center justify-center gap-6pxr rounded-[50px] border-[1px] px-12pxr py-8pxr text-b3`}
     >
       <span>{text}</span>
       <ButtonIcon

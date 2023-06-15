@@ -75,7 +75,7 @@ export const IdCardEditor = ({
         </TopNavigation.Right>
       </TopNavigation>
       {['PROFILE', 'KEYWORD', 'KEYWORD_CONTENT'].includes(editorSteps[stepOrder]) && (
-        <div className="mt-t-nav pt-28pxr">
+        <div className="pt-28pxr">
           <IdCardEditorForm
             steps={editorSteps}
             stepOrder={stepOrder}

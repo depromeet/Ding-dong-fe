@@ -69,7 +69,7 @@ export const KeywordContentEditCard = ({
           htmlFor={`keywords.${index}.imageUrl`}
           className="text-primary font rounded-[12px] border-[0.5px] border-solid border-grey-100 bg-grey-50 px-[6px] pb-[6px] pt-[6px] text-detail text-primary-500"
         >
-          이미지 변경
+          이미지 추가
         </label>
         <input
           id={`keywords.${index}.imageUrl`}

@@ -3,7 +3,7 @@ import type { StoryObj } from '@storybook/react';
 import { BottomNavigation } from './BottomNavigation';
 
 export default {
-  title: 'BottomNavigation',
+  title: 'components/BottomNavigation',
   component: BottomNavigation,
 };
 

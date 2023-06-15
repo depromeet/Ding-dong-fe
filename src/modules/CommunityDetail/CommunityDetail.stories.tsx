@@ -1,9 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import { CommunityDetail } from '~/modules/CommunityDetail/CommunityDetail.server';
+import { CommunityDetail } from '~/modules/CommunityDetail/CommunityDetail';
 
 const meta: Meta<typeof CommunityDetail> = {
-  title: 'CommunityDetail',
+  title: 'modules/CommunityDetail',
   component: CommunityDetail,
 };
 

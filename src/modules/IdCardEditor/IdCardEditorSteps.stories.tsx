@@ -5,7 +5,7 @@ import { createIdCard } from '~/mocks/idCard/idCard.mock';
 import { IdCardEditor } from './index';
 
 const meta: Meta<typeof IdCardEditor> = {
-  title: 'IdCardEditor',
+  title: 'modules/IdCardEditor',
   component: IdCardEditor,
   args: {},
 };
