@@ -6,7 +6,7 @@ import BottomSheet from './BottomSheet';
 import { useBottomSheet } from './useBottomSheet';
 
 const meta: Meta<typeof BottomSheet> = {
-  title: 'BottomSheet',
+  title: 'components/BottomSheet',
   component: BottomSheet,
 };
 

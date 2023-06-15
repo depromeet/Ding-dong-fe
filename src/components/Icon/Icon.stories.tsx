@@ -15,7 +15,7 @@ import {
 } from '~/components/Icon';
 
 const meta: Meta = {
-  title: 'Icon',
+  title: 'components/Icon',
 };
 
 // Icon 폴더의 파일명을 알파벳순서로 정렬해주세요~

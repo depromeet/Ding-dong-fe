@@ -2,12 +2,13 @@
 import { ChangeEvent, ChangeEventHandler, useCallback, useState } from 'react';
 
 export type UseTextAreaProps = {
+  initCount?: number;
   onChange: ChangeEventHandler;
   maxLength?: number;
 };
 
-export const useTextArea = ({ onChange, maxLength }: UseTextAreaProps) => {
-  const [textCount, setTextCount] = useState(0);
+export const useTextArea = ({ initCount = 0, onChange, maxLength }: UseTextAreaProps) => {
+  const [textCount, setTextCount] = useState(initCount);
 
   const onChangeHandler = useCallback(
     (e: ChangeEvent<HTMLTextAreaElement>) => {

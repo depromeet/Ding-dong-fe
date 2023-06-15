@@ -8,9 +8,9 @@ const bgColors: Record<CharacterNameModel, string> = {
   TRUE: 'bg-true-100',
 };
 
-type IntorProps = Omit<IdCardDetailModel, 'idCardId' | 'profileImageUrl'>;
+type IntroProps = Omit<IdCardDetailModel, 'idCardId' | 'profileImageUrl'>;
 
-export const Intro = ({ nickname, aboutMe, keywords, characterType }: IntorProps) => {
+export const Intro = ({ nickname, aboutMe, keywords, characterType }: IntroProps) => {
   const bgColor = bgColors[characterType];
 
   return (

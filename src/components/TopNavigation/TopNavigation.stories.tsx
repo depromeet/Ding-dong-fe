@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { TopNavigation } from '~/components/TopNavigation';
 
 const meta: Meta<typeof TopNavigation> = {
-  title: 'TopNavigation',
+  title: 'components/TopNavigation',
   component: TopNavigation,
   args: {},
 };

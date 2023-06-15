@@ -7,7 +7,7 @@ import { BoardingStep, LoadingStep } from '~/modules/IdCardCreation/Step';
 import { IdCardCreationSteps } from './IdCardCreationSteps';
 
 export default {
-  title: 'IdCardSteps',
+  title: 'modules/IdCardSteps',
   component: IdCardCreationSteps,
 };
 

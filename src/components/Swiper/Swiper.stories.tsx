@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { Swiper, SwiperSlide } from './index';
 
 const meta: Meta<typeof Swiper> = {
-  title: 'Swiper',
+  title: 'components/Swiper',
   component: Swiper,
   args: {},
 };
