@@ -2,7 +2,7 @@ import { ReactNode } from 'react';
 
 import { CommunityDetailModel } from '~/types/community';
 
-import { CommunityLogoImage } from './CommunityLogoImage.client';
+import { CommunityLogoImage } from './CommunityLogoImage';
 
 type CommunityProfileProps = Pick<
   CommunityDetailModel,

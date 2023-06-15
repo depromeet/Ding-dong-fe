@@ -1,7 +1,7 @@
 import { Meta, StoryObj } from '@storybook/react';
 
 import { CommunityBgImage } from './CommunityBgImage.client';
-import { CommunityProfile } from './CommunityProfile.client';
+import { CommunityProfile } from './CommunityProfile';
 
 const meta: Meta<typeof CommunityProfile> = {
   title: 'CommunityProfile',

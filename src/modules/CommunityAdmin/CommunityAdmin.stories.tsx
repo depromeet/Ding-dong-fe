@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import { CommunityAdmin } from './CommunityAdmin.client';
+import { CommunityAdmin } from './CommunityAdmin';
 
 const meta: Meta<typeof CommunityAdmin> = {
   title: 'CommunityAdmin',
