@@ -3,6 +3,8 @@ import { KeyboardEvent, MouseEvent, useRef } from 'react';
 
 import { Chip } from '~/components/Chip/Chip';
 import { useKeywordInput } from '~/components/KeywordInput/useKeywordInput.hooks';
+import { ClassNameType } from '~/types/util';
+import { tw } from '~/utils/tailwind.util';
 
 import { OptionType } from './keywordInput.type';
 import { useInputAutoSize } from './useInputAutoSize';
@@ -17,6 +19,7 @@ type KeywordInputProps = {
   onChange: (...event: any[]) => void; // rhf의 onChange타입입니다.
   maxActiveKeywordListLength: number;
   maxInputLength: number;
+  className?: ClassNameType;
 };
 
 export const KeywordInput = ({
@@ -28,6 +31,7 @@ export const KeywordInput = ({
   onChange,
   maxActiveKeywordListLength,
   maxInputLength,
+  className,
 }: KeywordInputProps) => {
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -66,12 +70,9 @@ export const KeywordInput = ({
   };
 
   return (
-    <div className="flex w-full flex-col">
-      <div
-        onClick={onClickBackground}
-        className="mb-28pxr flex min-h-[56px] bg-grey-50 px-20pxr py-12pxr"
-      >
-        <ul className="flex w-full flex-wrap items-center gap-x-4pxr gap-y-8pxr">
+    <div className={tw('flex w-full flex-col', className)}>
+      <div onClick={onClickBackground} className="mb-28pxr flex min-h-[56px] bg-grey-50 py-12pxr">
+        <ul className="flex w-full flex-wrap items-center gap-x-4pxr gap-y-8pxr px-layout-sm">
           {activeKeywordList.map(({ title }) => (
             <Chip
               key={title}
@@ -95,7 +96,7 @@ export const KeywordInput = ({
           />
         </ul>
       </div>
-      <div className="mx-20pxr">
+      <div className="px-layout-sm">
         <label className="text-b2 text-grey-400">{keywordLabel}</label>
         <ul className="flex flex-wrap gap-x-8pxr gap-y-12pxr py-16pxr">
           {keywordOptions.map(({ title }) => (
