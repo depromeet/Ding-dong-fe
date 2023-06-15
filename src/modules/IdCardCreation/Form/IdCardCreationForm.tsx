@@ -29,6 +29,7 @@ export const IdCardCreationForm = ({
         <TopNavigation.Left>
           <TopNavigation.BackButton onClickBackButton={onPrev} />
         </TopNavigation.Left>
+        <TopNavigation.Title />
         <TopNavigation.Right>
           {steps[stepOrder] === 'KEYWORD_CONTENT' ? (
             <button type="submit">제출</button>
