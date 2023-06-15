@@ -1,6 +1,16 @@
 'use client';
-import { PropsWithChildren } from 'react';
+import { HTMLAttributes, PropsWithChildren } from 'react';
 
-export const TextAreaWrapper = ({ children }: PropsWithChildren) => {
-  return <div className="flex w-full flex-col">{children}</div>;
+import { tw } from '~/utils/tailwind.util';
+
+export const TextAreaWrapper = ({
+  className,
+  children,
+  ...rest
+}: PropsWithChildren<HTMLAttributes<HTMLDivElement>>) => {
+  return (
+    <div className={tw('flex w-full flex-col', className)} {...rest}>
+      {children}
+    </div>
+  );
 };
