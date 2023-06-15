@@ -26,7 +26,7 @@ export const BottomNavigation = () => {
   return (
     <nav className="fixed bottom-0 left-0 w-full">
       <Divider />
-      <ul className="flex h-[52px] items-center justify-evenly bg-white">
+      <ul className="flex h-b-nav items-center justify-evenly bg-white">
         <li>
           <button onClick={() => handleNavigation('/planet')}>
             <HomeIcon className={getSvgcolor('/planet')} />

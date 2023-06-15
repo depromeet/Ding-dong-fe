@@ -36,6 +36,7 @@ const preview: Preview = {
       viewports: INITIAL_VIEWPORTS,
       defaultViewport: 'iphone6',
     },
+    layout: 'fullscreen',
     nextjs: {
       appDirectory: true,
     },
