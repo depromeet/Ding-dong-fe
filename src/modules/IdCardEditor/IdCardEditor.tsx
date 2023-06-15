@@ -2,17 +2,17 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import { BaseSyntheticEvent, useState } from 'react';
+import { useState } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 
-import { editIdCardDetail, useEditIdCardDetail } from '~/api/domain/idCard.api';
+import { useEditIdCardDetail } from '~/api/domain/idCard.api';
 import { TopNavigation } from '~/components/TopNavigation';
 import { IdCardEditorForm } from '~/modules/IdCardEditor/Form';
 import { editorSteps, KEYWORD_CONTENT_STEP } from '~/modules/IdCardEditor/IdCardEditor.constant';
-import { EditorSteps } from '~/modules/IdCardEditor/IdCardEditor.type';
-import { IdCardDetailModel, IdCardEditorFormModel } from '~/types/idCard';
+import { EditorSteps, IdCardEditorFormValues } from '~/modules/IdCardEditor/IdCardEditor.type';
+import { IdCardEditorFormModel } from '~/types/idCard';
 
-type IdCardEditorProps = IdCardDetailModel;
+type IdCardEditorProps = IdCardEditorFormModel;
 
 export const IdCardEditor = ({
   idCardId,
@@ -20,11 +20,10 @@ export const IdCardEditor = ({
   nickname,
   aboutMe,
   keywords,
-  characterType,
 }: IdCardEditorProps) => {
   const { mutate: mutateEditIdCardDetail } = useEditIdCardDetail();
 
-  const methods = useForm<IdCardEditorFormModel>({
+  const methods = useForm<IdCardEditorFormValues>({
     defaultValues: {
       nickname,
       aboutMe,
@@ -33,12 +32,8 @@ export const IdCardEditor = ({
     },
   });
 
-  const onSubmit = async (idCardInfo: IdCardEditorFormModel) => {
-    try {
-      mutateEditIdCardDetail({ idCardId, ...idCardInfo });
-    } catch (error) {
-      console.error(error);
-    }
+  const onSubmit = async (idCardInfo: IdCardEditorFormValues) => {
+    mutateEditIdCardDetail({ idCardId, ...idCardInfo });
   };
 
   const router = useRouter();
@@ -63,7 +58,7 @@ export const IdCardEditor = ({
   const onClickCompleteButton = () => {
     if (isEntry) {
       methods.handleSubmit(onSubmit)();
-      // TODO: onSubmit이 정상 실행될 때만 뒤로 가기
+      // TODO: onSubmit이 정상 실행될 때만 뒤로 가기: useMutation 정상 실행여부 판단하기
       router.back();
       return;
     }

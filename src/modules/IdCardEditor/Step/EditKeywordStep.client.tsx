@@ -6,10 +6,10 @@ import {
   MAX_KEYWORD_LIST_LENGTH,
   TEMP_RECOMMEND_KEYWORD_LIST,
 } from '~/modules/IdCardEditor/IdCardEditor.constant';
-import { IdCardEditorFormModel } from '~/types/idCard';
+import { IdCardEditorFormValues } from '~/modules/IdCardEditor/IdCardEditor.type';
 
 export const EditKeywordStep = () => {
-  const { control } = useFormContext<IdCardEditorFormModel>();
+  const { control } = useFormContext<IdCardEditorFormValues>();
 
   return (
     <div>

@@ -34,4 +34,10 @@ export type IdCardCreationFormModel = {
   keywords: FormKeywordModel[];
 };
 
-export type IdCardEditorFormModel = Omit<IdCardDetailModel, 'characterType' | 'idCardId'>;
+export type IdCardEditorFormModel = {
+  idCardId: number;
+  profileImageUrl: string;
+  nickname: string;
+  aboutMe: string;
+  keywords: FormKeywordModel[];
+};

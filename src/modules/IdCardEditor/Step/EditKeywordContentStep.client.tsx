@@ -2,16 +2,16 @@ import { useFormContext } from 'react-hook-form';
 
 import { Chip } from '~/components/Chip';
 // TODO: IdCardCreation의 하위 폴더가 아닌 modules의 하위폴더로 이동해야 합니다.
-import { EditorSteps } from '~/modules/IdCardEditor/IdCardEditor.type';
+import { EditorSteps, IdCardEditorFormValues } from '~/modules/IdCardEditor/IdCardEditor.type';
 import { KeywordContentEditCard } from '~/modules/KeywordContentEditCard';
-import { FormKeywordModel, IdCardEditorFormModel } from '~/types/idCard';
+import { FormKeywordModel } from '~/types/idCard';
 
 type EditKeywordContentStepProps = {
   onClickMoveTargetStep: (targetStep: EditorSteps) => void;
 };
 
 export const EditKeywordContentStep = ({ onClickMoveTargetStep }: EditKeywordContentStepProps) => {
-  const { setValue, getValues } = useFormContext<IdCardEditorFormModel>();
+  const { setValue, getValues } = useFormContext<IdCardEditorFormValues>();
   const values = getValues();
   const { nickname, aboutMe, keywords } = values;
 

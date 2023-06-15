@@ -6,10 +6,10 @@ import {
   MAX_ABOUT_ME_LENGTH,
   MAX_NICKNAME_LENGTH,
 } from '~/modules/IdCardEditor/IdCardEditor.constant';
-import { IdCardEditorFormModel } from '~/types/idCard';
+import { IdCardEditorFormValues } from '~/modules/IdCardEditor/IdCardEditor.type';
 
 export const EditProfileInfoStep = () => {
-  const { register, getValues } = useFormContext<IdCardEditorFormModel>();
+  const { register, getValues } = useFormContext<IdCardEditorFormValues>();
   const { nickname, aboutMe } = getValues();
 
   // TODO: TextInput, TextArea 안쪽으로 리팩토링해야 할듯
