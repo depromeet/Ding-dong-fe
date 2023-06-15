@@ -2,10 +2,11 @@ import { useFormContext } from 'react-hook-form';
 
 import { TextArea, useTextArea } from '~/components/TextArea';
 import { TextInput, useTextInput } from '~/components/TextInput';
+import {
+  MAX_ABOUT_ME_LENGTH,
+  MAX_NICKNAME_LENGTH,
+} from '~/modules/IdCardEditor/IdCardEditor.constant';
 import { IdCardEditorFormModel } from '~/types/idCard';
-
-const MAX_NICKNAME_LENGTH = 16;
-const MAX_ABOUT_ME_LENGTH = 50;
 
 export const EditProfileInfoStep = () => {
   const { register, getValues } = useFormContext<IdCardEditorFormModel>();
