@@ -1,5 +1,6 @@
 import Button from '~/components/Button/Button';
 import { KakaoIcon } from '~/components/Icon/KakaoIcon';
+import { TopNavigation } from '~/components/TopNavigation';
 import { CommunityBgImage, CommunityProfile } from '~/modules/CommunityProfile';
 import { CommunityDetailModel } from '~/types/community';
 
@@ -13,8 +14,17 @@ export const CommunityAdmin = ({
 }: CommunityAdminProps) => {
   return (
     <div>
-      <CommunityBgImage coverImageUrl={coverImageUrl} />
-      <div className="px-20pxr">
+      <TopNavigation>
+        <TopNavigation.Left>
+          <TopNavigation.BackButton backLink="" />
+        </TopNavigation.Left>
+        <TopNavigation.Title>
+          <p className="text-h5">행성 관리</p>
+        </TopNavigation.Title>
+      </TopNavigation>
+      <div className="mt-50pxr"></div>
+      <CommunityBgImage coverImageUrl={coverImageUrl} isEditable />
+      <div className="mt-16pxr px-20pxr">
         <CommunityProfile
           logoImageUrl={logoImageUrl}
           idCardCount={idCardCount}
