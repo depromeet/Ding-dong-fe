@@ -1,1 +1,1 @@
-export * from './KeywrodContentEditCard.client';
+export * from './KeywordContentEditCard.client';
