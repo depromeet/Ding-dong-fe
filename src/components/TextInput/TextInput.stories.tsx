@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form';
 import { TextInput, useTextInput } from './index';
 
 const meta: Meta<typeof TextInput> = {
-  title: 'TextInput',
+  title: 'components/TextInput',
   component: TextInput,
   args: {},
 };

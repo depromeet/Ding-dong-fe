@@ -5,7 +5,7 @@ import { KeywordInput } from './KeywordInput';
 import { OptionType } from './keywordInput.type';
 
 const meta: Meta<typeof KeywordInput> = {
-  title: 'KeywordInput',
+  title: 'components/KeywordInput',
   component: KeywordInput,
   args: {},
 };

@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { Intro } from './Intro.server';
 
 const meta: Meta<typeof Intro> = {
-  title: 'Intro',
+  title: 'modules/Intro',
   component: Intro,
 };
 
