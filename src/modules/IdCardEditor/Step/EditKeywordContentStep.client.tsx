@@ -2,7 +2,8 @@ import { useFormContext } from 'react-hook-form';
 
 import { Chip } from '~/components/Chip';
 import { KeywordContentEditCard } from '~/modules/IdCardCreation/Card';
-import { EditorSteps, IdCardEditorFormModel } from '~/types/idCard';
+import { EditorSteps } from '~/modules/IdCardEditor/IdCardEditor.type';
+import { IdCardEditorFormModel } from '~/types/idCard';
 
 type EditKeywordContentStepProps = {
   onClickMoveTargetStep: (targetStep: EditorSteps) => void;

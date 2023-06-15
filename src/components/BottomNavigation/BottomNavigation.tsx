@@ -5,7 +5,7 @@ import { usePathname, useRouter } from 'next/navigation';
 import { Divider } from '~/components/Divider';
 import { BellIcon, HomeIcon, PersonIcon } from '~/components/Icon';
 
-type BottomNavigationPath = '/communities' | '/notification' | '/my-page';
+type BottomNavigationPath = '/planet' | '/notification' | '/my-page';
 
 export const BottomNavigation = () => {
   const pathname = usePathname();
@@ -16,7 +16,7 @@ export const BottomNavigation = () => {
   };
 
   const getSvgcolor = (bottomNavigationPath: BottomNavigationPath) => {
-    if (bottomNavigationPath === pathname) {
+    if (bottomNavigationPath.includes(pathname)) {
       return 'fill-primary-500 stroke-primary-500';
     } else {
       return 'fill-none stroke-grey-400';
@@ -26,10 +26,10 @@ export const BottomNavigation = () => {
   return (
     <nav className="fixed bottom-0 left-0 w-full">
       <Divider />
-      <ul className="flex h-[52px] items-center justify-evenly bg-white">
+      <ul className="flex h-b-nav items-center justify-evenly bg-white">
         <li>
-          <button onClick={() => handleNavigation('/communities')}>
-            <HomeIcon className={getSvgcolor('/communities')} />
+          <button onClick={() => handleNavigation('/planet')}>
+            <HomeIcon className={getSvgcolor('/planet')} />
           </button>
         </li>
         <li>

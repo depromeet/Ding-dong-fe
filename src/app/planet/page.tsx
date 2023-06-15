@@ -4,7 +4,7 @@ import Image from 'next/image';
 
 import { PlanetEnterButtons } from '~/modules/PlanetEnterButtons';
 
-const CommunitiesPage = () => {
+const PlanetPage = () => {
   return (
     <div className="flex h-screen flex-col justify-center px-5">
       <h1 className="mb-4 mt-1 text-h2 text-grey-900">아직 소속된 행성이 없네요!</h1>
@@ -15,4 +15,4 @@ const CommunitiesPage = () => {
   );
 };
 
-export default CommunitiesPage;
+export default PlanetPage;
