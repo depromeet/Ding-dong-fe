@@ -22,7 +22,6 @@ export const CommunityAdmin = ({
           <p className="text-h5">행성 관리</p>
         </TopNavigation.Title>
       </TopNavigation>
-      <div className="mt-50pxr"></div>
       <CommunityBgImage coverImageUrl={coverImageUrl} isEditable communityId={communityId} />
       <div className="mt-16pxr px-20pxr">
         <CommunityProfile
