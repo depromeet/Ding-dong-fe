@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import { BaseSyntheticEvent, useState } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 
-import { editIdCardDetail } from '~/api/domain/idCard.api';
+import { editIdCardDetail, useEditIdCardDetail } from '~/api/domain/idCard.api';
 import { TopNavigation } from '~/components/TopNavigation';
 import { IdCardEditorForm } from '~/modules/IdCardEditor/Form';
 import { editorSteps, KEYWORD_CONTENT_STEP } from '~/modules/IdCardEditor/IdCardEditor.constant';
@@ -22,6 +22,8 @@ export const IdCardEditor = ({
   keywords,
   characterType,
 }: IdCardEditorProps) => {
+  const { mutate: mutateEditIdCardDetail } = useEditIdCardDetail();
+
   const methods = useForm<IdCardEditorFormModel>({
     defaultValues: {
       nickname,
@@ -33,8 +35,7 @@ export const IdCardEditor = ({
 
   const onSubmit = async (idCardInfo: IdCardEditorFormModel) => {
     try {
-      const response = await editIdCardDetail({ idCardId, ...idCardInfo });
-      console.log('response', response);
+      mutateEditIdCardDetail({ idCardId, ...idCardInfo });
     } catch (error) {
       console.error(error);
     }
