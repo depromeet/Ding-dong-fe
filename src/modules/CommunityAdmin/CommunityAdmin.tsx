@@ -4,14 +4,14 @@ import { TopNavigation } from '~/components/TopNavigation';
 import { CommunityBgImage, CommunityProfile } from '~/modules/CommunityProfile';
 import { CommunityDetailModel } from '~/types/community';
 
-type CommunityAdminProps = Omit<CommunityDetailModel, 'communityId'>;
 export const CommunityAdmin = ({
+  communityId,
   logoImageUrl,
   coverImageUrl,
   title,
   idCardCount,
   description,
-}: CommunityAdminProps) => {
+}: CommunityDetailModel) => {
   return (
     <div>
       <TopNavigation>
@@ -23,7 +23,7 @@ export const CommunityAdmin = ({
         </TopNavigation.Title>
       </TopNavigation>
       <div className="mt-50pxr"></div>
-      <CommunityBgImage coverImageUrl={coverImageUrl} isEditable />
+      <CommunityBgImage coverImageUrl={coverImageUrl} isEditable communityId={communityId} />
       <div className="mt-16pxr px-20pxr">
         <CommunityProfile
           logoImageUrl={logoImageUrl}

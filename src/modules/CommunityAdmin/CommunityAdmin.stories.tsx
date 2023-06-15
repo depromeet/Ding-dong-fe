@@ -12,6 +12,7 @@ type Story = StoryObj<typeof CommunityAdmin>;
 export const Default: Story = {
   render: () => (
     <CommunityAdmin
+      communityId={0}
       coverImageUrl="/assets/images/planet-with-shadow.png"
       logoImageUrl="/assets/images/pipi.png"
       title="Depromeet"

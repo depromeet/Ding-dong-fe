@@ -9,6 +9,7 @@ import Button from '~/components/Button/Button';
 type CommunityBgImageProps = {
   coverImageUrl: string;
   isEditable?: boolean;
+  communityId?: number;
 };
 export const CommunityBgImage = ({ coverImageUrl, isEditable }: CommunityBgImageProps) => {
   const [profileImage, setProfileImage] = useState<string>(coverImageUrl);
