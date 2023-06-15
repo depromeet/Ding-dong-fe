@@ -26,12 +26,17 @@ export const EditKeywordContentStep = ({ onClickMoveTargetStep }: EditKeywordCon
 
   return (
     <div>
-      <div className="mb-24pxr flex flex-col gap-[9px] px-[21px] pb-[25px] pt-[8px]">
-        <div className="flex gap-6pxr">
-          <p className="text-h3">{nickname}</p>
-          <button onClick={() => onClickMoveTargetStep('PROFILE')}>PROFILE EDIT</button>
+      <div className="mb-24pxr flex justify-between pb-[25px]">
+        <div>
+          <div className="flex gap-6pxr">
+            <p className="text-h3">{nickname}</p>
+            {/* TODO: 아이콘 확정되면 수정할 예정 */}
+            <button onClick={() => onClickMoveTargetStep('PROFILE')}>PROFILE EDIT</button>
+          </div>
+          <p className="text-b3 text-grey-600">{aboutMe}</p>
         </div>
-        <p className="text-b3 text-grey-600">{aboutMe}</p>
+        {/* TODO: 프로필 이미지 component가 들어갈 자리 */}
+        <div className="h-[84px] w-[84px]">profile image</div>
       </div>
       <ul className="mb-34pxr flex w-full flex-wrap items-center gap-x-4pxr gap-y-8pxr bg-grey-100 px-20pxr py-15pxr">
         {keywords.map(({ title }) => (
