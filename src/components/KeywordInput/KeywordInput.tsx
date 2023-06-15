@@ -72,7 +72,7 @@ export const KeywordInput = ({
     <div className={tw('flex w-full flex-col', className)}>
       <div
         onClick={onClickBackground}
-        className="mb-28pxr flex min-h-[56px] bg-grey-50 px-20pxr py-12pxr"
+        className="flex min-h-56pxr bg-grey-50 px-20pxr py-12pxr"
       >
         <ul className="flex w-full flex-wrap items-center gap-x-4pxr gap-y-8pxr">
           {activeKeywordList.map(({ title }) => (
@@ -98,7 +98,7 @@ export const KeywordInput = ({
           />
         </ul>
       </div>
-      <div>
+      <div className="mt-28pxr">
         <label className="text-b2 text-grey-400">{keywordLabel}</label>
         <ul className="flex flex-wrap gap-x-8pxr gap-y-12pxr py-16pxr">
           {keywordOptions.map(({ title }) => (
