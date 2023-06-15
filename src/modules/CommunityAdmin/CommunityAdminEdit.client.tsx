@@ -8,10 +8,9 @@ import { TopNavigation } from '~/components/TopNavigation';
 import { CommunityDetailModel } from '~/types/community';
 
 import { CommunityAdminEditForm } from './CommunityAdminEditForm.client';
-
+export type DuplicateState = 'DEFAULT' | 'SUCCESS' | 'ERROR';
 export const CommunityAdminEdit = ({ logoImageUrl, title, description }: CommunityDetailModel) => {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [isChecked, setIsChecked] = useState(false);
+  const [isDuplicatedCheck, setIsDuplicatedCheck] = useState<DuplicateState>('DEFAULT');
 
   const methods = useForm<CommunityDetailModel>({
     defaultValues: {
@@ -36,7 +35,7 @@ export const CommunityAdminEdit = ({ logoImageUrl, title, description }: Communi
             form="community-admin-edit-form"
             className={twMerge(
               'text-h5 font-bold',
-              isChecked ? 'text-primary-500' : 'text-gray-400',
+              isDuplicatedCheck === 'SUCCESS' ? 'text-primary-500' : 'text-gray-400',
             )}
           >
             완료
@@ -45,7 +44,10 @@ export const CommunityAdminEdit = ({ logoImageUrl, title, description }: Communi
       </TopNavigation>
       <div className="mt-24pxr px-20pxr">
         <FormProvider {...methods}>
-          <CommunityAdminEditForm />
+          <CommunityAdminEditForm
+            isDuplicatedCheck={isDuplicatedCheck}
+            setIsDuplicatedCheck={setIsDuplicatedCheck}
+          />
         </FormProvider>
       </div>
     </div>

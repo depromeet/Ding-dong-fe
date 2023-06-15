@@ -6,10 +6,19 @@ import { ProfileImageEdit } from '~/components/ProfileImageEdit';
 import { TextArea, useTextArea } from '~/components/TextArea';
 import { TextInput, useTextInput } from '~/components/TextInput';
 
+import { DuplicateState } from './CommunityAdminEdit.client';
+
 const TEXT_MAX_LENGTH = 16;
 const TEXT_AREA_MAX_LENGTH = 50;
 
-export const CommunityAdminEditForm = () => {
+type CommunityAdminEditFormProps = {
+  isDuplicatedCheck: DuplicateState;
+  setIsDuplicatedCheck: (isChecked: DuplicateState) => void;
+};
+export const CommunityAdminEditForm = ({
+  isDuplicatedCheck,
+  setIsDuplicatedCheck,
+}: CommunityAdminEditFormProps) => {
   const onSubmit = () => console.log('제출');
 
   const { register, setValue, handleSubmit } = useFormContext();
@@ -22,6 +31,12 @@ export const CommunityAdminEditForm = () => {
     onChange: register('description').onChange,
     maxLength: TEXT_AREA_MAX_LENGTH,
   });
+
+  const onCheck = () => {
+    //TODO: 중복확인 로직 추가
+    setIsDuplicatedCheck('SUCCESS');
+    // setIsDuplicatedCheck('ERROR');
+  };
   return (
     <form id="community-admin-edit-form" onSubmit={handleSubmit(onSubmit)}>
       <ProfileImageEdit
@@ -39,12 +54,18 @@ export const CommunityAdminEditForm = () => {
           maxLength={TEXT_MAX_LENGTH}
           direction="row"
           className="py-8pxr"
+          errorMessage={isDuplicatedCheck === 'ERROR' ? '이미 사용중인 이름이에요.' : undefined}
         >
           <TextInput.Content
             {...register('title', { required: true })}
             onChange={onChangeHandler}
           />
-          <Button size="small" color="secondary" className="w-fit shrink-0 px-12pxr py-8pxr">
+          <Button
+            onClick={onCheck}
+            size="small"
+            color="secondary"
+            className="w-fit shrink-0 px-12pxr py-8pxr"
+          >
             중복확인
           </Button>
         </TextInput.Border>
