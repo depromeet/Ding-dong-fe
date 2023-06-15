@@ -30,6 +30,7 @@ export const TextInputContent = forwardRef<HTMLInputElement, TextInputProps>(
         id={`text-input-${name}`}
         ref={ref}
         type={type}
+        name={name}
         className={tw('w-full bg-inherit', disabledCss, inputClassName)}
         placeholder={placeholder}
         value={value}

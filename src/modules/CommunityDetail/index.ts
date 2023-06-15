@@ -1,1 +1,1 @@
-export * from './CommunityDetail.server';
+export * from './CommunityDetail';

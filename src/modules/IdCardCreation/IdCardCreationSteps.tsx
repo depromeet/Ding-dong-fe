@@ -1,13 +1,22 @@
 'use client';
 
-import { useCallback, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 
 import { IdCardCreationForm } from '~/modules/IdCardCreation/Form';
-import { BoardingStep } from '~/modules/IdCardCreation/Step/BoardingStep.client';
-import { CompleteStep } from '~/modules/IdCardCreation/Step/CompleteStep.client';
-import { IdCardCreationFormModel, Steps } from '~/types/idCard/creation.type';
-const steps: Steps[] = ['BOARDING', 'PROFILE', 'KEYWORD', 'KEYWORD_CONTENT', 'COMPLETE'];
+import { BoardingStep, CompleteStep, LoadingStep } from '~/modules/IdCardCreation/Step';
+import { IdCardCreationFormModel } from '~/types/idCard';
+
+import { CreationSteps } from './IdCardCreation.type';
+
+const steps: CreationSteps[] = [
+  'LOADING',
+  'BOARDING',
+  'PROFILE',
+  'KEYWORD',
+  'KEYWORD_CONTENT',
+  'COMPLETE',
+];
 
 export const IdCardCreationSteps = () => {
   const methods = useForm<IdCardCreationFormModel>({
@@ -17,28 +26,28 @@ export const IdCardCreationSteps = () => {
       keywords: [],
     },
   });
+
   const [stepOrder, setStepOrder] = useState<number>(0);
-  const onNext = useCallback(() => {
-    setStepOrder(stepOrder + 1);
-  }, [stepOrder]);
-  const onPrev = useCallback(() => {
-    setStepOrder(stepOrder - 1);
-  }, [stepOrder]);
+  const onNext = () => setStepOrder(stepOrder + 1);
+  const onPrev = () => setStepOrder(stepOrder - 1);
+
+  useEffect(() => {
+    const loadingShow = setTimeout(() => onNext(), 2000);
+    return () => clearTimeout(loadingShow);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <FormProvider {...methods}>
       {/* planetName 주입이 필요합니다. */}
-      {steps[stepOrder] === 'BOARDING' && <BoardingStep planetName="Dingdong" onNext={onNext} />}
-      {['PROFILE', 'KEYWORD', 'KEYWORD_CONTENT'].includes(steps[stepOrder]) && (
-        <div>
+      <div className="px-20pxr">
+        {steps[stepOrder] === 'LOADING' && <LoadingStep planetName="Ding dong" />}
+        {steps[stepOrder] === 'BOARDING' && <BoardingStep planetName="Dingdong" onNext={onNext} />}
+        {['PROFILE', 'KEYWORD', 'KEYWORD_CONTENT'].includes(steps[stepOrder]) && (
           <IdCardCreationForm steps={steps} stepOrder={stepOrder} onNext={onNext} onPrev={onPrev} />
-        </div>
-      )}
-      {steps[stepOrder] === 'COMPLETE' && (
-        <div>
-          <CompleteStep />
-        </div>
-      )}
+        )}
+        {steps[stepOrder] === 'COMPLETE' && <CompleteStep />}
+      </div>
     </FormProvider>
   );
 };

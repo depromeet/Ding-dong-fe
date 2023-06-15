@@ -6,6 +6,8 @@ import {
   CameraIcon,
   CancelIcon,
   ChevronLeftIcon,
+  ChevronRightIcon,
+  GearFillIcon,
   HomeIcon,
   PersonIcon,
   PlusIcon,
@@ -13,7 +15,7 @@ import {
 } from '~/components/Icon';
 
 const meta: Meta = {
-  title: 'Icon',
+  title: 'components/Icon',
 };
 
 // Icon 폴더의 파일명을 알파벳순서로 정렬해주세요~
@@ -44,12 +46,20 @@ export const ChevronLeft = {
   render: () => <ChevronLeftIcon />,
 };
 
+export const ChevronRight = {
+  render: () => <ChevronRightIcon />,
+};
+
 export const Plus = {
   render: () => <PlusIcon />,
 };
 
 export const QuestionCircle = {
   render: () => <QuestionCircleIcon />,
+};
+
+export const GearFill = {
+  render: () => <GearFillIcon />,
 };
 
 export const Home = {
