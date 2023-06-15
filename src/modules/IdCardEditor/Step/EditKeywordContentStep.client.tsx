@@ -1,18 +1,24 @@
 import { useFormContext } from 'react-hook-form';
 
 import { Chip } from '~/components/Chip';
+// TODO: IdCardCreation의 하위 폴더가 아닌 modules의 하위폴더로 이동해야 합니다.
 import { KeywordContentEditCard } from '~/modules/IdCardCreation/Card';
 import { EditorSteps } from '~/modules/IdCardEditor/IdCardEditor.type';
-import { IdCardEditorFormModel } from '~/types/idCard';
+import { FormKeywordModel, IdCardEditorFormModel } from '~/types/idCard';
 
 type EditKeywordContentStepProps = {
   onClickMoveTargetStep: (targetStep: EditorSteps) => void;
 };
 
 export const EditKeywordContentStep = ({ onClickMoveTargetStep }: EditKeywordContentStepProps) => {
-  const { getValues } = useFormContext<IdCardEditorFormModel>();
+  const { setValue, getValues } = useFormContext<IdCardEditorFormModel>();
   const values = getValues();
   const { nickname, aboutMe, keywords } = values;
+
+  const onClickDeleteChip = (title: string, keywords: FormKeywordModel[]) => {
+    const filteredKeywordList = keywords.filter(keyword => title !== keyword.title);
+    setValue('keywords', filteredKeywordList);
+  };
 
   const onClickKeywordPlus = () => {
     onClickMoveTargetStep('KEYWORD');
@@ -35,11 +41,11 @@ export const EditKeywordContentStep = ({ onClickMoveTargetStep }: EditKeywordCon
             isSelected={true}
             themeType="close"
             handleClickIcon={() => {
-              console.log('키워드 제거');
+              onClickDeleteChip(title, keywords);
             }}
           />
         ))}
-        <Chip text="키워드 추가" themeType="plus" handleClickIcon={onClickKeywordPlus} />
+        <Chip text="키워드 추가" themeType="plus" onClick={onClickKeywordPlus} />
       </ul>
       <ul>
         {keywords.map((keyword, index) => (
