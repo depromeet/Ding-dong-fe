@@ -1,8 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 
-import { AUTH_COOKIE_KEYS, AuthResponse } from '~/types/auth';
+import { AUTH_COOKIE_KEYS } from '~/types/auth';
 
-import { PublicFetch } from './api/config/publicFetch';
+import { ROOT_API_URL } from './api/config/requestUrl';
 import { generateCookiesKeyValues, getAccessToken } from './utils/auth/tokenHandlers';
 
 export const ACCESS_TOKEN_EXPIRE_MARGIN_SECOND = 60;
@@ -11,7 +11,7 @@ export const ACCESS_TOKEN_EXPIRE_MARGIN_SECOND = 60;
 const PRIVATE_ROUTES = ['/accounts'];
 
 const middleware = async (request: NextRequest) => {
-  if (request.nextUrl.pathname.startsWith('/auth/callback/kakao')) {
+  if (request.nextUrl.pathname.startsWith('/auth/callback/kakaodd')) {
     const authCode = request.nextUrl.searchParams.get('code');
 
     if (!authCode) {
@@ -19,19 +19,44 @@ const middleware = async (request: NextRequest) => {
       return NextResponse.redirect(new URL('/auth/signin', request.url));
     }
 
-    const { data, success } = await PublicFetch.get<AuthResponse>(
-      `/auth/login/kakao?authCode=${authCode}`,
-    );
-    if (!success || !data) {
-      // TODO: 에러 메시지 고도화: 로그인 실패
-      return NextResponse.redirect(new URL('/auth/signin', request.url));
-    }
+    // const result = await PublicFetch.post<AuthResponse>(`/auth/login/kakao`, {
+    //   body: JSON.stringify({
+    //     authCode,
+    //     redirectUri: `${request.nextUrl.origin}/auth/callback/kakao`,
+    //   }),
+    // });
 
-    const response = NextResponse.redirect(new URL('/', request.url));
-    for (const [cookieKey, cookieValue] of generateCookiesKeyValues(data)) {
-      response.cookies.set(cookieKey, cookieValue.toString());
+    try {
+      const result = await fetch(`${ROOT_API_URL}/auth/login/kakao`, {
+        method: 'POST',
+        body: JSON.stringify({
+          authCode,
+          redirectUri: `${request.nextUrl.origin}/auth/callback/kakao`,
+        }),
+        headers: {
+          accept: 'application/json',
+          'Access-Control-Allow-Origin': request.nextUrl.origin,
+        },
+        mode: 'no-cors',
+      });
+
+      if (result.ok) return NextResponse.redirect(new URL('/auth/signin', request.url));
+      const { data } = await result.json();
+      if (!data) {
+        // TODO: 에러 메시지 고도화: 로그인 실패
+        return NextResponse.redirect(new URL('/auth/signin', request.url));
+      }
+
+      const response = NextResponse.redirect(new URL('/', request.url));
+      for (const [cookieKey, cookieValue] of generateCookiesKeyValues(data)) {
+        response.cookies.set(cookieKey, cookieValue.toString());
+      }
+      return response;
+    } catch (e) {
+      // server-side 로그인 실패
+      //TODO: server-side fetch CORS 에러 핸들링
+      console.log(e);
     }
-    return response;
   }
 
   // 인증이 필요한 페이지
