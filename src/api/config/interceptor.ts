@@ -1,13 +1,27 @@
 import { AxiosError, AxiosResponse, InternalAxiosRequestConfig } from 'axios';
 
+import { AUTH_COOKIE_KEYS } from '~/types/auth';
 import { getAccessToken, getAuthTokensByCookie } from '~/utils/auth/tokenHandlers';
 
 import { ApiError } from './customError';
 
+const isServer = typeof window === 'undefined';
+
 export const onRequest = async (config: InternalAxiosRequestConfig) => {
   try {
-    const auth = getAuthTokensByCookie(document.cookie);
-    const validAccessToken = await getAccessToken(auth);
+    let validAccessToken = null;
+    if (isServer) {
+      const { cookies } = await import('next/headers');
+      const cookieStore = cookies();
+      const accessToken = cookieStore.get(AUTH_COOKIE_KEYS.accessToken)?.value;
+      const accessTokenExpireDate = Number(
+        cookieStore.get(AUTH_COOKIE_KEYS.accessTokenExpireDate)?.value,
+      );
+      validAccessToken = await getAccessToken({ accessToken, accessTokenExpireDate });
+    } else {
+      const auth = getAuthTokensByCookie(document.cookie);
+      validAccessToken = await getAccessToken(auth);
+    }
     if (validAccessToken) {
       config.headers.Authorization = `Bearer ${validAccessToken}`;
       return config;
