@@ -2,7 +2,10 @@
 import { useFormContext } from 'react-hook-form';
 
 import { TopNavigation } from '~/components/TopNavigation';
-import { CreationSteps } from '~/modules/IdCardCreation/IdCardCreation.type';
+import {
+  CreationSteps,
+  IdCardCreationFormType,
+} from '~/modules/IdCardCreation/IdCardCreation.type';
 import { KeywordStep } from '~/modules/IdCardCreation/Step/KeywordStep.client';
 
 import { KeywordContentStep, ProfileStep } from '../Step';
@@ -14,14 +17,51 @@ type IdCardCreationFormProps = {
   onPrev: () => void;
 };
 
+const disableButtonStyle = 'text-grey-400';
+
 export const IdCardCreationForm = ({
   steps,
   stepOrder,
   onNext,
   onPrev,
 }: IdCardCreationFormProps) => {
-  const { handleSubmit } = useFormContext();
+  const {
+    handleSubmit,
+    formState: { errors, isDirty, isValid },
+  } = useFormContext<IdCardCreationFormType>();
   const onSubmit = () => console.log('제출');
+
+  const getNavigationButton = () => {
+    let error;
+    let disableStyle;
+    switch (steps[stepOrder]) {
+      case 'PROFILE':
+        error = !isDirty || !!errors?.nickname;
+        disableStyle = (error && disableButtonStyle) || '';
+        return (
+          <button className={disableStyle} disabled={error} onClick={onNext}>
+            다음
+          </button>
+        );
+      case 'KEYWORD':
+        disableStyle = (!isValid && disableButtonStyle) || '';
+        return (
+          <button className={disableStyle} disabled={!isValid} onClick={onNext}>
+            다음
+          </button>
+        );
+      case 'KEYWORD_CONTENT':
+        disableStyle = (!isValid && disableButtonStyle) || '';
+        return (
+          <button className={disableStyle} disabled={!isValid} type="submit">
+            제출
+          </button>
+        );
+      default:
+        return null;
+    }
+  };
+  const NavigationButton = getNavigationButton();
 
   return (
     <div>
@@ -30,12 +70,8 @@ export const IdCardCreationForm = ({
           <TopNavigation.BackButton onClickBackButton={onPrev} />
         </TopNavigation.Left>
         <TopNavigation.Title />
-        <TopNavigation.Right>
-          {steps[stepOrder] === 'KEYWORD_CONTENT' ? (
-            <button type="submit">제출</button>
-          ) : (
-            <button onClick={onNext}>다음</button>
-          )}
+        <TopNavigation.Right className="text-h5 text-primary-500">
+          {NavigationButton}
         </TopNavigation.Right>
       </TopNavigation>
 
