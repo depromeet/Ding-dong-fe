@@ -5,6 +5,7 @@ import { TopNavigation } from '~/components/TopNavigation';
 import { CreationSteps } from '~/modules/IdCardCreation/IdCardCreation.type';
 import { KeywordStep } from '~/modules/IdCardCreation/Step/KeywordStep.client';
 import { IdCardCreationFormModel } from '~/types/idCard';
+import { tw } from '~/utils/tailwind.util';
 
 import { KeywordContentStep, ProfileStep } from '../Step';
 
@@ -27,11 +28,16 @@ export const IdCardCreationForm = ({
     handleSubmit,
     formState: { errors, isDirty, isValid },
   } = useFormContext<IdCardCreationFormModel>();
-  const onSubmit = () => console.log('제출');
+  const onValidation = () => console.log('validation 실행');
+  const onSubmit = () => {
+    // TODO : post api 붙이기
+    onNext();
+  };
 
   const getNavigationButton = () => {
     let error;
     let disableStyle;
+    console.log({ errors });
     switch (steps[stepOrder]) {
       case 'PROFILE':
         error = !isDirty || !!errors?.nickname;
@@ -51,7 +57,7 @@ export const IdCardCreationForm = ({
       case 'KEYWORD_CONTENT':
         disableStyle = (!isValid && disableButtonStyle) || '';
         return (
-          <button className={disableStyle} disabled={!isValid} type="submit">
+          <button className={tw(disableStyle, 'submission')} disabled={!isValid} onClick={onSubmit}>
             제출
           </button>
         );
@@ -63,17 +69,17 @@ export const IdCardCreationForm = ({
 
   return (
     <div>
-      <TopNavigation bottomBorderColor="primary-500">
-        <TopNavigation.Left>
-          <TopNavigation.BackButton onClickBackButton={onPrev} />
-        </TopNavigation.Left>
-        <TopNavigation.Title />
-        <TopNavigation.Right className="text-h5 text-primary-500">
-          {NavigationButton}
-        </TopNavigation.Right>
-      </TopNavigation>
+      <form onSubmit={handleSubmit(onValidation)} className="mt-24pxr">
+        <TopNavigation bottomBorderColor="primary-500">
+          <TopNavigation.Left>
+            <TopNavigation.BackButton onClickBackButton={onPrev} />
+          </TopNavigation.Left>
+          <TopNavigation.Title />
+          <TopNavigation.Right className="text-h5 text-primary-500">
+            {NavigationButton}
+          </TopNavigation.Right>
+        </TopNavigation>
 
-      <form onSubmit={handleSubmit(onSubmit)} className="mt-24pxr">
         {steps[stepOrder] === 'PROFILE' && <ProfileStep />}
         {steps[stepOrder] === 'KEYWORD' && <KeywordStep />}
         {steps[stepOrder] === 'KEYWORD_CONTENT' && <KeywordContentStep />}

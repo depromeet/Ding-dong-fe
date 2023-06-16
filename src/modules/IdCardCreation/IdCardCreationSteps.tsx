@@ -25,6 +25,7 @@ export const IdCardCreationSteps = () => {
       aboutMe: '',
       keywords: [],
     },
+    mode: 'onChange',
   });
 
   const [stepOrder, setStepOrder] = useState<number>(0);
