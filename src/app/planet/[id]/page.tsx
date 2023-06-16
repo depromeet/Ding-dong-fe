@@ -11,13 +11,17 @@ import getQueryClient from '~/lib/tanstackQuery/getQueryClient';
 import { CommunityDetail } from '~/modules/CommunityDetail';
 import { CommunityIdCards } from '~/modules/CommunityIdCards';
 
-const PlanetPage = async () => {
+type PlanetPageProps = {
+  params: {
+    id: string;
+  };
+};
+
+const PlanetPage = async ({ params: { id } }: PlanetPageProps) => {
   const queryClient = getQueryClient();
-  // TODO: 커뮤니티 id 값 수정해야함
-  const communityId = '1';
   const pageParam = 1;
-  await queryClient.prefetchQuery(communityQueryKey.idCards(communityId, pageParam), () => {
-    return getCommunityIdCards({ communityId, pageParam }).then(data => {
+  await queryClient.prefetchQuery(communityQueryKey.idCards(id, pageParam), () => {
+    return getCommunityIdCards({ communityId: id, pageParam }).then(data => {
       return {
         pages: [data],
       };
@@ -25,14 +29,13 @@ const PlanetPage = async () => {
   });
   const dehydratedState = dehydrate(queryClient);
 
-  // TODO: 커뮤니티 id 값 수정해야함
-  const { communityDetailsDto } = await getCommunityDetail(communityId);
+  const { communityDetailsDto } = await getCommunityDetail(id);
 
   return (
     <Hydrate state={dehydratedState}>
       <div>
         <CommunityDetail {...communityDetailsDto} />
-        <CommunityIdCards />
+        <CommunityIdCards communityId={id} />
       </div>
     </Hydrate>
   );
