@@ -70,10 +70,7 @@ export const KeywordInput = ({
 
   return (
     <div className={tw('flex w-full flex-col', className)}>
-      <div
-        onClick={onClickBackground}
-        className="flex min-h-56pxr bg-grey-50 px-20pxr py-12pxr"
-      >
+      <div onClick={onClickBackground} className="min-h-56pxr flex bg-grey-50 px-20pxr py-12pxr">
         <ul className="flex w-full flex-wrap items-center gap-x-4pxr gap-y-8pxr">
           {activeKeywordList.map(({ title }) => (
             <Chip
