@@ -95,7 +95,7 @@ export const KeywordInput = ({
           />
         </ul>
       </div>
-      <div className="mt-28pxr">
+      <div className="mt-28pxr px-layout-sm">
         <label className="text-b2 text-grey-400">{keywordLabel}</label>
         <ul className="flex flex-wrap gap-x-8pxr gap-y-12pxr py-16pxr">
           {keywordOptions.map(({ title }) => (

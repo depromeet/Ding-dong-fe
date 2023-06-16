@@ -28,7 +28,7 @@ export const ProfileStep = () => {
   });
 
   return (
-    <div>
+    <div className="px-layout-sm">
       <h1 className="text-h1">{title}</h1>
       {/*TODO: 캐릭터 디자인 나오면 faker 삭제 예정*/}
       <ProfileImageEdit<IdCardCreationFormModel>

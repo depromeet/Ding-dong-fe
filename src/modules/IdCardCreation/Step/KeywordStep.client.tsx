@@ -12,7 +12,7 @@ export const KeywordStep = () => {
 
   return (
     <div>
-      <h1 className="text-h1">{title}</h1>
+      <h1 className="px-layout-sm text-h1">{title}</h1>
       <Controller
         name="keywords"
         control={control}

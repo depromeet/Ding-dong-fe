@@ -65,7 +65,7 @@ export const BoardingStep = ({ planetName, onNext }: BoardingStepProps) => {
   const bottomSheetContent = subStepBottomSheet[currentIdx];
 
   return (
-    <div>
+    <div className="px-layout-sm">
       <h1 className="mb-16pxr mt-24pxr text-h2 text-grey-900">{planetName}에 온걸 환영해!</h1>
       <Swiper slidesPerView="auto" pagination={{ clickable: true }} allowTouchMove>
         {subStepList.map(({ id, label, image, helperText }) => (
