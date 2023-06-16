@@ -11,6 +11,8 @@ export type CommunityDetailModel = {
   description: string;
 };
 
+export type CommunityListModel = Omit<CommunityDetailModel, 'coverImageUrl' | 'description'>;
+
 export type CommunityIdCardsModel = {
   idCardId: number;
   nickname: string;

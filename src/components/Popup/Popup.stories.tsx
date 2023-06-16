@@ -5,7 +5,7 @@ import Button from '~/components/Button/Button';
 import Popup from './Popup';
 
 const meta: Meta<typeof Popup> = {
-  title: 'Popup',
+  title: 'components/Popup',
   component: Popup,
 };
 

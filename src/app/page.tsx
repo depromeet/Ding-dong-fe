@@ -1,9 +1,9 @@
-import CommunitiesPage from '~/app/communities/page';
+import PlanetPage from '~/app/planet/page';
 
 const Home = () => {
   return (
     <main>
-      <CommunitiesPage />
+      <PlanetPage />
     </main>
   );
 };

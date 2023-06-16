@@ -12,6 +12,7 @@ export const TextAreaContent = forwardRef<HTMLTextAreaElement, TextAreaContentPr
     return (
       <textarea
         id={`text-area-${name}`}
+        name={name}
         ref={ref}
         className={tw('mt-8pxr w-full bg-inherit', disabledCss)}
         placeholder={placeholder}

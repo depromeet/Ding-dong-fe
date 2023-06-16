@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 
 import { AUTH_COOKIE_KEYS, AuthResponse } from '~/types/auth';
 
-import { PublicFetch } from './lib/api/config/publicFetch';
+import { PublicFetch } from './api/config/publicFetch';
 import { generateCookiesKeyValues, getAccessToken } from './utils/auth/tokenHandlers';
 
 export const ACCESS_TOKEN_EXPIRE_MARGIN_SECOND = 60;
