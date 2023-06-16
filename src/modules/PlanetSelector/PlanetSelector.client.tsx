@@ -5,6 +5,7 @@ import { useGetCommunityList } from '~/api/domain/community.api';
 import { useBottomSheet } from '~/components/BottomSheet';
 import BottomSheet from '~/components/BottomSheet/BottomSheet';
 import { Divider } from '~/components/Divider';
+import { ArrowIcon } from '~/components/Icon';
 import { TopNavigation } from '~/components/TopNavigation';
 import { CommunityListModel } from '~/types/community';
 import { tw } from '~/utils/tailwind.util';
@@ -19,9 +20,12 @@ export const PlanetSelector = () => {
     <div>
       <TopNavigation>
         <TopNavigation.Left>
-          <p className="text-h1 text-grey-800" onClick={bottomSheetHandlers.onOpen}>
-            planet
-          </p>
+          <div className="flex items-center gap-8pxr">
+            <p className="text-h1 text-grey-800" onClick={bottomSheetHandlers.onOpen}>
+              planet
+            </p>
+            <ArrowIcon />
+          </div>
         </TopNavigation.Left>
       </TopNavigation>
       <BottomSheet {...bottomSheetHandlers}>

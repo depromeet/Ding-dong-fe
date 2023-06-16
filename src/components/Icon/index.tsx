@@ -1,3 +1,4 @@
+export * from './ArrowIcon';
 export * from './ArrowLeftIcon';
 export * from './BellIcon';
 export * from './CameraIcon';
