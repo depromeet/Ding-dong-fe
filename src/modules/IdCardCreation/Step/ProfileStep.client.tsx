@@ -31,7 +31,7 @@ export const ProfileStep = () => {
     <div>
       <h1 className="text-h1">{title}</h1>
       {/*TODO: 캐릭터 디자인 나오면 faker 삭제 예정*/}
-      <ProfileImageEdit
+      <ProfileImageEdit<IdCardCreationFormModel>
         className="mx-auto mt-20pxr"
         fieldName="profileImageUrl"
         defaultProfileImage={faker.image.avatar()}
