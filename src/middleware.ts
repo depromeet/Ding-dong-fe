@@ -11,7 +11,7 @@ export const ACCESS_TOKEN_EXPIRE_MARGIN_SECOND = 60;
 const PRIVATE_ROUTES = ['/accounts'];
 
 const middleware = async (request: NextRequest) => {
-  if (request.nextUrl.pathname.startsWith('/auth/callback/kakaodd')) {
+  if (request.nextUrl.pathname.startsWith('/auth/callback/kakao')) {
     const authCode = request.nextUrl.searchParams.get('code');
 
     if (!authCode) {

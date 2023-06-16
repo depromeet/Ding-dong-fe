@@ -12,12 +12,13 @@ import { generateCookiesKeyValues } from '~/utils/auth/tokenHandlers';
 const KakaoCallbackPage = () => {
   const searchParams = useSearchParams();
   const router = useRouter();
+  const host = window.location.protocol + '//' + window.location.host;
 
   const code = searchParams.get('code');
   const { data } = useQuery<AuthResponse>(['login'], async () => {
     const authData = await publicApi.post<AuthResponse>('/auth/login/kakao', {
       authCode: code,
-      redirectUri: process.env.KAKAO_REDIRECT_URI,
+      redirectUri: `${host}/auth/callback/kakao`,
     });
     if (authData.data) {
       const cookies = generateCookiesKeyValues(authData.data);
