@@ -1,7 +1,1 @@
-export type CreationSteps =
-  | 'LOADING'
-  | 'BOARDING'
-  | 'PROFILE'
-  | 'KEYWORD'
-  | 'KEYWORD_CONTENT'
-  | 'COMPLETE';
+export type CreationSteps = 'BOARDING' | 'PROFILE' | 'KEYWORD' | 'KEYWORD_CONTENT' | 'COMPLETE';
