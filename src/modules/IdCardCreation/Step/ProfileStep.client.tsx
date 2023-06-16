@@ -5,8 +5,7 @@ import { useFormContext } from 'react-hook-form';
 import { ProfileImageEdit } from '~/components/ProfileImageEdit';
 import { TextArea, useTextArea } from '~/components/TextArea';
 import { TextInput, useTextInput } from '~/components/TextInput';
-
-import { IdCardCreationFormType } from '../IdCardCreation.type';
+import { IdCardCreationFormModel } from '~/types/idCard';
 
 const title = '이웃 주민에게\n 자신을 소개해주세요!';
 const TEXT_MAX_LENGTH = 16;
@@ -17,7 +16,7 @@ export const ProfileStep = () => {
     register,
     setValue,
     formState: { errors },
-  } = useFormContext<IdCardCreationFormType>();
+  } = useFormContext<IdCardCreationFormModel>();
   const { textCount, onChangeHandler } = useTextInput({
     onChange: register('nickname').onChange,
     maxLength: TEXT_MAX_LENGTH,
