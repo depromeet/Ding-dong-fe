@@ -17,7 +17,7 @@ const EditMyPage = async ({ params: { id } }: EditMyPageProps) => {
   return (
     <main>
       <IdCardEditor
-        communityId={idCardId}
+        idCardId={idCardId}
         nickname={nickname}
         aboutMe={aboutMe}
         profileImageUrl={profileImageUrl}
