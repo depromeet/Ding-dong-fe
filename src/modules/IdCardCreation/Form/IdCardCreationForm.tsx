@@ -2,11 +2,9 @@
 import { useFormContext } from 'react-hook-form';
 
 import { TopNavigation } from '~/components/TopNavigation';
-import {
-  CreationSteps,
-  IdCardCreationFormType,
-} from '~/modules/IdCardCreation/IdCardCreation.type';
+import { CreationSteps } from '~/modules/IdCardCreation/IdCardCreation.type';
 import { KeywordStep } from '~/modules/IdCardCreation/Step/KeywordStep.client';
+import { IdCardCreationFormModel } from '~/types/idCard';
 
 import { KeywordContentStep, ProfileStep } from '../Step';
 
@@ -28,7 +26,7 @@ export const IdCardCreationForm = ({
   const {
     handleSubmit,
     formState: { errors, isDirty, isValid },
-  } = useFormContext<IdCardCreationFormType>();
+  } = useFormContext<IdCardCreationFormModel>();
   const onSubmit = () => console.log('제출');
 
   const getNavigationButton = () => {

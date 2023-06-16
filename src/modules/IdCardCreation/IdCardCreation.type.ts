@@ -1,5 +1,3 @@
-import { IdCardCreationFormModel } from '~/types/idCard';
-
 export type CreationSteps =
   | 'LOADING'
   | 'BOARDING'
@@ -7,5 +5,3 @@ export type CreationSteps =
   | 'KEYWORD'
   | 'KEYWORD_CONTENT'
   | 'COMPLETE';
-
-export type IdCardCreationFormType = Omit<IdCardCreationFormModel, 'communityId'>;

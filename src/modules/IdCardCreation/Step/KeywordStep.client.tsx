@@ -3,11 +3,12 @@
 import { Controller, useFormContext } from 'react-hook-form';
 
 import { KeywordInput, OptionType } from '~/components/KeywordInput';
+import { IdCardCreationFormModel } from '~/types/idCard';
 
 const title = '이웃 주민에게 자신을 소개할\n 키워드를 적어주세요!';
 
 export const KeywordStep = () => {
-  const { control } = useFormContext();
+  const { control } = useFormContext<IdCardCreationFormModel>();
 
   return (
     <div>
@@ -15,6 +16,7 @@ export const KeywordStep = () => {
       <Controller
         name="keywords"
         control={control}
+        rules={{ required: true }}
         render={({ field: { onChange, value, name } }) => (
           <KeywordInput
             id={name}
