@@ -4,6 +4,7 @@ import { useRouter } from 'next/navigation';
 
 import { useGetCommunityList } from '~/api/domain/community.api';
 import { Divider } from '~/components/Divider';
+import { useCommunityStore } from '~/stores/community.store';
 import { CommunityListModel } from '~/types/community';
 import { tw } from '~/utils/tailwind.util';
 
@@ -12,12 +13,18 @@ export const CommunityList = () => {
   const userId = '1';
   const { data: communityList } = useGetCommunityList(userId);
   const router = useRouter();
+  const { setCommunityTitle } = useCommunityStore();
+
+  const handlePlanetSwitch = (title: string) => {
+    router.push(`planet/${title}`);
+    setCommunityTitle(title);
+  };
 
   return (
     <ul className="rounded-xl border border-grey-200 bg-grey-50">
       {communityList &&
         communityList.communityListDtos.map((community: CommunityListModel) => (
-          <li key={community.communityId} onClick={() => router.push(`planet/${community.title}`)}>
+          <li key={community.communityId} onClick={() => handlePlanetSwitch(community.title)}>
             <div className="flex items-center gap-20pxr p-20pxr">
               <Image
                 width={36}
