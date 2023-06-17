@@ -1,8 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 
+import publicApi from '~/api/config/publicApi';
 import { AUTH_COOKIE_KEYS, AuthResponse } from '~/types/auth';
 
-import { ROOT_API_URL } from './api/config/requestUrl';
 import { generateCookiesKeyValues, getAccessToken } from './utils/auth/tokenHandlers';
 
 export const ACCESS_TOKEN_EXPIRE_MARGIN_SECOND = 60;
@@ -19,39 +19,21 @@ const middleware = async (request: NextRequest) => {
       return NextResponse.redirect(new URL('/auth/signin', request.url));
     }
 
-    // const result = await PublicFetch.post<AuthResponse>(`/auth/login/kakao`, {
-    //   body: JSON.stringify({
-    //     authCode,
-    //     redirectUri: `${request.nextUrl.origin}/auth/callback/kakao`,
-    //   }),
-    // });
-
     try {
-      const result = await fetch(`${ROOT_API_URL}/auth/login/kakao`, {
-        method: 'POST',
-        body: JSON.stringify({
-          authCode,
-          redirectUri: `${request.nextUrl.origin}/auth/callback/kakao`,
-        }),
-        headers: {
-          accept: 'application/json',
-          'Access-Control-Allow-Origin': request.nextUrl.origin,
-        },
-        mode: 'no-cors',
+      const host = window.location.protocol + '//' + window.location.host;
+      const authData = await publicApi.post<AuthResponse>('/auth/login/kakao', {
+        authCode,
+        redirectUri: `${host}/auth/callback/kakao`,
       });
 
-      console.log('result', result);
-
-      if (!result.ok) return NextResponse.redirect(new URL('/auth/signin', request.url));
-      const json = await result.json();
-      const data = json.data as unknown as AuthResponse;
-      if (!data) {
+      // TODO: error처리 고도화: response status혹은 메시지에 따라 if문 수정하기
+      if (!authData.data) {
         // TODO: 에러 메시지 고도화: 로그인 실패
         return NextResponse.redirect(new URL('/auth/signin', request.url));
       }
 
       const response = NextResponse.redirect(new URL('/', request.url));
-      for (const cookie of generateCookiesKeyValues(data)) {
+      for (const cookie of generateCookiesKeyValues(authData.data as AuthResponse)) {
         const cookieKey = cookie[0];
         const cookieValue = cookie[1] as string | number;
         response.cookies.set(cookieKey, cookieValue.toString());
