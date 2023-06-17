@@ -2,13 +2,13 @@
 import { useFormContext } from 'react-hook-form';
 
 import { KeywordContentEditCard } from '~/modules/KeywordContentEditCard';
-import { FormKeywordModel } from '~/types/idCard';
+import { FormKeywordModel, IdCardCreationFormModel } from '~/types/idCard';
 
 const title = '나를 소개하는 키워드의\n 설명을 적어주세요!';
 
 export const KeywordContentStep = () => {
-  const { watch } = useFormContext();
-  const { keywords } = watch();
+  const { getValues } = useFormContext<IdCardCreationFormModel>();
+  const keywords = getValues('keywords');
 
   return (
     <div className="px-layout-sm">
