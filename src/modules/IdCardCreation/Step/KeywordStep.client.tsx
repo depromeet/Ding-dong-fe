@@ -16,7 +16,6 @@ export const KeywordStep = () => {
       <Controller
         name="keywords"
         control={control}
-        rules={{ required: true }}
         render={({ field: { onChange, value, name } }) => (
           <KeywordInput
             id={name}

@@ -1,7 +1,9 @@
 'use client';
 
+import { yupResolver } from '@hookform/resolvers/yup';
 import { useEffect, useState } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
+import * as yup from 'yup';
 
 import { IdCardCreationForm } from '~/modules/IdCardCreation/Form';
 import { BoardingStep, CompleteStep, LoadingStep } from '~/modules/IdCardCreation/Step';
@@ -18,14 +20,21 @@ const steps: CreationSteps[] = [
   'COMPLETE',
 ];
 
+const schema = yup.object({
+  profileImageUrl: yup.string(),
+  communityId: yup.number(),
+  nickname: yup.string().required('이름을 입력해 주세요.'),
+  aboutMe: yup.string(),
+  keywords: yup.array().default([]),
+});
+
 export const IdCardCreationSteps = () => {
   const methods = useForm<IdCardCreationFormModel>({
     defaultValues: {
-      nickname: '',
-      aboutMe: '',
       keywords: [],
     },
     mode: 'onChange',
+    resolver: yupResolver(schema),
   });
 
   const [stepOrder, setStepOrder] = useState<number>(0);

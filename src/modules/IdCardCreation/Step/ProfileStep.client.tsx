@@ -46,10 +46,7 @@ export const ProfileStep = () => {
           maxLength={TEXT_MAX_LENGTH}
           errorMessage={errors?.nickname?.message}
         >
-          <TextInput.Content
-            {...register('nickname', { required: '이름을 입력해 주세요.' })}
-            onChange={onChangeHandler}
-          />
+          <TextInput.Content {...register('nickname')} onChange={onChangeHandler} />
         </TextInput.Border>
       </TextInput>
       <TextArea className="mt-28pxr">
