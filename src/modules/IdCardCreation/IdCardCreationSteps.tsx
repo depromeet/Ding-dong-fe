@@ -19,7 +19,7 @@ const schema = yup.object({
   communityId: yup.number(),
   nickname: yup.string().required('이름을 입력해 주세요.'),
   aboutMe: yup.string(),
-  keywords: yup.array().default([]),
+  keywords: yup.array().min(1).default([]).required(),
 });
 
 export const IdCardCreationSteps = () => {
@@ -36,9 +36,15 @@ export const IdCardCreationSteps = () => {
   const onNext = () => setStepOrder(stepOrder + 1);
   const onPrev = () => setStepOrder(stepOrder - 1);
 
-  const { mutateAsync } = usePostIdCardCreate({ onSuccess: data => setUserId(data.id) });
+  const { mutateAsync } = usePostIdCardCreate({
+    onSuccess: data => {
+      setUserId(data.id);
+    },
+  });
   const onSubmit = () => {
-    methods.handleSubmit(async data => await mutateAsync(data));
+    methods.handleSubmit(async data => {
+      await mutateAsync(data);
+    })();
     onNext();
   };
 
