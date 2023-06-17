@@ -7,3 +7,7 @@ export type CommentCountResponse = {
 export type IdCardDetailResponse = {
   idCardDetailsDto: IdCardDetailModel;
 };
+
+export type CommunityMyIdCardDetailResponse = {
+  idCardDetailsDto: IdCardDetailModel;
+};

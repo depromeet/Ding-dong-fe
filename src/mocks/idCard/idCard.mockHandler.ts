@@ -7,6 +7,9 @@ const idCardMockHandler = [
   rest.get(`${ROOT_API_URL}/id-cards/:idCardId`, (req, res, ctx) => {
     return res(ctx.status(200), ctx.json({ idCardDetailsDto: createIdCard() }));
   }),
+  rest.get(`${ROOT_API_URL}/communities/:communityId/users/idCards`, (req, res, ctx) => {
+    return res(ctx.status(200), ctx.json({ idCardDetailsDto: createIdCard() }));
+  }),
 ];
 
 export default idCardMockHandler;
