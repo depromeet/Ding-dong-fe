@@ -9,6 +9,8 @@ type TextInputBorderProps = {
   textCount?: number;
   maxLength?: number;
   disabled?: boolean;
+  className?: string;
+  direction?: 'row' | 'column';
 };
 
 export const TextInputBorder = ({
@@ -18,6 +20,8 @@ export const TextInputBorder = ({
   textCount,
   maxLength,
   children,
+  className,
+  direction = 'column',
 }: PropsWithChildren<TextInputBorderProps>) => {
   const errorCss =
     errorMessage && 'border-[1px] border-error focus-within:border-error focus-within:caret-error';
@@ -35,6 +39,8 @@ export const TextInputBorder = ({
           infoCss,
           errorCss,
           disabledCss,
+          direction === 'row' && 'flex-row',
+          className,
         )}
       >
         {children}
