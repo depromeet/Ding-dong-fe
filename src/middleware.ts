@@ -40,7 +40,7 @@ const middleware = async (request: NextRequest) => {
         mode: 'no-cors',
       });
 
-      if (result.ok) return NextResponse.redirect(new URL('/auth/signin', request.url));
+      if (!result.ok) return NextResponse.redirect(new URL('/auth/signin', request.url));
       const { data } = await result.json();
       if (!data) {
         // TODO: 에러 메시지 고도화: 로그인 실패
