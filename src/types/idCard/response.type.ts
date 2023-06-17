@@ -7,3 +7,5 @@ export type CommentCountResponse = {
 export type IdCardDetailResponse = {
   idCardDetailsDto: IdCardDetailModel;
 };
+
+export type IdCardCreateResponse = { id: number };
