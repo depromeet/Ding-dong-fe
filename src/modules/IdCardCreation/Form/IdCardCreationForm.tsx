@@ -28,16 +28,16 @@ export const IdCardCreationForm = ({
     handleSubmit,
     formState: { errors, isDirty, isValid },
   } = useFormContext<IdCardCreationFormModel>();
-  const onValidation = () => console.log('validation 실행');
+
   const onSubmit = () => {
-    // TODO : post api 붙이기
+    const api = () => 'api 실행';
+    handleSubmit(api);
     onNext();
   };
 
   const getNavigationButton = () => {
     let error;
     let disableStyle;
-    console.log({ errors });
     switch (steps[stepOrder]) {
       case 'PROFILE':
         error = !isDirty || !!errors?.nickname;
@@ -69,17 +69,17 @@ export const IdCardCreationForm = ({
 
   return (
     <div>
-      <form onSubmit={handleSubmit(onValidation)} className="mt-24pxr">
-        <TopNavigation bottomBorderColor="primary-500">
-          <TopNavigation.Left>
-            <TopNavigation.BackButton onClickBackButton={onPrev} />
-          </TopNavigation.Left>
-          <TopNavigation.Title />
-          <TopNavigation.Right className="text-h5 text-primary-500">
-            {NavigationButton}
-          </TopNavigation.Right>
-        </TopNavigation>
+      <TopNavigation bottomBorderColor="primary-500">
+        <TopNavigation.Left>
+          <TopNavigation.BackButton onClickBackButton={onPrev} />
+        </TopNavigation.Left>
+        <TopNavigation.Title />
+        <TopNavigation.Right className="text-h5 text-primary-500">
+          {NavigationButton}
+        </TopNavigation.Right>
+      </TopNavigation>
 
+      <form className="mt-24pxr">
         {steps[stepOrder] === 'PROFILE' && <ProfileStep />}
         {steps[stepOrder] === 'KEYWORD' && <KeywordStep />}
         {steps[stepOrder] === 'KEYWORD_CONTENT' && <KeywordContentStep />}
