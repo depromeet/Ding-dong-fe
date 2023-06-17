@@ -61,6 +61,8 @@ function ProfileImageEditComponent<T extends FieldValues>(
   );
 }
 ProfileImageEditComponent.displayName = 'ProfileImageEdit';
-export const ProfileImageEdit = memo(forwardRef(ProfileImageEditComponent)) as <T>(
+export const ProfileImageEdit = memo(forwardRef(ProfileImageEditComponent)) as <
+  T extends FieldValues,
+>(
   props: ProfileImageEditProps<T> & { ref?: React.ForwardedRef<HTMLUListElement> },
 ) => ReturnType<typeof ProfileImageEditComponent>;
