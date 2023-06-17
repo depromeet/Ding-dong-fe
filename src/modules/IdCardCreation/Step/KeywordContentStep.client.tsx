@@ -11,7 +11,7 @@ export const KeywordContentStep = () => {
   const { keywords } = watch();
 
   return (
-    <div>
+    <div className="px-layout-sm">
       <h1 className="text-h1">{title}</h1>
       <div className="mt-26pxr flex flex-col gap-22pxr">
         {keywords.map((keyword: FormKeywordModel, index: number) => {

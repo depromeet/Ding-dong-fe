@@ -15,7 +15,7 @@ export const CompleteStep = () => {
   const keywordTitles = keywords.map((keyword: KeywordModel) => keyword.title);
   return (
     // TODO: 지금은 커뮤니티 정보가 없는데 나중에 커뮤니티 타이틀 추가
-    <div className="flex min-h-[calc(100vh-50px)] flex-col">
+    <div className="flex min-h-[calc(100vh-50px)] flex-col px-layout-sm ">
       <h2 className="text-h1 text-grey-900">{`짜잔!${title} \n주민증이 발급되었어요!`}</h2>
       <div className="mt-24pxr flex flex-1 flex-col">
         <IdCard
