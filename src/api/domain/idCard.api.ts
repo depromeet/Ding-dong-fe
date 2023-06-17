@@ -8,7 +8,7 @@ export const getIdCardDetail = (idCardId: string) =>
   privateApi.get<IdCardDetailResponse>(`/id-cards/${idCardId}`);
 
 export const postIdCardCreate = (IdCardInfo: IdCardCreateRequest) =>
-  privateApi.post<IdCardCreateResponse>(`/id-cards/create`, IdCardInfo);
+  privateApi.post<IdCardCreateResponse>(`/id-cards`, IdCardInfo);
 
 export const usePostIdCardCreate = (
   options?: Omit<

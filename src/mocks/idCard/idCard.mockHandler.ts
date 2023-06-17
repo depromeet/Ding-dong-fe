@@ -9,7 +9,6 @@ export const idCardMockHandler = [
   }),
 ];
 
-export const idCardCreateMockHandler = rest.post(
-  `${ROOT_API_URL}/id-cards/create`,
-  (req, res, ctx) => res(ctx.status(200), ctx.json(createIdCardMock)),
+export const idCardCreateMockHandler = rest.post(`${ROOT_API_URL}/id-cards`, (req, res, ctx) =>
+  res(ctx.status(200), ctx.json(createIdCardMock)),
 );
