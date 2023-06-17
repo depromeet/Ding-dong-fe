@@ -27,7 +27,7 @@ export const IdCardCreationForm = ({
   onSubmit,
 }: IdCardCreationFormProps) => {
   const {
-    formState: { errors, isDirty, isValid },
+    formState: { errors, isDirty, isValid, isSubmitting },
   } = useFormContext<IdCardCreationFormModel>();
 
   const getNavigationButton = () => {
@@ -52,7 +52,11 @@ export const IdCardCreationForm = ({
       case 'KEYWORD_CONTENT':
         disableStyle = (!isValid && disableButtonStyle) || '';
         return (
-          <button className={tw(disableStyle, 'submission')} disabled={!isValid} onClick={onSubmit}>
+          <button
+            className={tw(disableStyle, 'submission')}
+            disabled={!isValid || isSubmitting}
+            onClick={onSubmit}
+          >
             제출
           </button>
         );
