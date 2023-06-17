@@ -4,7 +4,6 @@ import { Menu } from '~/components/Menu';
 import { TopNavigation } from '~/components/TopNavigation';
 
 const MyPageConfig = () => {
-  // leavePlanet, exitPlanet
   const onClickEscapePlanet = () => {
     console.log('행성 떠나기 로직 추가 예정');
   };
@@ -27,15 +26,15 @@ const MyPageConfig = () => {
           <h1 className="text-h5 font-semibold text-black">설정</h1>
         </TopNavigation.Title>
       </TopNavigation>
-      <div className="pt-[50px]">
-        <Menu>
+      <div className="pt-28pxr">
+        <Menu className="px-layout-sm">
           <Menu.Header>행성 관리</Menu.Header>
           <Menu.Element onClick={onClickEscapePlanet}>
             <span>행성 떠나기</span>
           </Menu.Element>
         </Menu>
         <Divider />
-        <Menu>
+        <Menu className="px-layout-sm">
           <Menu.Header>계정 관리</Menu.Header>
           <Menu.Element onClick={onClickLogout}>
             <span>로그아웃</span>
