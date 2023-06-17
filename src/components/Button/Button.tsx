@@ -1,6 +1,8 @@
 import { ButtonHTMLAttributes, ReactNode } from 'react';
 
-type ButtonSize = 'small' | 'medium' | 'large';
+import { twMerge } from '~/utils/tailwind.util';
+
+type ButtonSize = 'small' | 'medium' | 'large' | 'xLarge';
 type ButtonColor = 'primary' | 'secondary';
 
 export type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
@@ -20,6 +22,7 @@ const sizes: Record<ButtonSize, string> = {
   small: 'py-8pxr text-xs rounded-lg',
   medium: 'py-13pxr text-sm rounded-xl',
   large: 'py-16pxr text-base rounded-xl',
+  xLarge: 'py-17pxr text-[15px] rounded-xl',
 };
 
 const Button = ({
@@ -38,9 +41,13 @@ const Button = ({
     <button
       {...props}
       disabled={disabled}
-      className={`${buttonColor} ${buttonSize} ${width} font-bold active:bg-grey-600 active:text-white disabled:bg-grey-100 disabled:text-grey-300 ${
-        className ?? ''
-      }`}
+      className={twMerge(
+        buttonColor,
+        buttonSize,
+        width,
+        'font-bold active:bg-grey-600 active:text-white disabled:bg-grey-100 disabled:text-grey-300',
+        className,
+      )}
     >
       {children}
     </button>
