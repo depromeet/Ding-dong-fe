@@ -3,15 +3,16 @@
 import { Controller, useFormContext } from 'react-hook-form';
 
 import { KeywordInput, OptionType } from '~/components/KeywordInput';
+import { IdCardCreationFormModel } from '~/types/idCard';
 
 const title = '이웃 주민에게 자신을 소개할\n 키워드를 적어주세요!';
 
 export const KeywordStep = () => {
-  const { control } = useFormContext();
+  const { control } = useFormContext<IdCardCreationFormModel>();
 
   return (
     <div>
-      <h1 className="text-h1">{title}</h1>
+      <h1 className="px-layout-sm text-h1">{title}</h1>
       <Controller
         name="keywords"
         control={control}

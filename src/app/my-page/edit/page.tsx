@@ -1,17 +1,9 @@
-import 'server-only';
-
-import { getIdCardDetail } from '~/api/domain/idCard.api';
+import { createIdCard } from '~/mocks/idCard/idCard.mock';
 import { IdCardEditor } from '~/modules/IdCardEditor';
 
-type EditMyPageProps = {
-  params: {
-    id: string;
-  };
-};
-
-const EditMyPage = async ({ params: { id } }: EditMyPageProps) => {
+const EditMyPage = () => {
   // TODO: api나오면 수정 예정
-  const { idCardDetailsDto } = await getIdCardDetail(id);
+  const idCardDetailsDto = createIdCard();
   const { idCardId, nickname, aboutMe, profileImageUrl, keywords } = idCardDetailsDto;
 
   return (
