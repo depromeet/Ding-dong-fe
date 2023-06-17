@@ -1,5 +1,12 @@
-import { PropsWithChildren } from 'react';
+import { ReactNode } from 'react';
 
-export const TopNavigationRight = ({ children }: PropsWithChildren) => {
-  return <div className="flex w-1/3 justify-end">{children}</div>;
+import { tw } from '~/utils/tailwind.util';
+
+type TopNavigationRightProps = {
+  children: ReactNode;
+  className?: string;
+};
+
+export const TopNavigationRight = ({ children, className }: TopNavigationRightProps) => {
+  return <div className={tw('flex w-1/3 justify-end', className)}>{children}</div>;
 };
