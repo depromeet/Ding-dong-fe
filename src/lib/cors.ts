@@ -72,6 +72,7 @@ function getAllowedHeaders(req: Request, allowed?: string | string[]) {
   const headers = new Headers();
 
   if (!allowed) {
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     allowed = req.headers.get('Access-Control-Request-Headers')!;
     headers.append('Vary', 'Access-Control-Request-Headers');
   } else if (Array.isArray(allowed)) {

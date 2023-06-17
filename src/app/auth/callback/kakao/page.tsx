@@ -21,7 +21,7 @@ const KakaoCallbackPage = () => {
       redirectUri: `${host}/auth/callback/kakao`,
     });
     if (authData.data) {
-      const cookies = generateCookiesKeyValues(authData.data);
+      const cookies = generateCookiesKeyValues(authData.data as AuthResponse);
       cookies.forEach(([key, value]) => {
         document.cookie = `${key}=${value}; path=/;`;
       });

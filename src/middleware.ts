@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 
-import { AUTH_COOKIE_KEYS } from '~/types/auth';
+import { AUTH_COOKIE_KEYS, AuthResponse } from '~/types/auth';
 
 import { ROOT_API_URL } from './api/config/requestUrl';
 import { generateCookiesKeyValues, getAccessToken } from './utils/auth/tokenHandlers';
@@ -40,22 +40,27 @@ const middleware = async (request: NextRequest) => {
         mode: 'no-cors',
       });
 
+      console.log('result', result);
+
       if (!result.ok) return NextResponse.redirect(new URL('/auth/signin', request.url));
-      const { data } = await result.json();
+      const json = await result.json();
+      const data = json.data as unknown as AuthResponse;
       if (!data) {
         // TODO: 에러 메시지 고도화: 로그인 실패
         return NextResponse.redirect(new URL('/auth/signin', request.url));
       }
 
       const response = NextResponse.redirect(new URL('/', request.url));
-      for (const [cookieKey, cookieValue] of generateCookiesKeyValues(data)) {
+      for (const cookie of generateCookiesKeyValues(data)) {
+        const cookieKey = cookie[0];
+        const cookieValue = cookie[1] as string | number;
         response.cookies.set(cookieKey, cookieValue.toString());
       }
       return response;
     } catch (e) {
       // server-side 로그인 실패
       //TODO: server-side fetch CORS 에러 핸들링
-      console.log(e);
+      console.log('e', e);
     }
   }
 

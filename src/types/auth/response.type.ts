@@ -1,6 +1,7 @@
 import { KakaoAccountModel, KakaoPropertiesModel } from '~/types/auth/model.type';
 
 export type AuthResponse = {
+  data: unknown;
   accessToken: string;
   refreshToken: string;
   userId: number;
