@@ -6,7 +6,7 @@ import { initialize, mswDecorator } from 'msw-storybook-addon';
 import type { Preview } from '@storybook/react';
 import { INITIAL_VIEWPORTS } from '@storybook/addon-viewport';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import handlers from '../src/mocks/handlers';
+import * as defaultHandlers from '../src/mocks/handlers';
 import { AUTH_COOKIE_KEYS } from '../src/types/auth/response.type';
 
 // TODO: Provider폴더 구조 정해지면 수정해야합니다!
@@ -42,7 +42,9 @@ const preview: Preview = {
       appDirectory: true,
     },
     msw: {
-      handlers,
+      handlers: {
+        default: defaultHandlers,
+      },
     },
     webpackFinal: async config => {
       config.resolve.alias = {
