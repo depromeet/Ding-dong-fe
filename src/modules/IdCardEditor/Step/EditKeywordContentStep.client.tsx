@@ -1,7 +1,8 @@
+import { faker } from '@faker-js/faker';
 import { useFormContext } from 'react-hook-form';
 
 import { Chip } from '~/components/Chip';
-// TODO: IdCardCreation의 하위 폴더가 아닌 modules의 하위폴더로 이동해야 합니다.
+import { ProfileImageEdit } from '~/components/ProfileImageEdit';
 import { EditorSteps, IdCardEditorFormValues } from '~/modules/IdCardEditor/IdCardEditor.type';
 import { KeywordContentEditCard } from '~/modules/KeywordContentEditCard';
 import { FormKeywordModel } from '~/types/idCard';
@@ -35,9 +36,13 @@ export const EditKeywordContentStep = ({ onClickMoveTargetStep }: EditKeywordCon
           </div>
           <p className="text-b3 text-grey-600">{aboutMe}</p>
         </div>
-        {/* TODO: 프로필 이미지 component가 들어갈 자리 */}
         <div className="pl-18pxr">
-          <div className="h-[84px] w-[84px]">profile image</div>
+          <ProfileImageEdit<IdCardEditorFormValues>
+            className="mx-auto mt-20pxr"
+            fieldName="profileImageUrl"
+            defaultProfileImage={faker.image.avatar()}
+            setValue={setValue}
+          />
         </div>
       </div>
       <ul className="mb-34pxr flex w-full flex-wrap items-center gap-x-4pxr gap-y-8pxr bg-grey-100 px-20pxr py-15pxr">
@@ -46,6 +51,7 @@ export const EditKeywordContentStep = ({ onClickMoveTargetStep }: EditKeywordCon
             key={title}
             text={title}
             isSelected={true}
+            themeType="close"
             handleClickIcon={() => {
               onClickDeleteChip(title, keywords);
             }}
