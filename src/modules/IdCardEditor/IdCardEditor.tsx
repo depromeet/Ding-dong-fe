@@ -11,6 +11,7 @@ import { IdCardEditorForm } from '~/modules/IdCardEditor/Form';
 import { editorSteps, KEYWORD_CONTENT_STEP } from '~/modules/IdCardEditor/IdCardEditor.constant';
 import { EditorSteps, IdCardEditorFormValues } from '~/modules/IdCardEditor/IdCardEditor.type';
 import { IdCardEditorFormModel } from '~/types/idCard';
+import { getEntries } from '~/utils/util.common';
 
 type IdCardEditorProps = IdCardEditorFormModel;
 
@@ -21,26 +22,38 @@ export const IdCardEditor = ({
   aboutMe,
   keywords,
 }: IdCardEditorProps) => {
+  const initFormValue = {
+    nickname,
+    aboutMe,
+    profileImageUrl,
+    keywords,
+  };
+  const router = useRouter();
+  const [stepOrder, setStepOrder] = useState<number>(KEYWORD_CONTENT_STEP);
   const { mutate: mutateEditIdCardDetail } = useEditIdCardDetail();
+  const [submitState, setSubmitState] = useState<IdCardEditorFormValues>(initFormValue);
+
+  const title = editorSteps[stepOrder] === 'PROFILE' ? '주민 정보 수정' : '주민증 수정';
+  const isEntry = stepOrder === KEYWORD_CONTENT_STEP;
 
   const methods = useForm<IdCardEditorFormValues>({
-    defaultValues: {
-      nickname,
-      aboutMe,
-      profileImageUrl,
-      keywords,
-    },
+    defaultValues: initFormValue,
   });
 
   const onSubmit = async (idCardInfo: IdCardEditorFormValues) => {
     mutateEditIdCardDetail({ idCardId, ...idCardInfo });
   };
 
-  const router = useRouter();
-  const [stepOrder, setStepOrder] = useState<number>(KEYWORD_CONTENT_STEP);
+  const isValueChanged = () =>
+    getEntries(submitState).some(([name, value]) => methods.getValues(name) !== value);
 
-  const title = editorSteps[stepOrder] === 'PROFILE' ? '주민 정보 수정' : '주민증 수정';
-  const isEntry = stepOrder === KEYWORD_CONTENT_STEP;
+  const revertToPrevFormState = () => {
+    getEntries(submitState).forEach(([name, value]) => methods.setValue(name, value));
+  };
+
+  const updateFormState = () => {
+    setSubmitState(prev => ({ ...prev, ...methods.getValues() }));
+  };
 
   const onClickMoveTargetStep = (targetStep: EditorSteps) => {
     const stepIndex = editorSteps.findIndex(step => step === targetStep);
@@ -52,6 +65,12 @@ export const IdCardEditor = ({
       router.back();
       return;
     }
+
+    if (isValueChanged()) {
+      // TODO: pop up 알림으로 수정하기
+      alert('진짜 취소할거야?');
+    }
+    revertToPrevFormState();
     setStepOrder(KEYWORD_CONTENT_STEP);
   };
 
@@ -62,6 +81,7 @@ export const IdCardEditor = ({
       router.back();
       return;
     }
+    updateFormState();
     setStepOrder(KEYWORD_CONTENT_STEP);
   };
 
