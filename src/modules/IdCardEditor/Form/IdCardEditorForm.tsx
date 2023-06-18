@@ -6,11 +6,12 @@ import {
   EditKeywordStep,
   EditProfileInfoStep,
 } from '~/modules/IdCardEditor/Step';
+import { IdCardEditorFormModel } from '~/types/idCard';
 
 type IdCardEditorFormProps = {
   steps: EditorSteps[];
   stepOrder: number;
-  onSubmit: () => Promise<void>;
+  onSubmit: (data: IdCardEditorFormModel) => Promise<void>;
   onClickMoveTargetStep: (targetStep: EditorSteps) => void;
 };
 
@@ -20,7 +21,7 @@ export const IdCardEditorForm = ({
   onClickMoveTargetStep,
   onSubmit,
 }: IdCardEditorFormProps) => {
-  const { handleSubmit } = useFormContext();
+  const { handleSubmit } = useFormContext<IdCardEditorFormModel>();
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>

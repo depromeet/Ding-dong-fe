@@ -2,6 +2,7 @@ import type { Meta } from '@storybook/react';
 
 import {
   ArrowLeftIcon,
+  ArrowVerticalIcon,
   BellIcon,
   CameraIcon,
   CancelIcon,
@@ -76,4 +77,8 @@ export const Bell = {
 
 export const Camera = {
   render: () => <CameraIcon />,
+};
+
+export const ArrowVertical = {
+  render: () => <ArrowVerticalIcon />,
 };

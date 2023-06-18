@@ -9,3 +9,6 @@ export type IdCardDetailResponse = {
 };
 
 export type IdCardCreateResponse = { id: number };
+export type EditIdCardResponse = {
+  id: number;
+};

@@ -1,15 +1,15 @@
 const path = require('path');
 
 import React from 'react';
+import '../src/styles/globals.css';
 import { initialize, mswDecorator } from 'msw-storybook-addon';
 import type { Preview } from '@storybook/react';
+import { INITIAL_VIEWPORTS } from '@storybook/addon-viewport';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import handlers from '../src/mocks/handlers';
 
 // TODO: Provider폴더 구조 정해지면 수정해야합니다!
 const queryClient = new QueryClient();
-
-import '../src/styles/globals.css';
-import { INITIAL_VIEWPORTS } from '@storybook/addon-viewport';
 
 // Initialize MSW
 initialize();
@@ -37,9 +37,11 @@ const preview: Preview = {
       viewports: INITIAL_VIEWPORTS,
       defaultViewport: 'iphone6',
     },
-    layout: 'fullscreen',
     nextjs: {
       appDirectory: true,
+    },
+    msw: {
+      handlers,
     },
     webpackFinal: async config => {
       config.resolve.alias = {
