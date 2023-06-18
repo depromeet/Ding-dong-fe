@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import PlanetSelectorTopNavigation from '~/modules/PlanetSelectorTopNavigation/PlanetSelectorTopNavigation';
+import { PlanetSelectorTopNavigation } from '~/modules/PlanetSelectorTopNavigation/PlanetSelectorTopNavigation';
 
 const meta: Meta<typeof PlanetSelectorTopNavigation> = {
   title: 'modules/PlanetSelectorTopNavigation',
