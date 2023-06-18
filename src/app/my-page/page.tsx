@@ -3,13 +3,13 @@ import { useRouter } from 'next/navigation';
 
 import { GearFillIcon } from '~/components/Icon';
 import { TopNavigation } from '~/components/TopNavigation';
-import { createIdCard } from '~/mocks/idCard/idCard.mock';
+import { idCardDetailMock } from '~/mocks/idCard/idCard.mock';
 import { IdCard } from '~/modules/IdCard';
 
 const MyPage = () => {
   const router = useRouter();
   // TODO: 해당 행성에서 내 주민증 정보 요청 api 추가 예정
-  const { idCardId, nickname, aboutMe, characterType, keywords } = createIdCard();
+  const { idCardId, nickname, aboutMe, characterType, keywords } = idCardDetailMock();
   const keywordTitles = keywords.map(keyword => keyword.title);
 
   const onClickGearFill = () => {
