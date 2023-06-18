@@ -1,5 +1,5 @@
-export * from './ArrowIcon';
 export * from './ArrowLeftIcon';
+export * from './ArrowVerticalIcon';
 export * from './BellIcon';
 export * from './CameraIcon';
 export * from './CancelIcon';

@@ -3,7 +3,7 @@ import { ComponentProps } from 'react';
 import { Svg } from '~/components/Svg';
 import { tw } from '~/utils/tailwind.util';
 
-export const ArrowIcon = ({
+export const ArrowVerticalIcon = ({
   className,
   size,
   width,

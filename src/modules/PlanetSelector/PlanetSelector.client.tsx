@@ -2,7 +2,7 @@
 
 import { useBottomSheet } from '~/components/BottomSheet';
 import BottomSheet from '~/components/BottomSheet/BottomSheet';
-import { ArrowIcon, PlusIcon } from '~/components/Icon';
+import { ArrowVerticalIcon, PlusIcon } from '~/components/Icon';
 import { TopNavigation } from '~/components/TopNavigation';
 import { CommunityList } from '~/modules/PlanetSelector/CommunityList';
 import { useCommunityStore } from '~/stores/community.store';
@@ -18,7 +18,7 @@ export const PlanetSelector = () => {
         <TopNavigation.Left>
           <div className="flex items-center gap-8pxr" onClick={bottomSheetHandlers.onOpen}>
             <p className="text-h1 text-grey-800">{communityTitle}</p>
-            <ArrowIcon />
+            <ArrowVerticalIcon />
           </div>
         </TopNavigation.Left>
       </TopNavigation>
