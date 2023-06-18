@@ -3,7 +3,7 @@
 import Button from '~/components/Button/Button';
 import TextButton from '~/components/Button/TextButton';
 
-export const PlanetEnterButtons = () => {
+export const PlanetEnterButton = () => {
   return (
     <div className="mt-6pxr">
       <TextButton
