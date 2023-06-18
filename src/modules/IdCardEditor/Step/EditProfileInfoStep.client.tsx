@@ -6,10 +6,10 @@ import {
   MAX_ABOUT_ME_LENGTH,
   MAX_NICKNAME_LENGTH,
 } from '~/modules/IdCardEditor/IdCardEditor.constant';
-import { IdCardEditorFormModel } from '~/types/idCard';
+import { IdCardEditorFormValues } from '~/modules/IdCardEditor/IdCardEditor.type';
 
 export const EditProfileInfoStep = () => {
-  const { register, getValues } = useFormContext<IdCardEditorFormModel>();
+  const { register, getValues } = useFormContext<IdCardEditorFormValues>();
   const { nickname, aboutMe } = getValues();
 
   // TODO: TextInput, TextArea 안쪽으로 리팩토링해야 할듯
@@ -25,10 +25,13 @@ export const EditProfileInfoStep = () => {
   });
 
   return (
-    <div>
-      <TextInput>
+    <div className="px-layout-sm">
+      <div className="flex justify-center">
+        <div className="h-[84px] w-[84px]">profile image</div>
+      </div>
+      <TextInput className="mt-36pxr">
         <TextInput.Label name="nickname" required>
-          라벨
+          이름
         </TextInput.Label>
         <TextInput.Border textCount={nicknameCount} maxLength={MAX_NICKNAME_LENGTH}>
           <TextInput.Content
@@ -39,7 +42,7 @@ export const EditProfileInfoStep = () => {
       </TextInput>
       <TextArea>
         <TextArea.Label name="aboutMe" required>
-          라벨
+          소개
         </TextArea.Label>
         <TextArea.Border textCount={aboutMeCount} maxLength={MAX_ABOUT_ME_LENGTH}>
           <TextArea.Content

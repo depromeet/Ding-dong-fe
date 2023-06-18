@@ -11,3 +11,7 @@ export type IdCardDetailResponse = {
 export type CommunityMyIdCardDetailResponse = {
   idCardDetailsDto: IdCardDetailModel;
 };
+
+export type EditIdCardResponse = {
+  id: number;
+};

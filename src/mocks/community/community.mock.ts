@@ -45,10 +45,10 @@ export const createCommunityDetail = (): CommunityDetailModel => ({
 });
 
 export const createCommunityList = (): CommunityListModel[] => {
-  return Array.from({ length: 10 }, () => ({
+  return Array.from({ length: 2 }, () => ({
     communityId: faker.number.int(),
     logoImageUrl: faker.image.avatar(),
-    title: faker.lorem.sentence(),
+    title: faker.string.alphanumeric(5),
     idCardCount: faker.number.int(),
   }));
 };

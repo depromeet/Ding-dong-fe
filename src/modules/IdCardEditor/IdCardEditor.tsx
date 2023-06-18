@@ -5,22 +5,25 @@ import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 
+import { useEditIdCardDetail } from '~/api/domain/idCard.api';
 import { TopNavigation } from '~/components/TopNavigation';
 import { IdCardEditorForm } from '~/modules/IdCardEditor/Form';
 import { editorSteps, KEYWORD_CONTENT_STEP } from '~/modules/IdCardEditor/IdCardEditor.constant';
-import { EditorSteps } from '~/modules/IdCardEditor/IdCardEditor.type';
+import { EditorSteps, IdCardEditorFormValues } from '~/modules/IdCardEditor/IdCardEditor.type';
 import { IdCardEditorFormModel } from '~/types/idCard';
 
 type IdCardEditorProps = IdCardEditorFormModel;
 
 export const IdCardEditor = ({
-  communityId,
+  idCardId,
   profileImageUrl,
   nickname,
   aboutMe,
   keywords,
 }: IdCardEditorProps) => {
-  const methods = useForm<IdCardEditorFormModel>({
+  const { mutate: mutateEditIdCardDetail } = useEditIdCardDetail();
+
+  const methods = useForm<IdCardEditorFormValues>({
     defaultValues: {
       nickname,
       aboutMe,
@@ -28,15 +31,16 @@ export const IdCardEditor = ({
       keywords,
     },
   });
+
+  const onSubmit = async (idCardInfo: IdCardEditorFormValues) => {
+    mutateEditIdCardDetail({ idCardId, ...idCardInfo });
+  };
+
   const router = useRouter();
   const [stepOrder, setStepOrder] = useState<number>(KEYWORD_CONTENT_STEP);
 
   const title = editorSteps[stepOrder] === 'PROFILE' ? '주민 정보 수정' : '주민증 수정';
   const isEntry = stepOrder === KEYWORD_CONTENT_STEP;
-
-  const onSubmit = async () => {
-    new Promise(res => res(1));
-  };
 
   const onClickMoveTargetStep = (targetStep: EditorSteps) => {
     const stepIndex = editorSteps.findIndex(step => step === targetStep);
@@ -53,8 +57,8 @@ export const IdCardEditor = ({
 
   const onClickCompleteButton = () => {
     if (isEntry) {
-      onSubmit();
-      // TODO: onSubmit이 정상 실행될 때만 뒤로 가기
+      methods.handleSubmit(onSubmit)();
+      // TODO: onSubmit이 정상 실행될 때만 뒤로 가기: useMutation 정상 실행여부 판단하기
       router.back();
       return;
     }
@@ -75,7 +79,7 @@ export const IdCardEditor = ({
         </TopNavigation.Right>
       </TopNavigation>
       {['PROFILE', 'KEYWORD', 'KEYWORD_CONTENT'].includes(editorSteps[stepOrder]) && (
-        <div className="pt-[50px]">
+        <div className="pt-28pxr">
           <IdCardEditorForm
             steps={editorSteps}
             stepOrder={stepOrder}
