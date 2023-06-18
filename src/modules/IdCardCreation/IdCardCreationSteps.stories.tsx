@@ -1,7 +1,6 @@
 import type { StoryObj } from '@storybook/react';
 
 import Button from '~/components/Button/Button';
-import { idCardCreateMockHandler } from '~/mocks/idCard/idCard.mockHandler';
 import { IdCard } from '~/modules/IdCard/IdCard.client';
 import { BoardingStep, LoadingStep } from '~/modules/IdCardCreation/Step';
 
@@ -15,11 +14,7 @@ export default {
 type Story = StoryObj<typeof IdCardCreationSteps>;
 
 export const Default: Story = {};
-Default.parameters = {
-  msw: {
-    handlers: [idCardCreateMockHandler],
-  },
-};
+Default.parameters = {};
 
 export const Loading = {
   render: () => <LoadingStep planetName="Ding dong" />,
