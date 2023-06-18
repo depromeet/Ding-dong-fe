@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import { createIdCard } from '~/mocks/idCard/idCard.mock';
+import { idCardDetailMock } from '~/mocks/idCard/idCard.mock';
 
 import { IdCardEditor } from './index';
 
@@ -14,7 +14,7 @@ export default meta;
 
 type Story = StoryObj<typeof IdCardEditor>;
 
-const MOCK_ID_CARD = createIdCard();
+const MOCK_ID_CARD = idCardDetailMock();
 
 const keywordsWithoutId = MOCK_ID_CARD.keywords.map(({ title, imageUrl, content }) => ({
   title,

@@ -7,7 +7,7 @@ import {
   createCommunityList,
 } from '~/mocks/community/community.mock';
 
-const communityMockHandler = [
+export const communityMockHandler = [
   rest.get(
     `${ROOT_API_URL}/communities/:communityId/idCards?page=:page&size=10`,
     (req, res, ctx) => {
@@ -31,5 +31,3 @@ const communityMockHandler = [
     return res(ctx.status(200), ctx.json({ communityListDtos: createCommunityList() }));
   }),
 ];
-
-export default communityMockHandler;
