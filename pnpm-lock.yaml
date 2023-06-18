@@ -154,6 +154,9 @@ devDependencies:
   storybook:
     specifier: ^7.0.14
     version: 7.0.14
+  storybook-addon-cookie:
+    specifier: ^3.0.1
+    version: 3.0.1(@storybook/blocks@7.0.14)(@storybook/components@7.0.20)(@storybook/manager-api@7.0.20)(@storybook/preview-api@7.0.20)(@storybook/types@7.0.20)(react-dom@18.2.0)(react@18.2.0)
   typescript:
     specifier: 5.0.4
     version: 5.0.4
@@ -11327,6 +11330,31 @@ packages:
 
   /store2@2.14.2:
     resolution: {integrity: sha512-siT1RiqlfQnGqgT/YzXVUNsom9S0H1OX+dpdGN1xkyYATo4I6sep5NmsRD/40s3IIOvlCq6akxkqG82urIZW1w==}
+    dev: true
+
+  /storybook-addon-cookie@3.0.1(@storybook/blocks@7.0.14)(@storybook/components@7.0.20)(@storybook/manager-api@7.0.20)(@storybook/preview-api@7.0.20)(@storybook/types@7.0.20)(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-ne3jttK7rcJ2Lc5eZPi6h6/erKyIcfzuNPxLtvAssl+HRUtJ6OB4iEvYFFV9/nTxsuNlBkUILEkImqRFf/Bppg==}
+    peerDependencies:
+      '@storybook/blocks': ^7.0.0
+      '@storybook/components': ^7.0.0
+      '@storybook/manager-api': ^7.0.0
+      '@storybook/preview-api': ^7.0.0
+      '@storybook/types': ^7.0.0
+      react: ^16.8.0 || ^17.0.0 || ^18.0.0
+      react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0
+    peerDependenciesMeta:
+      react:
+        optional: true
+      react-dom:
+        optional: true
+    dependencies:
+      '@storybook/blocks': 7.0.14(react-dom@18.2.0)(react@18.2.0)
+      '@storybook/components': 7.0.20(react-dom@18.2.0)(react@18.2.0)
+      '@storybook/manager-api': 7.0.20(react-dom@18.2.0)(react@18.2.0)
+      '@storybook/preview-api': 7.0.20
+      '@storybook/types': 7.0.20
+      react: 18.2.0
+      react-dom: 18.2.0(react@18.2.0)
     dev: true
 
   /storybook@7.0.14:
