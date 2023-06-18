@@ -4,8 +4,8 @@ import privateApi from '~/api/config/privateApi';
 import {
   CommunityMyIdCardDetailResponse,
   EditIdCardRequest,
-  EditIdCardResponse,
   IdCardDetailResponse,
+  IdCardEditResponse,
 } from '~/types/idCard';
 
 export const idCardQueryKey = {
@@ -20,7 +20,7 @@ export const getCommunityMyIdCardDetail = (communityId: number) =>
   privateApi.get<CommunityMyIdCardDetailResponse>(`/communities/${communityId}/users/idCards`);
 export const editIdCardDetail = (idCardInfo: EditIdCardRequest) => {
   const { idCardId, profileImageUrl, nickname, aboutMe, keywords } = idCardInfo;
-  return privateApi.put<EditIdCardResponse>(`/id-cards/${idCardId}`, {
+  return privateApi.put<IdCardEditResponse>(`/id-cards/${idCardId}`, {
     profileImageUrl,
     nickname,
     aboutMe,
@@ -33,7 +33,7 @@ export const useEditIdCardDetail = () => {
 
   return useMutation({
     mutationFn: (idCardInfo: EditIdCardRequest) => editIdCardDetail(idCardInfo),
-    onSuccess: (data: EditIdCardResponse) => {
+    onSuccess: (data: IdCardEditResponse) => {
       queryClient.invalidateQueries(idCardQueryKey.idCards(data.id));
     },
   });
