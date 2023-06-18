@@ -9,7 +9,7 @@ const EditMyPage = () => {
   return (
     <main>
       <IdCardEditor
-        communityId={idCardId}
+        idCardId={idCardId}
         nickname={nickname}
         aboutMe={aboutMe}
         profileImageUrl={profileImageUrl}
