@@ -5,6 +5,8 @@ import { IdCard } from '~/modules/IdCard';
 import { IdCardEditButton } from '~/modules/IdCardEditButton';
 import { PlanetCreationButton } from '~/modules/PlanetCreationButton';
 
+export const dynamic = 'force-dynamic';
+
 const MyPage = async () => {
   // TODO: 행성전환 store에서 가져오기
   const communityId = 123;
