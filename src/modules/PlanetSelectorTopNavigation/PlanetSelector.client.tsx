@@ -3,8 +3,7 @@
 import { useBottomSheet } from '~/components/BottomSheet';
 import BottomSheet from '~/components/BottomSheet/BottomSheet';
 import { ArrowVerticalIcon, PlusIcon } from '~/components/Icon';
-import { TopNavigation } from '~/components/TopNavigation';
-import { CommunityList } from '~/modules/PlanetSelector/CommunityList';
+import { CommunityList } from '~/modules/PlanetSelectorTopNavigation/CommunityList.client';
 import { useCommunityStore } from '~/stores/community.store';
 import { tw } from '~/utils/tailwind.util';
 
@@ -14,14 +13,10 @@ export const PlanetSelector = () => {
 
   return (
     <div>
-      <TopNavigation>
-        <TopNavigation.Left>
-          <div className="flex items-center gap-8pxr" onClick={bottomSheetHandlers.onOpen}>
-            <p className="text-h1 text-grey-800">{communityTitle}</p>
-            <ArrowVerticalIcon />
-          </div>
-        </TopNavigation.Left>
-      </TopNavigation>
+      <div className="flex items-center gap-8pxr" onClick={bottomSheetHandlers.onOpen}>
+        <p className="text-h1 text-grey-800">{communityTitle}</p>
+        <ArrowVerticalIcon />
+      </div>
       <BottomSheet {...bottomSheetHandlers}>
         <BottomSheet.Header>내 행성</BottomSheet.Header>
         <BottomSheet.Content>
