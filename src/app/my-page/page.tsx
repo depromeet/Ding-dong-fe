@@ -1,17 +1,25 @@
-import 'server-only';
-
-import { getCommunityMyIdCardDetail } from '~/api/domain/idCard.api';
+'use client';
+import { useGetCommunityMyIdCardDetail } from '~/api/domain/idCard.api';
 import { IdCard } from '~/modules/IdCard';
 import { IdCardEditButton } from '~/modules/IdCardEditButton';
 import { PlanetCreationButton } from '~/modules/PlanetCreationButton';
+import { useCommunityStore } from '~/stores/community.store';
 
 export const dynamic = 'force-dynamic';
 
-const MyPage = async () => {
-  // TODO: 행성전환 store에서 가져오기
-  const communityId = 123;
-  const { idCardDetailsDto } = await getCommunityMyIdCardDetail(communityId);
-  const { idCardId, nickname, aboutMe, characterType, keywords } = idCardDetailsDto;
+const MyPage = () => {
+  const { communityId } = useCommunityStore();
+
+  // TODO communityId가 없을 때 에러 처리 구체화
+
+  const { data, isError, isLoading } = useGetCommunityMyIdCardDetail(communityId || 0);
+
+  // TODO: suspense와 error boundary 정해지면 에러 및 로딩 처리 layout으로 이동
+  if (isError || isLoading) {
+    return <main>error</main>;
+  }
+
+  const { idCardId, nickname, aboutMe, characterType, keywords } = data.idCardDetailsDto;
   const keywordTitles = keywords.map(keyword => keyword.title);
 
   return (
