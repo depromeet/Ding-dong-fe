@@ -1,9 +1,9 @@
-import { createIdCard } from '~/mocks/idCard/idCard.mock';
+import { idCardDetailMock } from '~/mocks/idCard/idCard.mock';
 import { IdCardEditor } from '~/modules/IdCardEditor';
 
 const EditMyPage = () => {
   // TODO: api나오면 수정 예정
-  const idCardDetailsDto = createIdCard();
+  const idCardDetailsDto = idCardDetailMock();
   const { idCardId, nickname, aboutMe, profileImageUrl, keywords } = idCardDetailsDto;
 
   return (

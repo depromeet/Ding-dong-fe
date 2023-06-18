@@ -14,6 +14,7 @@ type IdCardCreationFormProps = {
   stepOrder: number;
   onNext: () => void;
   onPrev: () => void;
+  onSubmit: () => void;
 };
 
 const disableButtonStyle = 'text-grey-400';
@@ -23,17 +24,11 @@ export const IdCardCreationForm = ({
   stepOrder,
   onNext,
   onPrev,
+  onSubmit,
 }: IdCardCreationFormProps) => {
   const {
-    handleSubmit,
-    formState: { errors, isDirty, isValid },
+    formState: { errors, isDirty, isValid, isSubmitting },
   } = useFormContext<IdCardCreationFormModel>();
-
-  const onSubmit = () => {
-    const api = () => 'api 실행';
-    handleSubmit(api);
-    onNext();
-  };
 
   const getNavigationButton = () => {
     let error;
@@ -57,7 +52,11 @@ export const IdCardCreationForm = ({
       case 'KEYWORD_CONTENT':
         disableStyle = (!isValid && disableButtonStyle) || '';
         return (
-          <button className={tw(disableStyle, 'submission')} disabled={!isValid} onClick={onSubmit}>
+          <button
+            className={tw(disableStyle, 'submission')}
+            disabled={!isValid || isSubmitting}
+            onClick={onSubmit}
+          >
             제출
           </button>
         );

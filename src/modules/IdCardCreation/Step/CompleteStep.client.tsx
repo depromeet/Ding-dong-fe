@@ -4,22 +4,26 @@ import { useFormContext } from 'react-hook-form';
 
 import Button from '~/components/Button/Button';
 import { IdCard } from '~/modules/IdCard/IdCard.client';
-import { KeywordModel } from '~/types/idCard';
+import { IdCardCreationFormModel } from '~/types/idCard';
 
 const title = 'planet이름';
 
-export const CompleteStep = () => {
-  const { getValues } = useFormContext();
+type CompleteStepProps = {
+  userId: number;
+};
+
+export const CompleteStep = ({ userId }: CompleteStepProps) => {
+  const { getValues } = useFormContext<IdCardCreationFormModel>();
   const values = getValues();
   const { nickname, aboutMe, keywords } = values;
-  const keywordTitles = keywords.map((keyword: KeywordModel) => keyword.title);
+  const keywordTitles = keywords.map(keyword => keyword.title);
   return (
     // TODO: 지금은 커뮤니티 정보가 없는데 나중에 커뮤니티 타이틀 추가
     <div className="flex min-h-[calc(100vh-50px)] flex-col px-layout-sm ">
       <h2 className="text-h1 text-grey-900">{`짜잔!${title} \n주민증이 발급되었어요!`}</h2>
       <div className="mt-24pxr flex flex-1 flex-col">
         <IdCard
-          idCardId={values.id}
+          idCardId={userId}
           aboutMe={aboutMe}
           keywordTitles={keywordTitles}
           nickname={nickname}

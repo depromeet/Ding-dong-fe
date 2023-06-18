@@ -8,6 +8,7 @@ export type IdCardDetailResponse = {
   idCardDetailsDto: IdCardDetailModel;
 };
 
+export type IdCardCreateResponse = { id: number };
 export type EditIdCardResponse = {
   id: number;
 };
