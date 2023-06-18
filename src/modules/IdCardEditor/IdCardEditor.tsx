@@ -11,7 +11,7 @@ import { IdCardEditorForm } from '~/modules/IdCardEditor/Form';
 import { editorSteps, KEYWORD_CONTENT_STEP } from '~/modules/IdCardEditor/IdCardEditor.constant';
 import { EditorSteps, IdCardEditorFormValues } from '~/modules/IdCardEditor/IdCardEditor.type';
 import { IdCardEditorFormModel } from '~/types/idCard';
-import { getEntries } from '~/utils/util.common';
+import { getEntries, isEqual } from '~/utils/util.common';
 
 type IdCardEditorProps = IdCardEditorFormModel;
 
@@ -44,8 +44,11 @@ export const IdCardEditor = ({
     mutateEditIdCardDetail({ idCardId, ...idCardInfo });
   };
 
-  const isValueChanged = () =>
-    getEntries(submitState).some(([name, value]) => methods.getValues(name) !== value);
+  const isValueChanged = () => {
+    return getEntries(submitState).some(
+      ([name, value]) => !isEqual(methods.getValues(name), value),
+    );
+  };
 
   const revertToPrevFormState = () => {
     getEntries(submitState).forEach(([name, value]) => methods.setValue(name, value));
