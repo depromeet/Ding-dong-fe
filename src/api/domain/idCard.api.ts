@@ -1,4 +1,4 @@
-import { useMutation, UseMutationOptions, useQueryClient } from '@tanstack/react-query';
+import { useMutation, UseMutationOptions, useQuery, useQueryClient } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
 
 import privateApi from '~/api/config/privateApi';
@@ -12,14 +12,17 @@ import {
 
 export const idCardQueryKey = {
   idCards: (idCardId: number) => ['getIdCardDetail', idCardId],
+  myCommunity: (communityId: number) => ['CommunityMyIdCard', communityId],
 };
 
 export const getIdCardDetail = (idCardId: string) =>
   privateApi.get<IdCardDetailResponse>(`/id-cards/${idCardId}`);
 
-// 폴더 관련 고민
 export const getCommunityMyIdCardDetail = (communityId: number) =>
   privateApi.get<CommunityMyIdCardDetailResponse>(`/communities/${communityId}/users/idCards`);
+
+export const useGetCommunityMyIdCardDetail = (communityId: number) =>
+  useQuery(idCardQueryKey.myCommunity(communityId), () => getCommunityMyIdCardDetail(communityId));
 
 export const editIdCardDetail = (idCardInfo: EditIdCardRequest) => {
   const { idCardId, profileImageUrl, nickname, aboutMe, keywords } = idCardInfo;
