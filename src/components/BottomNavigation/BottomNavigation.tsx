@@ -16,7 +16,7 @@ export const BottomNavigation = () => {
   };
 
   const getSvgcolor = (bottomNavigationPath: BottomNavigationPath) => {
-    if (bottomNavigationPath.includes(pathname)) {
+    if (pathname.includes(bottomNavigationPath)) {
       return 'fill-primary-500 stroke-primary-500';
     } else {
       return 'fill-none stroke-grey-400';

@@ -3,7 +3,7 @@
 import { useBottomSheet } from '~/components/BottomSheet';
 import BottomSheet from '~/components/BottomSheet/BottomSheet';
 import { ArrowVerticalIcon, PlusIcon } from '~/components/Icon';
-import { CommunityList } from '~/modules/PlanetSelectorTopNavigation/CommunityList.client';
+import { CommunityList } from '~/modules/PlanetSelector/CommunityList.client';
 import { useCommunityStore } from '~/stores/community.store';
 import { tw } from '~/utils/tailwind.util';
 
@@ -21,7 +21,7 @@ export const PlanetSelector = () => {
         <BottomSheet.Header>내 행성</BottomSheet.Header>
         <BottomSheet.Content>
           <div className="flex flex-col gap-20pxr">
-            <CommunityList />
+            <CommunityList onClick={bottomSheetHandlers.onClose} />
             <div className="rounded-xl border border-grey-200 bg-grey-50">
               <button className="flex items-center gap-20pxr px-20pxr py-16pxr">
                 <div className="flex h-[36px] w-[36px] items-center justify-center rounded-3xl bg-grey-100">
