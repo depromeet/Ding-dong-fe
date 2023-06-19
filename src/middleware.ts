@@ -42,7 +42,7 @@ const middleware = async (request: NextRequest) => {
     } catch (e) {
       // server-side 로그인 실패
       //TODO: server-side fetch CORS 에러 핸들링
-      console.log('e', e);
+      console.log('middleware error', e);
     }
   }
 

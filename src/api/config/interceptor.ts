@@ -27,7 +27,6 @@ export const onRequestError = (error: AxiosError) => {
 
 export const onResponse = (response: AxiosResponse) => {
   const data = response.data;
-  console.log(data);
   const { headers, status } = response;
   return { ...data, headers, status };
 };
