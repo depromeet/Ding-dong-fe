@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 'use client';
 
 import { useRouter } from 'next/navigation';
@@ -44,11 +43,8 @@ export const IdCardEditor = ({
     mutateEditIdCardDetail({ idCardId, ...idCardInfo });
   };
 
-  const isValueChanged = () => {
-    return getEntries(submitState).some(
-      ([name, value]) => !isEqual(methods.getValues(name), value),
-    );
-  };
+  const isValueChanged = () =>
+    getEntries(submitState).some(([name, value]) => !isEqual(methods.getValues(name), value));
 
   const revertToPrevFormState = () => {
     getEntries(submitState).forEach(([name, value]) => methods.setValue(name, value));
@@ -59,6 +55,8 @@ export const IdCardEditor = ({
   };
 
   const onClickMoveTargetStep = (targetStep: EditorSteps) => {
+    // 페이지 이동시 formState와 rhf의 values를 동기화
+    updateFormState();
     const stepIndex = editorSteps.findIndex(step => step === targetStep);
     setStepOrder(stepIndex);
   };
