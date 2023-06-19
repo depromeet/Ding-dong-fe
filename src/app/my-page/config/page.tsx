@@ -1,10 +1,10 @@
 import 'server-only';
 
 import { getCommunityList } from '~/api/domain/community.api';
-import { PlanetMenu } from '~/app/my-page/config/PlanetMenu.client';
-import { UserMenu } from '~/app/my-page/config/UserMenu.client';
 import { Divider } from '~/components/Divider';
 import { TopNavigation } from '~/components/TopNavigation';
+import { PlanetMenu } from '~/modules/PlanetMenu';
+import { UserMenu } from '~/modules/UserMenu';
 
 export const dynamic = 'force-dynamic';
 
