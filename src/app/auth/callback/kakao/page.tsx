@@ -1,40 +1,20 @@
 'use client';
 
-import { useQuery } from '@tanstack/react-query';
-import { useSearchParams } from 'next/navigation';
-import { useRouter } from 'next/navigation';
-import { useEffect } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
 
-import publicApi from '~/api/config/publicApi';
-import { AuthResponse } from '~/types/auth';
-import { generateCookiesKeyValues } from '~/utils/auth/tokenHandlers';
+import { useLogin } from '~/api/domain/auth.api.client';
 
 const KakaoCallbackPage = () => {
   const searchParams = useSearchParams();
   const router = useRouter();
 
   const code = searchParams.get('code');
-  const { data } = useQuery<AuthResponse>(['login'], async () => {
-    const origin = window.location.origin;
-    const authData = await publicApi.post<AuthResponse>('/auth/login/kakao', {
-      authCode: code,
-      redirectUri: `${origin}/auth/callback/kakao`,
-    });
-    if (authData.data) {
-      const cookies = generateCookiesKeyValues(authData.data as AuthResponse);
-      cookies.forEach(([key, value]) => {
-        document.cookie = `${key}=${value}; path=/;`;
-      });
-      router.replace('/');
-    }
-
-    return authData;
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const authData = useLogin(code, {
+    onSuccess: () => {
+      router.push('/');
+    },
   });
-  useEffect(() => {
-    if (data?.accessToken) {
-      router.replace('/');
-    }
-  }, [data, router]);
 
   return <></>;
 };
