@@ -65,21 +65,30 @@ export const IdCardEditor = ({
 
   const onClickBackButton = () => {
     if (isEntry) {
-      router.back();
+      // TODO: pop up UI 수정하기
+      const isOk = window.confirm('진짜 취소할거야?');
+      if (isOk) {
+        router.back();
+      }
       return;
     }
 
     if (isValueChanged()) {
-      // TODO: pop up 알림으로 수정하기
-      alert('진짜 취소할거야?');
+      // TODO: pop up UI 수정하기
+      const isOk = window.confirm('진짜 취소할거야?');
+      if (isOk) {
+        revertToPrevFormState();
+        setStepOrder(KEYWORD_CONTENT_STEP);
+      }
+      return;
     }
-    revertToPrevFormState();
+
     setStepOrder(KEYWORD_CONTENT_STEP);
   };
 
-  const onClickCompleteButton = () => {
+  const onClickCompleteButton = async () => {
     if (isEntry) {
-      methods.handleSubmit(onSubmit)();
+      await methods.handleSubmit(onSubmit)();
       // TODO: onSubmit이 정상 실행될 때만 뒤로 가기: useMutation 정상 실행여부 판단하기
       router.back();
       return;
