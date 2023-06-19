@@ -5,7 +5,6 @@ import { Chip } from '~/components/Chip';
 import { ProfileImageEdit } from '~/components/ProfileImageEdit';
 import { EditorSteps, IdCardEditorFormValues } from '~/modules/IdCardEditor/IdCardEditor.type';
 import { KeywordContentEditCard } from '~/modules/KeywordContentEditCard';
-import { FormKeywordModel } from '~/types/idCard';
 
 type EditKeywordContentStepProps = {
   onClickMoveTargetStep: (targetStep: EditorSteps) => void;
@@ -15,11 +14,6 @@ export const EditKeywordContentStep = ({ onClickMoveTargetStep }: EditKeywordCon
   const { setValue, getValues } = useFormContext<IdCardEditorFormValues>();
   const values = getValues();
   const { nickname, aboutMe, keywords } = values;
-
-  const onClickDeleteChip = (title: string, keywords: FormKeywordModel[]) => {
-    const filteredKeywordList = keywords.filter(keyword => title !== keyword.title);
-    setValue('keywords', filteredKeywordList);
-  };
 
   const onClickKeywordPlus = () => {
     onClickMoveTargetStep('KEYWORD');
@@ -47,15 +41,7 @@ export const EditKeywordContentStep = ({ onClickMoveTargetStep }: EditKeywordCon
       </div>
       <ul className="mb-34pxr flex w-full flex-wrap items-center gap-x-4pxr gap-y-8pxr bg-grey-100 px-20pxr py-15pxr">
         {keywords.map(({ title }) => (
-          <Chip
-            key={title}
-            text={title}
-            isSelected={true}
-            themeType="close"
-            handleClickIcon={() => {
-              onClickDeleteChip(title, keywords);
-            }}
-          />
+          <Chip key={title} text={title} isSelected={true} />
         ))}
         <Chip text="키워드 추가" themeType="plus" onClick={onClickKeywordPlus} />
       </ul>
