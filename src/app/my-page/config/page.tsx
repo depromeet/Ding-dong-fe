@@ -27,8 +27,12 @@ const MyPageConfig = async () => {
         </TopNavigation.Title>
       </TopNavigation>
       <div className="pt-28pxr">
-        {isBelongToCommunity && <PlanetMenu />}
-        <Divider />
+        {isBelongToCommunity && (
+          <>
+            <PlanetMenu />
+            <Divider />
+          </>
+        )}
         <UserMenu />
       </div>
     </main>
