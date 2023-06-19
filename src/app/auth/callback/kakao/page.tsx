@@ -15,10 +15,10 @@ const KakaoCallbackPage = () => {
 
   const code = searchParams.get('code');
   const { data } = useQuery<AuthResponse>(['login'], async () => {
-    const host = window.location.protocol + '//' + window.location.host;
+    const origin = window.location.origin;
     const authData = await publicApi.post<AuthResponse>('/auth/login/kakao', {
       authCode: code,
-      redirectUri: `${host}/auth/callback/kakao`,
+      redirectUri: `${origin}/auth/callback/kakao`,
     });
     if (authData.data) {
       const cookies = generateCookiesKeyValues(authData.data as AuthResponse);

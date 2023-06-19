@@ -20,10 +20,10 @@ const middleware = async (request: NextRequest) => {
     }
 
     try {
-      const host = window.location.protocol + '//' + window.location.host;
+      const origin = window.location.origin;
       const authData = await publicApi.post<AuthResponse>('/auth/login/kakao', {
         authCode,
-        redirectUri: `${host}/auth/callback/kakao`,
+        redirectUri: `${origin}/auth/callback/kakao`,
       });
 
       // TODO: error처리 고도화: response status혹은 메시지에 따라 if문 수정하기
