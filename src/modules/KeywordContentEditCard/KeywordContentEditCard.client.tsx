@@ -4,6 +4,7 @@ import { ChangeEvent, useCallback, useRef, useState } from 'react';
 import { useFormContext } from 'react-hook-form';
 
 import { usePostImageUrl } from '~/api/domain/image.api';
+import { CancelIcon } from '~/components/Icon';
 import { KeywordContentImage } from '~/modules/IdCardCreation/Step/KeywordContentImage.client';
 import { KeywordContentCard } from '~/modules/IdCardDetail';
 import { FormKeywordModel } from '~/types/idCard';
@@ -20,21 +21,35 @@ export const KeywordContentEditCard = ({
   keyword,
   index,
 }: KeywordContentEditCardProps) => {
-  const { register, setValue } = useFormContext();
+  const { register, setValue, getValues } = useFormContext();
+  const { keywords } = getValues();
   const [textFocus, setTextFocus] = useState<boolean>();
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const { mutateAsync } = usePostImageUrl();
 
-  const onCardClick = useCallback(() => {
+  const onCardClick = () => {
     if (textareaRef.current) textareaRef.current.focus();
-  }, []);
+  };
 
-  const onTextFocus = useCallback(() => {
+  const deleteKeyword = (title: string, keywords: FormKeywordModel[]) => {
+    const filteredKeywordList = keywords.filter(keyword => title !== keyword.title);
+    setValue('keywords', filteredKeywordList);
+  };
+
+  const onDeleteKeywordContent = () => {
+    // TODO: pop up UI 수정하기
+    const isOk = window.confirm('키워드를 삭제하시겠어요?');
+    if (isOk) {
+      deleteKeyword(keyword.title, keywords);
+    }
+  };
+
+  const onTextFocus = () => {
     setTextFocus(true);
-  }, []);
-  const onTextBlur = useCallback(() => {
+  };
+  const onTextBlur = () => {
     setTextFocus(false);
-  }, []);
+  };
 
   const onImageChange = useCallback(
     async (e: ChangeEvent<HTMLInputElement>) => {
@@ -51,21 +66,31 @@ export const KeywordContentEditCard = ({
 
   return (
     <div className={tw(className)}>
-      <KeywordContentCard
-        className={`${textFocus ? 'border-[1px] border-solid border-primary-500' : ''}`}
-        onClick={onCardClick}
-        title={keyword.title}
-        image={<KeywordContentImage index={index} />}
-        content={
-          <textarea
-            {...register(`keywords.${index}.content`)}
-            onFocus={onTextFocus}
-            onBlur={onTextBlur}
-            ref={textareaRef}
-            className="w-full resize-none bg-grey-100"
+      <div className="relative">
+        <KeywordContentCard
+          className={`${textFocus ? 'border-[1px] border-solid border-primary-500' : ''}`}
+          onClick={onCardClick}
+          title={keyword.title}
+          image={<KeywordContentImage index={index} />}
+          content={
+            <textarea
+              {...register(`keywords.${index}.content`)}
+              onFocus={onTextFocus}
+              onBlur={onTextBlur}
+              ref={textareaRef}
+              className="w-full resize-none bg-grey-100"
+            />
+          }
+        />
+        <div className="absolute right-[12px] top-[12px] flex h-[16px] w-[16px]  items-center justify-center rounded-full bg-grey-800">
+          <CancelIcon
+            size={8}
+            viewBox="0 0 16 16"
+            className="block fill-white"
+            onClick={onDeleteKeywordContent}
           />
-        }
-      />
+        </div>
+      </div>
       <div className="mt-[10px] flex justify-end">
         <label
           htmlFor={`keywords.${index}.imageUrl`}

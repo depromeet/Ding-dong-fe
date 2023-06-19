@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 'use client';
 
 import { useRouter } from 'next/navigation';
@@ -11,6 +10,7 @@ import { IdCardEditorForm } from '~/modules/IdCardEditor/Form';
 import { editorSteps, KEYWORD_CONTENT_STEP } from '~/modules/IdCardEditor/IdCardEditor.constant';
 import { EditorSteps, IdCardEditorFormValues } from '~/modules/IdCardEditor/IdCardEditor.type';
 import { IdCardEditorFormModel } from '~/types/idCard';
+import { getEntries, isEqual } from '~/utils/util.common';
 
 type IdCardEditorProps = IdCardEditorFormModel;
 
@@ -21,47 +21,77 @@ export const IdCardEditor = ({
   aboutMe,
   keywords,
 }: IdCardEditorProps) => {
+  const initFormValue = {
+    nickname,
+    aboutMe,
+    profileImageUrl,
+    keywords,
+  };
+  const router = useRouter();
+  const [stepOrder, setStepOrder] = useState<number>(KEYWORD_CONTENT_STEP);
   const { mutate: mutateEditIdCardDetail } = useEditIdCardDetail();
+  const [submitState, setSubmitState] = useState<IdCardEditorFormValues>(initFormValue);
+
+  const title = editorSteps[stepOrder] === 'PROFILE' ? '주민 정보 수정' : '주민증 수정';
+  const isEntry = stepOrder === KEYWORD_CONTENT_STEP;
 
   const methods = useForm<IdCardEditorFormValues>({
-    defaultValues: {
-      nickname,
-      aboutMe,
-      profileImageUrl,
-      keywords,
-    },
+    defaultValues: initFormValue,
   });
 
   const onSubmit = async (idCardInfo: IdCardEditorFormValues) => {
     mutateEditIdCardDetail({ idCardId, ...idCardInfo });
   };
 
-  const router = useRouter();
-  const [stepOrder, setStepOrder] = useState<number>(KEYWORD_CONTENT_STEP);
+  const isValueChanged = () =>
+    getEntries(submitState).some(([name, value]) => !isEqual(methods.getValues(name), value));
 
-  const title = editorSteps[stepOrder] === 'PROFILE' ? '주민 정보 수정' : '주민증 수정';
-  const isEntry = stepOrder === KEYWORD_CONTENT_STEP;
+  const revertToPrevFormState = () => {
+    getEntries(submitState).forEach(([name, value]) => methods.setValue(name, value));
+  };
+
+  const updateFormState = () => {
+    setSubmitState(prev => ({ ...prev, ...methods.getValues() }));
+  };
 
   const onClickMoveTargetStep = (targetStep: EditorSteps) => {
+    // 페이지 이동시 formState와 rhf의 values를 동기화
+    updateFormState();
     const stepIndex = editorSteps.findIndex(step => step === targetStep);
     setStepOrder(stepIndex);
   };
 
   const onClickBackButton = () => {
     if (isEntry) {
-      router.back();
+      // TODO: pop up UI 수정하기
+      const isOk = window.confirm('진짜 취소할거야?');
+      if (isOk) {
+        router.back();
+      }
       return;
     }
+
+    if (isValueChanged()) {
+      // TODO: pop up UI 수정하기
+      const isOk = window.confirm('진짜 취소할거야?');
+      if (isOk) {
+        revertToPrevFormState();
+        setStepOrder(KEYWORD_CONTENT_STEP);
+      }
+      return;
+    }
+
     setStepOrder(KEYWORD_CONTENT_STEP);
   };
 
-  const onClickCompleteButton = () => {
+  const onClickCompleteButton = async () => {
     if (isEntry) {
-      methods.handleSubmit(onSubmit)();
+      await methods.handleSubmit(onSubmit)();
       // TODO: onSubmit이 정상 실행될 때만 뒤로 가기: useMutation 정상 실행여부 판단하기
       router.back();
       return;
     }
+    updateFormState();
     setStepOrder(KEYWORD_CONTENT_STEP);
   };
 

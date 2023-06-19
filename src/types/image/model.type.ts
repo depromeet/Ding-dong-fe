@@ -3,4 +3,3 @@ export type ImageUrlModel = {
 };
 
 export type ImageFileModel = File;
-

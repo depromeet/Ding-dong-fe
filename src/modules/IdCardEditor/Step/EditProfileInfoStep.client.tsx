@@ -1,5 +1,7 @@
+import { faker } from '@faker-js/faker';
 import { useFormContext } from 'react-hook-form';
 
+import { ProfileImageEdit } from '~/components/ProfileImageEdit';
 import { TextArea, useTextArea } from '~/components/TextArea';
 import { TextInput, useTextInput } from '~/components/TextInput';
 import {
@@ -9,7 +11,7 @@ import {
 import { IdCardEditorFormValues } from '~/modules/IdCardEditor/IdCardEditor.type';
 
 export const EditProfileInfoStep = () => {
-  const { register, getValues } = useFormContext<IdCardEditorFormValues>();
+  const { register, getValues, setValue } = useFormContext<IdCardEditorFormValues>();
   const { nickname, aboutMe } = getValues();
 
   // TODO: TextInput, TextArea 안쪽으로 리팩토링해야 할듯
@@ -27,7 +29,12 @@ export const EditProfileInfoStep = () => {
   return (
     <div className="px-layout-sm">
       <div className="flex justify-center">
-        <div className="h-[84px] w-[84px]">profile image</div>
+        <ProfileImageEdit<IdCardEditorFormValues>
+          className="mx-auto mt-20pxr"
+          fieldName="profileImageUrl"
+          defaultProfileImage={faker.image.avatar()}
+          setValue={setValue}
+        />
       </div>
       <TextInput className="mt-36pxr">
         <TextInput.Label name="nickname" required>
