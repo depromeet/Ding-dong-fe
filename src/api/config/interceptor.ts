@@ -1,27 +1,15 @@
 import { AxiosError, AxiosResponse, InternalAxiosRequestConfig } from 'axios';
 
-import { AUTH_COOKIE_KEYS } from '~/types/auth';
 import { getAccessToken, getAuthTokensByCookie } from '~/utils/auth/tokenHandlers';
 
 import { ApiError } from './customError';
 
-const isServer = typeof window === 'undefined';
-
+// TODO: onRequest와 privateApi를 삭제하고 privateApi.client, privateApi.server 로 변경
 export const onRequest = async (config: InternalAxiosRequestConfig) => {
   try {
-    let validAccessToken = null;
-    if (isServer) {
-      const { cookies } = await import('next/headers');
-      const cookieStore = cookies();
-      const accessToken = cookieStore.get(AUTH_COOKIE_KEYS.accessToken)?.value;
-      const accessTokenExpireDate = Number(
-        cookieStore.get(AUTH_COOKIE_KEYS.accessTokenExpireDate)?.value,
-      );
-      validAccessToken = await getAccessToken({ accessToken, accessTokenExpireDate });
-    } else {
-      const auth = getAuthTokensByCookie(document.cookie);
-      validAccessToken = await getAccessToken(auth);
-    }
+    const auth = getAuthTokensByCookie(document.cookie);
+    const validAccessToken = await getAccessToken(auth);
+
     if (validAccessToken) {
       config.headers.Authorization = `Bearer ${validAccessToken}`;
       return config;
@@ -39,6 +27,7 @@ export const onRequestError = (error: AxiosError) => {
 
 export const onResponse = (response: AxiosResponse) => {
   const data = response.data;
+  console.log(data);
   const { headers, status } = response;
   return { ...data, headers, status };
 };
@@ -46,7 +35,7 @@ export const onResponse = (response: AxiosResponse) => {
 export const onResponseError = (error: AxiosError) => {
   // 2xx 외의 범위에 있는 상태 코드는 이 함수를 트리거 합니다.
   // 응답 오류가 있는 작업 수행
-  console.error(error);
+  console.error('error', error);
   if (error.response) {
     // 요청이 이루어졌으며 서버가 2xx의 범위를 벗어나는 상태 코드로 응답했습니다.
 
