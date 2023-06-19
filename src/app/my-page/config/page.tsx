@@ -1,20 +1,20 @@
-'use client';
+import 'server-only';
+
+import { getCommunityList } from '~/api/domain/community.api';
 import { Divider } from '~/components/Divider';
-import { Menu } from '~/components/Menu';
 import { TopNavigation } from '~/components/TopNavigation';
+import { PlanetMenu } from '~/modules/PlanetMenu';
+import { UserMenu } from '~/modules/UserMenu';
 
-const MyPageConfig = () => {
-  const onClickEscapePlanet = () => {
-    console.log('행성 떠나기 로직 추가 예정');
-  };
+export const dynamic = 'force-dynamic';
 
-  const onClickLogout = () => {
-    console.log('로그 아웃 로직 추가 예정');
-  };
+const MyPageConfig = async () => {
+  // TODO: userId 수정 필요
+  const userId = '1';
 
-  const onClickSignOut = () => {
-    console.log('회원 탈퇴로직 추가 예정');
-  };
+  const { communityListDtos } = await getCommunityList(userId);
+
+  const isBelongToCommunity = communityListDtos.length !== 0;
 
   return (
     <main>
@@ -27,22 +27,13 @@ const MyPageConfig = () => {
         </TopNavigation.Title>
       </TopNavigation>
       <div className="pt-28pxr">
-        <Menu className="px-layout-sm">
-          <Menu.Header>행성 관리</Menu.Header>
-          <Menu.Element onClick={onClickEscapePlanet}>
-            <span>행성 떠나기</span>
-          </Menu.Element>
-        </Menu>
-        <Divider />
-        <Menu className="px-layout-sm">
-          <Menu.Header>계정 관리</Menu.Header>
-          <Menu.Element onClick={onClickLogout}>
-            <span>로그아웃</span>
-          </Menu.Element>
-          <Menu.Element onClick={onClickSignOut}>
-            <span>회원 탈퇴</span>
-          </Menu.Element>
-        </Menu>
+        {isBelongToCommunity && (
+          <>
+            <PlanetMenu />
+            <Divider />
+          </>
+        )}
+        <UserMenu />
       </div>
     </main>
   );

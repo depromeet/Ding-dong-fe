@@ -1,10 +1,10 @@
 'use client';
 
-import { faker } from '@faker-js/faker/locale/ko';
 import Image from 'next/image';
 import { ChangeEvent, ForwardedRef, forwardRef, InputHTMLAttributes, memo, useState } from 'react';
 import { FieldPath, FieldValues, UseFormSetValue } from 'react-hook-form';
 
+import { usePostImageUrl } from '~/api/domain/image.api';
 import { CameraIcon } from '~/components/Icon/CameraIcon';
 import { tw } from '~/utils/tailwind.util';
 
@@ -21,15 +21,17 @@ function ProfileImageEditComponent<T extends FieldValues>(
   ref: ForwardedRef<HTMLInputElement>,
 ) {
   const [profileImage, setProfileImage] = useState<string>(defaultProfileImage);
+  const { mutateAsync } = usePostImageUrl();
 
-  const onChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const onChange = async (e: ChangeEvent<HTMLInputElement>) => {
     const imageFileList = e.target.files;
     if (imageFileList && imageFileList.length > 0) {
-      //TODO: S3 로직 추가 예정
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const fakerImage = faker.image.avatar() as any;
-      setProfileImage(fakerImage);
-      setValue(fieldName, fakerImage);
+      const data = await mutateAsync(imageFileList[0]);
+      if (data) {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        setValue(fieldName, data.imageUrl as any);
+        setProfileImage(data.imageUrl);
+      }
     }
   };
 

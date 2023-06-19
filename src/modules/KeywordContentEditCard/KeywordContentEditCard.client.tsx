@@ -1,9 +1,9 @@
 'use client';
 
-import { faker } from '@faker-js/faker/locale/ko';
 import { ChangeEvent, useCallback, useRef, useState } from 'react';
 import { useFormContext } from 'react-hook-form';
 
+import { usePostImageUrl } from '~/api/domain/image.api';
 import { CancelIcon } from '~/components/Icon';
 import { KeywordContentImage } from '~/modules/IdCardCreation/Step/KeywordContentImage.client';
 import { KeywordContentCard } from '~/modules/IdCardDetail';
@@ -25,6 +25,7 @@ export const KeywordContentEditCard = ({
   const { keywords } = getValues();
   const [textFocus, setTextFocus] = useState<boolean>();
   const textareaRef = useRef<HTMLTextAreaElement>(null);
+  const { mutateAsync } = usePostImageUrl();
 
   const onCardClick = () => {
     if (textareaRef.current) textareaRef.current.focus();
@@ -51,15 +52,16 @@ export const KeywordContentEditCard = ({
   };
 
   const onImageChange = useCallback(
-    (e: ChangeEvent<HTMLInputElement>) => {
+    async (e: ChangeEvent<HTMLInputElement>) => {
       const imageFileList = e.target.files;
       if (imageFileList && imageFileList.length > 0) {
-        //TODO: S3 로직 추가 예정
-        const fakerImage = faker.image.avatar();
-        setValue(`keywords.${index}.imageUrl`, fakerImage);
+        const data = await mutateAsync(imageFileList[0]);
+        if (data) {
+          setValue(`keywords.${index}.imageUrl`, data.imageUrl);
+        }
       }
     },
-    [index, setValue],
+    [index, mutateAsync, setValue],
   );
 
   return (

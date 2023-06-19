@@ -15,7 +15,6 @@ export const KeywordContentImage = ({ index }: KeywordContentImageProps) => {
   const imageUrl = keywords[index].imageUrl;
 
   const onCancelClick = useCallback(() => {
-    //TODO: S3 로직 추가 예정
     setValue(`keywords.${index}.imageUrl`, '');
   }, [index, setValue]);
 

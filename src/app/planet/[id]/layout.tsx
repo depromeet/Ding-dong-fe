@@ -1,12 +1,17 @@
 import { PropsWithChildren } from 'react';
 
 import { BottomNavigation } from '~/components/BottomNavigation';
-import { PlanetSelectorTopNavigation } from '~/modules/PlanetSelectorTopNavigation';
+import { TopNavigation } from '~/components/TopNavigation';
+import { PlanetSelector } from '~/modules/PlanetSelector';
 
 const Layout = ({ children }: PropsWithChildren) => {
   return (
     <div>
-      <PlanetSelectorTopNavigation />
+      <TopNavigation>
+        <TopNavigation.Left>
+          <PlanetSelector />
+        </TopNavigation.Left>
+      </TopNavigation>
       {children}
       <BottomNavigation />
     </div>

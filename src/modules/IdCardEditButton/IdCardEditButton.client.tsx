@@ -1,13 +1,14 @@
 'use client';
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 
 import Button from '~/components/Button/Button';
 
 export const IdCardEditButton = () => {
+  const pathname = usePathname();
   const router = useRouter();
 
   const onClickIdCardEditButton = () => {
-    router.push('/my-page/edit');
+    router.push(`${pathname}/edit`);
   };
 
   return (
