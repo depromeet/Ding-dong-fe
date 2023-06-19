@@ -5,7 +5,7 @@ import { AUTH_COOKIE_KEYS } from '~/types/auth';
 import { getAccessToken } from '~/utils/auth/tokenHandlers';
 
 import { CustomInstance } from './api.types';
-import { onRequestError, onResponse } from './interceptor';
+import { onResponse } from './interceptor';
 import { ROOT_API_URL } from './requestUrl';
 
 const onServerRequest = async (config: InternalAxiosRequestConfig) => {
@@ -33,6 +33,6 @@ export const privateApi: CustomInstance = axios.create({
 
 privateApi.defaults.timeout = 2500;
 
-privateApi.interceptors.request.use(onServerRequest, onRequestError);
+privateApi.interceptors.request.use(onServerRequest);
 
 privateApi.interceptors.response.use(onResponse);
