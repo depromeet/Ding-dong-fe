@@ -1,5 +1,4 @@
 'use client';
-
 import { useRouter } from 'next/navigation';
 import { PropsWithChildren } from 'react';
 
@@ -14,7 +13,6 @@ const Layout = ({ children }: PropsWithChildren) => {
   const onClickGearFill = () => {
     router.push('/my-page/config');
   };
-
   return (
     <div>
       <TopNavigation bottomBorderColor="bg-grey-100">
