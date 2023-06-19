@@ -12,3 +12,5 @@ export const SwiperSlide = ({ children, ...rest }: SwiperCardProps) => {
     </SwiperReact.SwiperSlide>
   );
 };
+
+SwiperSlide.displayName = 'SwiperSlide';
