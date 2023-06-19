@@ -16,8 +16,14 @@ export const CommunityList = ({ ...rest }) => {
   const router = useRouter();
   const { switchCommunity } = useCommunityStore();
 
+  const replaceIdInRoute = (newId: number) => {
+    const pathIdRegex = /\/\d+$/; //  문자열의 끝에 슬래시로 시작하고 이어서 하나 이상의 연속된 숫자가 있는 패턴 ex) /123
+    const replacedRoute = pathname.replace(pathIdRegex, `/${newId}`);
+    router.push(replacedRoute);
+  };
+
   const handlePlanetSwitch = (title: string, id: number) => {
-    router.push(`${pathname}/${id}`);
+    replaceIdInRoute(id);
     switchCommunity(title, id);
   };
 
