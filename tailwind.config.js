@@ -131,6 +131,9 @@ module.exports = {
         mid2: '10',
         below: '-1',
       },
+      transitionProperty: {
+        width: 'width',
+      },
     },
   },
   plugins: [],
