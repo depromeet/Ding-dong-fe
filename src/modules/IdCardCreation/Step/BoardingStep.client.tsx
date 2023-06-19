@@ -4,7 +4,7 @@ import Image from 'next/image';
 import { ReactNode, useState } from 'react';
 
 import BottomSheet, { useBottomSheet } from '~/components/BottomSheet';
-import Button from '~/components/Button/Button';
+import { Button } from '~/components/Button';
 import TextButton from '~/components/Button/TextButton';
 import { QuestionCircleIcon } from '~/components/Icon';
 import { Swiper, SwiperSlide } from '~/components/Swiper';

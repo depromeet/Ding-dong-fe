@@ -25,7 +25,7 @@ const sizes: Record<ButtonSize, string> = {
   xLarge: 'py-17pxr text-[15px] rounded-xl',
 };
 
-const Button = ({
+export const Button = ({
   size,
   color,
   disabled = false,
@@ -53,5 +53,3 @@ const Button = ({
     </button>
   );
 };
-
-export default Button;

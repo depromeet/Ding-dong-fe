@@ -4,7 +4,7 @@ import { faker } from '@faker-js/faker';
 import Image from 'next/image';
 import { ChangeEvent, useState } from 'react';
 
-import Button from '~/components/Button/Button';
+import { Button } from '~/components/Button';
 
 type CommunityBgImageProps = {
   coverImageUrl: string;
