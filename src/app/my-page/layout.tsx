@@ -5,7 +5,7 @@ import { PropsWithChildren } from 'react';
 import { BottomNavigation } from '~/components/BottomNavigation';
 import { GearFillIcon } from '~/components/Icon';
 import { TopNavigation } from '~/components/TopNavigation';
-import { PlanetSelector } from '~/modules/PlanetSelectorTopNavigation';
+import { PlanetSelector } from '~/modules/PlanetSelector';
 
 const Layout = ({ children }: PropsWithChildren) => {
   const router = useRouter();

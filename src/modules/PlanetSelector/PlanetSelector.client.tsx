@@ -3,7 +3,7 @@
 import { useBottomSheet } from '~/components/BottomSheet';
 import BottomSheet from '~/components/BottomSheet/BottomSheet';
 import { ArrowVerticalIcon, PlusIcon } from '~/components/Icon';
-import { CommunityList } from '~/modules/PlanetSelectorTopNavigation/CommunityList.client';
+import { CommunityList } from '~/modules/PlanetSelector/CommunityList.client';
 import { useCommunityStore } from '~/stores/community.store';
 import { tw } from '~/utils/tailwind.util';
 

@@ -1,6 +1,6 @@
 'use client';
 import Image from 'next/image';
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 
 import { useGetCommunityList } from '~/api/domain/community.api';
 import { Divider } from '~/components/Divider';
@@ -8,20 +8,21 @@ import { useCommunityStore } from '~/stores/community.store';
 import { CommunityListModel } from '~/types/community';
 import { tw } from '~/utils/tailwind.util';
 
-export const CommunityList = () => {
+export const CommunityList = ({ ...rest }) => {
   // TODO: userId 수정 필요
   const userId = '1';
   const { data: communityList } = useGetCommunityList(userId);
+  const pathname = usePathname();
   const router = useRouter();
   const { switchCommunity } = useCommunityStore();
 
   const handlePlanetSwitch = (title: string, id: number) => {
-    router.push(`planet/${id}`);
+    router.push(`${pathname}/${id}`);
     switchCommunity(title, id);
   };
 
   return (
-    <ul className="rounded-xl border border-grey-200 bg-grey-50">
+    <ul className="rounded-xl border border-grey-200 bg-grey-50" {...rest}>
       {communityList &&
         communityList.communityListDtos.map((community: CommunityListModel) => (
           <li
