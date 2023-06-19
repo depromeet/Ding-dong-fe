@@ -35,7 +35,7 @@ export type IdCardCreationFormModel = {
 };
 
 export type IdCardEditorFormModel = {
-  communityId: number;
+  idCardId: number;
   profileImageUrl: string;
   nickname: string;
   aboutMe: string;

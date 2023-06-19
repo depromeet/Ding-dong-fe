@@ -7,10 +7,13 @@ import { useGetCommunityIdCards } from '~/api/domain/community.api';
 import { IdCard } from '~/modules/IdCard';
 import { CommunityIdCardsModel } from '~/types/community';
 
-export const CommunityIdCards = () => {
-  // TODO: 커뮤니티 id 값 수정해야함
+type CommunityIdCardsProps = {
+  communityId: string;
+};
+
+export const CommunityIdCards = ({ communityId }: CommunityIdCardsProps) => {
   const { data: communityIdCards, fetchNextPage } = useGetCommunityIdCards({
-    communityId: '1',
+    communityId,
     pageParam: 1,
   });
   const { ref, inView } = useInView();

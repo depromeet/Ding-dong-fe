@@ -1,8 +1,8 @@
 import { faker } from '@faker-js/faker/locale/ko';
 
-import { IdCardDetailModel } from '~/types/idCard';
+import { IdCardCreateResponse, IdCardDetailModel } from '~/types/idCard';
 
-export const createIdCard = (): IdCardDetailModel => ({
+export const idCardDetailMock = (): IdCardDetailModel => ({
   idCardId: faker.number.int(),
   nickname: faker.person.fullName(),
   profileImageUrl: faker.image.avatar(),
@@ -15,3 +15,5 @@ export const createIdCard = (): IdCardDetailModel => ({
   })),
   characterType: faker.helpers.arrayElement(['TRUE', 'PIPI', 'TOBBY', 'BUDDY']),
 });
+
+export const createIdCardMock: IdCardCreateResponse = { id: 1 };

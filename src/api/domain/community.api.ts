@@ -1,4 +1,4 @@
-import { useInfiniteQuery } from '@tanstack/react-query';
+import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
 
 import privateApi from '~/api/config/privateApi';
 import {
@@ -14,6 +14,7 @@ export const communityQueryKey = {
     communityId,
     pageParam,
   ],
+  communityList: (userId: string) => ['getCommunityList', userId],
 };
 
 export const getCommunityIdCards = ({ communityId, pageParam }: CommunityIdCardsRequest) =>
@@ -35,8 +36,12 @@ export const useGetCommunityIdCards = ({ communityId, pageParam }: CommunityIdCa
   );
 };
 
-export const getCommunityDetail = (id: string) =>
-  privateApi.get<CommunityDetailResponse>(`/communities/${id}`);
+export const getCommunityDetail = (communityId: string) =>
+  privateApi.get<CommunityDetailResponse>(`/communities/${communityId}`);
 
 export const getCommunityList = (userId: string) =>
   privateApi.get<CommunityListResponse>(`/communities/users/${userId}`);
+
+export const useGetCommunityList = (userId: string) => {
+  return useQuery(communityQueryKey.communityList(userId), () => getCommunityList(userId));
+};

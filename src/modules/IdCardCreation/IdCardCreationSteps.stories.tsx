@@ -14,6 +14,7 @@ export default {
 type Story = StoryObj<typeof IdCardCreationSteps>;
 
 export const Default: Story = {};
+Default.parameters = {};
 
 export const Loading = {
   render: () => <LoadingStep planetName="Ding dong" />,

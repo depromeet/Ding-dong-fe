@@ -3,6 +3,7 @@ import { KeyboardEvent, MouseEvent, useRef } from 'react';
 
 import { Chip } from '~/components/Chip/Chip';
 import { useKeywordInput } from '~/components/KeywordInput/useKeywordInput.hooks';
+import { ClassNameType } from '~/types/util';
 import { tw } from '~/utils/tailwind.util';
 
 import { OptionType } from './keywordInput.type';
@@ -18,7 +19,7 @@ type KeywordInputProps = {
   onChange: (...event: any[]) => void; // rhf의 onChange타입입니다.
   maxActiveKeywordListLength: number;
   maxInputLength: number;
-  className?: string;
+  className?: ClassNameType;
 };
 
 export const KeywordInput = ({
