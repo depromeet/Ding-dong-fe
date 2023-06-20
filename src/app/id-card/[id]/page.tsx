@@ -1,7 +1,12 @@
 import 'server-only';
 
+import { dehydrate, Hydrate } from '@tanstack/react-query';
+
+import { commentQueryKey, getCommentCounts, getComments } from '~/api/domain/comment.api';
 import { getIdCardDetail } from '~/api/domain/idCard.api';
 import { TopNavigation } from '~/components/TopNavigation';
+import getQueryClient from '~/lib/tanstackQuery/getQueryClient';
+import { CommentList } from '~/modules/CommentList';
 import { Intro, KeywordContentCard } from '~/modules/IdCardDetail';
 import { CharacterNameModel } from '~/types/idCard';
 
@@ -18,6 +23,7 @@ type IdCardDetailPageProps = {
   };
 };
 
+// TODO: promise all 로 수정하기
 const IdCardDetailPage = async ({ params: { id } }: IdCardDetailPageProps) => {
   const { idCardDetailsDto } = await getIdCardDetail(id);
 
@@ -25,36 +31,56 @@ const IdCardDetailPage = async ({ params: { id } }: IdCardDetailPageProps) => {
 
   // 로그인한 유저의 id면 수정페이지로 이동할 수 있는 버튼 보이게하기 (다래님이 만들어주심)
 
+  const idCardsId = Number(id); // TODO: params를 number로 변환하는 작업을 통일할 예정
+
+  const queryClient = getQueryClient();
+  const pageParam = 1;
+
+  await queryClient.prefetchQuery(commentQueryKey.comments(idCardsId, pageParam), () =>
+    getComments({ idCardsId, pageParam }).then(data => ({ pages: [data] })),
+  );
+
+  const totalCommentCount = await getCommentCounts({ idCardsId });
+
+  const dehydratedState = dehydrate(queryClient);
+
   return (
-    <main>
-      <TopNavigation bgColor={bgColor}>
-        <TopNavigation.Left>
-          <TopNavigation.BackButton />
-        </TopNavigation.Left>
-      </TopNavigation>
-      <div className={`${bgColor} pt-[44px]`}>
-        <Intro {...idCardDetailsDto} />
-        <div className="flex flex-col gap-4 bg-white px-5 py-6">
-          {idCardDetailsDto.keywords.map(keyword => (
-            <KeywordContentCard
-              key={keyword.keywordId}
-              title={keyword.title}
-              image={
-                keyword.imageUrl && (
-                  // eslint-disable-next-line @next/next/no-img-element
-                  <img
-                    src={keyword.imageUrl}
-                    alt={keyword.title}
-                    className="mx-auto my-0 max-h-[192px] max-w-[308px] object-contain"
-                  />
-                )
-              }
-              content={keyword.content}
-            />
-          ))}
+    <Hydrate state={dehydratedState}>
+      <main>
+        <TopNavigation bgColor={bgColor}>
+          <TopNavigation.Left>
+            <TopNavigation.BackButton />
+          </TopNavigation.Left>
+        </TopNavigation>
+        <div className={`${bgColor} pt-[44px]`}>
+          <Intro {...idCardDetailsDto} />
+          <div className="flex flex-col gap-4 bg-white px-5 py-6">
+            {idCardDetailsDto.keywords.map(keyword => (
+              <KeywordContentCard
+                key={keyword.keywordId}
+                title={keyword.title}
+                image={
+                  keyword.imageUrl && (
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img
+                      src={keyword.imageUrl}
+                      alt={keyword.title}
+                      className="mx-auto my-0 max-h-[192px] max-w-[308px] object-contain"
+                    />
+                  )
+                }
+                content={keyword.content}
+              />
+            ))}
+          </div>
         </div>
-      </div>
-    </main>
+        <div>
+          <span>총 댓글 개수</span>
+          <span>{totalCommentCount.count}</span>
+        </div>
+        <CommentList idCardsId={idCardsId} />
+      </main>
+    </Hydrate>
   );
 };
 
