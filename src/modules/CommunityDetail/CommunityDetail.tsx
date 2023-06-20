@@ -14,6 +14,7 @@ export const CommunityDetail = ({
 }: CommunityDetailProps) => {
   return (
     <div>
+      {/*  width = 100vw, height = width * 0.48 */}
       <div className="relative h-[calc(100vw*0.48)]">
         <Image
           fill
