@@ -23,13 +23,11 @@ export const CommunityDetail = ({
           style={{ objectFit: 'cover' }}
         />
       </div>
-      <div className="w-full">
-        <div className="absolute mx-[20px] -mt-60pxr flex items-center gap-12pxr rounded-3xl border border-grey-100 bg-white p-16pxr">
-          <CommunityLogoImage logoImageUrl={logoImageUrl} />
-          <div className="flex w-full flex-col gap-8pxr">
-            <p className="text-sm font-medium text-gray-800">{`주민 ${idCardCount}`}</p>
-            <p className="text-detail text-gray-800">{`${description}`}</p>
-          </div>
+      <div className="absolute mx-[20px] -mt-48pxr flex w-[calc(100vw-40px)] items-center gap-12pxr rounded-3xl border border-grey-100 bg-white p-18pxr">
+        <CommunityLogoImage logoImageUrl={logoImageUrl} />
+        <div className="flex w-full flex-col gap-8pxr">
+          <p className="text-sm font-medium text-gray-800">{`주민 ${idCardCount}`}</p>
+          <p className="text-detail text-gray-800">{`${description}`}</p>
         </div>
       </div>
     </div>
