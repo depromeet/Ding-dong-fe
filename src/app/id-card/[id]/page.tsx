@@ -19,7 +19,8 @@ type IdCardDetailPageProps = {
 };
 
 const IdCardDetailPage = async ({ params: { id } }: IdCardDetailPageProps) => {
-  const { idCardDetailsDto } = await getIdCardDetail(id);
+  const idCardId = parseInt(id);
+  const { idCardDetailsDto } = await getIdCardDetail(idCardId);
 
   const bgColor = bgColors[idCardDetailsDto.characterType];
 

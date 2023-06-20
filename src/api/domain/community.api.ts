@@ -9,12 +9,12 @@ import {
 import { CommunityIdCardsRequest } from '~/types/community/request.type';
 
 export const communityQueryKey = {
-  idCards: (communityId: string, pageParam: number) => [
+  idCards: (communityId: number, pageParam: number) => [
     'getCommunityIdCards',
     communityId,
     pageParam,
   ],
-  communityList: (userId: string) => ['getCommunityList', userId],
+  communityList: (userId: number) => ['getCommunityList', userId],
 };
 
 export const getCommunityIdCards = ({ communityId, pageParam }: CommunityIdCardsRequest) =>
@@ -36,12 +36,12 @@ export const useGetCommunityIdCards = ({ communityId, pageParam }: CommunityIdCa
   );
 };
 
-export const getCommunityDetail = (communityId: string) =>
+export const getCommunityDetail = (communityId: number) =>
   privateApi.get<CommunityDetailResponse>(`/communities/${communityId}`);
 
-export const getCommunityList = (userId: string) =>
+export const getCommunityList = (userId: number) =>
   privateApi.get<CommunityListResponse>(`/communities/users/${userId}`);
 
-export const useGetCommunityList = (userId: string) => {
+export const useGetCommunityList = (userId: number) => {
   return useQuery(communityQueryKey.communityList(userId), () => getCommunityList(userId));
 };

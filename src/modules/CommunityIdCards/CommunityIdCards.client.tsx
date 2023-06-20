@@ -8,7 +8,7 @@ import { IdCard } from '~/modules/IdCard';
 import { CommunityIdCardsModel } from '~/types/community';
 
 type CommunityIdCardsProps = {
-  communityId: string;
+  communityId: number;
 };
 
 export const CommunityIdCards = ({ communityId }: CommunityIdCardsProps) => {

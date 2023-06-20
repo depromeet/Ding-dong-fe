@@ -18,10 +18,11 @@ type PlanetPageProps = {
 };
 
 const PlanetPage = async ({ params: { id } }: PlanetPageProps) => {
+  const communityId = parseInt(id);
   const queryClient = getQueryClient();
   const pageParam = 1;
-  await queryClient.prefetchQuery(communityQueryKey.idCards(id, pageParam), () => {
-    return getCommunityIdCards({ communityId: id, pageParam }).then(data => {
+  await queryClient.prefetchQuery(communityQueryKey.idCards(communityId, pageParam), () => {
+    return getCommunityIdCards({ communityId, pageParam }).then(data => {
       return {
         pages: [data],
       };
@@ -29,13 +30,13 @@ const PlanetPage = async ({ params: { id } }: PlanetPageProps) => {
   });
   const dehydratedState = dehydrate(queryClient);
 
-  const { communityDetailsDto } = await getCommunityDetail(id);
+  const { communityDetailsDto } = await getCommunityDetail(communityId);
 
   return (
     <Hydrate state={dehydratedState}>
       <div>
         <CommunityDetail {...communityDetailsDto} />
-        <CommunityIdCards communityId={id} />
+        <CommunityIdCards communityId={communityId} />
       </div>
     </Hydrate>
   );
