@@ -10,7 +10,7 @@ const KakaoLoginButton = ({ provider }: KakaoLoginButtonProps) => {
   return (
     <div>
       <button
-        onClick={() => signIn(provider.id, { redirect: true, callbackUrl: '/auth/callback/kakao' })}
+        onClick={() => signIn(provider.id, { redirect: true, callbackUrl: provider.callbackUrl })}
       >
         <Image
           src="/assets/images/kakao_login_large_wide.png"

@@ -1,4 +1,6 @@
-import { SignInProviders } from './signInProviders.server';
+import { KAKAO_PROVIDER } from '~/utils/auth/loginProviders';
+
+import KakaoLoginButton from './kakaoLoginButton.client';
 
 const SignInPage = async () => {
   return (
@@ -10,8 +12,7 @@ const SignInPage = async () => {
             graphic
           </div>
         </div>
-        {/* @ts-expect-error Server Component */}
-        <SignInProviders />
+        <KakaoLoginButton provider={KAKAO_PROVIDER} />
       </div>
     </>
   );

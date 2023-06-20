@@ -1,8 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 
+import publicApi from '~/api/config/publicApi';
 import { AUTH_COOKIE_KEYS, AuthResponse } from '~/types/auth';
 
-import { PublicFetch } from './api/config/publicFetch';
 import { generateCookiesKeyValues, getAccessToken } from './utils/auth/tokenHandlers';
 
 export const ACCESS_TOKEN_EXPIRE_MARGIN_SECOND = 60;
@@ -19,19 +19,31 @@ const middleware = async (request: NextRequest) => {
       return NextResponse.redirect(new URL('/auth/signin', request.url));
     }
 
-    const { data, success } = await PublicFetch.get<AuthResponse>(
-      `/auth/login/kakao?authCode=${authCode}`,
-    );
-    if (!success || !data) {
-      // TODO: 에러 메시지 고도화: 로그인 실패
-      return NextResponse.redirect(new URL('/auth/signin', request.url));
-    }
+    try {
+      const origin = window.location.origin;
+      const authData = await publicApi.post<AuthResponse>('/auth/login/kakao', {
+        authCode,
+        redirectUri: `${origin}/auth/callback/kakao`,
+      });
 
-    const response = NextResponse.redirect(new URL('/', request.url));
-    for (const [cookieKey, cookieValue] of generateCookiesKeyValues(data)) {
-      response.cookies.set(cookieKey, cookieValue.toString());
+      // TODO: error처리 고도화: response status혹은 메시지에 따라 if문 수정하기
+      if (!authData.data) {
+        // TODO: 에러 메시지 고도화: 로그인 실패
+        return NextResponse.redirect(new URL('/auth/signin', request.url));
+      }
+
+      const response = NextResponse.redirect(new URL('/', request.url));
+      for (const cookie of generateCookiesKeyValues(authData.data as AuthResponse)) {
+        const cookieKey = cookie[0];
+        const cookieValue = cookie[1] as string | number;
+        response.cookies.set(cookieKey, cookieValue.toString());
+      }
+      return response;
+    } catch (e) {
+      // server-side 로그인 실패
+      //TODO: server-side fetch CORS 에러 핸들링
+      console.log('middleware error', e);
     }
-    return response;
   }
 
   // 인증이 필요한 페이지

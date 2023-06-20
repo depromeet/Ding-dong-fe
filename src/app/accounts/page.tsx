@@ -1,13 +1,12 @@
 import 'server-only';
 
-import { PrivateFetch } from '~/api/config/privateFetch';
+import { getCommunityIdCard } from '~/api/domain/community.api.server';
 
 import CallApiTest from './callApiTest';
 
 const AccountHome = async () => {
-  const communities = await PrivateFetch.get(`/communities/1/idCards`);
-
-  console.log(communities.data);
+  const communities = await getCommunityIdCard(1);
+  console.log(communities);
   return (
     <div>
       로그인이 필요한 페이지 테스트
