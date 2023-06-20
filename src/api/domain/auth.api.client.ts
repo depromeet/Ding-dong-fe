@@ -23,6 +23,7 @@ export const login = async (code: string | null) => {
 
 export const useLogin = (code: string | null, options?: { onSuccess?: () => void }) => {
   return useQuery(['login'], async () => login(code), {
-    ...(options ?? {}),
-  });
+export const useLogin = (code: string | null, options?: UseQueryOptions<AuthResponse>) => {
+  return useQuery<AuthResponse>(['login'], async () => login(code), options);
+};
 };
