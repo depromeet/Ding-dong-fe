@@ -1,7 +1,12 @@
 import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
 
 import privateApi from '~/api/config/privateApi';
-import { CommentCountGetRequest, CommentGetRequest, CommentGetResponse } from '~/types/comment';
+import {
+  CommentCountGetRequest,
+  CommentCountGetResponse,
+  CommentGetRequest,
+  CommentGetResponse,
+} from '~/types/comment';
 
 export const commentQueryKey = {
   comments: (idCardsId: number, pageParam: number) => ['getComments', idCardsId, pageParam],
@@ -25,7 +30,7 @@ export const useGetComments = ({ idCardsId, pageParam }: CommentGetRequest) => {
 };
 
 export const getCommentCounts = ({ idCardsId }: CommentCountGetRequest) =>
-  privateApi.get<CommentGetResponse>(`/id-cards/${idCardsId}/comments-count`);
+  privateApi.get<CommentCountGetResponse>(`/id-cards/${idCardsId}/comments-count`);
 
 export const useGetCommentCounts = ({ idCardsId }: CommentCountGetRequest) =>
   useQuery(commentQueryKey.commentCount(idCardsId), () => getCommentCounts({ idCardsId }));
