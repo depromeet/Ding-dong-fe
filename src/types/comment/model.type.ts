@@ -11,7 +11,7 @@ export type CommentReplyModel = {
 };
 
 export type CommentModel = {
-  commentReplyId: number;
+  commentId: number;
   content: string;
   createdAt: string;
   commentReplyLikeInfo: CommentLikeModel;
