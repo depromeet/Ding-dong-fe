@@ -1,4 +1,4 @@
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, UseQueryOptions } from '@tanstack/react-query';
 
 import { AuthResponse } from '~/types/auth';
 import { generateCookiesKeyValues } from '~/utils/auth/tokenHandlers';
@@ -21,9 +21,6 @@ export const login = async (code: string | null) => {
   return authData;
 };
 
-export const useLogin = (code: string | null, options?: { onSuccess?: () => void }) => {
-  return useQuery(['login'], async () => login(code), {
 export const useLogin = (code: string | null, options?: UseQueryOptions<AuthResponse>) => {
   return useQuery<AuthResponse>(['login'], async () => login(code), options);
-};
 };
