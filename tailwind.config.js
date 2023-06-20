@@ -132,7 +132,11 @@ module.exports = {
         below: '-1',
       },
     },
+    screens: {
+      mobile: { max: '410px' },
+    },
   },
+
   plugins: [],
   mode: 'jit',
 };
