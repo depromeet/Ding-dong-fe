@@ -1,7 +1,6 @@
 'use client';
 
-import { Button } from '~/components/Button';
-import TextButton from '~/components/Button/TextButton';
+import { Button, TextButton } from '~/components/Button';
 
 export const PlanetEnterButton = () => {
   return (

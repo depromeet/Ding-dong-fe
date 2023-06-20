@@ -1,6 +1,6 @@
 'use client';
 import { Button } from '~/components/Button';
-import TextButton from '~/components/Button/TextButton';
+import { TextButton } from '~/components/Button';
 import { ConfirmType } from '~/components/ConfirmPopup/useConfirmPopup';
 import Popup from '~/components/Popup/Popup';
 
