@@ -5,6 +5,7 @@ export * from './CameraIcon';
 export * from './CancelIcon';
 export * from './ChevronLeftIcon';
 export * from './ChevronRightIcon';
+export * from './DashIcon';
 export * from './GearFillIcon';
 export * from './HeartFillIcon';
 export * from './HeartIcon';
