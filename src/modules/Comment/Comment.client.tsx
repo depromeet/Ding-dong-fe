@@ -70,7 +70,7 @@ export const Comment = ({
           </button>
         )}
         {isShowReplyList && (
-          <ul className="mt-24pxr">
+          <ul className="mt-24pxr flex flex-col gap-24pxr">
             {commentReplyInfos.map(commentReply => (
               <CommentReply key={commentReply.commentReplyId} {...commentReply} />
             ))}
