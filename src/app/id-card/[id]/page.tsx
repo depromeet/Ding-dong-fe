@@ -4,6 +4,7 @@ import { dehydrate, Hydrate } from '@tanstack/react-query';
 
 import { commentQueryKey, getCommentCounts, getComments } from '~/api/domain/comment.api';
 import { getIdCardDetail } from '~/api/domain/idCard.api';
+import { Divider } from '~/components/Divider';
 import { TopNavigation } from '~/components/TopNavigation';
 import getQueryClient from '~/lib/tanstackQuery/getQueryClient';
 import { CommentList } from '~/modules/CommentList';
@@ -74,9 +75,9 @@ const IdCardDetailPage = async ({ params: { id } }: IdCardDetailPageProps) => {
             ))}
           </div>
         </div>
-        <div>
-          <span>총 댓글 개수</span>
-          <span>{totalCommentCount.count}</span>
+        <Divider />
+        <div className="mt-24pxr px-layout-sm text-b2 text-grey-900">
+          <span>댓글 {totalCommentCount.count}개</span>
         </div>
         <CommentList idCardsId={idCardsId} />
       </main>

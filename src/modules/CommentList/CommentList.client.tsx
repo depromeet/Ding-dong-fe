@@ -24,8 +24,9 @@ export const CommentList = ({ idCardsId }: CommentListProps) => {
       fetchNextPage();
     }
   }, [inView, fetchNextPage, commentList?.pages]);
+
   return (
-    <div>
+    <div className="mt-24pxr flex flex-col gap-24pxr">
       {commentList?.pages.map(page =>
         page.commentDto.content.map((comment: CommentModel) => (
           <Comment key={comment.commentId} {...comment} />
