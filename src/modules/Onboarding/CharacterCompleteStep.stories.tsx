@@ -13,5 +13,5 @@ export default meta;
 type Story = StoryObj<typeof CharacterCompleteStep>;
 
 export const Default: Story = {
-  args: { characterId: 'buddy' },
+  args: { characterName: 'BUDDY' },
 };

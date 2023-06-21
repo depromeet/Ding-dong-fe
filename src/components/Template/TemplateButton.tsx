@@ -1,8 +1,7 @@
 import { ReactNode } from 'react';
 
+import Button from '~/components/Button/Button';
 import { tw } from '~/utils/tailwind.util';
-
-import Button from '../Button/Button';
 
 type TemplateButtonProps = {
   children: ReactNode | string;
