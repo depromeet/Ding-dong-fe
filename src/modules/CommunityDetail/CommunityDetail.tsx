@@ -23,9 +23,9 @@ export const CommunityDetail = ({
           style={{ objectFit: 'cover' }}
         />
       </div>
-      <div className="flex w-[calc(100vw-40px)] translate-x-[20px] translate-y-[-48px] items-center gap-12pxr rounded-3xl border border-grey-100 bg-white p-18pxr">
+      <div className="flex w-[calc(100vw-40px)] max-w-[calc(410px-40px)] translate-x-[20px] translate-y-[-48px] items-center gap-12pxr rounded-3xl border border-grey-100 bg-white p-18pxr">
         <CommunityLogoImage logoImageUrl={logoImageUrl} />
-        <div className="flex w-full flex-col gap-8pxr">
+        <div className="flex flex-col gap-8pxr">
           <p className="text-sm font-medium text-gray-800">{`주민 ${idCardCount}`}</p>
           <p className="text-detail text-gray-800 ">{`${description}`}</p>
         </div>
