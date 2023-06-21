@@ -12,10 +12,7 @@ type CommunityIdCardsProps = {
 };
 
 export const CommunityIdCards = ({ communityId }: CommunityIdCardsProps) => {
-  const { data: communityIdCards, fetchNextPage } = useGetCommunityIdCards({
-    communityId,
-    pageParam: 1,
-  });
+  const { data: communityIdCards, fetchNextPage } = useGetCommunityIdCards(communityId);
   const { ref, inView } = useInView();
 
   useEffect(() => {

@@ -20,9 +20,8 @@ type PlanetPageProps = {
 const PlanetPage = async ({ params: { id } }: PlanetPageProps) => {
   const communityId = parseInt(id);
   const queryClient = getQueryClient();
-  const pageParam = 1;
-  await queryClient.prefetchQuery(communityQueryKey.idCards(communityId, pageParam), () => {
-    return getCommunityIdCards({ communityId, pageParam }).then(data => {
+  await queryClient.prefetchQuery(communityQueryKey.idCards(communityId), () => {
+    return getCommunityIdCards({ communityId }).then(data => {
       return {
         pages: [data],
       };

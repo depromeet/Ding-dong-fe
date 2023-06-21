@@ -1,4 +1,4 @@
 export type CommunityIdCardsRequest = {
-  pageParam: number;
+  pageParam?: number;
   communityId: number;
 };

@@ -9,22 +9,18 @@ import {
 import { CommunityIdCardsRequest } from '~/types/community/request.type';
 
 export const communityQueryKey = {
-  idCards: (communityId: number, pageParam: number) => [
-    'getCommunityIdCards',
-    communityId,
-    pageParam,
-  ],
+  idCards: (communityId: number) => ['getCommunityIdCards', communityId],
   communityList: (userId: number) => ['getCommunityList', userId],
 };
 
-export const getCommunityIdCards = ({ communityId, pageParam }: CommunityIdCardsRequest) =>
+export const getCommunityIdCards = ({ communityId, pageParam = 0 }: CommunityIdCardsRequest) =>
   privateApi.get<CommunityIdCardsResponse>(
     `/communities/${communityId}/idCards?page=${pageParam}&size=10`,
   );
 
-export const useGetCommunityIdCards = ({ communityId, pageParam }: CommunityIdCardsRequest) => {
+export const useGetCommunityIdCards = (communityId: number) => {
   return useInfiniteQuery(
-    communityQueryKey.idCards(communityId, pageParam),
+    communityQueryKey.idCards(communityId),
     ({ pageParam = 0 }) => getCommunityIdCards({ communityId, pageParam }),
     {
       getNextPageParam: data =>
