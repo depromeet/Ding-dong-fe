@@ -9,6 +9,8 @@ import {
   ChevronLeftIcon,
   ChevronRightIcon,
   GearFillIcon,
+  HeartFillIcon,
+  HeartIcon,
   HomeIcon,
   PersonIcon,
   PlusIcon,
@@ -61,6 +63,14 @@ export const QuestionCircle = {
 
 export const GearFill = {
   render: () => <GearFillIcon />,
+};
+
+export const HeartFill = {
+  render: () => <HeartFillIcon />,
+};
+
+export const Heart = {
+  render: () => <HeartIcon />,
 };
 
 export const Home = {

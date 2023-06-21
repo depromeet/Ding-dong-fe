@@ -6,6 +6,8 @@ export * from './CancelIcon';
 export * from './ChevronLeftIcon';
 export * from './ChevronRightIcon';
 export * from './GearFillIcon';
+export * from './HeartFillIcon';
+export * from './HeartIcon';
 export * from './HomeIcon';
 export * from './PersonIcon';
 export * from './PlusIcon';
