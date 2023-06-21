@@ -1,8 +1,11 @@
+'use client';
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { faker } from '@faker-js/faker/locale/ko';
 import Image from 'next/image';
+import { useState } from 'react';
 
-import { HeartFillIcon, HeartIcon } from '~/components/Icon';
+import { DashIcon, HeartFillIcon, HeartIcon } from '~/components/Icon';
+import { CommentReply } from '~/modules/CommentReply';
 import { CommentModel } from '~/types/comment';
 
 type CommentProps = CommentModel;
@@ -14,8 +17,17 @@ export const Comment = ({
   commentReplyLikeInfo,
   commentReplyInfos,
 }: CommentProps) => {
+  const [isShowReplyList, setIsShowReplyList] = useState(false);
   const profileImageUrl = faker.image.avatar();
   const nickname = faker.person.fullName();
+
+  const onClickShowReplyList = () => {
+    setIsShowReplyList(true);
+  };
+
+  const onClickHideReplyList = () => {
+    setIsShowReplyList(false);
+  };
 
   return (
     <div className="flex w-full gap-12pxr px-layout-sm">
@@ -44,6 +56,26 @@ export const Comment = ({
             )}
           </div>
         </div>
+        {isShowReplyList ? (
+          <button type="button" onClick={onClickHideReplyList} className="mt-24pxr flex gap-8pxr">
+            <DashIcon />
+            <span className="text-detail font-semibold text-grey-500">답글 숨기기</span>
+          </button>
+        ) : (
+          <button type="button" onClick={onClickShowReplyList} className="mt-24pxr flex gap-8pxr">
+            <DashIcon />
+            <span className="text-detail font-semibold text-grey-500">
+              답글 {commentReplyInfos.length}개 더보기
+            </span>
+          </button>
+        )}
+        {isShowReplyList && (
+          <ul className="mt-24pxr">
+            {commentReplyInfos.map(commentReply => (
+              <CommentReply key={commentReply.commentReplyId} {...commentReply} />
+            ))}
+          </ul>
+        )}
       </div>
     </div>
   );
