@@ -15,8 +15,8 @@ const sizes: Record<LogoSize, string> = {
 export const CommunityLogoImage = ({ logoImageUrl, size = 'large' }: CommunityLogoImageProps) => {
   const logoSize = sizes[size];
   return (
-    <div className={twMerge(logoSize, 'flex-shrink-0 rounded-full')}>
-      <Image width={60} height={60} src={logoImageUrl} alt="planet logo image" />
+    <div className={twMerge(logoSize, 'relative flex-shrink-0 rounded-full')}>
+      <Image src={logoImageUrl} alt="planet logo image" fill={true} className="object-cover" />
     </div>
   );
 };
