@@ -1,7 +1,7 @@
 import { rest } from 'msw';
 
 import { ROOT_API_URL } from '~/api/config/requestUrl';
-import { createCommentCount, createRandomCommentList } from '~/mocks/comment/comment.mock';
+import { createCommentCount, createCommentList } from '~/mocks/comment/comment.mock';
 
 export const commentMockHandler = [
   rest.get(`${ROOT_API_URL}/id-cards/:idCardsId/comments?page=:page&size=10`, (req, res, ctx) => {
@@ -10,7 +10,7 @@ export const commentMockHandler = [
     return res(
       ctx.status(200),
       ctx.json({
-        commentDto: createRandomCommentList(10, page, 10),
+        commentDto: createCommentList(10, page, 10),
       }),
     );
   }),

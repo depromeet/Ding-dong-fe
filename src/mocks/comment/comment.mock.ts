@@ -11,10 +11,12 @@ export const createCommentLike = () => ({
 export const createCommentReply = (idx: number): CommentReplyModel => ({
   commentReplyId: idx,
   content: faker.lorem.paragraph(2),
-  createdAt: faker.date.betweens({
-    from: '2023-01-01T00:00:00.000Z',
-    to: '2023-08-31T00:00:00.000Z',
-  }) as unknown as string,
+  createdAt: faker.date
+    .betweens({
+      from: '2023-01-01T00:00:00.000Z',
+      to: '2023-08-31T00:00:00.000Z',
+    })
+    .toLocaleString(),
   commentReplyLikeInfo: createCommentLike(),
 });
 
@@ -24,15 +26,17 @@ export const createCommentReplyList = (n: number) =>
 export const createComment = (idx: number): CommentModel => ({
   commentId: idx,
   content: faker.lorem.paragraph(2),
-  createdAt: faker.date.betweens({
-    from: '2023-01-01T00:00:00.000Z',
-    to: '2023-08-31T00:00:00.000Z',
-  }) as unknown as string,
+  createdAt: faker.date
+    .betweens({
+      from: '2023-01-01T00:00:00.000Z',
+      to: '2023-08-31T00:00:00.000Z',
+    })
+    .toLocaleString(),
   commentReplyLikeInfo: createCommentLike(),
   commentReplyInfos: createCommentReplyList(faker.number.int({ min: 0, max: 100 })),
 });
 
-export const createRandomCommentList = (
+export const createCommentList = (
   n: number,
   page: number,
   size: number,
