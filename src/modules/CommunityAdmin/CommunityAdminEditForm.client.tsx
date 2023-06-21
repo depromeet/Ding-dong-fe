@@ -1,7 +1,7 @@
 import { faker } from '@faker-js/faker';
 import { useFormContext } from 'react-hook-form';
 
-import Button from '~/components/Button/Button';
+import { Button } from '~/components/Button';
 import { ProfileImageEdit } from '~/components/ProfileImageEdit';
 import { TextArea, useTextArea } from '~/components/TextArea';
 import { TextInput, useTextInput } from '~/components/TextInput';

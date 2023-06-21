@@ -1,4 +1,4 @@
-import Button from '~/components/Button/Button';
+import { Button } from '~/components/Button';
 import { KakaoIcon } from '~/components/Icon/KakaoIcon';
 import { TopNavigation } from '~/components/TopNavigation';
 import { CommunityBgImage, CommunityProfile } from '~/modules/CommunityProfile';

@@ -5,6 +5,7 @@ import { useState } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 
 import { useEditIdCardDetail } from '~/api/domain/idCard.api';
+import { ConfirmUnSave, useConfirmPopup } from '~/components/ConfirmPopup';
 import { TopNavigation } from '~/components/TopNavigation';
 import { IdCardEditorForm } from '~/modules/IdCardEditor/Form';
 import { editorSteps, KEYWORD_CONTENT_STEP } from '~/modules/IdCardEditor/IdCardEditor.constant';
@@ -31,6 +32,13 @@ export const IdCardEditor = ({
   const [stepOrder, setStepOrder] = useState<number>(KEYWORD_CONTENT_STEP);
   const { mutate: mutateEditIdCardDetail } = useEditIdCardDetail();
   const [submitState, setSubmitState] = useState<IdCardEditorFormValues>(initFormValue);
+
+  const {
+    isOpen: isConfirmUnSaveOpen,
+    openPopup: openConfirmUnSavePopup,
+    closePopup: closeConfirmUnSavePopup,
+    confirm: confirmUnSave,
+  } = useConfirmPopup();
 
   const title = editorSteps[stepOrder] === 'PROFILE' ? '주민 정보 수정' : '주민증 수정';
   const isEntry = stepOrder === KEYWORD_CONTENT_STEP;
@@ -61,10 +69,10 @@ export const IdCardEditor = ({
     setStepOrder(stepIndex);
   };
 
-  const onClickBackButton = () => {
+  const onClickBackButton = async () => {
     if (isEntry) {
-      // TODO: pop up UI 수정하기
-      const isOk = window.confirm('진짜 취소할거야?');
+      const isOk = await openConfirmUnSavePopup();
+      closeConfirmUnSavePopup();
       if (isOk) {
         router.back();
       }
@@ -72,8 +80,8 @@ export const IdCardEditor = ({
     }
 
     if (isValueChanged()) {
-      // TODO: pop up UI 수정하기
-      const isOk = window.confirm('진짜 취소할거야?');
+      const isOk = await openConfirmUnSavePopup();
+      closeConfirmUnSavePopup();
       if (isOk) {
         revertToPrevFormState();
         setStepOrder(KEYWORD_CONTENT_STEP);
@@ -96,28 +104,31 @@ export const IdCardEditor = ({
   };
 
   return (
-    <FormProvider {...methods}>
-      <TopNavigation>
-        <TopNavigation.Left>
-          <TopNavigation.BackButton onClickBackButton={onClickBackButton} />
-        </TopNavigation.Left>
-        <TopNavigation.Title>{title}</TopNavigation.Title>
-        <TopNavigation.Right>
-          <button onClick={onClickCompleteButton} className="text-h5 font-semibold text-blue-500">
-            완료
-          </button>
-        </TopNavigation.Right>
-      </TopNavigation>
-      {['PROFILE', 'KEYWORD', 'KEYWORD_CONTENT'].includes(editorSteps[stepOrder]) && (
-        <div className="pt-28pxr">
-          <IdCardEditorForm
-            steps={editorSteps}
-            stepOrder={stepOrder}
-            onClickMoveTargetStep={onClickMoveTargetStep}
-            onSubmit={onSubmit}
-          />
-        </div>
-      )}
-    </FormProvider>
+    <>
+      <FormProvider {...methods}>
+        <TopNavigation>
+          <TopNavigation.Left>
+            <TopNavigation.BackButton onClickBackButton={onClickBackButton} />
+          </TopNavigation.Left>
+          <TopNavigation.Title>{title}</TopNavigation.Title>
+          <TopNavigation.Right>
+            <button onClick={onClickCompleteButton} className="text-h5 font-semibold text-blue-500">
+              완료
+            </button>
+          </TopNavigation.Right>
+        </TopNavigation>
+        {['PROFILE', 'KEYWORD', 'KEYWORD_CONTENT'].includes(editorSteps[stepOrder]) && (
+          <div className="pt-28pxr">
+            <IdCardEditorForm
+              steps={editorSteps}
+              stepOrder={stepOrder}
+              onClickMoveTargetStep={onClickMoveTargetStep}
+              onSubmit={onSubmit}
+            />
+          </div>
+        )}
+      </FormProvider>
+      {isConfirmUnSaveOpen && <ConfirmUnSave confirm={confirmUnSave} />}
+    </>
   );
 };

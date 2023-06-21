@@ -2,7 +2,7 @@
 
 import { useFormContext } from 'react-hook-form';
 
-import Button from '~/components/Button/Button';
+import { Button } from '~/components/Button';
 import { IdCard } from '~/modules/IdCard/IdCard.client';
 import { IdCardCreationFormModel } from '~/types/idCard';
 
