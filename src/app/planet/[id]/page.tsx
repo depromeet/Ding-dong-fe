@@ -1,13 +1,11 @@
 import 'server-only';
 
-import { dehydrate, Hydrate } from '@tanstack/react-query';
-
 import {
   communityQueryKey,
   getCommunityDetail,
   getCommunityIdCards,
 } from '~/api/domain/community.api';
-import getQueryClient from '~/lib/tanstackQuery/getQueryClient';
+import { HydrationProvider } from '~/components/HydrationProvider';
 import { CommunityDetail } from '~/modules/CommunityDetail';
 import { CommunityIdCards } from '~/modules/CommunityIdCards';
 
@@ -19,25 +17,26 @@ type PlanetPageProps = {
 
 const PlanetPage = async ({ params: { id } }: PlanetPageProps) => {
   const communityId = parseInt(id);
-  const queryClient = getQueryClient();
-  await queryClient.prefetchQuery(communityQueryKey.idCards(communityId), () => {
-    return getCommunityIdCards({ communityId }).then(data => {
-      return {
-        pages: [data],
-      };
-    });
-  });
-  const dehydratedState = dehydrate(queryClient);
-
   const { communityDetailsDto } = await getCommunityDetail(communityId);
 
+  const getCommunityIdCardsQuery = async () => {
+    const data = await getCommunityIdCards({ communityId });
+    return {
+      pages: [data],
+    };
+  };
+
   return (
-    <Hydrate state={dehydratedState}>
-      <div>
-        <CommunityDetail {...communityDetailsDto} />
+    <div>
+      <CommunityDetail {...communityDetailsDto} />
+      {/* @ts-expect-error Server Component */}
+      <HydrationProvider
+        queryKey={communityQueryKey.idCards(communityId)}
+        queryFn={getCommunityIdCardsQuery}
+      >
         <CommunityIdCards communityId={communityId} />
-      </div>
-    </Hydrate>
+      </HydrationProvider>
+    </div>
   );
 };
 
