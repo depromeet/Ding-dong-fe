@@ -135,7 +135,11 @@ module.exports = {
         width: 'width',
       },
     },
+    screens: {
+      mobile: { max: '410px' },
+    },
   },
+
   plugins: [],
   mode: 'jit',
 };
