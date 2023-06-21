@@ -16,7 +16,7 @@ type PlanetPageProps = {
 };
 
 const PlanetPage = async ({ params: { id } }: PlanetPageProps) => {
-  const communityId = parseInt(id);
+  const communityId = Number(id);
   const { communityDetailsDto } = await getCommunityDetail(communityId);
 
   const getCommunityIdCardsQuery = async () => {
