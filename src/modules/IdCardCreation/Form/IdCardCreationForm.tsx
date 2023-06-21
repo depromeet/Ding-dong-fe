@@ -68,7 +68,7 @@ export const IdCardCreationForm = ({
 
   return (
     <div>
-      <TopNavigation bottomBorderColor="primary-500">
+      <TopNavigation>
         <TopNavigation.Left>
           <TopNavigation.BackButton onClickBackButton={onPrev} />
         </TopNavigation.Left>
@@ -76,6 +76,7 @@ export const IdCardCreationForm = ({
         <TopNavigation.Right className="text-h5 text-primary-500">
           {NavigationButton}
         </TopNavigation.Right>
+        <TopNavigation.ProgressBar currentStep={stepOrder} stepsLength={3} />
       </TopNavigation>
 
       <form className="mt-24pxr">

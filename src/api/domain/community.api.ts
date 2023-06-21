@@ -13,6 +13,10 @@ export const communityQueryKey = {
   communityList: (userId: number) => ['getCommunityList', userId],
 };
 
+export const getCommunityIdCard = async (id: number) => {
+  return privateApi.get(`/communities/${id}/idCards`);
+};
+
 export const getCommunityIdCards = ({ communityId, pageParam = 0 }: CommunityIdCardsRequest) =>
   privateApi.get<CommunityIdCardsResponse>(
     `/communities/${communityId}/idCards?page=${pageParam}&size=10`,

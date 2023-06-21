@@ -2,6 +2,8 @@ import type { Meta, StoryObj } from '@storybook/react';
 
 import { TopNavigation } from '~/components/TopNavigation';
 
+import { TopNavigationProgressBar } from './TopNavigationProgressBar';
+
 const meta: Meta<typeof TopNavigation> = {
   title: 'components/TopNavigation',
   component: TopNavigation,
@@ -92,6 +94,21 @@ export const TitleWithRightButton: Story = {
       <TopNavigation.Right>
         <button className="text-h5 text-primary-500">다음</button>
       </TopNavigation.Right>
+    </TopNavigation>
+  ),
+};
+
+export const TitleWithProgressBar: Story = {
+  render: () => (
+    <TopNavigation>
+      <TopNavigation.Left>
+        <TopNavigation.BackButton />
+      </TopNavigation.Left>
+      <TopNavigation.Title>Title</TopNavigation.Title>
+      <TopNavigation.Right>
+        <button className="text-h5 text-primary-500">다음</button>
+      </TopNavigation.Right>
+      <TopNavigationProgressBar currentStep={3} stepsLength={5} />
     </TopNavigation>
   ),
 };

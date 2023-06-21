@@ -1,45 +1,31 @@
-import { FetchResponseType } from './api.types';
 import { ROOT_API_URL } from './requestUrl';
 
 class PublicFetch {
-  static async common<T>(route: string, requestInit?: RequestInit): Promise<FetchResponseType<T>> {
-    try {
-      const response = await fetch(`${ROOT_API_URL}${route}`, {
-        ...(requestInit ?? {}),
-      });
-      if (response.ok) {
-        const jsonValue = await response.json();
-        return Promise.resolve({
-          data: jsonValue.data as T,
-          status: response.status,
-          success: jsonValue.success,
-        });
-      } else {
-        return Promise.resolve({ success: false, status: response.status });
-      }
-    } catch (e) {
-      return Promise.resolve({ success: false, status: 500 });
-    }
+  async common<T>(route: string, requestInit?: RequestInit): Promise<T> {
+    const response = await fetch(`${ROOT_API_URL}${route}`, {
+      ...(requestInit ?? {}),
+    });
+    return response.json();
   }
-  static async get<T>(route: string, requestInit?: RequestInit): Promise<FetchResponseType<T>> {
+  async get<T>(route: string, requestInit?: RequestInit) {
     return this.common<T>(route, {
       method: 'GET',
       ...(requestInit ?? {}),
     });
   }
-  static async post<T>(route: string, requestInit?: RequestInit): Promise<FetchResponseType<T>> {
+  async post<T>(route: string, requestInit?: RequestInit) {
     return this.common<T>(route, {
       method: 'POST',
       ...(requestInit ?? {}),
     });
   }
-  static async put<T>(route: string, requestInit?: RequestInit): Promise<FetchResponseType<T>> {
+  async put<T>(route: string, requestInit?: RequestInit) {
     return this.common<T>(route, {
       method: 'PUT',
       ...(requestInit ?? {}),
     });
   }
-  static async delete<T>(route: string, requestInit?: RequestInit): Promise<FetchResponseType<T>> {
+  async delete<T>(route: string, requestInit?: RequestInit) {
     return this.common<T>(route, {
       method: 'DELETE',
       ...(requestInit ?? {}),
@@ -47,4 +33,6 @@ class PublicFetch {
   }
 }
 
-export { PublicFetch };
+const publicFetch = new PublicFetch();
+
+export { PublicFetch, publicFetch };
