@@ -10,7 +10,7 @@ import { tw } from '~/utils/tailwind.util';
 
 export const CommunityList = ({ ...rest }) => {
   // TODO: userId 수정 필요
-  const userId = '1';
+  const userId = 1;
   const { data: communityList } = useGetCommunityList(userId);
   const pathname = usePathname();
   const router = useRouter();

@@ -9,26 +9,22 @@ import {
 import { CommunityIdCardsRequest } from '~/types/community/request.type';
 
 export const communityQueryKey = {
-  idCards: (communityId: string, pageParam: number) => [
-    'getCommunityIdCards',
-    communityId,
-    pageParam,
-  ],
-  communityList: (userId: string) => ['getCommunityList', userId],
+  idCards: (communityId: number) => ['getCommunityIdCards', communityId],
+  communityList: (userId: number) => ['getCommunityList', userId],
 };
 
 export const getCommunityIdCard = async (id: number) => {
   return privateApi.get(`/communities/${id}/idCards`);
 };
 
-export const getCommunityIdCards = ({ communityId, pageParam }: CommunityIdCardsRequest) =>
+export const getCommunityIdCards = ({ communityId, pageParam = 0 }: CommunityIdCardsRequest) =>
   privateApi.get<CommunityIdCardsResponse>(
     `/communities/${communityId}/idCards?page=${pageParam}&size=10`,
   );
 
-export const useGetCommunityIdCards = ({ communityId, pageParam }: CommunityIdCardsRequest) => {
+export const useGetCommunityIdCards = (communityId: number) => {
   return useInfiniteQuery(
-    communityQueryKey.idCards(communityId, pageParam),
+    communityQueryKey.idCards(communityId),
     ({ pageParam = 0 }) => getCommunityIdCards({ communityId, pageParam }),
     {
       getNextPageParam: data =>
@@ -40,12 +36,12 @@ export const useGetCommunityIdCards = ({ communityId, pageParam }: CommunityIdCa
   );
 };
 
-export const getCommunityDetail = (communityId: string) =>
+export const getCommunityDetail = (communityId: number) =>
   privateApi.get<CommunityDetailResponse>(`/communities/${communityId}`);
 
-export const getCommunityList = (userId: string) =>
+export const getCommunityList = (userId: number) =>
   privateApi.get<CommunityListResponse>(`/communities/users/${userId}`);
 
-export const useGetCommunityList = (userId: string) => {
+export const useGetCommunityList = (userId: number) => {
   return useQuery(communityQueryKey.communityList(userId), () => getCommunityList(userId));
 };

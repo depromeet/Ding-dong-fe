@@ -10,7 +10,7 @@ export const dynamic = 'force-dynamic';
 
 const MyPageConfig = async () => {
   // TODO: userId 수정 필요
-  const userId = '1';
+  const userId = 1;
 
   const { communityListDtos } = await getCommunityList(userId);
 

@@ -25,7 +25,8 @@ type IdCardDetailPageProps = {
 
 // TODO: promise all 로 수정하기
 const IdCardDetailPage = async ({ params: { id } }: IdCardDetailPageProps) => {
-  const { idCardDetailsDto } = await getIdCardDetail(id);
+  const idCardId = Number(id);
+  const { idCardDetailsDto } = await getIdCardDetail(idCardId);
 
   const bgColor = bgColors[idCardDetailsDto.characterType];
 

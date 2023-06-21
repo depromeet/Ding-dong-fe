@@ -15,7 +15,7 @@ export const idCardQueryKey = {
   myCommunity: (communityId: number) => ['CommunityMyIdCard', communityId],
 };
 
-export const getIdCardDetail = (idCardId: string) =>
+export const getIdCardDetail = (idCardId: number) =>
   privateApi.get<IdCardDetailResponse>(`/id-cards/${idCardId}`);
 
 export const getCommunityMyIdCardDetail = (communityId: number) =>
