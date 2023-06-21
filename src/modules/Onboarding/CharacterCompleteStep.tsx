@@ -46,7 +46,7 @@ export const CharacterCompleteStep = ({ characterName }: CharacterCompleteStepPr
         <h1>{title}</h1>
       </Template.Title>
       <Template.Description className="font-grey-700">
-        <div>{description}</div>
+        <p>{description}</p>
       </Template.Description>
       <Template.Content>
         <Image src={image} width={312} height={302} alt="character image" />
