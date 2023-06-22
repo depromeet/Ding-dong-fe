@@ -1,4 +1,4 @@
-import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
+import { useInfiniteQuery, useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
 import privateApi from '~/api/config/privateApi';
 import {
@@ -6,6 +6,8 @@ import {
   CommentCountGetResponse,
   CommentGetRequest,
   CommentGetResponse,
+  CommentPostRequest,
+  CommentPostResponse,
 } from '~/types/comment';
 
 export const commentQueryKey = {
@@ -34,3 +36,15 @@ export const getCommentCounts = ({ idCardsId }: CommentCountGetRequest) =>
 
 export const useGetCommentCounts = ({ idCardsId }: CommentCountGetRequest) =>
   useQuery(commentQueryKey.commentCount(idCardsId), () => getCommentCounts({ idCardsId }));
+
+export const postCommentCreate = ({ idCardsId, contents }: CommentPostRequest) =>
+  privateApi.post<CommentPostResponse>(`id-cards/${idCardsId}/comments`, { contents });
+
+export const usePostCommentCreate = (idCardsId: number) => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: (commentInfo: CommentPostRequest) => postCommentCreate(commentInfo),
+    onSuccess: () => queryClient.invalidateQueries(commentQueryKey.comments(idCardsId, 0)),
+  });
+};

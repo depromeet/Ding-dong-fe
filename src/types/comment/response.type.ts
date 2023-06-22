@@ -8,3 +8,7 @@ export type CommentGetResponse = {
 export type CommentCountGetResponse = {
   count: number;
 };
+
+export type CommentPostResponse = {
+  id: number;
+};
