@@ -10,7 +10,9 @@ import { UserProfile } from '~/modules/CommentList/CommentCommon';
 
 export const CommentInput = () => {
   //TODO: 주민증 없는 경우 댓글 작성 못한다고 input placeholder 수정
-  const onSubmit = () => console.log('제출');
+  const onSubmit = () => {
+    console.log('제출');
+  };
   const { data: userInfo } = useGetUserInfo();
 
   const { register, handleSubmit } = useForm();
@@ -34,6 +36,7 @@ export const CommentInput = () => {
                   <TextInput.Content
                     className="w-full bg-grey-50"
                     {...register('comment')}
+                    placeholder="댓글을 남겨주세요"
                     onChange={onChangeHandler}
                   />
                   <SendIcon className="fill-none stroke-primary-500" />
