@@ -4,7 +4,7 @@ import { dehydrate, Hydrate } from '@tanstack/react-query';
 
 import { commentQueryKey } from '~/api/domain/comment.api';
 import { getCommentCountsServer, getCommentsServer } from '~/api/domain/comment.api.server';
-import { getIdCardDetail } from '~/api/domain/idCard.api';
+import { getIdCardDetailServer } from '~/api/domain/idCard.api.server';
 import { Divider } from '~/components/Divider';
 import { TopNavigation } from '~/components/TopNavigation';
 import getQueryClient from '~/lib/tanstackQuery/getQueryClient';
@@ -28,7 +28,7 @@ type IdCardDetailPageProps = {
 // TODO: promise all 로 수정하기
 const IdCardDetailPage = async ({ params: { id } }: IdCardDetailPageProps) => {
   const idCardId = Number(id);
-  const { idCardDetailsDto } = await getIdCardDetail(idCardId);
+  const { idCardDetailsDto } = await getIdCardDetailServer(idCardId);
 
   const bgColor = bgColors[idCardDetailsDto.characterType];
 
