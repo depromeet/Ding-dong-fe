@@ -3,10 +3,17 @@ export type CommentLikeModel = {
   isLikedByCurrentUser: boolean;
 };
 
+export type CommentWriterIntoModel = {
+  userId: number;
+  nickname: string;
+  profileImageUrl: string;
+};
+
 export type CommentReplyModel = {
   commentReplyId: number;
   content: string;
   createdAt: string;
+  writerInfo: CommentWriterIntoModel;
   commentReplyLikeInfo: CommentLikeModel;
 };
 
@@ -14,6 +21,7 @@ export type CommentModel = {
   commentId: number;
   content: string;
   createdAt: string;
+  writerInfo: CommentWriterIntoModel;
   commentReplyLikeInfo: CommentLikeModel;
   commentReplyInfos: CommentReplyModel[];
 };

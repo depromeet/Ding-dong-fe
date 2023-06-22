@@ -10,7 +10,7 @@ export const commentMockHandler = [
     return res(
       ctx.status(200),
       ctx.json({
-        commentDto: createCommentList(10, page, 10),
+        data: createCommentList(10, page, 10),
       }),
     );
   }),

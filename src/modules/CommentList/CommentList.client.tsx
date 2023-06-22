@@ -28,7 +28,7 @@ export const CommentList = ({ idCardsId }: CommentListProps) => {
   return (
     <div className="mt-24pxr flex flex-col gap-24pxr">
       {commentList?.pages.map(page =>
-        page.commentDto.content.map((comment: CommentModel) => (
+        page.data.content.map((comment: CommentModel) => (
           <Comment key={comment.commentId} {...comment} />
         )),
       )}
