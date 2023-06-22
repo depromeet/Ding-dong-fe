@@ -39,10 +39,10 @@ export const Comment = ({
   return (
     <li className="flex w-full gap-12pxr px-layout-sm">
       <UserProfile profileImageUrl={profileImageUrl} />
-      <div>
+      <div className="w-full">
         <Header nickname={nickname} createdAt={createdAt} />
-        <div className="flex gap-12pxr">
-          <div>
+        <div className="flex w-full gap-12pxr">
+          <div className="w-full">
             <Content content={content} />
             <div className="mt-8pxr flex gap-16pxr">
               <LikeCount commentReplyLikeInfo={commentReplyLikeInfo} />
