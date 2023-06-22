@@ -8,13 +8,22 @@ export const createCommentLike = () => ({
   isLikedByCurrentUser: Math.random() > 0.5 ? true : false,
 });
 
+export const createCommentWriter = (idx: number) => ({
+  userId: idx,
+  nickname: faker.person.fullName(),
+  profileImageUrl: faker.image.avatar(),
+});
+
 export const createCommentReply = (idx: number): CommentReplyModel => ({
   commentReplyId: idx,
-  content: faker.lorem.paragraph(2),
-  createdAt: faker.date.betweens({
-    from: '2023-01-01T00:00:00.000Z',
-    to: '2023-08-31T00:00:00.000Z',
-  }) as unknown as string,
+  content: faker.lorem.sentence({ min: 1, max: 100 }),
+  createdAt: faker.date
+    .betweens({
+      from: '2023-01-01T00:00:00.000Z',
+      to: '2023-08-31T00:00:00.000Z',
+    })
+    .toLocaleString(),
+  writerInfo: createCommentWriter(idx),
   commentReplyLikeInfo: createCommentLike(),
 });
 
@@ -23,16 +32,19 @@ export const createCommentReplyList = (n: number) =>
 
 export const createComment = (idx: number): CommentModel => ({
   commentId: idx,
-  content: faker.lorem.paragraph(2),
-  createdAt: faker.date.betweens({
-    from: '2023-01-01T00:00:00.000Z',
-    to: '2023-08-31T00:00:00.000Z',
-  }) as unknown as string,
+  content: faker.lorem.sentence({ min: 1, max: 100 }),
+  createdAt: faker.date
+    .betweens({
+      from: '2023-01-01T00:00:00.000Z',
+      to: '2023-08-31T00:00:00.000Z',
+    })
+    .toLocaleString(),
+  writerInfo: createCommentWriter(idx),
   commentReplyLikeInfo: createCommentLike(),
   commentReplyInfos: createCommentReplyList(faker.number.int({ min: 0, max: 100 })),
 });
 
-export const createRandomCommentList = (
+export const createCommentList = (
   n: number,
   page: number,
   size: number,

@@ -8,7 +8,10 @@ import {
   CancelIcon,
   ChevronLeftIcon,
   ChevronRightIcon,
+  DashIcon,
   GearFillIcon,
+  HeartFillIcon,
+  HeartIcon,
   HomeIcon,
   PersonIcon,
   PlusIcon,
@@ -59,8 +62,20 @@ export const QuestionCircle = {
   render: () => <QuestionCircleIcon />,
 };
 
+export const Dash = {
+  render: () => <DashIcon />,
+};
+
 export const GearFill = {
   render: () => <GearFillIcon />,
+};
+
+export const HeartFill = {
+  render: () => <HeartFillIcon />,
+};
+
+export const Heart = {
+  render: () => <HeartIcon />,
 };
 
 export const Home = {

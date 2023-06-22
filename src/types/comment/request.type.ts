@@ -8,11 +8,13 @@ export type CommentCountGetRequest = {
 };
 
 export type CommentPostRequest = {
+  idCardsId: number;
   contents: string;
 };
 
 export type CommentPostReplyRequest = {
   idCardsId: number;
+  commentId: number;
   contents: string;
 };
 
