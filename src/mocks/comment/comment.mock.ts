@@ -16,7 +16,7 @@ export const createCommentWriter = (idx: number) => ({
 
 export const createCommentReply = (idx: number): CommentReplyModel => ({
   commentReplyId: idx,
-  content: faker.lorem.paragraph(2),
+  content: faker.lorem.sentence({ min: 1, max: 100 }),
   createdAt: faker.date
     .betweens({
       from: '2023-01-01T00:00:00.000Z',
@@ -32,7 +32,7 @@ export const createCommentReplyList = (n: number) =>
 
 export const createComment = (idx: number): CommentModel => ({
   commentId: idx,
-  content: faker.lorem.paragraph(2),
+  content: faker.lorem.sentence({ min: 1, max: 100 }),
   createdAt: faker.date
     .betweens({
       from: '2023-01-01T00:00:00.000Z',
