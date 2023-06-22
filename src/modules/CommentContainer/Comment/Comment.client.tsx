@@ -36,7 +36,7 @@ export const Comment = ({
   };
 
   return (
-    <div className="flex w-full gap-12pxr px-layout-sm">
+    <li className="flex w-full gap-12pxr px-layout-sm">
       <UserProfile profileImageUrl={profileImageUrl} />
       <div>
         <Header nickname={nickname} createdAt={createdAt} />
@@ -60,6 +60,6 @@ export const Comment = ({
         />
         <CommentReplyList isShowReplyList={isShowReplyList} commentReplyInfos={commentReplyInfos} />
       </div>
-    </div>
+    </li>
   );
 };

@@ -23,7 +23,7 @@ export const CommentReply = ({
   const { userId, profileImageUrl, nickname } = writerInfo;
 
   return (
-    <div className="flex w-full gap-12pxr px-[calc(layout-sm+42px)]">
+    <li className="flex w-full gap-12pxr px-[calc(layout-sm+42px)]">
       <UserProfile profileImageUrl={profileImageUrl} />
       <div>
         <Header nickname={nickname} createdAt={createdAt} />
@@ -40,6 +40,6 @@ export const CommentReply = ({
           </div>
         </div>
       </div>
-    </div>
+    </li>
   );
 };
