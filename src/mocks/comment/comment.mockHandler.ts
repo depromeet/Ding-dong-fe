@@ -17,4 +17,19 @@ export const commentMockHandler = [
   rest.get(`${ROOT_API_URL}/id-cards/:idCardsId/comments-count`, (req, res, ctx) => {
     return res(ctx.status(200), ctx.json(createCommentCount()));
   }),
+  rest.post(`${ROOT_API_URL}/id-cards/:idCardsId/comments`, (req, res, ctx) => {
+    return res(ctx.status(200), ctx.json({ id: 1 }));
+  }),
+  rest.delete(`${ROOT_API_URL}/id-cards/:idCardsId/comments/:commentId`, (req, res, ctx) => {
+    return res(ctx.status(200), ctx.json({ id: 1 }));
+  }),
+  rest.post(`${ROOT_API_URL}/id-cards/:idCardsId/comments/:commentId/replies`, (req, res, ctx) => {
+    return res(ctx.status(200), ctx.json({ id: 1 }));
+  }),
+  rest.delete(
+    `${ROOT_API_URL}/id-cards/:idCardsId/comments/:commentId/replies/:commentReplyId`,
+    (req, res, ctx) => {
+      return res(ctx.status(200), ctx.json({ id: 1 }));
+    },
+  ),
 ];
