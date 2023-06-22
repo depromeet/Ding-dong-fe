@@ -8,6 +8,12 @@ export const createCommentLike = () => ({
   isLikedByCurrentUser: Math.random() > 0.5 ? true : false,
 });
 
+export const createCommentWriter = (idx: number) => ({
+  userId: idx,
+  nickname: faker.person.fullName(),
+  profileImageUrl: faker.image.avatar(),
+});
+
 export const createCommentReply = (idx: number): CommentReplyModel => ({
   commentReplyId: idx,
   content: faker.lorem.paragraph(2),
@@ -17,6 +23,7 @@ export const createCommentReply = (idx: number): CommentReplyModel => ({
       to: '2023-08-31T00:00:00.000Z',
     })
     .toLocaleString(),
+  writerInfo: createCommentWriter(idx),
   commentReplyLikeInfo: createCommentLike(),
 });
 
@@ -32,6 +39,7 @@ export const createComment = (idx: number): CommentModel => ({
       to: '2023-08-31T00:00:00.000Z',
     })
     .toLocaleString(),
+  writerInfo: createCommentWriter(idx),
   commentReplyLikeInfo: createCommentLike(),
   commentReplyInfos: createCommentReplyList(faker.number.int({ min: 0, max: 100 })),
 });
