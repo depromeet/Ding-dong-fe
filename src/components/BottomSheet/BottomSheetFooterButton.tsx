@@ -1,6 +1,6 @@
 'use client';
 
-import Button, { ButtonProps } from '~/components/Button/Button';
+import { Button, ButtonProps } from '~/components/Button';
 
 export const BottomSheetFooterButton = ({
   size = 'large',

@@ -4,6 +4,7 @@ import { ChangeEvent, useCallback, useRef, useState } from 'react';
 import { useFormContext } from 'react-hook-form';
 
 import { usePostImageUrl } from '~/api/domain/image.api';
+import { ConfirmDeleteKeyword, useConfirmPopup } from '~/components/ConfirmPopup';
 import { CancelIcon } from '~/components/Icon';
 import { KeywordContentImage } from '~/modules/IdCardCreation/Step/KeywordContentImage.client';
 import { KeywordContentCard } from '~/modules/IdCardDetail';
@@ -26,6 +27,12 @@ export const KeywordContentEditCard = ({
   const [textFocus, setTextFocus] = useState<boolean>();
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const { mutateAsync } = usePostImageUrl();
+  const {
+    isOpen: isConfirmDeleteOpen,
+    openPopup: openConfirmDeletePopup,
+    closePopup: closeConfirmDeletePopup,
+    confirm: confirmDelete,
+  } = useConfirmPopup();
 
   const onCardClick = () => {
     if (textareaRef.current) textareaRef.current.focus();
@@ -36,9 +43,9 @@ export const KeywordContentEditCard = ({
     setValue('keywords', filteredKeywordList);
   };
 
-  const onDeleteKeywordContent = () => {
-    // TODO: pop up UI 수정하기
-    const isOk = window.confirm('키워드를 삭제하시겠어요?');
+  const onDeleteKeywordContent = async () => {
+    const isOk = await openConfirmDeletePopup();
+    closeConfirmDeletePopup();
     if (isOk) {
       deleteKeyword(keyword.title, keywords);
     }
@@ -107,6 +114,7 @@ export const KeywordContentEditCard = ({
           className="hidden"
         />
       </div>
+      {isConfirmDeleteOpen && <ConfirmDeleteKeyword confirm={confirmDelete} />}
     </div>
   );
 };
