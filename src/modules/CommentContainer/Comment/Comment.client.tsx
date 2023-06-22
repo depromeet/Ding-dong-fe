@@ -4,8 +4,8 @@ import { useState } from 'react';
 
 import {
   Content,
-  DisplayLike,
   Header,
+  LikeCount,
   LikeIcon,
   ReplyShowButton,
   ReplySubmitButton,
@@ -44,7 +44,7 @@ export const Comment = ({
           <div>
             <Content content={content} />
             <div className="mt-8pxr flex gap-16pxr">
-              <DisplayLike commentReplyLikeInfo={commentReplyLikeInfo} />
+              <LikeCount commentReplyLikeInfo={commentReplyLikeInfo} />
               <ReplySubmitButton />
             </div>
           </div>

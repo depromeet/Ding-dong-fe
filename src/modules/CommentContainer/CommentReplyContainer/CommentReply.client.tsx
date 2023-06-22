@@ -2,8 +2,8 @@
 
 import {
   Content,
-  DisplayLike,
   Header,
+  LikeCount,
   LikeIcon,
   ReplySubmitButton,
   UserProfile,
@@ -31,7 +31,7 @@ export const CommentReply = ({
           <div>
             <Content content={content} />
             <div className="mt-8pxr flex gap-16pxr">
-              <DisplayLike commentReplyLikeInfo={commentReplyLikeInfo} />
+              <LikeCount commentReplyLikeInfo={commentReplyLikeInfo} />
               <ReplySubmitButton />
             </div>
           </div>
