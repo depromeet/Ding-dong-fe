@@ -8,6 +8,7 @@ import { getIdCardDetailServer } from '~/api/domain/idCard.api.server';
 import { Divider } from '~/components/Divider';
 import { TopNavigation } from '~/components/TopNavigation';
 import getQueryClient from '~/lib/tanstackQuery/getQueryClient';
+import { CommentInput } from '~/modules/CommentInput';
 import { CommentList } from '~/modules/CommentList';
 import { Intro, KeywordContentCard } from '~/modules/IdCardDetail';
 import { CharacterNameModel } from '~/types/idCard';
@@ -82,6 +83,7 @@ const IdCardDetailPage = async ({ params: { id } }: IdCardDetailPageProps) => {
           <span>댓글 {totalCommentCount.count}개</span>
         </div>
         <CommentList idCardsId={idCardsId} />
+        <CommentInput />
       </main>
     </Hydrate>
   );
