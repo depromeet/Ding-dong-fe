@@ -45,19 +45,21 @@ export const TextInputBorder = ({
       >
         {children}
       </div>
-      <div className="mt-8pxr flex justify-between">
-        <div className="">
-          {errorMessage && <p className="text-detail text-error">{errorMessage}</p>}
-          {infoMessage && <p className="text-detail text-blue-500">{infoMessage}</p>}
-        </div>
-        {!!maxLength && (
-          <div className="flex justify-end gap-1pxr text-detail text-grey-500">
-            <span>{textCount}</span>
-            <span>/</span>
-            <span>{maxLength}</span>
+      {(errorMessage || errorMessage || !!maxLength) && (
+        <div className="mt-8pxr flex justify-between">
+          <div className="">
+            {errorMessage && <p className="text-detail text-error">{errorMessage}</p>}
+            {infoMessage && <p className="text-detail text-blue-500">{infoMessage}</p>}
           </div>
-        )}
-      </div>
+          {!!maxLength && (
+            <div className="flex justify-end gap-1pxr text-detail text-grey-500">
+              <span>{textCount}</span>
+              <span>/</span>
+              <span>{maxLength}</span>
+            </div>
+          )}
+        </div>
+      )}
     </>
   );
 };
