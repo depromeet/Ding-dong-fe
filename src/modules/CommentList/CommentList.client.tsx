@@ -4,7 +4,7 @@ import { useEffect } from 'react';
 import { useInView } from 'react-intersection-observer';
 
 import { useGetComments } from '~/api/domain/comment.api';
-import { Comment } from '~/modules/Comment/Comment.client';
+import { Comment } from '~/modules/CommentList/Comment';
 import { CommentModel } from '~/types/comment';
 
 type CommentListProps = {
@@ -24,10 +24,11 @@ export const CommentList = ({ idCardsId }: CommentListProps) => {
       fetchNextPage();
     }
   }, [inView, fetchNextPage, commentList?.pages]);
+
   return (
-    <div>
+    <div className="mt-24pxr flex flex-col gap-24pxr">
       {commentList?.pages.map(page =>
-        page.commentDto.content.map((comment: CommentModel) => (
+        page.data.content.map((comment: CommentModel) => (
           <Comment key={comment.commentId} {...comment} />
         )),
       )}
