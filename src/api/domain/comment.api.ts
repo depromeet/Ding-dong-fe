@@ -4,6 +4,7 @@ import privateApi from '~/api/config/privateApi';
 import {
   CommentCountGetRequest,
   CommentCountGetResponse,
+  CommentDeleteReplyResponse,
   CommentDeleteRequest,
   CommentDeleteResponse,
   CommentGetRequest,
@@ -12,6 +13,7 @@ import {
   CommentPostReplyResponse,
   CommentPostRequest,
   CommentPostResponse,
+  CommentReplyDeleteRequest,
 } from '~/types/comment';
 
 export const commentQueryKey = {
@@ -76,6 +78,20 @@ export const usePostReplyCreate = (idCardsId: number) => {
 
   return useMutation({
     mutationFn: (replyInfo: CommentPostReplyRequest) => postCommentCreate(replyInfo),
+    onSuccess: () => queryClient.invalidateQueries(commentQueryKey.comments(idCardsId, 0)),
+  });
+};
+
+export const deleteReply = ({ idCardsId, commentId, commentReplyId }: CommentReplyDeleteRequest) =>
+  privateApi.delete<CommentDeleteReplyResponse>(
+    `/id-cards/${idCardsId}/comments/${commentId}/replies/${commentReplyId}`,
+  );
+
+export const useDeleteReply = (idCardsId: number) => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: (replyInfo: CommentReplyDeleteRequest) => deleteReply(replyInfo),
     onSuccess: () => queryClient.invalidateQueries(commentQueryKey.comments(idCardsId, 0)),
   });
 };
