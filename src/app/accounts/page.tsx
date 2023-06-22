@@ -1,11 +1,11 @@
 import 'server-only';
 
-import { getCommunityIdCard } from '~/api/domain/community.api.server';
+import { getCommunityIdCardServer } from '~/api/domain/community.api.server';
 
 import CallApiTest from './callApiTest';
 
 const AccountHome = async () => {
-  const communities = await getCommunityIdCard(1);
+  const communities = await getCommunityIdCardServer(1);
   console.log(communities);
   return (
     <div>
