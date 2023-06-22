@@ -95,10 +95,10 @@ export const CharacterCreationForm = ({
             </button>
           )}
         </TopNavigation.Right>
-        <TopNavigation.ProgressBar currentStep={stepOrder} stepsLength={3} />
+        <TopNavigation.ProgressBar currentStep={stepOrder} stepsLength={4} />
       </TopNavigation>
 
-      <div className="mt-24pxr">
+      <div className="mt-24pxr px-layout-sm">
         <CharacterQuestion
           title={currentQuestionInfo.title}
           image={currentQuestionInfo.image}

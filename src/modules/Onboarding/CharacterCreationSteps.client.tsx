@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { CharacterNameModel } from '~/types/idCard';
 
@@ -25,6 +25,11 @@ export const CharacterCreationSteps = () => {
   const onSubmit = (name: CharacterNameModel) => {
     setSelectedCharacter(name);
   };
+
+  useEffect(() => {
+    setTimeout(() => onNext(), 1500);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <div>
