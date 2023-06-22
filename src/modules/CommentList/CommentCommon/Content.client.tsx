@@ -6,15 +6,17 @@ import { tw } from '~/utils/tailwind.util';
 
 type ContentProps = Pick<CommentModel, 'content'>;
 
+const MAX_LINE = 5;
+
 const isOverMaxHeight = (elementOffsetHeight: number, maxHeight: number) =>
   elementOffsetHeight > maxHeight;
 
 export const Content = ({ content }: ContentProps) => {
   const paragraphRef = useRef<HTMLParagraphElement>(null);
-  const [isShowDetail, setIsShowDetail] = useState(true); // Content의 line-height에 상관없이 우선 무조건 보여주기 (useEffect에서 5줄 넘으면 생략)
+  const [isShowDetail, setIsShowDetail] = useState(true); // Content의 line-height에 상관없이 우선 무조건 보여주기 (useEffect에서 MAX_LINE 넘으면 생략)
   const [isShowButton, setIsShowButton] = useState(false);
   const buttonLabel = isShowDetail ? '접기' : '자세히보기';
-  const lineClampClass = isShowDetail ? '' : 'line-clamp-5';
+  const lineClampClass = isShowDetail ? '' : `line-clamp-${MAX_LINE}`;
 
   const shouldHideOverflowContent = () => {
     const contentElement = paragraphRef.current;
@@ -26,7 +28,7 @@ export const Content = ({ content }: ContentProps) => {
         window.getComputedStyle(contentElement).getPropertyValue('line-height')!;
 
       const lineHeight = lineHeightString ? parseInt(lineHeightString, 10) : 0;
-      const maxHeight = lineHeight * 5; // 5줄
+      const maxHeight = lineHeight * MAX_LINE;
 
       if (isOverMaxHeight(contentElement.offsetHeight, maxHeight)) {
         setIsShowButton(true);
@@ -35,7 +37,7 @@ export const Content = ({ content }: ContentProps) => {
     }
   };
 
-  // line-clamp 속성만으로 5줄 이상이면 생략되게 가능하지만, content의 길이에 따라 다르게 설정해야하기 때문에 useEffect가 필요해요
+  // line-clamp 속성만으로 MAX_LINE 이상이면 생략되게 가능하지만, content의 길이에 따라 다르게 설정해야하기 때문에 useEffect가 필요해요
   useEffect(() => {
     shouldHideOverflowContent();
   }, []);
