@@ -16,3 +16,7 @@ export type CommentPostResponse = {
 export type CommentDeleteResponse = {
   id: number;
 };
+
+export type CommentPostReplyResponse = {
+  id: number;
+};

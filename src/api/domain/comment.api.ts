@@ -8,6 +8,8 @@ import {
   CommentDeleteResponse,
   CommentGetRequest,
   CommentGetResponse,
+  CommentPostReplyRequest,
+  CommentPostReplyResponse,
   CommentPostRequest,
   CommentPostResponse,
 } from '~/types/comment';
@@ -59,6 +61,21 @@ export const useDeleteComment = (idCardsId: number) => {
 
   return useMutation({
     mutationFn: (commentInfo: CommentDeleteRequest) => deleteComment(commentInfo),
+    onSuccess: () => queryClient.invalidateQueries(commentQueryKey.comments(idCardsId, 0)),
+  });
+};
+
+export const postReplyCreate = ({ idCardsId, commentId, contents }: CommentPostReplyRequest) =>
+  privateApi.post<CommentPostReplyResponse>(
+    `/id-cards/${idCardsId}/comments/${commentId}/replies`,
+    { contents },
+  );
+
+export const usePostReplyCreate = (idCardsId: number) => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: (replyInfo: CommentPostReplyRequest) => postCommentCreate(replyInfo),
     onSuccess: () => queryClient.invalidateQueries(commentQueryKey.comments(idCardsId, 0)),
   });
 };

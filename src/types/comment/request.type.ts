@@ -14,6 +14,7 @@ export type CommentPostRequest = {
 
 export type CommentPostReplyRequest = {
   idCardsId: number;
+  commentId: number;
   contents: string;
 };
 
