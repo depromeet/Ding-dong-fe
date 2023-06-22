@@ -16,6 +16,7 @@ import {
   PersonIcon,
   PlusIcon,
   QuestionCircleIcon,
+  SendIcon,
 } from '~/components/Icon';
 
 const meta: Meta = {
@@ -96,4 +97,8 @@ export const Camera = {
 
 export const ArrowVertical = {
   render: () => <ArrowVerticalIcon />,
+};
+
+export const Send = {
+  render: () => <SendIcon />,
 };
