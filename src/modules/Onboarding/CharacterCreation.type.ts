@@ -1,9 +1,11 @@
 export type CharacterCreationFormType = {
-  first: 'E' | 'I';
-  second: 'F' | 'T';
-  third: 'J' | 'P';
-  fourth: 'S' | 'N';
+  firstAlphabet: 'E' | 'I';
+  secondAlphabet: 'F' | 'T';
+  thirdAlphabet: 'J' | 'P';
+  fourthAlphabet: 'S' | 'N';
 };
+
+export type CharacterAlphabetType = 'E' | 'I' | 'F' | 'T' | 'J' | 'P' | 'S' | 'N';
 
 export type CharactorCreationStepsType =
   | 'BOARDING'
