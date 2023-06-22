@@ -1,6 +1,5 @@
 'use client';
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { faker } from '@faker-js/faker/locale/ko';
 import Image from 'next/image';
 
 import { HeartFillIcon, HeartIcon } from '~/components/Icon';
@@ -12,10 +11,10 @@ export const CommentReply = ({
   commentReplyId,
   content,
   createdAt,
+  writerInfo,
   commentReplyLikeInfo,
 }: CommentProps) => {
-  const profileImageUrl = faker.image.avatar();
-  const nickname = faker.person.fullName();
+  const { userId, profileImageUrl, nickname } = writerInfo;
 
   return (
     <div className="flex w-full gap-12pxr px-[calc(layout-sm+42px)]">

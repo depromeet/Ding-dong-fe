@@ -1,6 +1,5 @@
 'use client';
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { faker } from '@faker-js/faker/locale/ko';
 import Image from 'next/image';
 import { useState } from 'react';
 
@@ -14,12 +13,12 @@ export const Comment = ({
   commentId,
   content,
   createdAt,
+  writerInfo,
   commentReplyLikeInfo,
   commentReplyInfos,
 }: CommentProps) => {
+  const { userId, profileImageUrl, nickname } = writerInfo;
   const [isShowReplyList, setIsShowReplyList] = useState(false);
-  const profileImageUrl = faker.image.avatar();
-  const nickname = faker.person.fullName();
 
   const onClickShowReplyList = () => {
     setIsShowReplyList(true);
@@ -58,12 +57,12 @@ export const Comment = ({
         </div>
         {isShowReplyList ? (
           <button type="button" onClick={onClickHideReplyList} className="mt-24pxr flex gap-8pxr">
-            <DashIcon />
+            <DashIcon className="fill-grey-500" />
             <span className="text-detail font-semibold text-grey-500">답글 숨기기</span>
           </button>
         ) : (
           <button type="button" onClick={onClickShowReplyList} className="mt-24pxr flex gap-8pxr">
-            <DashIcon />
+            <DashIcon className="fill-grey-500" />
             <span className="text-detail font-semibold text-grey-500">
               답글 {commentReplyInfos.length}개 더보기
             </span>
