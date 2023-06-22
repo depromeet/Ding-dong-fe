@@ -7,6 +7,7 @@ import {
   Header,
   LikeCount,
   LikeIcon,
+  ReplyHideButton,
   ReplyShowButton,
   ReplySubmitButton,
   UserProfile,
@@ -54,11 +55,16 @@ export const Comment = ({
         </div>
         <ReplyShowButton
           isShowReplyList={isShowReplyList}
-          onClickHideReplyList={onClickHideReplyList}
           onClickShowReplyList={onClickShowReplyList}
           commentReplyInfos={commentReplyInfos}
         />
         <CommentReplyList isShowReplyList={isShowReplyList} commentReplyInfos={commentReplyInfos} />
+        <div className="mt-24pxr">
+          <ReplyHideButton
+            isShowReplyList={isShowReplyList}
+            onClickHideReplyList={onClickHideReplyList}
+          />
+        </div>
       </div>
     </li>
   );
