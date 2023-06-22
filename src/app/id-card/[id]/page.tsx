@@ -2,7 +2,8 @@ import 'server-only';
 
 import { dehydrate, Hydrate } from '@tanstack/react-query';
 
-import { commentQueryKey, getCommentCounts, getComments } from '~/api/domain/comment.api';
+import { commentQueryKey } from '~/api/domain/comment.api';
+import { getCommentCountsServer, getCommentsServer } from '~/api/domain/comment.api.server';
 import { getIdCardDetail } from '~/api/domain/idCard.api';
 import { Divider } from '~/components/Divider';
 import { TopNavigation } from '~/components/TopNavigation';
@@ -38,10 +39,10 @@ const IdCardDetailPage = async ({ params: { id } }: IdCardDetailPageProps) => {
   const pageParam = 1;
 
   await queryClient.prefetchQuery(commentQueryKey.comments(idCardsId, pageParam), () =>
-    getComments({ idCardsId, pageParam }).then(data => ({ pages: [data] })),
+    getCommentsServer({ idCardsId, pageParam }).then(data => ({ pages: [data] })),
   );
 
-  const totalCommentCount = await getCommentCounts({ idCardsId });
+  const totalCommentCount = await getCommentCountsServer({ idCardsId });
 
   const dehydratedState = dehydrate(queryClient);
 
