@@ -4,7 +4,7 @@ import { useEffect } from 'react';
 import { useInView } from 'react-intersection-observer';
 
 import { useGetComments } from '~/api/domain/comment.api';
-import { Comment } from '~/modules/Comment/Comment.client';
+import { Comment } from '~/modules/CommentContainer/Comment';
 import { CommentModel } from '~/types/comment';
 
 type CommentListProps = {
