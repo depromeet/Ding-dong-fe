@@ -1,4 +1,4 @@
-import { CommentReply } from '~/modules/CommentContainer/CommentReplyContainer/CommentReply.client';
+import { CommentReply } from '~/modules/CommentList/CommentReplyList/CommentReply.client';
 import { CommentModel } from '~/types/comment';
 
 type CommentReplyListProps = Pick<CommentModel, 'commentReplyInfos'> & {

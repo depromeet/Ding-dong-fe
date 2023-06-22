@@ -7,7 +7,7 @@ import {
   LikeIcon,
   ReplySubmitButton,
   UserProfile,
-} from '~/modules/CommentContainer/CommentCommon';
+} from '~/modules/CommentList/CommentCommon';
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { CommentReplyModel } from '~/types/comment';
 

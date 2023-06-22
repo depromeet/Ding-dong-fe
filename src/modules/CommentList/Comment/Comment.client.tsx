@@ -10,8 +10,8 @@ import {
   ReplyShowButton,
   ReplySubmitButton,
   UserProfile,
-} from '~/modules/CommentContainer/CommentCommon';
-import { CommentReplyList } from '~/modules/CommentContainer/CommentReplyContainer';
+} from '~/modules/CommentList/CommentCommon';
+import { CommentReplyList } from '~/modules/CommentList/CommentReplyList';
 import { CommentModel } from '~/types/comment';
 
 type CommentProps = CommentModel;

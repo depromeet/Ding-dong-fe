@@ -8,7 +8,7 @@ import { getIdCardDetail } from '~/api/domain/idCard.api';
 import { Divider } from '~/components/Divider';
 import { TopNavigation } from '~/components/TopNavigation';
 import getQueryClient from '~/lib/tanstackQuery/getQueryClient';
-import { CommentList } from '~/modules/CommentContainer';
+import { CommentList } from '~/modules/CommentList';
 import { Intro, KeywordContentCard } from '~/modules/IdCardDetail';
 import { CharacterNameModel } from '~/types/idCard';
 
