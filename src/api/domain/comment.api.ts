@@ -21,6 +21,9 @@ export const commentQueryKey = {
   commentCount: (idCardsId: number) => ['commentCount', idCardsId],
 };
 
+// 댓글, 대댓글 작성할 때, 삭제할 때 첫 페이지 부터 다시 불러와야하기 때문에
+const FIRST_COMMENT_PAGE = 1;
+
 export const getComments = ({ idCardsId, pageParam }: CommentGetRequest) =>
   privateApi.get<CommentGetResponse>(`/id-cards/${idCardsId}/comments?page=${pageParam}&size=10`);
 
@@ -31,8 +34,8 @@ export const useGetComments = ({ idCardsId, pageParam }: CommentGetRequest) => {
     {
       getNextPageParam: data => (!data.data.hasNext ? data.data.page + 1 : undefined),
       refetchOnWindowFocus: false,
-      //NOTE: 서버컴포넌트에서 이미 1페이지를 데이터 fetch 했기 때문에 2페이지 부터 fetch 하기 위함입니다.
-      enabled: false,
+      // NOTE: 주민증 리스트와 다르게 enabled를 false로 해주면 글 작성시 새로 글을 불러오지 않기 때문에 true로 설정해주었습니다.
+      enabled: true,
     },
   );
 };
@@ -51,7 +54,8 @@ export const usePostCommentCreate = (idCardsId: number) => {
 
   return useMutation({
     mutationFn: (commentInfo: CommentPostRequest) => postCommentCreate(commentInfo),
-    onSuccess: () => queryClient.invalidateQueries(commentQueryKey.comments(idCardsId, 0)),
+    onSuccess: () =>
+      queryClient.invalidateQueries(commentQueryKey.comments(idCardsId, FIRST_COMMENT_PAGE)),
   });
 };
 
@@ -63,7 +67,8 @@ export const useDeleteComment = (idCardsId: number) => {
 
   return useMutation({
     mutationFn: (commentInfo: CommentDeleteRequest) => deleteComment(commentInfo),
-    onSuccess: () => queryClient.invalidateQueries(commentQueryKey.comments(idCardsId, 0)),
+    onSuccess: () =>
+      queryClient.invalidateQueries(commentQueryKey.comments(idCardsId, FIRST_COMMENT_PAGE)),
   });
 };
 
@@ -78,7 +83,8 @@ export const usePostReplyCreate = (idCardsId: number) => {
 
   return useMutation({
     mutationFn: (replyInfo: CommentPostReplyRequest) => postCommentCreate(replyInfo),
-    onSuccess: () => queryClient.invalidateQueries(commentQueryKey.comments(idCardsId, 0)),
+    onSuccess: () =>
+      queryClient.invalidateQueries(commentQueryKey.comments(idCardsId, FIRST_COMMENT_PAGE)),
   });
 };
 
@@ -92,6 +98,7 @@ export const useDeleteReply = (idCardsId: number) => {
 
   return useMutation({
     mutationFn: (replyInfo: CommentReplyDeleteRequest) => deleteReply(replyInfo),
-    onSuccess: () => queryClient.invalidateQueries(commentQueryKey.comments(idCardsId, 0)),
+    onSuccess: () =>
+      queryClient.invalidateQueries(commentQueryKey.comments(idCardsId, FIRST_COMMENT_PAGE)),
   });
 };
