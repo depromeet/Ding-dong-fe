@@ -1,5 +1,6 @@
 import { AxiosError, AxiosResponse, InternalAxiosRequestConfig } from 'axios';
 
+import { ErrorType } from '~/api/config/api.types';
 import { getAccessToken, getAuthTokensByCookie } from '~/utils/auth/tokenHandlers';
 
 import { ApiError } from './customError';
@@ -31,19 +32,18 @@ export const onResponse = (response: AxiosResponse) => {
   return { ...data, headers, status };
 };
 
-export const onResponseError = (error: AxiosError) => {
+export const onResponseError = (error: AxiosError<ErrorType, InternalAxiosRequestConfig>) => {
   // 2xx 외의 범위에 있는 상태 코드는 이 함수를 트리거 합니다.
   // 응답 오류가 있는 작업 수행
   console.error('error', error);
   if (error.response) {
     // 요청이 이루어졌으며 서버가 2xx의 범위를 벗어나는 상태 코드로 응답했습니다.
 
-    const {
-      response: { status },
-    } = error;
+    const data = error.response.data;
+    const { success, statusCode, errorCode, reason } = data;
 
     // 서버에서 보낸 custom 에러 메세지가 없을 경우 기본 메세지를 에러 메세지로 전달
-    return Promise.reject(new ApiError(error.message, status));
+    return Promise.reject(new ApiError(success, statusCode, errorCode, reason));
   }
   if (error.request) {
     // 요청이 이루어 졌으나 응답을 받지 못했습니다.
