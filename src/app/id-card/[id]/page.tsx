@@ -4,10 +4,11 @@ import { dehydrate, Hydrate } from '@tanstack/react-query';
 
 import { commentQueryKey } from '~/api/domain/comment.api';
 import { getCommentCountsServer, getCommentsServer } from '~/api/domain/comment.api.server';
-import { getIdCardDetail } from '~/api/domain/idCard.api';
+import { getIdCardDetailServer } from '~/api/domain/idCard.api.server';
 import { Divider } from '~/components/Divider';
 import { TopNavigation } from '~/components/TopNavigation';
 import getQueryClient from '~/lib/tanstackQuery/getQueryClient';
+import { CommentInput } from '~/modules/CommentInput';
 import { CommentList } from '~/modules/CommentList';
 import { Intro, KeywordContentCard } from '~/modules/IdCardDetail';
 import { CharacterNameModel } from '~/types/idCard';
@@ -28,7 +29,7 @@ type IdCardDetailPageProps = {
 // TODO: promise all 로 수정하기
 const IdCardDetailPage = async ({ params: { id } }: IdCardDetailPageProps) => {
   const idCardId = Number(id);
-  const { idCardDetailsDto } = await getIdCardDetail(idCardId);
+  const { idCardDetailsDto } = await getIdCardDetailServer(idCardId);
 
   const bgColor = bgColors[idCardDetailsDto.characterType];
 
@@ -82,6 +83,7 @@ const IdCardDetailPage = async ({ params: { id } }: IdCardDetailPageProps) => {
           <span>댓글 {totalCommentCount.count}개</span>
         </div>
         <CommentList idCardsId={idCardsId} />
+        <CommentInput />
       </main>
     </Hydrate>
   );

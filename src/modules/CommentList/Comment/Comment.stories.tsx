@@ -1,3 +1,4 @@
+import { faker } from '@faker-js/faker/locale/ko';
 import type { Meta, StoryObj } from '@storybook/react';
 
 import { createComment } from '~/mocks/comment/comment.mock';
@@ -17,5 +18,9 @@ type Story = StoryObj<typeof Comment>;
 const MOCK_COMMENT = createComment(123);
 
 export const Primary: Story = {
-  render: () => <Comment {...MOCK_COMMENT} />,
+  render: () => <Comment {...MOCK_COMMENT} content={faker.lorem.sentence(1)} />,
+};
+
+export const DetailShow: Story = {
+  render: () => <Comment {...MOCK_COMMENT} content={faker.lorem.sentence(100)} />,
 };
