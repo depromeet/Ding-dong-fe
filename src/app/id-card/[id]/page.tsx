@@ -10,7 +10,7 @@ import { HydrationProvider } from '~/components/HydrationProvider';
 import { CommentCount } from '~/modules/CommentCount';
 import { CommentInput } from '~/modules/CommentInput';
 import { CommentList } from '~/modules/CommentList';
-import { IdCardDetail } from '~/modules/IdCardDetail';
+import { IdCardDetail } from '~/modules/IdCardDetail/IdCardDetail';
 
 type IdCardDetailPageProps = {
   params: {
@@ -34,7 +34,7 @@ const IdCardDetailPage = async ({ params: { id } }: IdCardDetailPageProps) => {
       <RetryErrorBoundary>
         <Suspense>
           {/* @ts-expect-error Server Component */}
-          <IdCardDetail />
+          <IdCardDetail idCardsId={idCardsId} />
         </Suspense>
       </RetryErrorBoundary>
       <Divider />
