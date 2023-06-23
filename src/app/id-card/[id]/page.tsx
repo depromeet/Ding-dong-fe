@@ -83,7 +83,7 @@ const IdCardDetailPage = async ({ params: { id } }: IdCardDetailPageProps) => {
           <span>댓글 {totalCommentCount.count}개</span>
         </div>
         <CommentList idCardsId={idCardsId} />
-        <CommentInput />
+        <CommentInput idCardsId={idCardsId} />
       </main>
     </Hydrate>
   );
