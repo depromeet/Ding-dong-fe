@@ -2,37 +2,37 @@
 
 import { useState } from 'react';
 
-import { AlarmTabItem } from './AlarmTabItem.client';
+import { NotificationTabItem } from './NotificationTabItem.client';
 
-// TODO: BE 스키마 정리 후 types로 이동
-export type CommunityAlarm = {
+// TODO: 추후 기능 추가되면 types로 이동
+export type CommunityNotification = {
   communityId: number;
   title: string;
   logoImageUrl?: string;
-  hasNewAlarm: boolean;
+  hasNewNotification: boolean;
 };
-type AlarmTabProps = {
-  communities: CommunityAlarm[];
+type NotificationTabProps = {
+  communities: CommunityNotification[];
 };
 
-const AllCommunity: CommunityAlarm = {
+const AllCommunity: CommunityNotification = {
   communityId: 0,
   title: '전체',
-  hasNewAlarm: false,
+  hasNewNotification: false,
 };
 
-export const AlarmTab = ({ communities }: AlarmTabProps) => {
+export const NotificationTab = ({ communities }: NotificationTabProps) => {
   const [activeTab, setActiveTab] = useState(communities[0].communityId);
   const onClick = (communityId: number) => setActiveTab(communityId);
   return (
     <ul className="flex">
-      <AlarmTabItem
+      <NotificationTabItem
         community={AllCommunity}
         isActive={activeTab === AllCommunity.communityId}
         onClick={onClick}
       />
       {communities.map(community => (
-        <AlarmTabItem
+        <NotificationTabItem
           community={community}
           key={community.communityId}
           isActive={activeTab === community.communityId}
