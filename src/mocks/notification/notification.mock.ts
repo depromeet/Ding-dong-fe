@@ -32,7 +32,7 @@ export const createNotification = (idx: number): NotificationModel => {
         ? 'COMMENT_REPLY'
         : 'ID_CARD_COMMENT',
     notificationStatus: Math.random() > 0.5 ? 'READ' : 'UNREAD',
-    createdAt: new Date(today.setDate(today.getDate() - idx)).toLocaleString(),
+    createdAt: new Date(today.setDate(today.getDate() - idx)).toISOString(),
     communityDto: createCommunity(idx),
     idCardDto: createIdCard(idx),
     commentDto: createComment(idx),
