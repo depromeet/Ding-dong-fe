@@ -27,6 +27,7 @@ export const CommentInput = ({ idCardsId }: CommentInputProps) => {
     const { contents } = data;
     if (isEmptyText(contents)) return;
     mutatePostCommentCreate({ idCardsId, contents });
+    // TODO: 댓글 작성 후 댓글 첫번째로 스크롤하기
   };
 
   const { register, handleSubmit } = useForm<CommentFormData>();
