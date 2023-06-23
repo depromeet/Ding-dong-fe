@@ -1,6 +1,6 @@
 import { NotificationModel } from '~/types/notification';
 
-import { NotificationItem } from './NotificationItem.client';
+import { NotificationItem } from './NotificationItem';
 
 type NotificationListProps = {
   notifications: NotificationModel[];

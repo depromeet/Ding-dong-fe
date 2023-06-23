@@ -16,9 +16,9 @@ export const NotificationItem = ({
 }: NotificationModel) => {
   return (
     <li className="flex list-none gap-3">
-      <div className="relative pl-10pxr">
+      <div className="relative">
         {notificationStatus === 'UNREAD' && (
-          <span className="absolute left-0 top-13pxr h-6pxr w-6pxr rounded-full bg-blue-500"></span>
+          <span className="absolute -left-10pxr top-13pxr h-6pxr w-6pxr rounded-full bg-blue-500"></span>
         )}
         <UserProfile profileImageUrl={userDto.fromUserProfileImageUrl} />
       </div>
