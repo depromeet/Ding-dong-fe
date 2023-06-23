@@ -17,8 +17,8 @@ import {
 } from '~/types/comment';
 
 export const commentQueryKey = {
-  comments: (idCardsId: number, pageParam: number) => ['getComments', idCardsId, pageParam],
-  commentCount: (idCardsId: number) => ['getCommentCounts', idCardsId],
+  comments: (idCardsId: number, pageParam: number) => ['comments', idCardsId, pageParam],
+  commentCount: (idCardsId: number) => ['commentCount', idCardsId],
 };
 
 export const getComments = ({ idCardsId, pageParam }: CommentGetRequest) =>
