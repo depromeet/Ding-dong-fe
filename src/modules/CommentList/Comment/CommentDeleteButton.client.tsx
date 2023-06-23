@@ -9,6 +9,7 @@ export const CommentDeleteButton = ({ idCardsId, commentId }: CommentDeleteButto
   const { isOpen, openPopup, closePopup, confirm } = useConfirmPopup();
   const { mutate: mutateDeleteComment } = useDeleteComment(idCardsId);
 
+  // TODO: 내가 작성한 글만 삭제버튼 보여주기
   const deleteComment = () => {
     mutateDeleteComment({ idCardsId, commentId });
   };

@@ -13,6 +13,7 @@ export const CommentReplyDeleteButton = ({
   const { isOpen, openPopup, closePopup, confirm } = useConfirmPopup();
   const { mutate: mutateDeleteReply } = useDeleteReply(idCardsId);
 
+  // TODO: 내가 작성한 글만 삭제버튼 보여주기
   const deleteReply = () => {
     mutateDeleteReply({ idCardsId, commentId, commentReplyId });
   };
