@@ -4,7 +4,6 @@ import { getAccessToken, getAuthTokensByCookie } from '~/utils/auth/tokenHandler
 
 import { ApiError } from './customError';
 
-// TODO: onRequest와 privateApi를 삭제하고 privateApi.client, privateApi.server 로 변경
 export const onRequest = async (config: InternalAxiosRequestConfig) => {
   try {
     const auth = getAuthTokensByCookie(document.cookie);
