@@ -13,7 +13,7 @@ export const CommentReplyDeleteButton = ({
   const { isOpen, openPopup, closePopup, confirm } = useConfirmPopup();
   const { mutate: mutateDeleteReply } = useDeleteReply(idCardsId);
 
-  const deleteComment = () => {
+  const deleteReply = () => {
     mutateDeleteReply({ idCardsId, commentId, commentReplyId });
   };
 
@@ -21,7 +21,7 @@ export const CommentReplyDeleteButton = ({
     const isOk = await openPopup();
     closePopup();
     if (isOk) {
-      deleteComment();
+      deleteReply();
     }
   };
 
