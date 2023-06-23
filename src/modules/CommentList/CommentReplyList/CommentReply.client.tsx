@@ -8,13 +8,16 @@ import {
   ReplySubmitButton,
   UserProfile,
 } from '~/modules/CommentList/CommentCommon';
-import { DeleteCommentButton } from '~/modules/CommentList/CommentCommon/DeleteCommentButton.client';
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { CommentReplyModel } from '~/types/comment';
+import { CommentReplyDeleteRequest, CommentReplyModel } from '~/types/comment';
 
-type CommentProps = CommentReplyModel;
+import { CommentReplyDeleteButton } from './CommentReplyDeleteButton.client';
+
+type CommentProps = CommentReplyModel & CommentReplyDeleteRequest;
 
 export const CommentReply = ({
+  idCardsId,
+  commentId,
   commentReplyId,
   content,
   createdAt,
@@ -34,7 +37,11 @@ export const CommentReply = ({
             <div className="mt-8pxr flex gap-16pxr">
               <LikeCount commentReplyLikeInfo={commentReplyLikeInfo} />
               <ReplySubmitButton />
-              <DeleteCommentButton />
+              <CommentReplyDeleteButton
+                idCardsId={idCardsId}
+                commentId={commentId}
+                commentReplyId={commentReplyId}
+              />
             </div>
           </div>
           <div>

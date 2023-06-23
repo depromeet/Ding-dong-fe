@@ -1,11 +1,16 @@
+import { useDeleteComment } from '~/api/domain/comment.api';
 import { useConfirmPopup } from '~/components/ConfirmPopup';
 import { CommentDeletePopup } from '~/components/ConfirmPopup/CommentDeletePopup';
+import { CommentDeleteRequest } from '~/types/comment';
 
-export const DeleteCommentButton = () => {
+type CommentDeleteButtonProps = CommentDeleteRequest;
+
+export const CommentDeleteButton = ({ idCardsId, commentId }: CommentDeleteButtonProps) => {
   const { isOpen, openPopup, closePopup, confirm } = useConfirmPopup();
+  const { mutate: mutateDeleteComment } = useDeleteComment(idCardsId);
 
   const deleteComment = () => {
-    console.log('deleteComment');
+    mutateDeleteComment({ idCardsId, commentId });
   };
 
   const onDeleteComment = async () => {

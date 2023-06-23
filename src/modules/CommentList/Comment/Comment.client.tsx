@@ -12,13 +12,15 @@ import {
   ReplySubmitButton,
   UserProfile,
 } from '~/modules/CommentList/CommentCommon';
-import { DeleteCommentButton } from '~/modules/CommentList/CommentCommon/DeleteCommentButton.client';
 import { CommentReplyList } from '~/modules/CommentList/CommentReplyList';
-import { CommentModel } from '~/types/comment';
+import { CommentDeleteRequest, CommentModel } from '~/types/comment';
 
-type CommentProps = CommentModel;
+import { CommentDeleteButton } from './CommentDeleteButton.client';
+
+type CommentProps = CommentModel & CommentDeleteRequest;
 
 export const Comment = ({
+  idCardsId,
   commentId,
   content,
   createdAt,
@@ -48,7 +50,7 @@ export const Comment = ({
             <div className="mt-8pxr flex gap-16pxr">
               <LikeCount commentReplyLikeInfo={commentReplyLikeInfo} />
               <ReplySubmitButton />
-              <DeleteCommentButton />
+              <CommentDeleteButton idCardsId={idCardsId} commentId={commentId} />
             </div>
           </div>
           <div>
@@ -60,7 +62,12 @@ export const Comment = ({
           onClickShowReplyList={onClickShowReplyList}
           commentReplyInfos={commentReplyInfos}
         />
-        <CommentReplyList isShowReplyList={isShowReplyList} commentReplyInfos={commentReplyInfos} />
+        <CommentReplyList
+          idCardsId={idCardsId}
+          commentId={commentId}
+          isShowReplyList={isShowReplyList}
+          commentReplyInfos={commentReplyInfos}
+        />
         <div className="mt-24pxr">
           <ReplyHideButton
             isShowReplyList={isShowReplyList}
