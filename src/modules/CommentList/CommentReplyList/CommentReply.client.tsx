@@ -8,6 +8,7 @@ import {
   ReplySubmitButton,
   UserProfile,
 } from '~/modules/CommentList/CommentCommon';
+import { DeleteCommentButton } from '~/modules/CommentList/CommentCommon/DeleteCommentButton.client';
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { CommentReplyModel } from '~/types/comment';
 
@@ -33,6 +34,7 @@ export const CommentReply = ({
             <div className="mt-8pxr flex gap-16pxr">
               <LikeCount commentReplyLikeInfo={commentReplyLikeInfo} />
               <ReplySubmitButton />
+              <DeleteCommentButton />
             </div>
           </div>
           <div>

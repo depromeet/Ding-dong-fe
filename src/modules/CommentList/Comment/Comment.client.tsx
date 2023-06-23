@@ -12,6 +12,7 @@ import {
   ReplySubmitButton,
   UserProfile,
 } from '~/modules/CommentList/CommentCommon';
+import { DeleteCommentButton } from '~/modules/CommentList/CommentCommon/DeleteCommentButton.client';
 import { CommentReplyList } from '~/modules/CommentList/CommentReplyList';
 import { CommentModel } from '~/types/comment';
 
@@ -47,6 +48,7 @@ export const Comment = ({
             <div className="mt-8pxr flex gap-16pxr">
               <LikeCount commentReplyLikeInfo={commentReplyLikeInfo} />
               <ReplySubmitButton />
+              <DeleteCommentButton />
             </div>
           </div>
           <div>
