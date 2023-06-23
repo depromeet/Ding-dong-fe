@@ -2,8 +2,8 @@ import { Meta } from '@storybook/react';
 
 import { createNotification, createNotificationList } from '~/mocks/notification/notification.mock';
 
-import { NotificationItem } from './NotificationItem.client';
-import { NotificationList } from './NotificationList.client';
+import { NotificationItem } from './NotificationItem';
+import { NotificationList } from './NotificationList';
 
 const meta: Meta<typeof NotificationItem> = {
   title: 'modules/Notification',
@@ -17,4 +17,8 @@ const MOCK_NOTIFICATION = createNotification(123);
 export const Item = () => <NotificationItem {...MOCK_NOTIFICATION} />;
 
 const MOCK_NOTIFICATIONS = createNotificationList(10, 1, 10);
-export const List = () => <NotificationList notifications={MOCK_NOTIFICATIONS.content} />;
+export const List = () => (
+  <div className="px-5">
+    <NotificationList notifications={MOCK_NOTIFICATIONS.content} />
+  </div>
+);
