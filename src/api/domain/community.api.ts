@@ -1,4 +1,5 @@
 import { useInfiniteQuery, useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useRouter } from 'next/navigation';
 
 import privateApi from '~/api/config/privateApi';
 import {
@@ -54,12 +55,14 @@ export const postCommunityCreate = (community: CreateCommunityRequest) =>
 export const usePostCommunityCreate = () => {
   const queryClient = useQueryClient();
   const userId = getUserIdClient();
+  const router = useRouter();
 
   return useMutation({
     mutationFn: (community: CreateCommunityRequest) => postCommunityCreate(community),
     onSuccess: () => {
       queryClient.invalidateQueries(communityQueryKey.communityList(userId));
       //TODO: BE 응답형태 변경 후 반영
+      router.replace('/admin/community/create/result');
     },
   });
 };
