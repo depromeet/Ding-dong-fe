@@ -80,7 +80,11 @@ export const CommunityAdminEditForm = ({
             isDuplicatedCheck === 'DEFAULT' ? '행성 이름은 언제든지 바꿀 수 있어요!' : undefined
           }
         >
-          <TextInput.Content {...register('name', { required: true })} onChange={onChangeHandler} />
+          <TextInput.Content
+            {...register('name', { required: true })}
+            onChange={onChangeHandler}
+            placeholder="행성 이름을 입력해주세요"
+          />
           <Button
             type="button"
             onClick={onCheck}
