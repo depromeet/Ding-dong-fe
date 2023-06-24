@@ -65,7 +65,8 @@ export const CommunityAdminEditForm = ({
           maxLength={TEXT_MAX_LENGTH}
           direction="row"
           className="py-8pxr"
-          errorMessage={isDuplicatedCheck === 'ERROR' ? '이미 사용중인 이름이에요.' : undefined}
+          errorMessage={isDuplicatedCheck === 'ERROR' ? '이미 사용중인 이름이에요' : undefined}
+          infoMessage={isDuplicatedCheck === 'SUCCESS' ? '사용할 수 있는 이름이에요' : undefined}
         >
           <TextInput.Content
             {...register('title', { required: true })}
