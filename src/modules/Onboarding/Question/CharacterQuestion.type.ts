@@ -1,8 +1,8 @@
 import { CharacterAlphabetType, CharacterCreationFormType } from '../CharacterCreation.type';
 
 type OptionType = {
-  name: CharacterAlphabetType;
-  value: string;
+  fieldValue: CharacterAlphabetType;
+  content: string;
 };
 
 export type QuestionDetail = {

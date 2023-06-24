@@ -36,6 +36,7 @@ export const CharacterCreationForm = ({
     formState: { isValid, isSubmitting },
     setValue,
     handleSubmit,
+    watch,
   } = useForm<CharacterCreationFormType>({});
 
   const canSubmit = isValid && !isSubmitting;
@@ -45,15 +46,19 @@ export const CharacterCreationForm = ({
       const characterName = getCharacterName(values);
       // TODO : api 추가
       onSubmit(characterName);
-    });
+    })();
     onNext();
   };
   const step = steps[stepOrder] as keyof QuestionsType;
   const currentQuestionInfo = characterCreationQuestions[step];
   const onQuestionButtonClick = (e: MouseEvent<HTMLButtonElement>) => {
     setValue(currentQuestionInfo.fieldName, e.currentTarget.name as CharacterAlphabetType);
-    onNext();
+    if (steps[stepOrder] !== 'FOURTH') {
+      onNext();
+    }
   };
+
+  const fieldValue = watch(characterCreationQuestions[step]['fieldName']);
 
   return (
     <div>
@@ -79,6 +84,7 @@ export const CharacterCreationForm = ({
           firstOption={currentQuestionInfo.firstOption}
           secondOption={currentQuestionInfo.secondOption}
           onQuestionButtonClick={onQuestionButtonClick}
+          selectedFieldValue={fieldValue}
         />
       </div>
     </div>
