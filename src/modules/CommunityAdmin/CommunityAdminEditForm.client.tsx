@@ -82,10 +82,12 @@ export const CommunityAdminEditForm = ({
         >
           <TextInput.Content {...register('name', { required: true })} onChange={onChangeHandler} />
           <Button
+            type="button"
             onClick={onCheck}
             size="small"
             color="secondary"
             className="w-fit shrink-0 px-12pxr py-8pxr"
+            disabled={isDuplicatedCheck === 'SUCCESS'}
           >
             중복확인
           </Button>
