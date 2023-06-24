@@ -19,6 +19,6 @@ export const Default: Story = {
     image: '/assets/images/onboarding-question-ticket.png',
     firstOption: { name: 'E', value: '옆자리에 앉은 사람에게 말을 건다.' },
     secondOption: { name: 'I', value: '풍경을 보며 나만의 시간을 즐긴다.' },
-    onClick: (e: MouseEvent<HTMLButtonElement>) => console.log(e.currentTarget.name),
+    onQuestionButtonClick: (e: MouseEvent<HTMLButtonElement>) => console.log(e.currentTarget.name),
   },
 };
