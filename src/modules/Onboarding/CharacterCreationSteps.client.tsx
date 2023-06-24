@@ -20,8 +20,14 @@ const steps: CharactorCreationStepsType[] = [
 
 export const CharacterCreationSteps = () => {
   const [stepOrder, setStepOrder] = useState<number>(0);
-  const onNext = () => setStepOrder(stepOrder + 1);
-  const onPrev = () => setStepOrder(stepOrder - 1);
+  const onNext = () => {
+    if (stepOrder >= 5) return;
+    setStepOrder(stepOrder + 1);
+  };
+  const onPrev = () => {
+    if (stepOrder <= 0) return;
+    setStepOrder(stepOrder - 1);
+  };
 
   const [selectedCharacter, setSelectedCharacter] = useState<CharacterNameModel>();
   const onSubmit = (name: CharacterNameModel) => {
