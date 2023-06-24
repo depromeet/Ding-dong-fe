@@ -4,12 +4,18 @@ import { useState } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { twMerge } from 'tailwind-merge';
 
+import { usePostCommunityUpdate } from '~/api/domain/community.api';
 import { TopNavigation } from '~/components/TopNavigation';
 import { CommunityDetailModel } from '~/types/community';
 
 import { CommunityAdminEditForm } from './CommunityAdminEditForm.client';
 export type DuplicateState = 'DEFAULT' | 'SUCCESS' | 'ERROR';
-export const CommunityAdminEdit = ({ logoImageUrl, title, description }: CommunityDetailModel) => {
+export const CommunityAdminEdit = ({
+  logoImageUrl,
+  title,
+  description,
+  communityId,
+}: CommunityDetailModel) => {
   const [isDuplicatedCheck, setIsDuplicatedCheck] = useState<DuplicateState>('DEFAULT');
 
   const methods = useForm<CommunityDetailModel>({
@@ -19,6 +25,8 @@ export const CommunityAdminEdit = ({ logoImageUrl, title, description }: Communi
       description,
     },
   });
+
+  const mutation = usePostCommunityUpdate(communityId);
 
   return (
     <div>
@@ -45,6 +53,7 @@ export const CommunityAdminEdit = ({ logoImageUrl, title, description }: Communi
       <div className="mt-24pxr px-20pxr">
         <FormProvider {...methods}>
           <CommunityAdminEditForm
+            mutation={mutation}
             isDuplicatedCheck={isDuplicatedCheck}
             setIsDuplicatedCheck={setIsDuplicatedCheck}
           />

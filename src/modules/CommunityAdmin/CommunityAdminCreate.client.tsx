@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 
+import { usePostCommunityCreate } from '~/api/domain/community.api';
 import { Button } from '~/components/Button';
 import { TopNavigation } from '~/components/TopNavigation';
 import { CreateCommunityRequest } from '~/types/community';
@@ -19,6 +20,8 @@ export const CommunityAdminCreate = () => {
       logoImageUrl: '',
     },
   });
+
+  const mutation = usePostCommunityCreate();
   return (
     <div>
       <TopNavigation>
@@ -35,6 +38,7 @@ export const CommunityAdminCreate = () => {
         </p>
         <FormProvider {...methods}>
           <CommunityAdminEditForm
+            mutation={mutation}
             isDuplicatedCheck={isDuplicatedCheck}
             setIsDuplicatedCheck={setIsDuplicatedCheck}
           />

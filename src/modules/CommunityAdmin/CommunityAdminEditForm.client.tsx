@@ -1,10 +1,11 @@
+import { UseMutationResult } from '@tanstack/react-query';
 import { useFormContext } from 'react-hook-form';
 
 import { Button } from '~/components/Button';
 import { ProfileImageEdit } from '~/components/ProfileImageEdit';
 import { TextArea, useTextArea } from '~/components/TextArea';
 import { TextInput, useTextInput } from '~/components/TextInput';
-import { CommunityDetailModel } from '~/types/community';
+import { CommunityUpdateResponse, CreateCommunityRequest } from '~/types/community';
 
 import { DuplicateState } from './CommunityAdminEdit.client';
 
@@ -15,26 +16,31 @@ type CommunityAdminEditFormProps = {
   isDuplicatedCheck: DuplicateState;
   setIsDuplicatedCheck: (isChecked: DuplicateState) => void;
   hasDescription?: boolean;
+  mutation: UseMutationResult<CommunityUpdateResponse, unknown, CreateCommunityRequest, unknown>;
 };
 export const CommunityAdminEditForm = ({
   isDuplicatedCheck,
   setIsDuplicatedCheck,
   hasDescription,
+  mutation,
 }: CommunityAdminEditFormProps) => {
-  const onSubmit = () => console.log('제출');
+  const onSubmit = (data: CreateCommunityRequest) => {
+    console.log('제출');
+    mutation.mutate(data);
+  };
 
   const {
     register,
     setValue,
     handleSubmit,
     formState: { defaultValues },
-  } = useFormContext<CommunityDetailModel>();
+  } = useFormContext<CreateCommunityRequest>();
 
   const defaultPlanetLogoImage =
     defaultValues?.logoImageUrl || '/assets/images/default_planet_logo.png';
 
   const { textCount, onChangeHandler } = useTextInput({
-    onChange: register('title').onChange,
+    onChange: register('name').onChange,
     maxLength: TEXT_MAX_LENGTH,
   });
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -74,10 +80,7 @@ export const CommunityAdminEditForm = ({
             isDuplicatedCheck === 'DEFAULT' ? '행성 이름은 언제든지 바꿀 수 있어요!' : undefined
           }
         >
-          <TextInput.Content
-            {...register('title', { required: true })}
-            onChange={onChangeHandler}
-          />
+          <TextInput.Content {...register('name', { required: true })} onChange={onChangeHandler} />
           <Button
             onClick={onCheck}
             size="small"

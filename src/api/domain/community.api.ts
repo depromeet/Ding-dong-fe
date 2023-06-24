@@ -2,7 +2,6 @@ import { useInfiniteQuery, useMutation, useQuery, useQueryClient } from '@tansta
 
 import privateApi from '~/api/config/privateApi';
 import {
-  CommunityCodeModel,
   CommunityDetailResponse,
   CommunityIdCardsResponse,
   CommunityListResponse,
@@ -50,7 +49,7 @@ export const useGetCommunityList = (userId: number) => {
 };
 
 export const postCommunityCreate = (community: CreateCommunityRequest) =>
-  privateApi.post<CommunityCodeModel>(`/communities`, community);
+  privateApi.post<CommunityUpdateResponse>(`/communities`, community);
 
 export const usePostCommunityCreate = () => {
   const queryClient = useQueryClient();
@@ -67,12 +66,12 @@ export const usePostCommunityCreate = () => {
 export const postCommunityUpdate = (communityId: number, community: CreateCommunityRequest) =>
   privateApi.put<CommunityUpdateResponse>(`/communities/${communityId}`, community);
 
-export const usePostCommunityUpdate = (communityId: number, community: CreateCommunityRequest) => {
+export const usePostCommunityUpdate = (communityId: number) => {
   const queryClient = useQueryClient();
   const userId = getUserIdClient();
 
   return useMutation({
-    mutationFn: () => postCommunityUpdate(communityId, community),
+    mutationFn: (community: CreateCommunityRequest) => postCommunityUpdate(communityId, community),
     onSuccess: () => {
       queryClient.invalidateQueries(communityQueryKey.communityList(userId));
     },
