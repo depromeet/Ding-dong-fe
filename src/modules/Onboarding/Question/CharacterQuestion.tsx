@@ -3,7 +3,7 @@ import { MouseEvent } from 'react';
 
 import { QuestionDetail } from './CharacterQuestion.type';
 type CharacterQuestionProps = Omit<QuestionDetail, 'fieldName'> & {
-  onClick: (e: MouseEvent<HTMLButtonElement>) => void;
+  onQuestionButtonClick: (e: MouseEvent<HTMLButtonElement>) => void;
 };
 
 export const CharacterQuestion = ({
@@ -11,7 +11,7 @@ export const CharacterQuestion = ({
   image,
   firstOption,
   secondOption,
-  onClick,
+  onQuestionButtonClick,
 }: CharacterQuestionProps) => {
   return (
     <div>
@@ -34,7 +34,7 @@ export const CharacterQuestion = ({
               value={value}
               className="rounded-[12px] border-[1px] border-solid border-grey-200 bg-grey-50 px-24pxr py-27pxr text-b1 text-gray-800"
               type="button"
-              onClick={onClick}
+              onClick={onQuestionButtonClick}
             >
               {value}
             </button>

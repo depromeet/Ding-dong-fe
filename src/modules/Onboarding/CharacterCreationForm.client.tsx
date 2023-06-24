@@ -78,7 +78,7 @@ export const CharacterCreationForm = ({
   };
   const step = steps[stepOrder] as keyof QuestionsType;
   const currentQuestionInfo = questions[step];
-  const onClick = (e: MouseEvent<HTMLButtonElement>) => {
+  const onQuestionButtonClick = (e: MouseEvent<HTMLButtonElement>) => {
     setValue(currentQuestionInfo.fieldName, e.currentTarget.name as CharacterAlphabetType);
     onNext();
   };
@@ -106,7 +106,7 @@ export const CharacterCreationForm = ({
           image={currentQuestionInfo.image}
           firstOption={currentQuestionInfo.firstOption}
           secondOption={currentQuestionInfo.secondOption}
-          onClick={onClick}
+          onQuestionButtonClick={onQuestionButtonClick}
         />
       </div>
     </div>
