@@ -54,14 +54,14 @@ export const CommunityAdminEditForm = ({
   return (
     <form id="community-admin-edit-form" onSubmit={handleSubmit(onSubmit)}>
       <ProfileImageEdit
-        className="mx-auto mt-20pxr"
+        className="mx-auto mb-6"
         fieldName="logoImageUrl"
         defaultProfileImage={defaultPlanetLogoImage}
         setValue={setValue}
       />
       <TextInput onClick={onClickTitle}>
         <TextInput.Label name="title" required>
-          이름
+          행성 이름
         </TextInput.Label>
         <TextInput.Border
           textCount={textCount}
@@ -70,6 +70,9 @@ export const CommunityAdminEditForm = ({
           className="py-8pxr"
           errorMessage={isDuplicatedCheck === 'ERROR' ? '이미 사용중인 이름이에요' : undefined}
           infoMessage={isDuplicatedCheck === 'SUCCESS' ? '사용할 수 있는 이름이에요' : undefined}
+          placeholder={
+            isDuplicatedCheck === 'DEFAULT' ? '행성 이름은 언제든지 바꿀 수 있어요!' : undefined
+          }
         >
           <TextInput.Content
             {...register('title', { required: true })}
