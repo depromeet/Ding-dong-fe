@@ -32,7 +32,7 @@ export const CharacterQuestion = ({
               key={name}
               name={name}
               value={value}
-              className="rounded-[12px] border-[1px] border-solid border-grey-200 bg-grey-50 px-24pxr py-27pxr text-b1 text-gray-800"
+              className="rounded-[12px] border-[1px] border-solid border-grey-200 bg-grey-50 px-24pxr py-27pxr text-left text-b1 text-gray-800"
               type="button"
               onClick={onQuestionButtonClick}
             >
