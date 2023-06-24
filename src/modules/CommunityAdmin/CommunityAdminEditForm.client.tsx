@@ -1,10 +1,10 @@
-import { faker } from '@faker-js/faker';
 import { useFormContext } from 'react-hook-form';
 
 import { Button } from '~/components/Button';
 import { ProfileImageEdit } from '~/components/ProfileImageEdit';
 import { TextArea, useTextArea } from '~/components/TextArea';
 import { TextInput, useTextInput } from '~/components/TextInput';
+import { CommunityDetailModel } from '~/types/community';
 
 import { DuplicateState } from './CommunityAdminEdit.client';
 
@@ -14,14 +14,25 @@ const TEXT_AREA_MAX_LENGTH = 50;
 type CommunityAdminEditFormProps = {
   isDuplicatedCheck: DuplicateState;
   setIsDuplicatedCheck: (isChecked: DuplicateState) => void;
+  hasDescription?: boolean;
 };
 export const CommunityAdminEditForm = ({
   isDuplicatedCheck,
   setIsDuplicatedCheck,
+  hasDescription,
 }: CommunityAdminEditFormProps) => {
   const onSubmit = () => console.log('제출');
 
-  const { register, setValue, handleSubmit } = useFormContext();
+  const {
+    register,
+    setValue,
+    handleSubmit,
+    formState: { defaultValues },
+  } = useFormContext<CommunityDetailModel>();
+
+  const defaultPlanetLogoImage =
+    defaultValues?.logoImageUrl || '/assets/images/default_planet_logo.png';
+
   const { textCount, onChangeHandler } = useTextInput({
     onChange: register('title').onChange,
     maxLength: TEXT_MAX_LENGTH,
@@ -41,8 +52,8 @@ export const CommunityAdminEditForm = ({
     <form id="community-admin-edit-form" onSubmit={handleSubmit(onSubmit)}>
       <ProfileImageEdit
         className="mx-auto mt-20pxr"
-        fieldName="profileImageUrl"
-        defaultProfileImage={faker.image.avatar()}
+        fieldName="logoImageUrl"
+        defaultProfileImage={defaultPlanetLogoImage}
         setValue={setValue}
       />
       <TextInput>
@@ -70,12 +81,14 @@ export const CommunityAdminEditForm = ({
           </Button>
         </TextInput.Border>
       </TextInput>
-      <TextArea>
-        <TextArea.Label name="description">소개</TextArea.Label>
-        <TextArea.Border textCount={textareaCount} maxLength={TEXT_AREA_MAX_LENGTH}>
-          <TextArea.Content {...register('description')} onChange={onTextareaChangeHandler} />
-        </TextArea.Border>
-      </TextArea>
+      {hasDescription && (
+        <TextArea>
+          <TextArea.Label name="description">소개</TextArea.Label>
+          <TextArea.Border textCount={textareaCount} maxLength={TEXT_AREA_MAX_LENGTH}>
+            <TextArea.Content {...register('description')} onChange={onTextareaChangeHandler} />
+          </TextArea.Border>
+        </TextArea>
+      )}
     </form>
   );
 };
