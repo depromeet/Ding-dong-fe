@@ -5,7 +5,7 @@ import { useState } from 'react';
 import { CharacterNameModel } from '~/types/idCard';
 
 import { CharactorCreationStepsType } from './CharacterCreation.type';
-import { CharacterCreationForm } from './CharacterCreationForm.client';
+import { CharacterCreationForm } from './Form/CharacterCreationForm.client';
 import { CharacterBoardingStep } from './Step/CharacterBoardingStep';
 import { CharacterCompleteStep } from './Step/CharacterCompleteStep';
 
