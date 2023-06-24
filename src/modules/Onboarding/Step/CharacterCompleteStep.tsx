@@ -1,4 +1,7 @@
+'use client';
+
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 
 import { Template } from '~/components/Template';
 import { CharacterNameModel } from '~/types/idCard';
@@ -39,6 +42,11 @@ const characterInfo: Record<CharacterNameModel, CharacterInfo> = {
 
 export const CharacterCompleteStep = ({ characterName }: CharacterCompleteStepProps) => {
   const { title, description, image } = characterInfo[characterName];
+  const router = useRouter();
+  const onButtonClick = () => {
+    // TODO: 가입한 행성이 있는지, 없는지에 따라서 경로가 달라짐
+    router.replace('/');
+  };
 
   return (
     <Template>
@@ -51,7 +59,7 @@ export const CharacterCompleteStep = ({ characterName }: CharacterCompleteStepPr
       <Template.Content>
         <Image src={image} width={312} height={302} alt="character image" />
       </Template.Content>
-      <Template.Button>완료</Template.Button>
+      <Template.Button onClick={onButtonClick}>완료</Template.Button>
     </Template>
   );
 };
