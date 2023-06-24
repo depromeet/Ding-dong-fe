@@ -48,6 +48,9 @@ export const CommunityAdminEditForm = ({
     setIsDuplicatedCheck('SUCCESS');
     // setIsDuplicatedCheck('ERROR');
   };
+
+  const onClickTitle = () => isDuplicatedCheck !== 'DEFAULT' && setIsDuplicatedCheck('DEFAULT');
+
   return (
     <form id="community-admin-edit-form" onSubmit={handleSubmit(onSubmit)}>
       <ProfileImageEdit
@@ -56,7 +59,7 @@ export const CommunityAdminEditForm = ({
         defaultProfileImage={defaultPlanetLogoImage}
         setValue={setValue}
       />
-      <TextInput>
+      <TextInput onClick={onClickTitle}>
         <TextInput.Label name="title" required>
           이름
         </TextInput.Label>
