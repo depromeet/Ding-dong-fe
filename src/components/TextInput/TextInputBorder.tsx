@@ -6,6 +6,7 @@ import { tw } from '~/utils/tailwind.util';
 type TextInputBorderProps = {
   errorMessage?: string;
   infoMessage?: string;
+  placeholder?: string;
   textCount?: number;
   maxLength?: number;
   disabled?: boolean;
@@ -16,6 +17,7 @@ type TextInputBorderProps = {
 export const TextInputBorder = ({
   errorMessage,
   infoMessage,
+  placeholder,
   disabled,
   textCount,
   maxLength,
@@ -50,6 +52,7 @@ export const TextInputBorder = ({
           <div className="">
             {errorMessage && <p className="text-detail text-error">{errorMessage}</p>}
             {infoMessage && <p className="text-detail text-blue-500">{infoMessage}</p>}
+            {placeholder && <p className="text-detail text-gray-500">{placeholder}</p>}
           </div>
           {!!maxLength && (
             <div className="flex justify-end gap-1pxr text-detail text-grey-500">
