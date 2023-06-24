@@ -15,7 +15,7 @@ type CharacterBoardingStepProps = {
 export const CharacterBoardingStep = ({ onNext }: CharacterBoardingStepProps) => {
   return (
     <Template>
-      <Template.Title className="text-black">
+      <Template.Title className="text-grey-900">
         <h1>{info.title}</h1>
       </Template.Title>
       <Template.Description className="mt-17pxr text-grey-500">
