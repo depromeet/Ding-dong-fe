@@ -7,7 +7,7 @@ import { CharacterNameModel } from '~/types/idCard';
 import { CharactorCreationStepsType } from './CharacterCreation.type';
 import { CharacterCreationForm } from './Form/CharacterCreationForm.client';
 import { CharacterBoardingStep } from './Step/CharacterBoardingStep';
-import { CharacterCompleteStep } from './Step/CharacterCompleteStep';
+import { CharacterCompleteStep } from './Step/CharacterCompleteStep.client';
 
 const steps: CharactorCreationStepsType[] = [
   'BOARDING',

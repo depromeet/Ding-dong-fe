@@ -1,1 +1,1 @@
-export * from './CharacterCompleteStep';
+export * from './CharacterCompleteStep.client';
