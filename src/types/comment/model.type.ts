@@ -18,6 +18,7 @@ export type CommentReplyModel = {
 };
 
 export type CommentModel = {
+  idCardId: number;
   commentId: number;
   content: string;
   createdAt: string;

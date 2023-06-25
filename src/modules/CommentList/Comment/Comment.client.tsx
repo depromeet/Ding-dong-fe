@@ -18,6 +18,7 @@ import { CommentModel } from '~/types/comment';
 type CommentProps = CommentModel;
 
 export const Comment = ({
+  idCardId,
   commentId,
   content,
   createdAt,
