@@ -18,17 +18,6 @@ export type CommentPostReplyRequest = {
   contents: string;
 };
 
-export type CommentReplyLikeRequest = {
-  idCardsId: number;
-  commentId: number;
-  commentReplyId: number;
-};
-
-export type CommentLikeRequest = {
-  idCardsId: number;
-  commentId: number;
-};
-
 export type CommentDeleteRequest = {
   idCardsId: number;
   commentId: number;
@@ -40,14 +29,24 @@ export type CommentReplyDeleteRequest = {
   commentReplyId: number;
 };
 
+export type CommentLikeRequest = {
+  idCardsId: number;
+  commentId: number;
+};
+
+export type CommentReplyLikeRequest = {
+  idCardsId: number;
+  commentId: number;
+  commentReplyId: number;
+};
+
 export type CommentLikeCancelRequest = {
   idCardsId: number;
   commentId: number;
-  commentLikeId: number;
 };
 
 export type CommentReplyLikeCancelRequest = {
   idCardsId: number;
   commentId: number;
-  commentLikeId: number;
+  commentReplyId: number;
 };
