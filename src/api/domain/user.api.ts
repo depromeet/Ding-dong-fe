@@ -2,7 +2,7 @@ import { useMutation, UseMutationOptions, useQuery } from '@tanstack/react-query
 import { AxiosError } from 'axios';
 
 import privateApi from '~/api/config/privateApi';
-import { CharacterCreateRequest } from '~/types/character';
+import { CharacterCreateRequest } from '~/types/user';
 import { UserInfoResponse } from '~/types/user';
 
 export const userQueryKey = {
