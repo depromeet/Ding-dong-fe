@@ -9,17 +9,26 @@ import {
   CommentDeleteResponse,
   CommentGetRequest,
   CommentGetResponse,
+  CommentLikeCancelDeleteResponse,
+  CommentLikeCancelRequest,
+  CommentLikePostResponse,
+  CommentLikeRequest,
   CommentPostReplyRequest,
   CommentPostReplyResponse,
   CommentPostRequest,
   CommentPostResponse,
   CommentReplyDeleteRequest,
+  CommentReplyLikeCancelDeleteResponse,
+  CommentReplyLikeCancelRequest,
+  CommentReplyLikePostResponse,
+  CommentReplyLikeRequest,
 } from '~/types/comment';
 
 const FIRST_COMMENT_PAGE = 1;
+
 export const commentQueryKey = {
   comments: (idCardsId: number, pageParam: number) => ['comments', idCardsId, pageParam],
-  commentCount: (idCardsId: number) => ['commentCount', idCardsId],
+  commentCount: (idCardsId: number) => ['commentCounts', idCardsId],
 };
 
 export const getComments = ({ idCardsId, pageParam }: CommentGetRequest) =>
@@ -65,7 +74,8 @@ export const useDeleteComment = (idCardsId: number) => {
 
   return useMutation({
     mutationFn: (commentInfo: CommentDeleteRequest) => deleteComment(commentInfo),
-    onSuccess: () => queryClient.invalidateQueries(commentQueryKey.comments(idCardsId, 0)),
+    onSuccess: () =>
+      queryClient.invalidateQueries(commentQueryKey.comments(idCardsId, FIRST_COMMENT_PAGE)),
   });
 };
 
@@ -99,5 +109,71 @@ export const useDeleteReply = (idCardsId: number) => {
       queryClient.invalidateQueries(commentQueryKey.comments(idCardsId, FIRST_COMMENT_PAGE)),
   });
 };
+
+export const postLikeComment = ({ idCardsId, commentId }: CommentLikeRequest) =>
+  privateApi.post<CommentLikePostResponse>(`/id-cards/${idCardsId}/comments/${commentId}/likes`);
+
+export const usePostLikeComment = ({ idCardsId, commentId }: CommentLikeRequest) => {
+  return useMutation({
+    mutationFn: () => postLikeComment({ idCardsId, commentId }),
+    onError: () => {
+      // 토스트 알람
+      return false;
+    },
+  });
+};
+
+export const postLikeReply = ({ idCardsId, commentId, commentReplyId }: CommentReplyLikeRequest) =>
+  privateApi.post<CommentReplyLikePostResponse>(
+    `/id-cards/${idCardsId}/comments/${commentId}/replies/${commentReplyId}/reply-likes`,
+  );
+
+export const usePostLikeReply = ({
+  idCardsId,
+  commentId,
+  commentReplyId,
+}: CommentReplyLikeRequest) => {
+  return useMutation({
+    mutationFn: () => postLikeReply({ idCardsId, commentId, commentReplyId }),
+    onError: () => {
+      // 토스트 알람
+      return false;
+    },
+  });
+};
+
+export const deleteCommentLike = ({ idCardsId, commentId }: CommentLikeCancelRequest) =>
+  privateApi.delete<CommentLikeCancelDeleteResponse>(
+    `/id-cards/${idCardsId}/comments/${commentId}/likes`,
+  );
+
+export const useDeleteCommentLike = ({ idCardsId, commentId }: CommentLikeCancelRequest) => {
+  return useMutation({
+    mutationFn: () => deleteCommentLike({ idCardsId, commentId }),
+    onError: () => {
+      // 토스트 알람
+    },
+  });
+};
+
+export const deleteCommentReplyLike = ({
+  idCardsId,
+  commentId,
+  commentReplyId,
+}: CommentReplyLikeCancelRequest) =>
+  privateApi.delete<CommentReplyLikeCancelDeleteResponse>(
+    `/id-cards/${idCardsId}/comments/${commentId}/replies/${commentReplyId}/reply-likes/`,
+  );
+
+export const useDeleteCommentReplyLike = ({
+  idCardsId,
+  commentId,
+  commentReplyId,
+}: CommentReplyLikeCancelRequest) => {
+  return useMutation({
+    mutationFn: () => deleteCommentReplyLike({ idCardsId, commentId, commentReplyId }),
+    onError: () => {
+      // 토스트 알람
+    },
   });
 };
