@@ -7,7 +7,7 @@ import { TextArea, useTextArea } from '~/components/TextArea';
 import { TextInput, useTextInput } from '~/components/TextInput';
 import { CommunityUpdateResponse, CreateCommunityRequest } from '~/types/community';
 
-import { DuplicateState } from './CommunityAdminEdit.client';
+import { DuplicateState } from './CommunityAdmin.type';
 
 const TEXT_MAX_LENGTH = 16;
 const TEXT_AREA_MAX_LENGTH = 50;
