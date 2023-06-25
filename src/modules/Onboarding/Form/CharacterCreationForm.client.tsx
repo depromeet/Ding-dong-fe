@@ -2,6 +2,7 @@
 import { MouseEvent } from 'react';
 import { useForm } from 'react-hook-form';
 
+import { usePostCharacterCreate } from '~/api/domain/character.api';
 import { TopNavigation } from '~/components/TopNavigation';
 import {
   CharacterAlphabetType,
@@ -38,13 +39,14 @@ export const CharacterCreationForm = ({
     handleSubmit,
     watch,
   } = useForm<CharacterCreationFormType>({});
+  const { mutateAsync } = usePostCharacterCreate();
 
   const canSubmit = isValid && !isSubmitting;
   const submitButtonStyle = canSubmit ? 'text-primary-500' : 'text-grey-400';
   const onSubmitClick = () => {
-    handleSubmit(values => {
+    handleSubmit(async values => {
       const characterName = getCharacterName(values);
-      // TODO : api 추가
+      await mutateAsync(characterName);
       onSubmit(characterName);
     })();
     onNext();

@@ -1,3 +1,5 @@
+import { CharacterNameModel } from '~/types/idCard';
+
 import { CharacterCreationFormType } from '../CharacterCreation.type';
 import { QuestionDetail } from '../Question/CharacterQuestion.type';
 
@@ -34,7 +36,9 @@ export const characterCreationQuestions: QuestionsType = {
   },
 };
 
-export const getCharacterName = (characterAlphabet: CharacterCreationFormType) => {
+export const getCharacterName = (
+  characterAlphabet: CharacterCreationFormType,
+): CharacterNameModel => {
   const { firstAlphabet, secondAlphabet, thirdAlphabet, fourthAlphabet } = characterAlphabet;
   const characterWord = [firstAlphabet, secondAlphabet, thirdAlphabet, fourthAlphabet].join('');
   switch (characterWord) {
