@@ -30,7 +30,8 @@ export const createCommentReply = (idx: number): CommentReplyModel => ({
 export const createCommentReplyList = (n: number) =>
   Array.from({ length: n }, (_, idx) => createCommentReply(Number(`${idx}${idx}`)));
 
-export const createComment = (idx: number): CommentModel => ({
+export const createComment = (idCardId: number, idx: number): CommentModel => ({
+  idCardId,
   commentId: idx,
   content: faker.lorem.sentence({ min: 1, max: 100 }),
   createdAt: faker.date
@@ -48,8 +49,9 @@ export const createCommentList = (
   n: number,
   page: number,
   size: number,
+  idCardId: number,
 ): SliceResponse<CommentModel> => ({
-  content: Array.from({ length: n }, (_, idx) => createComment(idx)),
+  content: Array.from({ length: n }, (_, idx) => createComment(idCardId, idx)),
   page,
   size,
   hasNext: page === 5,
