@@ -24,3 +24,19 @@ export type CommentPostReplyResponse = {
 export type CommentDeleteReplyResponse = {
   id: number;
 };
+
+export type CommentLikePostResponse = {
+  id: number;
+};
+
+export type CommentReplyLikePostResponse = {
+  id: number;
+};
+
+export type CommentLikeCancelDeleteResponse = {
+  id: number;
+};
+
+export type CommentReplyLikeCancelDeleteResponse = {
+  id: number;
+};
