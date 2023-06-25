@@ -5,8 +5,8 @@ import { CharacterCreateRequest } from '~/types/character';
 
 import privateApi from '../config/privateApi';
 
-export const postCharacterCreate = (name: CharacterCreateRequest) =>
-  privateApi.post(`/character`, { name });
+export const postCharacterCreate = (characterName: CharacterCreateRequest) =>
+  privateApi.post(`/user/character`, { character: characterName });
 
 export const usePostCharacterCreate = (
   options?: Omit<UseMutationOptions<unknown, AxiosError, CharacterCreateRequest>, 'mutationFn'>,

@@ -2,7 +2,7 @@
 import { MouseEvent } from 'react';
 import { useForm } from 'react-hook-form';
 
-import { usePostCharacterCreate } from '~/api/domain/character.api';
+import { usePostCharacterCreate } from '~/api/domain/user.api';
 import { TopNavigation } from '~/components/TopNavigation';
 import {
   CharacterAlphabetType,
