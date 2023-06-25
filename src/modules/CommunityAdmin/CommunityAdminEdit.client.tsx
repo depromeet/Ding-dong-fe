@@ -8,8 +8,9 @@ import { usePostCommunityUpdate } from '~/api/domain/community.api';
 import { TopNavigation } from '~/components/TopNavigation';
 import { CommunityDetailModel } from '~/types/community';
 
+import { DuplicateState } from './CommunityAdmin.type';
 import { CommunityAdminEditForm } from './CommunityAdminEditForm.client';
-export type DuplicateState = 'DEFAULT' | 'SUCCESS' | 'ERROR';
+
 export const CommunityAdminEdit = ({
   logoImageUrl,
   title,

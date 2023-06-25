@@ -8,7 +8,7 @@ import { Button } from '~/components/Button';
 import { TopNavigation } from '~/components/TopNavigation';
 import { CreateCommunityRequest } from '~/types/community';
 
-import { DuplicateState } from './CommunityAdminEdit.client';
+import { DuplicateState } from './CommunityAdmin.type';
 import { CommunityAdminEditForm } from './CommunityAdminEditForm.client';
 
 export const CommunityAdminCreate = () => {
