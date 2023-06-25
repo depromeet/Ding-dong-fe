@@ -22,9 +22,12 @@ export const InjectQueryDataNotification = () => {
   return (
     <>
       {data?.pages.map(page => (
-        <NotificationList notifications={page.data.content} key={page.data.page} />
+        <div key={page.data.page}>
+          <NotificationList notifications={page.data.content} />
+          {page.data.hasNext && <div ref={ref}></div>}
+        </div>
       ))}
-      <div ref={ref}></div>
+
       {!data?.pages && <div>새로운 알림이 없습니다.</div>}
     </>
   );
