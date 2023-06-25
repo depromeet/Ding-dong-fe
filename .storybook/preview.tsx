@@ -11,6 +11,8 @@ import { AUTH_COOKIE_KEYS } from '../src/types/auth/response.type';
 
 // TODO: Provider폴더 구조 정해지면 수정해야합니다!
 const queryClient = new QueryClient();
+const now = new Date();
+const expireDate = Number(now.setDate(now.getDate() + 1));
 
 // Initialize MSW
 initialize();
@@ -55,11 +57,10 @@ const preview: Preview = {
       return config;
     },
     cookie: {
-      //  TODO: 개발용 token으로 변경, env.dev 사용
       [AUTH_COOKIE_KEYS.accessToken]: '8888',
       [AUTH_COOKIE_KEYS.refreshToken]: '8888',
       [AUTH_COOKIE_KEYS.userId]: '8888',
-      [AUTH_COOKIE_KEYS.accessTokenExpireDate]: '8888',
+      [AUTH_COOKIE_KEYS.accessTokenExpireDate]: expireDate,
     },
   },
 };
