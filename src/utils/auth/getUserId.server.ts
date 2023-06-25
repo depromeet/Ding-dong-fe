@@ -8,11 +8,11 @@ export const getUserIdServer = (): number => {
   try {
     const cookieStore = cookies();
     const userId = cookieStore.get(AUTH_COOKIE_KEYS.userId)?.value;
-    if (userId === undefined) throw new Error();
+    if (userId === undefined) throw new UserIdNotFoundError();
     const userIdNumber = Number(userId);
-    if (isNaN(userIdNumber)) throw new Error();
+    if (isNaN(userIdNumber)) throw new UserIdNotFoundError();
     return userIdNumber;
   } catch (e) {
-    throw new UserIdNotFoundError();
+    return -1;
   }
 };
