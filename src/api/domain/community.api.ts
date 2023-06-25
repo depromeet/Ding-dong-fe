@@ -9,8 +9,8 @@ import {
 import { CommunityIdCardsRequest } from '~/types/community/request.type';
 
 export const communityQueryKey = {
-  idCards: (communityId: number) => ['getCommunityIdCards', communityId],
-  communityList: (userId: number) => ['getCommunityList', userId],
+  idCards: (communityId: number) => ['communityIdCards', communityId],
+  communityList: (userId: number) => ['communityList', userId],
 };
 
 export const getCommunityIdCard = async (id: number) => {
