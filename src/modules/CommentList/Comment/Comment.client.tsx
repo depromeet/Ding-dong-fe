@@ -59,7 +59,12 @@ export const Comment = ({
           onClickShowReplyList={onClickShowReplyList}
           commentReplyInfos={commentReplyInfos}
         />
-        <CommentReplyList isShowReplyList={isShowReplyList} commentReplyInfos={commentReplyInfos} />
+        <CommentReplyList
+          idCardId={idCardId}
+          commentId={commentId}
+          isShowReplyList={isShowReplyList}
+          commentReplyInfos={commentReplyInfos}
+        />
         <div className="mt-24pxr">
           <ReplyHideButton
             isShowReplyList={isShowReplyList}
