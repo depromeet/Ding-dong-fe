@@ -16,6 +16,7 @@ import {
   CommentReplyDeleteRequest,
 } from '~/types/comment';
 
+const FIRST_COMMENT_PAGE = 1;
 export const commentQueryKey = {
   comments: (idCardsId: number, pageParam: number) => ['comments', idCardsId, pageParam],
   commentCount: (idCardsId: number) => ['commentCount', idCardsId],
@@ -51,7 +52,8 @@ export const usePostCommentCreate = (idCardsId: number) => {
 
   return useMutation({
     mutationFn: (commentInfo: CommentPostRequest) => postCommentCreate(commentInfo),
-    onSuccess: () => queryClient.invalidateQueries(commentQueryKey.comments(idCardsId, 0)),
+    onSuccess: () =>
+      queryClient.invalidateQueries(commentQueryKey.comments(idCardsId, FIRST_COMMENT_PAGE)),
   });
 };
 
@@ -78,7 +80,8 @@ export const usePostReplyCreate = (idCardsId: number) => {
 
   return useMutation({
     mutationFn: (replyInfo: CommentPostReplyRequest) => postCommentCreate(replyInfo),
-    onSuccess: () => queryClient.invalidateQueries(commentQueryKey.comments(idCardsId, 0)),
+    onSuccess: () =>
+      queryClient.invalidateQueries(commentQueryKey.comments(idCardsId, FIRST_COMMENT_PAGE)),
   });
 };
 
@@ -92,6 +95,9 @@ export const useDeleteReply = (idCardsId: number) => {
 
   return useMutation({
     mutationFn: (replyInfo: CommentReplyDeleteRequest) => deleteReply(replyInfo),
-    onSuccess: () => queryClient.invalidateQueries(commentQueryKey.comments(idCardsId, 0)),
+    onSuccess: () =>
+      queryClient.invalidateQueries(commentQueryKey.comments(idCardsId, FIRST_COMMENT_PAGE)),
+  });
+};
   });
 };
