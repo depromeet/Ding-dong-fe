@@ -4,7 +4,7 @@ import privateApi from '~/api/config/privateApi';
 import { NotificationGetRequest, NotificationGetResponse } from '~/types/notification';
 
 export const notificationQueryKey = {
-  notifications: (pageParam: number) => ['getNotifications', pageParam],
+  notifications: (pageParam: number) => ['notifications', pageParam],
 };
 export const getNotifications = ({ pageParam }: NotificationGetRequest) =>
   privateApi.get<NotificationGetResponse>(`/notifications?page=${pageParam}&size=10`);
