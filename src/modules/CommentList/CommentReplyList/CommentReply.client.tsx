@@ -9,11 +9,16 @@ import {
   UserProfile,
 } from '~/modules/CommentList/CommentCommon';
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { CommentReplyModel } from '~/types/comment';
+import { CommentModel, CommentReplyModel } from '~/types/comment';
 
-type CommentProps = CommentReplyModel;
+type CommentProps = Pick<CommentModel, 'commentId'> &
+  CommentReplyModel & {
+    idCardsId: number;
+  };
 
 export const CommentReply = ({
+  idCardsId,
+  commentId,
   commentReplyId,
   content,
   createdAt,

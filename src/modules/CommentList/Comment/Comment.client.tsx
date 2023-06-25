@@ -15,9 +15,12 @@ import {
 import { CommentReplyList } from '~/modules/CommentList/CommentReplyList';
 import { CommentModel } from '~/types/comment';
 
-type CommentProps = CommentModel;
+type CommentProps = CommentModel & {
+  idCardsId: number;
+};
 
 export const Comment = ({
+  idCardsId,
   commentId,
   content,
   createdAt,
@@ -58,7 +61,12 @@ export const Comment = ({
           onClickShowReplyList={onClickShowReplyList}
           commentReplyInfos={commentReplyInfos}
         />
-        <CommentReplyList isShowReplyList={isShowReplyList} commentReplyInfos={commentReplyInfos} />
+        <CommentReplyList
+          idCardsId={idCardsId}
+          commentId={commentId}
+          isShowReplyList={isShowReplyList}
+          commentReplyInfos={commentReplyInfos}
+        />
         <div className="mt-24pxr">
           <ReplyHideButton
             isShowReplyList={isShowReplyList}
