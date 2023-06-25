@@ -1,11 +1,9 @@
 import Image from 'next/image';
 import { MouseEvent } from 'react';
 
+import { CharacterAlphabetType } from '~/modules/Onboarding/CharacterCreation.type';
+import { QuestionDetail } from '~/modules/Onboarding/Question/CharacterQuestion.type';
 import { tw } from '~/utils/tailwind.util';
-
-import { CharacterAlphabetType } from '../CharacterCreation.type';
-// eslint-disable-next-line import/order
-import { QuestionDetail } from './CharacterQuestion.type';
 
 type CharacterQuestionProps = Omit<QuestionDetail, 'fieldName'> & {
   onQuestionButtonClick: (e: MouseEvent<HTMLButtonElement>) => void;
