@@ -7,7 +7,7 @@ import { TopNavigation } from '~/components/TopNavigation';
 import {
   CharacterAlphabetType,
   CharacterCreationFormType,
-  CharactorCreationStepsType,
+  CharacterCreationStepsType,
 } from '~/modules/Onboarding/CharacterCreation.type';
 import {
   characterCreationQuestions,
@@ -19,7 +19,7 @@ import { CharacterNameModel } from '~/types/idCard';
 import { tw } from '~/utils/tailwind.util';
 
 type CharacterCreationFormProps = {
-  steps: CharactorCreationStepsType[];
+  steps: CharacterCreationStepsType[];
   stepOrder: number;
   onNext: () => void;
   onPrev: () => void;

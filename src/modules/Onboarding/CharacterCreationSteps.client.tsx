@@ -4,12 +4,12 @@ import { useState } from 'react';
 
 import { CharacterNameModel } from '~/types/idCard';
 
-import { CharactorCreationStepsType } from './CharacterCreation.type';
+import { CharacterCreationStepsType } from './CharacterCreation.type';
 import { CharacterCreationForm } from './Form/CharacterCreationForm.client';
 import { CharacterBoardingStep } from './Step/CharacterBoardingStep';
 import { CharacterCompleteStep } from './Step/CharacterCompleteStep.client';
 
-const steps: CharactorCreationStepsType[] = [
+const steps: CharacterCreationStepsType[] = [
   'BOARDING',
   'FIRST',
   'SECOND',

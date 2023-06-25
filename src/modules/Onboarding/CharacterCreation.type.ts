@@ -7,7 +7,7 @@ export type CharacterCreationFormType = {
 
 export type CharacterAlphabetType = 'E' | 'I' | 'F' | 'T' | 'J' | 'P' | 'S' | 'N';
 
-export type CharactorCreationStepsType =
+export type CharacterCreationStepsType =
   | 'BOARDING'
   | 'FIRST'
   | 'SECOND'
