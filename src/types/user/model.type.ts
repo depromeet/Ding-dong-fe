@@ -1,3 +1,5 @@
+import { CharacterNameModel } from '../idCard';
+
 export type UserInfoModel = {
   userId: number;
   email: string;
@@ -6,3 +8,5 @@ export type UserInfoModel = {
   ageRange: string;
   profileImageUrl: string;
 };
+
+export type CharacterCreateModel = CharacterNameModel;
