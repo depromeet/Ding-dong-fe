@@ -17,8 +17,8 @@ export const Default: Story = {
   args: {
     title: '홀로 우주 패키지 여행을\n 가게 되었다',
     image: '/assets/images/onboarding-question-ticket.png',
-    firstOption: { name: 'E', value: '옆자리에 앉은 사람에게 말을 건다.' },
-    secondOption: { name: 'I', value: '풍경을 보며 나만의 시간을 즐긴다.' },
+    firstOption: { fieldValue: 'E', content: '옆자리에 앉은 사람에게 말을 건다.' },
+    secondOption: { fieldValue: 'I', content: '풍경을 보며 나만의 시간을 즐긴다.' },
     onQuestionButtonClick: (e: MouseEvent<HTMLButtonElement>) => console.log(e.currentTarget.name),
   },
 };

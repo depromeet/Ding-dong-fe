@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import { CharacterCompleteStep } from './CharacterCompleteStep';
+import { CharacterCompleteStep } from './CharacterCompleteStep.client';
 
 const meta: Meta<typeof CharacterCompleteStep> = {
   title: 'modules/CharacterCompleteStep',

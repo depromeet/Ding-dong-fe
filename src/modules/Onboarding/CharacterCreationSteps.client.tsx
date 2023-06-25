@@ -1,13 +1,13 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 import { CharacterNameModel } from '~/types/idCard';
 
 import { CharactorCreationStepsType } from './CharacterCreation.type';
-import { CharacterCreationForm } from './CharacterCreationForm.client';
-import SendNickname from './sendNickname';
-import { CharacterCompleteStep } from './Step/CharacterCompleteStep';
+import { CharacterCreationForm } from './Form/CharacterCreationForm.client';
+import { CharacterBoardingStep } from './Step/CharacterBoardingStep';
+import { CharacterCompleteStep } from './Step/CharacterCompleteStep.client';
 
 const steps: CharactorCreationStepsType[] = [
   'BOARDING',
@@ -34,15 +34,9 @@ export const CharacterCreationSteps = () => {
     setSelectedCharacter(name);
   };
 
-  useEffect(() => {
-    setTimeout(() => onNext(), 1500);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
   return (
     <div>
-      {/*BoradingStep은 임의로 넣어놓았습니다 */}
-      {steps[stepOrder] === 'BOARDING' && <SendNickname />}
+      {steps[stepOrder] === 'BOARDING' && <CharacterBoardingStep onNext={onNext} />}
       {['FIRST', 'SECOND', 'THIRD', 'FOURTH'].includes(steps[stepOrder]) && (
         <CharacterCreationForm
           steps={steps}
