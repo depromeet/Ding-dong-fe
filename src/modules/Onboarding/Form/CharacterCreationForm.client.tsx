@@ -38,7 +38,7 @@ export const CharacterCreationForm = ({
     setValue,
     handleSubmit,
     watch,
-  } = useForm<CharacterCreationFormType>({});
+  } = useForm<CharacterCreationFormType>();
   const { mutateAsync } = usePostCharacterCreate();
 
   const canSubmit = isValid && !isSubmitting;
