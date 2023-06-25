@@ -4,10 +4,10 @@ import {
   Content,
   Header,
   LikeCount,
-  LikeIcon,
   ReplySubmitButton,
   UserProfile,
 } from '~/modules/CommentList/CommentCommon';
+import { CommentReplyLike } from '~/modules/CommentList/CommentReplyList/CommentReplyLike.client';
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { CommentModel, CommentReplyModel } from '~/types/comment';
 
@@ -41,7 +41,12 @@ export const CommentReply = ({
             </div>
           </div>
           <div>
-            <LikeIcon commentReplyLikeInfo={commentReplyLikeInfo} />
+            <CommentReplyLike
+              idCardsId={idCardsId}
+              commentId={commentId}
+              commentReplyId={commentReplyId}
+              commentReplyLikeInfo={commentReplyLikeInfo}
+            />
           </div>
         </div>
       </div>
