@@ -3,11 +3,9 @@ import { communityMockHandler } from '~/mocks/community/community.mockHandler';
 import { idCardMockHandler } from '~/mocks/idCard/idCard.mockHandler';
 import { userMockHandler } from '~/mocks/user/user.mockHandler';
 
-const handlers = [
+export const handlers = [
   ...idCardMockHandler,
   ...communityMockHandler,
   ...commentMockHandler,
   ...userMockHandler,
 ];
-
-export default handlers;
