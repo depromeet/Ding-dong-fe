@@ -28,7 +28,7 @@ export const InjectQueryDataNotification = () => {
         </div>
       ))}
 
-      {!data?.pages && <div>새로운 알림이 없습니다.</div>}
+      {data?.pages[0].data.content.length === 0 && <div>새로운 알림이 없습니다.</div>}
     </>
   );
 };
