@@ -1,13 +1,13 @@
 import { CommentReply } from '~/modules/CommentList/CommentReplyList/CommentReply.client';
 import { CommentModel } from '~/types/comment';
 
-type CommentReplyListProps = Pick<CommentModel, 'commentReplyInfos'> & {
+type CommentReplyListProps = Pick<CommentModel, 'commentReplyInfos' | 'idCardId' | 'commentId'> & {
   isShowReplyList: boolean;
   idCardsId: number;
   commentId: number;
 };
 export const CommentReplyList = ({
-  idCardsId,
+  idCardId,
   commentId,
   commentReplyInfos,
   isShowReplyList,
@@ -18,9 +18,9 @@ export const CommentReplyList = ({
         <ul className="mt-24pxr flex flex-col gap-24pxr">
           {commentReplyInfos.map(commentReply => (
             <CommentReply
-              idCardsId={idCardsId}
-              commentId={commentId}
               key={commentReply.commentReplyId}
+              idCardId={idCardId}
+              commentId={commentId}
               {...commentReply}
             />
           ))}

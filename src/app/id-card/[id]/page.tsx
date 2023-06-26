@@ -35,16 +35,14 @@ const IdCardDetailPage = async ({ params: { id } }: IdCardDetailPageProps) => {
 
   // 로그인한 유저의 id면 수정페이지로 이동할 수 있는 버튼 보이게하기 (다래님이 만들어주심)
 
-  const idCardsId = Number(id); // TODO: params를 number로 변환하는 작업을 통일할 예정
-
   const queryClient = getQueryClient();
   const pageParam = 1;
 
-  await queryClient.prefetchQuery(commentQueryKey.comments(idCardsId, pageParam), () =>
-    getCommentsServer({ idCardsId, pageParam }).then(data => ({ pages: [data] })),
+  await queryClient.prefetchQuery(commentQueryKey.comments(idCardId, pageParam), () =>
+    getCommentsServer({ idCardId, pageParam }).then(data => ({ pages: [data] })),
   );
 
-  const totalCommentCount = await getCommentCountsServer({ idCardsId });
+  const totalCommentCount = await getCommentCountsServer({ idCardId });
 
   const dehydratedState = dehydrate(queryClient);
 
@@ -82,7 +80,7 @@ const IdCardDetailPage = async ({ params: { id } }: IdCardDetailPageProps) => {
         <div className="mt-24pxr px-layout-sm text-b2 text-grey-900">
           <span>댓글 {totalCommentCount.count}개</span>
         </div>
-        <CommentList idCardsId={idCardsId} />
+        <CommentList idCardId={idCardId} />
         <CommentInput />
       </main>
     </Hydrate>

@@ -1,4 +1,4 @@
-import { ROOT_API_URL } from './requestUrl';
+import { ROOT_API_URL } from '../config/requestUrl';
 
 class PublicFetch {
   async common<T>(route: string, requestInit?: RequestInit): Promise<T> {

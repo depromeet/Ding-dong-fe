@@ -1,21 +1,17 @@
 import { PropsWithChildren } from 'react';
 
 import { BottomNavigation } from '~/components/BottomNavigation';
-import { TopNavigation } from '~/components/TopNavigation';
-import { PlanetSelector } from '~/modules/PlanetSelector';
 
-const Layout = ({ children }: PropsWithChildren) => {
+const NotificationLayout = ({ children }: PropsWithChildren) => {
   return (
-    <div className="pt-t-nav">
-      <TopNavigation>
-        <TopNavigation.Left>
-          <PlanetSelector />
-        </TopNavigation.Left>
-      </TopNavigation>
+    <div className="px-5">
+      <div className="mb-5 py-2">
+        <h1 className="text-h1">알림</h1>
+      </div>
       {children}
       <BottomNavigation />
     </div>
   );
 };
 
-export default Layout;
+export default NotificationLayout;

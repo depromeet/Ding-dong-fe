@@ -2,11 +2,11 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { useState } from 'react';
 
+import { CommentLike } from '~/modules/CommentList/Comment/CommentLike.client';
 import {
   Content,
   Header,
   LikeCount,
-  LikeIcon,
   ReplyHideButton,
   ReplyShowButton,
   ReplySubmitButton,
@@ -20,7 +20,7 @@ import { CommentDeleteButton } from './CommentDeleteButton.client';
 type CommentProps = CommentModel & CommentDeleteRequest;
 
 export const Comment = ({
-  idCardsId,
+  idCardId,
   commentId,
   content,
   createdAt,
@@ -54,7 +54,11 @@ export const Comment = ({
             </div>
           </div>
           <div>
-            <LikeIcon commentReplyLikeInfo={commentReplyLikeInfo} />
+            <CommentLike
+              idCardId={idCardId}
+              commentId={commentId}
+              commentReplyLikeInfo={commentReplyLikeInfo}
+            />
           </div>
         </div>
         <ReplyShowButton
@@ -63,7 +67,7 @@ export const Comment = ({
           commentReplyInfos={commentReplyInfos}
         />
         <CommentReplyList
-          idCardsId={idCardsId}
+          idCardId={idCardId}
           commentId={commentId}
           isShowReplyList={isShowReplyList}
           commentReplyInfos={commentReplyInfos}

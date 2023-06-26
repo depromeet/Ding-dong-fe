@@ -1,4 +1,11 @@
-import { useInfiniteQuery, useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import {
+  useInfiniteQuery,
+  useMutation,
+  UseMutationOptions,
+  useQuery,
+  useQueryClient,
+} from '@tanstack/react-query';
+import { AxiosError } from 'axios';
 
 import privateApi from '~/api/config/privateApi';
 import {
@@ -9,25 +16,35 @@ import {
   CommentDeleteResponse,
   CommentGetRequest,
   CommentGetResponse,
+  CommentLikeCancelDeleteResponse,
+  CommentLikeCancelRequest,
+  CommentLikePostResponse,
+  CommentLikeRequest,
   CommentPostReplyRequest,
   CommentPostReplyResponse,
   CommentPostRequest,
   CommentPostResponse,
   CommentReplyDeleteRequest,
+  CommentReplyLikeCancelDeleteResponse,
+  CommentReplyLikeCancelRequest,
+  CommentReplyLikePostResponse,
+  CommentReplyLikeRequest,
 } from '~/types/comment';
 
+const FIRST_COMMENT_PAGE = 1;
+
 export const commentQueryKey = {
-  comments: (idCardsId: number, pageParam: number) => ['comments', idCardsId, pageParam],
-  commentCount: (idCardsId: number) => ['commentCount', idCardsId],
+  comments: (idCardId: number, pageParam: number) => ['comments', idCardId, pageParam],
+  commentCount: (idCardId: number) => ['commentCount', idCardId],
 };
 
-export const getComments = ({ idCardsId, pageParam }: CommentGetRequest) =>
-  privateApi.get<CommentGetResponse>(`/id-cards/${idCardsId}/comments?page=${pageParam}&size=10`);
+export const getComments = ({ idCardId, pageParam }: CommentGetRequest) =>
+  privateApi.get<CommentGetResponse>(`/id-cards/${idCardId}/comments?page=${pageParam}&size=10`);
 
-export const useGetComments = ({ idCardsId, pageParam }: CommentGetRequest) => {
+export const useGetComments = ({ idCardId, pageParam }: CommentGetRequest) => {
   return useInfiniteQuery(
-    commentQueryKey.comments(idCardsId, pageParam),
-    ({ pageParam = 0 }) => getComments({ idCardsId, pageParam }),
+    commentQueryKey.comments(idCardId, pageParam),
+    ({ pageParam = 0 }) => getComments({ idCardId, pageParam }),
     {
       getNextPageParam: data => (!data.data.hasNext ? data.data.page + 1 : undefined),
       refetchOnWindowFocus: false,
@@ -37,61 +54,143 @@ export const useGetComments = ({ idCardsId, pageParam }: CommentGetRequest) => {
   );
 };
 
-export const getCommentCounts = ({ idCardsId }: CommentCountGetRequest) =>
-  privateApi.get<CommentCountGetResponse>(`/id-cards/${idCardsId}/comments-count`);
+export const getCommentCounts = ({ idCardId }: CommentCountGetRequest) =>
+  privateApi.get<CommentCountGetResponse>(`/id-cards/${idCardId}/comments-count`);
 
-export const useGetCommentCounts = ({ idCardsId }: CommentCountGetRequest) =>
-  useQuery(commentQueryKey.commentCount(idCardsId), () => getCommentCounts({ idCardsId }));
+export const useGetCommentCounts = ({ idCardId }: CommentCountGetRequest) =>
+  useQuery(commentQueryKey.commentCount(idCardId), () => getCommentCounts({ idCardId }));
 
-export const postCommentCreate = ({ idCardsId, contents }: CommentPostRequest) =>
-  privateApi.post<CommentPostResponse>(`id-cards/${idCardsId}/comments`, { contents });
+export const postCommentCreate = ({ idCardId, contents }: CommentPostRequest) =>
+  privateApi.post<CommentPostResponse>(`id-cards/${idCardId}/comments`, { contents });
 
-export const usePostCommentCreate = (idCardsId: number) => {
+export const usePostCommentCreate = (idCardId: number) => {
   const queryClient = useQueryClient();
 
   return useMutation({
     mutationFn: (commentInfo: CommentPostRequest) => postCommentCreate(commentInfo),
-    onSuccess: () => queryClient.invalidateQueries(commentQueryKey.comments(idCardsId, 0)),
+    onSuccess: () =>
+      queryClient.invalidateQueries(commentQueryKey.comments(idCardId, FIRST_COMMENT_PAGE)),
   });
 };
 
-export const deleteComment = ({ idCardsId, commentId }: CommentDeleteRequest) =>
-  privateApi.delete<CommentDeleteResponse>(`id-cards/${idCardsId}/comments/${commentId}`);
+export const deleteComment = ({ idCardId, commentId }: CommentDeleteRequest) =>
+  privateApi.delete<CommentDeleteResponse>(`id-cards/${idCardId}/comments/${commentId}`);
 
-export const useDeleteComment = (idCardsId: number) => {
+export const useDeleteComment = (idCardId: number) => {
   const queryClient = useQueryClient();
 
   return useMutation({
     mutationFn: (commentInfo: CommentDeleteRequest) => deleteComment(commentInfo),
-    onSuccess: () => queryClient.invalidateQueries(commentQueryKey.comments(idCardsId, 0)),
+    onSuccess: () =>
+      queryClient.invalidateQueries(commentQueryKey.comments(idCardId, FIRST_COMMENT_PAGE)),
   });
 };
 
-export const postReplyCreate = ({ idCardsId, commentId, contents }: CommentPostReplyRequest) =>
-  privateApi.post<CommentPostReplyResponse>(
-    `/id-cards/${idCardsId}/comments/${commentId}/replies`,
-    { contents },
-  );
+export const postReplyCreate = ({ idCardId, commentId, contents }: CommentPostReplyRequest) =>
+  privateApi.post<CommentPostReplyResponse>(`/id-cards/${idCardId}/comments/${commentId}/replies`, {
+    contents,
+  });
 
-export const usePostReplyCreate = (idCardsId: number) => {
+export const usePostReplyCreate = (idCardId: number) => {
   const queryClient = useQueryClient();
 
   return useMutation({
     mutationFn: (replyInfo: CommentPostReplyRequest) => postCommentCreate(replyInfo),
-    onSuccess: () => queryClient.invalidateQueries(commentQueryKey.comments(idCardsId, 0)),
+    onSuccess: () =>
+      queryClient.invalidateQueries(commentQueryKey.comments(idCardId, FIRST_COMMENT_PAGE)),
   });
 };
 
-export const deleteReply = ({ idCardsId, commentId, commentReplyId }: CommentReplyDeleteRequest) =>
+export const deleteReply = ({ idCardId, commentId, commentReplyId }: CommentReplyDeleteRequest) =>
   privateApi.delete<CommentDeleteReplyResponse>(
-    `/id-cards/${idCardsId}/comments/${commentId}/replies/${commentReplyId}`,
+    `/id-cards/${idCardId}/comments/${commentId}/replies/${commentReplyId}`,
   );
 
-export const useDeleteReply = (idCardsId: number) => {
+export const useDeleteReply = (idCardId: number) => {
   const queryClient = useQueryClient();
 
   return useMutation({
     mutationFn: (replyInfo: CommentReplyDeleteRequest) => deleteReply(replyInfo),
-    onSuccess: () => queryClient.invalidateQueries(commentQueryKey.comments(idCardsId, 0)),
+    onSuccess: () =>
+      queryClient.invalidateQueries(commentQueryKey.comments(idCardId, FIRST_COMMENT_PAGE)),
+  });
+};
+
+export const postLikeComment = ({ idCardId, commentId }: CommentLikeRequest) =>
+  privateApi.post<CommentLikePostResponse>(`/id-cards/${idCardId}/comments/${commentId}/likes`);
+
+export const usePostLikeComment = (
+  options?: Omit<
+    UseMutationOptions<CommentLikePostResponse, AxiosError, CommentLikeRequest>,
+    'mutationFn'
+  >,
+) => {
+  return useMutation({
+    mutationFn: postLikeComment,
+    ...options,
+  });
+};
+
+export const postLikeCommentReply = ({
+  idCardId,
+  commentId,
+  commentReplyId,
+}: CommentReplyLikeRequest) =>
+  privateApi.post<CommentReplyLikePostResponse>(
+    `/id-cards/${idCardId}/comments/${commentId}/replies/${commentReplyId}/reply-likes`,
+  );
+
+export const usePostLikeCommentReply = (
+  options?: Omit<
+    UseMutationOptions<CommentReplyLikePostResponse, AxiosError, CommentReplyLikeRequest>,
+    'mutationFn'
+  >,
+) => {
+  return useMutation({
+    mutationFn: postLikeCommentReply,
+    ...options,
+  });
+};
+
+export const deleteCommentLike = ({ idCardId, commentId }: CommentLikeCancelRequest) =>
+  privateApi.delete<CommentLikeCancelDeleteResponse>(
+    `/id-cards/${idCardId}/comments/${commentId}/likes`,
+  );
+
+export const useDeleteCommentLike = (
+  options?: Omit<
+    UseMutationOptions<CommentLikeCancelDeleteResponse, AxiosError, CommentLikeCancelRequest>,
+    'mutationFn'
+  >,
+) => {
+  return useMutation({
+    mutationFn: deleteCommentLike,
+    ...options,
+  });
+};
+
+export const deleteCommentReplyLike = ({
+  idCardId,
+  commentId,
+  commentReplyId,
+}: CommentReplyLikeCancelRequest) => {
+  return privateApi.delete<CommentReplyLikeCancelDeleteResponse>(
+    `/id-cards/${idCardId}/comments/${commentId}/replies/${commentReplyId}/reply-likes/`,
+  );
+};
+
+export const useDeleteCommentReplyLike = (
+  options?: Omit<
+    UseMutationOptions<
+      CommentReplyLikeCancelDeleteResponse,
+      AxiosError,
+      CommentReplyLikeCancelRequest
+    >,
+    'mutationFn'
+  >,
+) => {
+  return useMutation({
+    mutationFn: deleteCommentReplyLike,
+    ...options,
   });
 };

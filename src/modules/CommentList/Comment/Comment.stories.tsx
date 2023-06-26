@@ -15,7 +15,7 @@ export default meta;
 
 type Story = StoryObj<typeof Comment>;
 
-const MOCK_COMMENT = createComment(123);
+const MOCK_COMMENT = createComment(123123, 123);
 
 export const Primary: Story = {
   render: () => <Comment {...MOCK_COMMENT} content={faker.lorem.sentence(1)} />,

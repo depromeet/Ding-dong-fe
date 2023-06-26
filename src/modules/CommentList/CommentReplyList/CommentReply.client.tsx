@@ -1,22 +1,24 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 'use client';
 
 import {
   Content,
   Header,
   LikeCount,
-  LikeIcon,
   ReplySubmitButton,
   UserProfile,
 } from '~/modules/CommentList/CommentCommon';
-/* eslint-disable @typescript-eslint/no-unused-vars */
-import { CommentReplyDeleteRequest, CommentReplyModel } from '~/types/comment';
+
+
+import { CommentModel, CommentReplyDeleteRequest, CommentReplyModel } from '~/types/comment';
 
 import { CommentReplyDeleteButton } from './CommentReplyDeleteButton.client';
+import { CommentReplyLike } from '~/modules/CommentList/CommentReplyList/CommentReplyLike.client';
 
-type CommentProps = CommentReplyModel & CommentReplyDeleteRequest;
+type CommentProps = Pick<CommentModel, 'idCardId' | 'commentId'> & CommentReplyModel;
 
 export const CommentReply = ({
-  idCardsId,
+  idCardId,
   commentId,
   commentReplyId,
   content,
@@ -45,7 +47,12 @@ export const CommentReply = ({
             </div>
           </div>
           <div>
-            <LikeIcon commentReplyLikeInfo={commentReplyLikeInfo} />
+            <CommentReplyLike
+              idCardId={idCardId}
+              commentId={commentId}
+              commentReplyId={commentReplyId}
+              commentReplyLikeInfo={commentReplyLikeInfo}
+            />
           </div>
         </div>
       </div>

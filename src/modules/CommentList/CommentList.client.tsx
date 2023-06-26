@@ -8,12 +8,12 @@ import { Comment } from '~/modules/CommentList/Comment';
 import { CommentModel } from '~/types/comment';
 
 type CommentListProps = {
-  idCardsId: number;
+  idCardId: number;
 };
 
-export const CommentList = ({ idCardsId }: CommentListProps) => {
+export const CommentList = ({ idCardId }: CommentListProps) => {
   const { data: commentList, fetchNextPage } = useGetComments({
-    idCardsId,
+    idCardId,
     pageParam: 1,
   });
   // TODO: CommunityIdCards에서 사용하는 로직과 통일하기
