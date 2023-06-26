@@ -4,11 +4,11 @@ import { getCommentCountsServer } from '~/api/domain/comment.api.server';
 import RetryErrorBoundary from '~/components/ErrorBoundary/RetryErrorBoundary.client';
 
 type CommentCountProps = {
-  idCardsId: number;
+  idCardId: number;
 };
 
-const CommentCountComponent = async ({ idCardsId }: CommentCountProps) => {
-  const totalCommentCount = await getCommentCountsServer({ idCardsId });
+const CommentCountComponent = async ({ idCardId }: CommentCountProps) => {
+  const totalCommentCount = await getCommentCountsServer({ idCardId });
 
   return (
     <div className="mt-24pxr px-layout-sm text-b2 text-grey-900">
@@ -17,12 +17,12 @@ const CommentCountComponent = async ({ idCardsId }: CommentCountProps) => {
   );
 };
 
-export const CommentCount = ({ idCardsId }: CommentCountProps) => {
+export const CommentCount = ({ idCardId }: CommentCountProps) => {
   return (
     <RetryErrorBoundary>
       <Suspense>
         {/* @ts-expect-error Server Component */}
-        <CommentCountComponent idCardsId={idCardsId} />
+        <CommentCountComponent idCardId={idCardId} />
       </Suspense>
     </RetryErrorBoundary>
   );

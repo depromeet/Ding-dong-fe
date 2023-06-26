@@ -14,11 +14,11 @@ const bgColors: Record<CharacterNameModel, string> = {
 };
 
 type IdCardDetailProps = {
-  idCardsId: number;
+  idCardId: number;
 };
 
-const IdCardDetailComponent = async ({ idCardsId }: IdCardDetailProps) => {
-  const { idCardDetailsDto } = await getIdCardDetailServer(idCardsId);
+const IdCardDetailComponent = async ({ idCardId }: IdCardDetailProps) => {
+  const { idCardDetailsDto } = await getIdCardDetailServer(idCardId);
   const bgColor = bgColors[idCardDetailsDto.characterType];
 
   return (
@@ -54,12 +54,12 @@ const IdCardDetailComponent = async ({ idCardsId }: IdCardDetailProps) => {
   );
 };
 
-export const IdCardDetail = ({ idCardsId }: IdCardDetailProps) => {
+export const IdCardDetail = ({ idCardId }: IdCardDetailProps) => {
   return (
     <RetryErrorBoundary>
       <Suspense>
         {/* @ts-expect-error Server Component */}
-        <IdCardDetailComponent idCardsId={idCardsId} />
+        <IdCardDetailComponent idCardId={idCardId} />
       </Suspense>
     </RetryErrorBoundary>
   );

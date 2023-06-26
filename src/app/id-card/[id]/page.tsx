@@ -28,12 +28,12 @@ const IdCardDetailPage = async ({ params: { id } }: IdCardDetailPageProps) => {
 
   return (
     <main>
-      <IdCardDetail idCardsId={idCardsId} />
+      <IdCardDetail idCardId={idCardId} />
       <Divider />
-      <CommentCount idCardsId={idCardsId} />
+      <CommentCount idCardId={idCardId} />
       {/* @ts-expect-error Server Component */}
       <HydrationProvider
-        queryKey={commentQueryKey.comments(idCardsId, pageParam)}
+        queryKey={commentQueryKey.comments(idCardId, pageParam)}
         queryFn={getCommentsQuery}
       >
         <CommentList idCardId={idCardId} />
