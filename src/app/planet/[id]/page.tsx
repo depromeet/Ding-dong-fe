@@ -3,8 +3,8 @@ import 'server-only';
 import { communityQueryKey } from '~/api/domain/community.api';
 import { getCommunityIdCardsServer } from '~/api/domain/community.api.server';
 import { CommunityDetail } from '~/app/planet/[id]/components/CommunityDetail';
+import { CommunityIdCards } from '~/app/planet/[id]/components/CommunityIdCards';
 import { HydrationProvider } from '~/components/HydrationProvider';
-import { CommunityIdCards } from '~/modules/CommunityIdCards';
 
 type PlanetPageProps = {
   params: {
