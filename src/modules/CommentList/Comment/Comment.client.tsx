@@ -2,11 +2,11 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { useState } from 'react';
 
+import { CommentLike } from '~/modules/CommentList/Comment/CommentLike.client';
 import {
   Content,
   Header,
   LikeCount,
-  LikeIcon,
   ReplyHideButton,
   ReplyShowButton,
   ReplySubmitButton,
@@ -51,7 +51,11 @@ export const Comment = ({
             </div>
           </div>
           <div>
-            <LikeIcon commentReplyLikeInfo={commentReplyLikeInfo} />
+            <CommentLike
+              idCardId={idCardId}
+              commentId={commentId}
+              commentReplyLikeInfo={commentReplyLikeInfo}
+            />
           </div>
         </div>
         <ReplyShowButton

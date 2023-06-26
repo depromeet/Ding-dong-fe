@@ -5,10 +5,10 @@ import {
   Content,
   Header,
   LikeCount,
-  LikeIcon,
   ReplySubmitButton,
   UserProfile,
 } from '~/modules/CommentList/CommentCommon';
+import { CommentReplyLike } from '~/modules/CommentList/CommentReplyList/CommentReplyLike.client';
 import { CommentModel, CommentReplyModel } from '~/types/comment';
 
 type CommentProps = Pick<CommentModel, 'idCardId' | 'commentId'> & CommentReplyModel;
@@ -38,7 +38,12 @@ export const CommentReply = ({
             </div>
           </div>
           <div>
-            <LikeIcon commentReplyLikeInfo={commentReplyLikeInfo} />
+            <CommentReplyLike
+              idCardId={idCardId}
+              commentId={commentId}
+              commentReplyId={commentReplyId}
+              commentReplyLikeInfo={commentReplyLikeInfo}
+            />
           </div>
         </div>
       </div>
