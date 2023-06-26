@@ -5,6 +5,7 @@ import { useInView } from 'react-intersection-observer';
 
 import { useGetComments } from '~/api/domain/comment.api';
 import { Comment } from '~/modules/CommentList/Comment';
+import { Empty } from '~/modules/CommentList/CommentCommon';
 import { CommentModel } from '~/types/comment';
 
 type CommentListProps = {
@@ -25,12 +26,18 @@ export const CommentList = ({ idCardId }: CommentListProps) => {
     }
   }, [inView, fetchNextPage, commentList?.pages]);
 
+  const isEmpty = commentList?.pages[0].data.content.length === 0;
+
   return (
-    <div className="mt-24pxr flex flex-col gap-24pxr">
-      {commentList?.pages.map(page =>
-        page.data.content.map((comment: CommentModel) => (
-          <Comment key={comment.commentId} {...comment} />
-        )),
+    <div className="mt-24pxr flex flex-col gap-24pxr pb-50pxr">
+      {isEmpty ? (
+        <Empty />
+      ) : (
+        commentList?.pages.map(page =>
+          page.data.content.map((comment: CommentModel) => (
+            <Comment key={comment.commentId} {...comment} />
+          )),
+        )
       )}
       <div ref={ref}></div>
     </div>
