@@ -1,7 +1,7 @@
 'use client';
 import { useState } from 'react';
 
-import { useDeleteCommentReplyLike, usePostLikeReply } from '~/api/domain/comment.api';
+import { useDeleteCommentReplyLike, usePostLikeCommentReply } from '~/api/domain/comment.api';
 import { HeartFillIcon, HeartIcon } from '~/components/Icon';
 import { CommentModel, CommentReplyModel } from '~/types/comment';
 
@@ -26,7 +26,7 @@ export const CommentReplyLike = ({
     setIsLikedByCurrentUser(false);
   };
 
-  const mutatePostLike = usePostLikeReply({
+  const mutatePostLike = usePostLikeCommentReply({
     onError: () => {
       // TODO toast error
       cancelLikeComment();

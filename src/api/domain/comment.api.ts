@@ -131,19 +131,23 @@ export const usePostLikeComment = (
   });
 };
 
-export const postLikeReply = ({ idCardId, commentId, commentReplyId }: CommentReplyLikeRequest) =>
+export const postLikeCommentReply = ({
+  idCardId,
+  commentId,
+  commentReplyId,
+}: CommentReplyLikeRequest) =>
   privateApi.post<CommentReplyLikePostResponse>(
     `/id-cards/${idCardId}/comments/${commentId}/replies/${commentReplyId}/reply-likes`,
   );
 
-export const usePostLikeReply = (
+export const usePostLikeCommentReply = (
   options?: Omit<
     UseMutationOptions<CommentReplyLikePostResponse, AxiosError, CommentReplyLikeRequest>,
     'mutationFn'
   >,
 ) => {
   return useMutation({
-    mutationFn: postLikeReply,
+    mutationFn: postLikeCommentReply,
     ...options,
   });
 };
