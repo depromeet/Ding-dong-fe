@@ -31,8 +31,6 @@ import {
   CommentReplyLikeRequest,
 } from '~/types/comment';
 
-const FIRST_COMMENT_PAGE = 1;
-
 export const commentQueryKey = {
   comments: (idCardId: number, pageParam: number) => ['comments', idCardId, pageParam],
   commentCount: (idCardId: number) => ['commentCount', idCardId],

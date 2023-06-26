@@ -11,22 +11,22 @@ import { UserProfile } from '~/modules/CommentList/CommentCommon';
 import { isEmptyText } from '~/utils/util.common';
 
 type CommentInputProps = {
-  idCardsId: number;
+  idCardId: number;
 };
 
 type CommentFormData = {
   contents: string;
 };
 
-export const CommentInput = ({ idCardsId }: CommentInputProps) => {
+export const CommentInput = ({ idCardId }: CommentInputProps) => {
   //TODO: 주민증 없는 경우 댓글 작성 못한다고 input placeholder 수정
 
   const { data: userInfo } = useGetUserInfo();
-  const { mutate: mutatePostCommentCreate } = usePostCommentCreate(idCardsId);
+  const { mutate: mutatePostCommentCreate } = usePostCommentCreate(idCardId);
   const onSubmit = (data: CommentFormData) => {
     const { contents } = data;
     if (isEmptyText(contents)) return;
-    mutatePostCommentCreate({ idCardsId, contents });
+    mutatePostCommentCreate({ idCardId, contents });
     // TODO: 댓글 작성 후 댓글 첫번째로 스크롤하기
   };
 
