@@ -21,10 +21,12 @@ export interface CustomInstance extends AxiosInstance {
   patch<T>(...params: Parameters<AxiosInstance['patch']>): Promise<T>;
 }
 
-export interface ErrorResponseType {
-  status: number;
-  message: string;
-}
+export type ErrorType = {
+  success: boolean;
+  statusCode: number;
+  errorCode: string;
+  reason: string;
+};
 
 export type FetchResponseType<T> = {
   success: boolean;

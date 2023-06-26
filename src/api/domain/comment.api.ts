@@ -49,8 +49,9 @@ export const useGetComments = ({ idCardId, pageParam }: CommentGetRequest) => {
     {
       getNextPageParam: data => (!data.data.hasNext ? data.data.page + 1 : undefined),
       refetchOnWindowFocus: false,
-      // NOTE: 주민증 리스트와 다르게 enabled를 false로 해주면 글 작성시 새로 글을 불러오지 않기 때문에 true로 설정해주었습니다.
-      enabled: true,
+      //NOTE: 서버컴포넌트에서 이미 1페이지를 데이터 fetch 했기 때문에 2페이지 부터 fetch 하기 위함입니다.
+      enabled: false,
+      useErrorBoundary: true,
     },
   );
 };

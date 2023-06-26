@@ -1,7 +1,6 @@
 import 'server-only';
 
-import { getCommunityMyIdCardDetail } from '~/api/domain/idCard.api';
-import { IdCard } from '~/modules/IdCard';
+import { MyPageIdCard } from '~/app/my-page/[id]/components/MyPageIdCard';
 import { IdCardEditButton } from '~/modules/IdCardEditButton';
 import { PlanetCreationButton } from '~/modules/PlanetCreationButton';
 
@@ -11,12 +10,7 @@ type MyPageProps = {
   };
 };
 
-// my-page/:communityId/edit
-const MyPage = async ({ params: { id } }: MyPageProps) => {
-  const { idCardDetailsDto } = await getCommunityMyIdCardDetail(id);
-  const { idCardId, nickname, aboutMe, characterType, keywords } = idCardDetailsDto;
-  const keywordTitles = keywords.map(keyword => keyword.title);
-
+const MyPage = ({ params: { id } }: MyPageProps) => {
   return (
     <main className="pt-35pxr">
       <div className="mx-layout-l">
@@ -24,13 +18,7 @@ const MyPage = async ({ params: { id } }: MyPageProps) => {
           <h2 className="text-h3 text-grey-800">내 주민증</h2>
           <IdCardEditButton />
         </div>
-        <IdCard
-          idCardId={idCardId}
-          nickname={nickname}
-          aboutMe={aboutMe}
-          characterType={characterType}
-          keywordTitles={keywordTitles}
-        />
+        <MyPageIdCard id={id} />
       </div>
       <div className="mx-layout-sm mt-28pxr">
         <PlanetCreationButton />
