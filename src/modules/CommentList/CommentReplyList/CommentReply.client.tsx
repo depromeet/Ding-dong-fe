@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 'use client';
 
 import {
@@ -8,12 +9,13 @@ import {
   ReplySubmitButton,
   UserProfile,
 } from '~/modules/CommentList/CommentCommon';
-/* eslint-disable @typescript-eslint/no-unused-vars */
-import { CommentReplyModel } from '~/types/comment';
+import { CommentModel, CommentReplyModel } from '~/types/comment';
 
-type CommentProps = CommentReplyModel;
+type CommentProps = Pick<CommentModel, 'idCardId' | 'commentId'> & CommentReplyModel;
 
 export const CommentReply = ({
+  idCardId,
+  commentId,
   commentReplyId,
   content,
   createdAt,

@@ -18,6 +18,7 @@ import { CommentModel } from '~/types/comment';
 type CommentProps = CommentModel;
 
 export const Comment = ({
+  idCardId,
   commentId,
   content,
   createdAt,
@@ -58,7 +59,12 @@ export const Comment = ({
           onClickShowReplyList={onClickShowReplyList}
           commentReplyInfos={commentReplyInfos}
         />
-        <CommentReplyList isShowReplyList={isShowReplyList} commentReplyInfos={commentReplyInfos} />
+        <CommentReplyList
+          idCardId={idCardId}
+          commentId={commentId}
+          isShowReplyList={isShowReplyList}
+          commentReplyInfos={commentReplyInfos}
+        />
         <div className="mt-24pxr">
           <ReplyHideButton
             isShowReplyList={isShowReplyList}
