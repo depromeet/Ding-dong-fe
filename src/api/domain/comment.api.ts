@@ -27,17 +27,17 @@ import {
 const FIRST_COMMENT_PAGE = 1;
 
 export const commentQueryKey = {
-  comments: (idCardsId: number, pageParam: number) => ['comments', idCardsId, pageParam],
-  commentCount: (idCardsId: number) => ['commentCounts', idCardsId],
+  comments: (idCardId: number, pageParam: number) => ['comments', idCardId, pageParam],
+  commentCount: (idCardId: number) => ['commentCount', idCardId],
 };
 
-export const getComments = ({ idCardsId, pageParam }: CommentGetRequest) =>
-  privateApi.get<CommentGetResponse>(`/id-cards/${idCardsId}/comments?page=${pageParam}&size=10`);
+export const getComments = ({ idCardId, pageParam }: CommentGetRequest) =>
+  privateApi.get<CommentGetResponse>(`/id-cards/${idCardId}/comments?page=${pageParam}&size=10`);
 
-export const useGetComments = ({ idCardsId, pageParam }: CommentGetRequest) => {
+export const useGetComments = ({ idCardId, pageParam }: CommentGetRequest) => {
   return useInfiniteQuery(
-    commentQueryKey.comments(idCardsId, pageParam),
-    ({ pageParam = 0 }) => getComments({ idCardsId, pageParam }),
+    commentQueryKey.comments(idCardId, pageParam),
+    ({ pageParam = 0 }) => getComments({ idCardId, pageParam }),
     {
       getNextPageParam: data => (!data.data.hasNext ? data.data.page + 1 : undefined),
       refetchOnWindowFocus: false,
@@ -47,75 +47,74 @@ export const useGetComments = ({ idCardsId, pageParam }: CommentGetRequest) => {
   );
 };
 
-export const getCommentCounts = ({ idCardsId }: CommentCountGetRequest) =>
-  privateApi.get<CommentCountGetResponse>(`/id-cards/${idCardsId}/comments-count`);
+export const getCommentCounts = ({ idCardId }: CommentCountGetRequest) =>
+  privateApi.get<CommentCountGetResponse>(`/id-cards/${idCardId}/comments-count`);
 
-export const useGetCommentCounts = ({ idCardsId }: CommentCountGetRequest) =>
-  useQuery(commentQueryKey.commentCount(idCardsId), () => getCommentCounts({ idCardsId }));
+export const useGetCommentCounts = ({ idCardId }: CommentCountGetRequest) =>
+  useQuery(commentQueryKey.commentCount(idCardId), () => getCommentCounts({ idCardId }));
 
-export const postCommentCreate = ({ idCardsId, contents }: CommentPostRequest) =>
-  privateApi.post<CommentPostResponse>(`id-cards/${idCardsId}/comments`, { contents });
+export const postCommentCreate = ({ idCardId, contents }: CommentPostRequest) =>
+  privateApi.post<CommentPostResponse>(`id-cards/${idCardId}/comments`, { contents });
 
-export const usePostCommentCreate = (idCardsId: number) => {
+export const usePostCommentCreate = (idCardId: number) => {
   const queryClient = useQueryClient();
 
   return useMutation({
     mutationFn: (commentInfo: CommentPostRequest) => postCommentCreate(commentInfo),
     onSuccess: () =>
-      queryClient.invalidateQueries(commentQueryKey.comments(idCardsId, FIRST_COMMENT_PAGE)),
+      queryClient.invalidateQueries(commentQueryKey.comments(idCardId, FIRST_COMMENT_PAGE)),
   });
 };
 
-export const deleteComment = ({ idCardsId, commentId }: CommentDeleteRequest) =>
-  privateApi.delete<CommentDeleteResponse>(`id-cards/${idCardsId}/comments/${commentId}`);
+export const deleteComment = ({ idCardId, commentId }: CommentDeleteRequest) =>
+  privateApi.delete<CommentDeleteResponse>(`id-cards/${idCardId}/comments/${commentId}`);
 
-export const useDeleteComment = (idCardsId: number) => {
+export const useDeleteComment = (idCardId: number) => {
   const queryClient = useQueryClient();
 
   return useMutation({
     mutationFn: (commentInfo: CommentDeleteRequest) => deleteComment(commentInfo),
     onSuccess: () =>
-      queryClient.invalidateQueries(commentQueryKey.comments(idCardsId, FIRST_COMMENT_PAGE)),
+      queryClient.invalidateQueries(commentQueryKey.comments(idCardId, FIRST_COMMENT_PAGE)),
   });
 };
 
-export const postReplyCreate = ({ idCardsId, commentId, contents }: CommentPostReplyRequest) =>
-  privateApi.post<CommentPostReplyResponse>(
-    `/id-cards/${idCardsId}/comments/${commentId}/replies`,
-    { contents },
-  );
+export const postReplyCreate = ({ idCardId, commentId, contents }: CommentPostReplyRequest) =>
+  privateApi.post<CommentPostReplyResponse>(`/id-cards/${idCardId}/comments/${commentId}/replies`, {
+    contents,
+  });
 
-export const usePostReplyCreate = (idCardsId: number) => {
+export const usePostReplyCreate = (idCardId: number) => {
   const queryClient = useQueryClient();
 
   return useMutation({
     mutationFn: (replyInfo: CommentPostReplyRequest) => postCommentCreate(replyInfo),
     onSuccess: () =>
-      queryClient.invalidateQueries(commentQueryKey.comments(idCardsId, FIRST_COMMENT_PAGE)),
+      queryClient.invalidateQueries(commentQueryKey.comments(idCardId, FIRST_COMMENT_PAGE)),
   });
 };
 
-export const deleteReply = ({ idCardsId, commentId, commentReplyId }: CommentReplyDeleteRequest) =>
+export const deleteReply = ({ idCardId, commentId, commentReplyId }: CommentReplyDeleteRequest) =>
   privateApi.delete<CommentDeleteReplyResponse>(
-    `/id-cards/${idCardsId}/comments/${commentId}/replies/${commentReplyId}`,
+    `/id-cards/${idCardId}/comments/${commentId}/replies/${commentReplyId}`,
   );
 
-export const useDeleteReply = (idCardsId: number) => {
+export const useDeleteReply = (idCardId: number) => {
   const queryClient = useQueryClient();
 
   return useMutation({
     mutationFn: (replyInfo: CommentReplyDeleteRequest) => deleteReply(replyInfo),
     onSuccess: () =>
-      queryClient.invalidateQueries(commentQueryKey.comments(idCardsId, FIRST_COMMENT_PAGE)),
+      queryClient.invalidateQueries(commentQueryKey.comments(idCardId, FIRST_COMMENT_PAGE)),
   });
 };
 
-export const postLikeComment = ({ idCardsId, commentId }: CommentLikeRequest) =>
-  privateApi.post<CommentLikePostResponse>(`/id-cards/${idCardsId}/comments/${commentId}/likes`);
+export const postLikeComment = ({ idCardId, commentId }: CommentLikeRequest) =>
+  privateApi.post<CommentLikePostResponse>(`/id-cards/${idCardId}/comments/${commentId}/likes`);
 
-export const usePostLikeComment = ({ idCardsId, commentId }: CommentLikeRequest) => {
+export const usePostLikeComment = ({ idCardId, commentId }: CommentLikeRequest) => {
   return useMutation({
-    mutationFn: () => postLikeComment({ idCardsId, commentId }),
+    mutationFn: () => postLikeComment({ idCardId, commentId }),
     onError: () => {
       // 토스트 알람
       return false;
@@ -123,18 +122,18 @@ export const usePostLikeComment = ({ idCardsId, commentId }: CommentLikeRequest)
   });
 };
 
-export const postLikeReply = ({ idCardsId, commentId, commentReplyId }: CommentReplyLikeRequest) =>
+export const postLikeReply = ({ idCardId, commentId, commentReplyId }: CommentReplyLikeRequest) =>
   privateApi.post<CommentReplyLikePostResponse>(
-    `/id-cards/${idCardsId}/comments/${commentId}/replies/${commentReplyId}/reply-likes`,
+    `/id-cards/${idCardId}/comments/${commentId}/replies/${commentReplyId}/reply-likes`,
   );
 
 export const usePostLikeReply = ({
-  idCardsId,
+  idCardId,
   commentId,
   commentReplyId,
 }: CommentReplyLikeRequest) => {
   return useMutation({
-    mutationFn: () => postLikeReply({ idCardsId, commentId, commentReplyId }),
+    mutationFn: () => postLikeReply({ idCardId, commentId, commentReplyId }),
     onError: () => {
       // 토스트 알람
       return false;
@@ -142,14 +141,14 @@ export const usePostLikeReply = ({
   });
 };
 
-export const deleteCommentLike = ({ idCardsId, commentId }: CommentLikeCancelRequest) =>
+export const deleteCommentLike = ({ idCardId, commentId }: CommentLikeCancelRequest) =>
   privateApi.delete<CommentLikeCancelDeleteResponse>(
-    `/id-cards/${idCardsId}/comments/${commentId}/likes`,
+    `/id-cards/${idCardId}/comments/${commentId}/likes`,
   );
 
-export const useDeleteCommentLike = ({ idCardsId, commentId }: CommentLikeCancelRequest) => {
+export const useDeleteCommentLike = ({ idCardId, commentId }: CommentLikeCancelRequest) => {
   return useMutation({
-    mutationFn: () => deleteCommentLike({ idCardsId, commentId }),
+    mutationFn: () => deleteCommentLike({ idCardId, commentId }),
     onError: () => {
       // 토스트 알람
     },
@@ -157,21 +156,21 @@ export const useDeleteCommentLike = ({ idCardsId, commentId }: CommentLikeCancel
 };
 
 export const deleteCommentReplyLike = ({
-  idCardsId,
+  idCardId,
   commentId,
   commentReplyId,
 }: CommentReplyLikeCancelRequest) =>
   privateApi.delete<CommentReplyLikeCancelDeleteResponse>(
-    `/id-cards/${idCardsId}/comments/${commentId}/replies/${commentReplyId}/reply-likes/`,
+    `/id-cards/${idCardId}/comments/${commentId}/replies/${commentReplyId}/reply-likes/`,
   );
 
 export const useDeleteCommentReplyLike = ({
-  idCardsId,
+  idCardId,
   commentId,
   commentReplyId,
 }: CommentReplyLikeCancelRequest) => {
   return useMutation({
-    mutationFn: () => deleteCommentReplyLike({ idCardsId, commentId, commentReplyId }),
+    mutationFn: () => deleteCommentReplyLike({ idCardId, commentId, commentReplyId }),
     onError: () => {
       // 토스트 알람
     },

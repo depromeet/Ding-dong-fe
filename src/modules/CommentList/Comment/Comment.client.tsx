@@ -15,12 +15,10 @@ import {
 import { CommentReplyList } from '~/modules/CommentList/CommentReplyList';
 import { CommentModel } from '~/types/comment';
 
-type CommentProps = CommentModel & {
-  idCardsId: number;
-};
+type CommentProps = CommentModel;
 
 export const Comment = ({
-  idCardsId,
+  idCardId,
   commentId,
   content,
   createdAt,
@@ -54,7 +52,7 @@ export const Comment = ({
           </div>
           <div>
             <CommentLike
-              idCardsId={idCardsId}
+              idCardId={idCardId}
               commentId={commentId}
               commentReplyLikeInfo={commentReplyLikeInfo}
             />
@@ -66,7 +64,7 @@ export const Comment = ({
           commentReplyInfos={commentReplyInfos}
         />
         <CommentReplyList
-          idCardsId={idCardsId}
+          idCardId={idCardId}
           commentId={commentId}
           isShowReplyList={isShowReplyList}
           commentReplyInfos={commentReplyInfos}

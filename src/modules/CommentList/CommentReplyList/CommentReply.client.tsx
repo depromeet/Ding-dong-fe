@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 'use client';
 
 import {
@@ -8,16 +9,12 @@ import {
   UserProfile,
 } from '~/modules/CommentList/CommentCommon';
 import { CommentReplyLike } from '~/modules/CommentList/CommentReplyList/CommentReplyLike.client';
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { CommentModel, CommentReplyModel } from '~/types/comment';
 
-type CommentProps = Pick<CommentModel, 'commentId'> &
-  CommentReplyModel & {
-    idCardsId: number;
-  };
+type CommentProps = Pick<CommentModel, 'idCardId' | 'commentId'> & CommentReplyModel;
 
 export const CommentReply = ({
-  idCardsId,
+  idCardId,
   commentId,
   commentReplyId,
   content,
@@ -42,7 +39,7 @@ export const CommentReply = ({
           </div>
           <div>
             <CommentReplyLike
-              idCardsId={idCardsId}
+              idCardId={idCardId}
               commentId={commentId}
               commentReplyId={commentReplyId}
               commentReplyLikeInfo={commentReplyLikeInfo}

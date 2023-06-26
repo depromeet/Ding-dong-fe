@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/rules-of-hooks */
 'use client';
 import { useEffect, useState } from 'react';
 
@@ -6,23 +5,20 @@ import { useDeleteCommentLike, usePostLikeComment } from '~/api/domain/comment.a
 import { HeartFillIcon, HeartIcon } from '~/components/Icon';
 import { CommentModel } from '~/types/comment';
 
-// FIXME: https://github.com/depromeet/Ding-dong-fe/pull/113 이거 머지되면 타입 수정하기
-type CommentLikeProps = Pick<CommentModel, 'commentReplyLikeInfo' | 'commentId'> & {
-  idCardsId: number;
-};
+type CommentLikeProps = Pick<CommentModel, 'commentReplyLikeInfo' | 'commentId' | 'idCardId'>;
 
-export const CommentLike = ({ idCardsId, commentReplyLikeInfo, commentId }: CommentLikeProps) => {
+export const CommentLike = ({ idCardId, commentReplyLikeInfo, commentId }: CommentLikeProps) => {
   const [isLikedByCurrentUser, setIsLikedByCurrentUser] = useState(
     commentReplyLikeInfo.isLikedByCurrentUser,
   );
 
   const { mutate: mutatePostLike, isSuccess: isSuccessPostLike } = usePostLikeComment({
-    idCardsId,
+    idCardId,
     commentId,
   });
 
   const { mutate: mutateDeleteLike, isSuccess: isSuccessDeleteLike } = useDeleteCommentLike({
-    idCardsId,
+    idCardId,
     commentId,
   });
 
