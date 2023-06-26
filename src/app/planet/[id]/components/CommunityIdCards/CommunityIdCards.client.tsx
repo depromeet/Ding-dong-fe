@@ -1,9 +1,11 @@
 'use client';
 
 import { useEffect } from 'react';
+import { Suspense } from 'react';
 import { useInView } from 'react-intersection-observer';
 
 import { useGetCommunityIdCards } from '~/api/domain/community.api';
+import RetryErrorBoundary from '~/components/ErrorBoundary/RetryErrorBoundary.client';
 import { IdCard } from '~/modules/IdCard';
 import { CommunityIdCardsModel } from '~/types/community';
 
@@ -11,7 +13,7 @@ type CommunityIdCardsProps = {
   communityId: number;
 };
 
-export const CommunityIdCards = ({ communityId }: CommunityIdCardsProps) => {
+export const CommunityIdCardsComponent = ({ communityId }: CommunityIdCardsProps) => {
   const { data: communityIdCards, fetchNextPage } = useGetCommunityIdCards(communityId);
   const { ref, inView } = useInView();
 
@@ -31,5 +33,15 @@ export const CommunityIdCards = ({ communityId }: CommunityIdCardsProps) => {
       })}
       <div ref={ref}></div>
     </div>
+  );
+};
+
+export const CommunityIdCards = ({ communityId }: CommunityIdCardsProps) => {
+  return (
+    <RetryErrorBoundary>
+      <Suspense>
+        <CommunityIdCardsComponent communityId={communityId} />
+      </Suspense>
+    </RetryErrorBoundary>
   );
 };
