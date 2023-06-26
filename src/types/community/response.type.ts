@@ -12,3 +12,7 @@ export type CommunityDetailResponse = {
 export type CommunityListResponse = {
   communityListDtos: CommunityListModel[];
 };
+
+export type CommunityUpdateResponse = {
+  id: number;
+};
