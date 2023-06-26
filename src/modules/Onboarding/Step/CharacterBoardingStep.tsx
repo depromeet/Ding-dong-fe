@@ -14,17 +14,25 @@ type CharacterBoardingStepProps = {
 
 export const CharacterBoardingStep = ({ onNext }: CharacterBoardingStepProps) => {
   return (
-    <Template>
-      <Template.Title className="text-grey-900">
-        <h1>{info.title}</h1>
-      </Template.Title>
-      <Template.Description className="mt-17pxr text-grey-500">
-        <p>{info.description}</p>
-      </Template.Description>
-      <Template.Content>
-        <Image src={info.image} width={375} height={375} alt="onboarding planet image" />
-      </Template.Content>
-      <Template.Button onClick={onNext}>시작하기</Template.Button>
-    </Template>
+    <div className="relative">
+      <Image
+        src={info.image}
+        width={0}
+        height={0}
+        sizes="100vw"
+        className="absolute left-0 top-0 z-below mt-none-t-nav max-h-[100vh] w-full object-contain"
+        alt="onboarding planet image"
+      />
+      <Template>
+        <Template.Title className="text-grey-900">
+          <h1>{info.title}</h1>
+        </Template.Title>
+        <Template.Description className="mt-17pxr text-grey-500">
+          <p>{info.description}</p>
+        </Template.Description>
+        <Template.Content />
+        <Template.Button onClick={onNext}>시작하기</Template.Button>
+      </Template>
+    </div>
   );
 };
