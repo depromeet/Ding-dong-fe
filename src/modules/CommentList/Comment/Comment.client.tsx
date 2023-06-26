@@ -23,7 +23,7 @@ export const Comment = ({
   content,
   createdAt,
   writerInfo,
-  commentReplyLikeInfo,
+  commentLikeInfo,
   commentReplyInfos,
 }: CommentProps) => {
   const { userId, profileImageUrl, nickname } = writerInfo;
