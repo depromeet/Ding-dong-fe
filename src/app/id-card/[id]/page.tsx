@@ -1,16 +1,13 @@
 import 'server-only';
 
-import { Suspense } from 'react';
-
 import { commentQueryKey } from '~/api/domain/comment.api';
 import { getCommentsServer } from '~/api/domain/comment.api.server';
+import { CommentCount } from '~/app/id-card/[id]/components/CommentCount';
+import { CommentList } from '~/app/id-card/[id]/components/CommentList';
+import { IdCardDetail } from '~/app/id-card/[id]/components/IdCardDetail/IdCardDetail';
 import { Divider } from '~/components/Divider';
-import RetryErrorBoundary from '~/components/ErrorBoundary/RetryErrorBoundary.client';
 import { HydrationProvider } from '~/components/HydrationProvider';
-import { CommentCount } from '~/modules/CommentCount';
 import { CommentInput } from '~/modules/CommentInput';
-import { CommentList } from '~/modules/CommentList';
-import { IdCardDetail } from '~/modules/IdCardDetail/IdCardDetail';
 
 type IdCardDetailPageProps = {
   params: {
@@ -31,29 +28,15 @@ const IdCardDetailPage = async ({ params: { id } }: IdCardDetailPageProps) => {
 
   return (
     <main>
-      <RetryErrorBoundary>
-        <Suspense>
-          {/* @ts-expect-error Server Component */}
-          <IdCardDetail idCardsId={idCardsId} />
-        </Suspense>
-      </RetryErrorBoundary>
+      <IdCardDetail idCardsId={idCardsId} />
       <Divider />
-      <RetryErrorBoundary>
-        <Suspense>
-          {/* @ts-expect-error Server Component */}
-          <CommentCount idCardsId={idCardsId} />
-        </Suspense>
-      </RetryErrorBoundary>
+      <CommentCount idCardsId={idCardsId} />
       {/* @ts-expect-error Server Component */}
       <HydrationProvider
         queryKey={commentQueryKey.comments(idCardsId, pageParam)}
         queryFn={getCommentsQuery}
       >
-        <RetryErrorBoundary>
-          <Suspense>
-            <CommentList idCardsId={idCardsId} />
-          </Suspense>
-        </RetryErrorBoundary>
+        <CommentList idCardsId={idCardsId} />
       </HydrationProvider>
       <CommentInput />
     </main>

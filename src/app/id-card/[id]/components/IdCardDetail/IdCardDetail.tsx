@@ -1,4 +1,7 @@
+import { Suspense } from 'react';
+
 import { getIdCardDetailServer } from '~/api/domain/idCard.api.server';
+import RetryErrorBoundary from '~/components/ErrorBoundary/RetryErrorBoundary.client';
 import { TopNavigation } from '~/components/TopNavigation';
 import { Intro, KeywordContentCard } from '~/modules/IdCardDetail';
 import { CharacterNameModel } from '~/types/idCard';
@@ -14,7 +17,7 @@ type IdCardDetailProps = {
   idCardsId: number;
 };
 
-export const IdCardDetail = async ({ idCardsId }: IdCardDetailProps) => {
+const IdCardDetailComponent = async ({ idCardsId }: IdCardDetailProps) => {
   const { idCardDetailsDto } = await getIdCardDetailServer(idCardsId);
   const bgColor = bgColors[idCardDetailsDto.characterType];
 
@@ -48,5 +51,16 @@ export const IdCardDetail = async ({ idCardsId }: IdCardDetailProps) => {
         </div>
       </div>
     </>
+  );
+};
+
+export const IdCardDetail = ({ idCardsId }: IdCardDetailProps) => {
+  return (
+    <RetryErrorBoundary>
+      <Suspense>
+        {/* @ts-expect-error Server Component */}
+        <IdCardDetailComponent idCardsId={idCardsId} />
+      </Suspense>
+    </RetryErrorBoundary>
   );
 };
