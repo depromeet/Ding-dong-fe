@@ -9,12 +9,12 @@ import { Comment } from '~/modules/CommentList/Comment';
 import { CommentModel } from '~/types/comment';
 
 type CommentListProps = {
-  idCardsId: number;
+  idCardId: number;
 };
 
-const CommentListComponent = ({ idCardsId }: CommentListProps) => {
+const CommentListComponent = ({ idCardId }: CommentListProps) => {
   const { data: commentList, fetchNextPage } = useGetComments({
-    idCardsId,
+    idCardId,
     pageParam: 1,
   });
   // TODO: CommunityIdCards에서 사용하는 로직과 통일하기
@@ -38,11 +38,11 @@ const CommentListComponent = ({ idCardsId }: CommentListProps) => {
   );
 };
 
-export const CommentList = ({ idCardsId }: CommentListProps) => {
+export const CommentList = ({ idCardId }: CommentListProps) => {
   return (
     <RetryErrorBoundary>
       <Suspense>
-        <CommentListComponent idCardsId={idCardsId} />
+        <CommentListComponent idCardId={idCardId} />
       </Suspense>
     </RetryErrorBoundary>
   );

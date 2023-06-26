@@ -1,9 +1,9 @@
-import SendNickname from './sendNickname';
+import { CharacterCreationSteps } from '~/modules/Onboarding';
 
 const OnBoardingPage = () => {
   return (
     <>
-      <SendNickname />
+      <CharacterCreationSteps />
     </>
   );
 };

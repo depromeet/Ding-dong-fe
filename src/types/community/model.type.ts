@@ -20,3 +20,8 @@ export type CommunityIdCardsModel = {
   characterType: CharacterNameModel;
   keywordTitles: string[];
 };
+
+export type CommunityCodeModel = {
+  id: number;
+  invitationCode: string;
+};

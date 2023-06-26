@@ -16,11 +16,11 @@ type IdCardDetailPageProps = {
 };
 
 const IdCardDetailPage = async ({ params: { id } }: IdCardDetailPageProps) => {
-  const idCardsId = Number(id);
+  const idCardId = Number(id);
   const pageParam = 1;
 
   const getCommentsQuery = async () => {
-    const data = await getCommentsServer({ idCardsId, pageParam });
+    const data = await getCommentsServer({ idCardId, pageParam });
     return {
       pages: [data],
     };
@@ -36,7 +36,7 @@ const IdCardDetailPage = async ({ params: { id } }: IdCardDetailPageProps) => {
         queryKey={commentQueryKey.comments(idCardsId, pageParam)}
         queryFn={getCommentsQuery}
       >
-        <CommentList idCardsId={idCardsId} />
+        <CommentList idCardId={idCardId} />
       </HydrationProvider>
       <CommentInput />
     </main>

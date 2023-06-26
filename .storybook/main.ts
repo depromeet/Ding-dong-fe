@@ -13,6 +13,7 @@ const config: StorybookConfig = {
       },
     },
     '@storybook/addon-viewport',
+    'storybook-addon-cookie',
   ],
   framework: {
     name: '@storybook/nextjs',
