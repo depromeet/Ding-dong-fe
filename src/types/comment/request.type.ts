@@ -1,53 +1,52 @@
 export type CommentGetRequest = {
-  idCardsId: number;
+  idCardId: number;
   pageParam: number;
 };
 
 export type CommentCountGetRequest = {
-  idCardsId: number;
+  idCardId: number;
 };
 
 export type CommentPostRequest = {
-  idCardsId: number;
+  idCardId: number;
   contents: string;
 };
 
 export type CommentPostReplyRequest = {
-  idCardsId: number;
+  idCardId: number;
   commentId: number;
   contents: string;
 };
 
-export type CommentReplyLikeRequest = {
-  idCardsId: number;
+export type CommentDeleteRequest = {
+  idCardId: number;
+  commentId: number;
+};
+
+export type CommentReplyDeleteRequest = {
+  idCardId: number;
   commentId: number;
   commentReplyId: number;
 };
 
 export type CommentLikeRequest = {
-  idCardsId: number;
+  idCardId: number;
   commentId: number;
 };
 
-export type CommentDeleteRequest = {
-  idCardsId: number;
-  commentId: number;
-};
-
-export type CommentReplyDeleteRequest = {
-  idCardsId: number;
+export type CommentReplyLikeRequest = {
+  idCardId: number;
   commentId: number;
   commentReplyId: number;
 };
 
 export type CommentLikeCancelRequest = {
-  idCardsId: number;
+  idCardId: number;
   commentId: number;
-  commentLikeId: number;
 };
 
 export type CommentReplyLikeCancelRequest = {
-  idCardsId: number;
+  idCardId: number;
   commentId: number;
-  commentLikeId: number;
+  commentReplyId: number;
 };
