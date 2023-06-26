@@ -7,7 +7,7 @@ export const commentMockHandler = [
   rest.get(`${ROOT_API_URL}/id-cards/:idCardId/comments?page=:page&size=10`, (req, res, ctx) => {
     const { searchParams } = req.url;
     const page = Number(searchParams.get('page'));
-    const idCardId = Number(req.url.pathname.split('/')[2]);
+    const idCardId = Number(req.url.pathname.split('/')[3]);
 
     return res(
       ctx.status(200),
