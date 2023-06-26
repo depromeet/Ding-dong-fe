@@ -1,4 +1,11 @@
-import { useInfiniteQuery, useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import {
+  useInfiniteQuery,
+  useMutation,
+  UseMutationOptions,
+  useQuery,
+  useQueryClient,
+} from '@tanstack/react-query';
+import { AxiosError } from 'axios';
 
 import privateApi from '~/api/config/privateApi';
 import {
@@ -112,13 +119,15 @@ export const useDeleteReply = (idCardId: number) => {
 export const postLikeComment = ({ idCardId, commentId }: CommentLikeRequest) =>
   privateApi.post<CommentLikePostResponse>(`/id-cards/${idCardId}/comments/${commentId}/likes`);
 
-export const usePostLikeComment = ({ idCardId, commentId }: CommentLikeRequest) => {
+export const usePostLikeComment = (
+  options?: Omit<
+    UseMutationOptions<CommentLikePostResponse, AxiosError, CommentLikeRequest>,
+    'mutationFn'
+  >,
+) => {
   return useMutation({
-    mutationFn: () => postLikeComment({ idCardId, commentId }),
-    onError: () => {
-      // 토스트 알람
-      return false;
-    },
+    mutationFn: postLikeComment,
+    ...options,
   });
 };
 
@@ -127,17 +136,15 @@ export const postLikeReply = ({ idCardId, commentId, commentReplyId }: CommentRe
     `/id-cards/${idCardId}/comments/${commentId}/replies/${commentReplyId}/reply-likes`,
   );
 
-export const usePostLikeReply = ({
-  idCardId,
-  commentId,
-  commentReplyId,
-}: CommentReplyLikeRequest) => {
+export const usePostLikeReply = (
+  options?: Omit<
+    UseMutationOptions<CommentReplyLikePostResponse, AxiosError, CommentReplyLikeRequest>,
+    'mutationFn'
+  >,
+) => {
   return useMutation({
-    mutationFn: () => postLikeReply({ idCardId, commentId, commentReplyId }),
-    onError: () => {
-      // 토스트 알람
-      return false;
-    },
+    mutationFn: postLikeReply,
+    ...options,
   });
 };
 
@@ -146,12 +153,15 @@ export const deleteCommentLike = ({ idCardId, commentId }: CommentLikeCancelRequ
     `/id-cards/${idCardId}/comments/${commentId}/likes`,
   );
 
-export const useDeleteCommentLike = ({ idCardId, commentId }: CommentLikeCancelRequest) => {
+export const useDeleteCommentLike = (
+  options?: Omit<
+    UseMutationOptions<CommentLikeCancelDeleteResponse, AxiosError, CommentLikeCancelRequest>,
+    'mutationFn'
+  >,
+) => {
   return useMutation({
-    mutationFn: () => deleteCommentLike({ idCardId, commentId }),
-    onError: () => {
-      // 토스트 알람
-    },
+    mutationFn: deleteCommentLike,
+    ...options,
   });
 };
 
@@ -159,20 +169,24 @@ export const deleteCommentReplyLike = ({
   idCardId,
   commentId,
   commentReplyId,
-}: CommentReplyLikeCancelRequest) =>
-  privateApi.delete<CommentReplyLikeCancelDeleteResponse>(
+}: CommentReplyLikeCancelRequest) => {
+  return privateApi.delete<CommentReplyLikeCancelDeleteResponse>(
     `/id-cards/${idCardId}/comments/${commentId}/replies/${commentReplyId}/reply-likes/`,
   );
+};
 
-export const useDeleteCommentReplyLike = ({
-  idCardId,
-  commentId,
-  commentReplyId,
-}: CommentReplyLikeCancelRequest) => {
+export const useDeleteCommentReplyLike = (
+  options?: Omit<
+    UseMutationOptions<
+      CommentReplyLikeCancelDeleteResponse,
+      AxiosError,
+      CommentReplyLikeCancelRequest
+    >,
+    'mutationFn'
+  >,
+) => {
   return useMutation({
-    mutationFn: () => deleteCommentReplyLike({ idCardId, commentId, commentReplyId }),
-    onError: () => {
-      // 토스트 알람
-    },
+    mutationFn: deleteCommentReplyLike,
+    ...options,
   });
 };

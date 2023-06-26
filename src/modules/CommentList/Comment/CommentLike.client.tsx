@@ -1,5 +1,5 @@
 'use client';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 import { useDeleteCommentLike, usePostLikeComment } from '~/api/domain/comment.api';
 import { HeartFillIcon, HeartIcon } from '~/components/Icon';
@@ -12,36 +12,42 @@ export const CommentLike = ({ idCardId, commentReplyLikeInfo, commentId }: Comme
     commentReplyLikeInfo.isLikedByCurrentUser,
   );
 
-  const { mutate: mutatePostLike, isSuccess: isSuccessPostLike } = usePostLikeComment({
-    idCardId,
-    commentId,
+  const likeComment = () => {
+    setIsLikedByCurrentUser(true);
+  };
+
+  const cancelLikeComment = () => {
+    setIsLikedByCurrentUser(false);
+  };
+
+  const mutatePostLike = usePostLikeComment({
+    onError: () => {
+      // TODO toast error
+      cancelLikeComment();
+    },
   });
 
-  const { mutate: mutateDeleteLike, isSuccess: isSuccessDeleteLike } = useDeleteCommentLike({
-    idCardId,
-    commentId,
+  const mutateDeleteLike = useDeleteCommentLike({
+    onError: () => {
+      // TODO toast error
+      likeComment();
+    },
   });
 
   const onClickToLike = async () => {
-    mutatePostLike();
+    likeComment();
+    mutatePostLike.mutate({ idCardId, commentId });
   };
 
-  const onClickToUnLike = async () => {
-    mutateDeleteLike();
+  const onClickToLikeCancel = async () => {
+    cancelLikeComment();
+    mutateDeleteLike.mutate({ idCardId, commentId });
   };
-
-  useEffect(() => {
-    setIsLikedByCurrentUser(isSuccessPostLike);
-  }, [isSuccessPostLike]);
-
-  useEffect(() => {
-    setIsLikedByCurrentUser(!isSuccessDeleteLike);
-  }, [isSuccessDeleteLike]);
 
   return (
     <>
       {isLikedByCurrentUser ? (
-        <HeartFillIcon onClick={onClickToUnLike} className="fill-blue-500" />
+        <HeartFillIcon onClick={onClickToLikeCancel} className="fill-blue-500" />
       ) : (
         <HeartIcon onClick={onClickToLike} className="fill-grey-400" />
       )}
