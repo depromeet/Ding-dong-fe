@@ -1,7 +1,6 @@
 import 'server-only';
 
-import { getCommunityMyIdCardDetail } from '~/api/domain/idCard.api';
-import { IdCardEditor } from '~/modules/IdCardEditor';
+import { MyPageEditIdCard } from '~/app/my-page/[id]/edit/components/MyPageEditIdCard';
 
 type EditMyPageProps = {
   params: {
@@ -9,19 +8,10 @@ type EditMyPageProps = {
   };
 };
 
-const EditMyPage = async ({ params: { id } }: EditMyPageProps) => {
-  const { idCardDetailsDto } = await getCommunityMyIdCardDetail(id);
-  const { idCardId, nickname, aboutMe, profileImageUrl, keywords } = idCardDetailsDto;
-
+const EditMyPage = ({ params: { id } }: EditMyPageProps) => {
   return (
     <main>
-      <IdCardEditor
-        idCardId={idCardId}
-        nickname={nickname}
-        aboutMe={aboutMe}
-        profileImageUrl={profileImageUrl}
-        keywords={keywords}
-      />
+      <MyPageEditIdCard id={id} />
     </main>
   );
 };
