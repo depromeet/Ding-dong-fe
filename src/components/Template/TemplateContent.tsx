@@ -3,7 +3,7 @@ import { ReactNode } from 'react';
 import { tw } from '~/utils/tailwind.util';
 
 type TemplateContentProps = {
-  children: ReactNode;
+  children?: ReactNode;
   className?: string;
 };
 

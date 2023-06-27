@@ -114,6 +114,7 @@ module.exports = {
         'b-nav': '52px',
         'layout-sm': '20px',
         'layout-l': '28px',
+        'none-t-nav': '-50px',
         ...declarePxr(),
       },
       // TODO: 아직 폰트가 정해지지 않아 기본 값으로 넣어두었습니다. 폰트 지정 후 수정이 필요합니다.
