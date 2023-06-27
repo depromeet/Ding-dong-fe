@@ -10,3 +10,12 @@ export type UserInfoModel = {
 };
 
 export type CharacterCreateModel = CharacterNameModel;
+
+export type InvitationCodeValidationModel = {
+  planetId: number;
+};
+
+export type PlanetJoinModel = {
+  userId: number;
+  planetId: number;
+}

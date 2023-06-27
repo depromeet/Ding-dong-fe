@@ -10,7 +10,38 @@ export const ACCESS_TOKEN_EXPIRE_MARGIN_SECOND = 60;
 // Authorization이 필요한 페이지 경로를 저장합니다.
 const PRIVATE_ROUTES = ['/accounts'];
 
+const isLogin = async (request: NextRequest) => {
+  const requestHeaders = new Headers(request.headers);
+  const accessToken = request.cookies.get(AUTH_COOKIE_KEYS.accessToken)?.value;
+  const accessTokenExpireDate = Number(
+    request.cookies.get(AUTH_COOKIE_KEYS.accessTokenExpireDate)?.value,
+  );
+  return await getAccessToken({ accessToken, accessTokenExpireDate });
+};
+
 const middleware = async (request: NextRequest) => {
+  // if (request.nextUrl.pathname.startsWith('/invitation')) {
+  //   privateApi.get('/like/you');
+
+  //   // 초대 코드 검사
+  //   // const { planetId } = getInvitationCodeIsValid(1)
+  //   console.log('invitation');
+  //   const planetId = 1;
+  //   if (planetId) {
+  //     // 로그인 여부 확인하고 userId 값을 알아옴
+
+  //     // post api를 이용해 행성 가입
+  //     // postPlanetJoin({userId: 1, planetId: 1})
+
+  //     // 캐릭터 생성 여부 api로 알아내기
+  //     return NextResponse.redirect(new URL(`/planet/${planetId}`, request.url));
+  //   } else {
+  //     // 에러에서 처리할지, 아니면 여기서 처리할지 이야기해야 함
+  //     // middleware에서 발생하는 에러에 대한 에러페이지는 어떻게 보여주지..?
+  //     return NextResponse.redirect(new URL('/auth/signin', request.url));
+  //   }
+  // }
+
   if (request.nextUrl.pathname.startsWith('/auth/callback/kakao')) {
     const authCode = request.nextUrl.searchParams.get('code');
 
@@ -78,6 +109,6 @@ const middleware = async (request: NextRequest) => {
 const config = {
   // middleware가 적용될 페이지를 설정해 두어야 SC에서의 api 요청이 정상적으로 작동합니다.
   // https://nextjs.org/docs/app/building-your-application/routing/middleware#matcher
-  matcher: ['/auth/callback/kakao/(.*)', ...PRIVATE_ROUTES],
+  matcher: ['/auth/callback/kakao/(.*)',  ...PRIVATE_ROUTES],
 };
 export { config, middleware };

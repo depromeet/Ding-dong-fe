@@ -2,8 +2,11 @@ import { useMutation, UseMutationOptions, useQuery } from '@tanstack/react-query
 import { AxiosError } from 'axios';
 
 import privateApi from '~/api/config/privateApi';
+import { InvitationCodeValidationResponse, PlanetJoinRequest } from '~/types/user';
 import { CharacterCreateRequest } from '~/types/user';
 import { UserInfoResponse } from '~/types/user';
+
+import publicApi from '../config/publicApi';
 
 export const userQueryKey = {
   userInfo: () => ['userInfo'],
@@ -23,3 +26,11 @@ export const usePostCharacterCreate = (
     mutationFn: postCharacterCreate,
     ...options,
   });
+
+export const getInvitationCodeIsValid = async (invitationCode: string) => {
+  return await publicApi.get<InvitationCodeValidationResponse>(`/invitation/${invitationCode}`);
+};
+
+export const postPlanetJoin = async (body: PlanetJoinRequest) => {
+  return await privateApi.post<InvitationCodeValidationResponse>(`/join/planet`, body);
+};
