@@ -6,6 +6,7 @@ import { useGetUserInfo } from '~/api/domain/user.api';
 import { Divider } from '~/components/Divider';
 import { SendIcon } from '~/components/Icon';
 import { TextInput, useTextInput } from '~/components/TextInput';
+import { ReplyIndicator } from '~/modules/CommentInput/ReplyIndicator.client';
 import { UserProfile } from '~/modules/CommentList/CommentCommon';
 
 export const CommentInput = () => {
@@ -24,6 +25,7 @@ export const CommentInput = () => {
     <>
       {userInfo && (
         <div className="fixed bottom-0 left-0 w-full bg-white">
+          <ReplyIndicator />
           <Divider className="bg-grey-200" />
           <form
             className="flex items-center gap-8pxr px-[20px] py-[8px]"
