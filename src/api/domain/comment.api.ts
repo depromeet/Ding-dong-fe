@@ -1,4 +1,5 @@
 import {
+  InfiniteData,
   useInfiniteQuery,
   useMutation,
   UseMutationOptions,
@@ -20,6 +21,7 @@ import {
   CommentLikeCancelRequest,
   CommentLikePostResponse,
   CommentLikeRequest,
+  CommentModel,
   CommentPostReplyRequest,
   CommentPostReplyResponse,
   CommentPostRequest,
@@ -30,20 +32,20 @@ import {
   CommentReplyLikePostResponse,
   CommentReplyLikeRequest,
 } from '~/types/comment';
-
-const FIRST_COMMENT_PAGE = 1;
+import { UserInfoModel } from '~/types/user';
 
 export const commentQueryKey = {
-  comments: (idCardId: number, pageParam: number) => ['comments', idCardId, pageParam],
+  comments: (idCardId: number) => ['comments', idCardId],
   commentCount: (idCardId: number) => ['commentCount', idCardId],
 };
 
 export const getComments = ({ idCardId, pageParam }: CommentGetRequest) =>
   privateApi.get<CommentGetResponse>(`/id-cards/${idCardId}/comments?page=${pageParam}&size=10`);
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export const useGetComments = ({ idCardId, pageParam }: CommentGetRequest) => {
   return useInfiniteQuery(
-    commentQueryKey.comments(idCardId, pageParam),
+    commentQueryKey.comments(idCardId),
     ({ pageParam = 0 }) => getComments({ idCardId, pageParam }),
     {
       getNextPageParam: data => (!data.data.hasNext ? data.data.page + 1 : undefined),
@@ -64,13 +66,75 @@ export const useGetCommentCounts = ({ idCardId }: CommentCountGetRequest) =>
 export const postCommentCreate = ({ idCardId, contents }: CommentPostRequest) =>
   privateApi.post<CommentPostResponse>(`id-cards/${idCardId}/comments`, { contents });
 
-export const usePostCommentCreate = (idCardId: number) => {
+export const usePostCommentCreate = (idCardId: number, userInfo: UserInfoModel) => {
   const queryClient = useQueryClient();
 
   return useMutation({
     mutationFn: (commentInfo: CommentPostRequest) => postCommentCreate(commentInfo),
-    onSuccess: () =>
-      queryClient.invalidateQueries(commentQueryKey.comments(idCardId, FIRST_COMMENT_PAGE)),
+    onMutate: (commentInfo: CommentPostRequest) => {
+      // 이전 댓글 목록을 가져옵니다.
+      const previousComments = queryClient.getQueryData<CommentGetResponse>(
+        commentQueryKey.comments(idCardId),
+      );
+
+      // 새로운 댓글 객체를 생성합니다.
+      const newComment: CommentModel = {
+        idCardId: idCardId,
+        commentId: Date.now(), // 임시로 고유한 ID로 사용합니다.
+        content: commentInfo.contents,
+        createdAt: new Date().toISOString(),
+        writerInfo: {
+          userId: userInfo?.userId,
+          nickname: userInfo?.nickname,
+          profileImageUrl: userInfo?.profileImageUrl,
+        },
+        commentReplyLikeInfo: {
+          likeCount: 0,
+          isLikedByCurrentUser: false,
+        },
+        commentReplyInfos: [],
+      };
+
+      // 새로운 댓글을 이전 목록에 추가합니다.
+      queryClient.setQueryData<InfiniteData<CommentGetResponse>>(
+        commentQueryKey.comments(idCardId),
+        oldData => {
+          const newPages = oldData?.pages ?? [];
+          if (newPages.length > 0) {
+            const firstPage = newPages[0];
+            const firstPageData = firstPage.data ?? {
+              content: [],
+              hasNext: false,
+              page: 0,
+              size: 0,
+            };
+            const updatedFirstPageData = {
+              content: [{ ...newComment }, ...firstPageData.content],
+              hasNext: firstPageData.hasNext,
+              page: firstPageData.page,
+              size: firstPageData.size,
+            };
+            newPages[0] = { ...firstPage, data: updatedFirstPageData };
+          } else {
+            newPages.push({
+              data: {
+                content: [{ ...newComment }],
+                hasNext: false,
+                page: 0,
+                size: 10,
+              },
+            });
+          }
+          return {
+            pages: newPages,
+            pageParams: oldData?.pageParams ?? [],
+          };
+        },
+      );
+
+      return { previousComments };
+    },
+    //TODO: 에러처리
   });
 };
 
@@ -82,8 +146,7 @@ export const useDeleteComment = (idCardId: number) => {
 
   return useMutation({
     mutationFn: (commentInfo: CommentDeleteRequest) => deleteComment(commentInfo),
-    onSuccess: () =>
-      queryClient.invalidateQueries(commentQueryKey.comments(idCardId, FIRST_COMMENT_PAGE)),
+    onSuccess: () => queryClient.invalidateQueries(commentQueryKey.comments(idCardId)),
   });
 };
 
@@ -97,8 +160,7 @@ export const usePostReplyCreate = (idCardId: number) => {
 
   return useMutation({
     mutationFn: (replyInfo: CommentPostReplyRequest) => postCommentCreate(replyInfo),
-    onSuccess: () =>
-      queryClient.invalidateQueries(commentQueryKey.comments(idCardId, FIRST_COMMENT_PAGE)),
+    onSuccess: () => queryClient.invalidateQueries(commentQueryKey.comments(idCardId)),
   });
 };
 
@@ -112,8 +174,7 @@ export const useDeleteReply = (idCardId: number) => {
 
   return useMutation({
     mutationFn: (replyInfo: CommentReplyDeleteRequest) => deleteReply(replyInfo),
-    onSuccess: () =>
-      queryClient.invalidateQueries(commentQueryKey.comments(idCardId, FIRST_COMMENT_PAGE)),
+    onSuccess: () => queryClient.invalidateQueries(commentQueryKey.comments(idCardId)),
   });
 };
 
