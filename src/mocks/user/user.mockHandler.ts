@@ -10,4 +10,10 @@ export const userMockHandler = [
   rest.post(`${ROOT_API_URL}/user/character`, (req, res, ctx) => {
     return res(ctx.status(200), ctx.json({}));
   }),
+  rest.get(`${ROOT_API_URL}/invitation/:code`, (req, res, ctx) => {
+    return res(ctx.status(200), ctx.json({ planetId: 1 }));
+  }),
+  rest.post(`${ROOT_API_URL}/join/planet`, (req, res, ctx) => {
+    return res(ctx.status(200), ctx.json({}));
+  }),
 ];
