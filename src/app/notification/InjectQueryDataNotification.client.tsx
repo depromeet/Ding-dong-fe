@@ -5,6 +5,7 @@ import { useInView } from 'react-intersection-observer';
 
 import { useGetNotifications } from '~/api/domain/notification.api';
 import { NotificationList } from '~/modules/Notification/NotificationList';
+import { NotificationNoData } from '~/modules/Notification/NotificationNoData';
 
 export const InjectQueryDataNotification = () => {
   const { data, fetchNextPage } = useGetNotifications({
@@ -28,7 +29,7 @@ export const InjectQueryDataNotification = () => {
         </div>
       ))}
 
-      {data?.pages[0].data.content.length === 0 && <div>새로운 알림이 없습니다.</div>}
+      {data?.pages[0].data.content.length === 0 && <NotificationNoData />}
     </>
   );
 };
