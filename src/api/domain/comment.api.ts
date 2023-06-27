@@ -104,22 +104,9 @@ export const usePostCommentCreate = (idCardId: number, userInfo: UserInfoModel) 
         oldData => {
           const copyOldData = _.cloneDeep(oldData);
           const newPages = copyOldData?.pages ?? [];
-          if (newPages.length > 0) {
-            const firstPage = newPages[0];
-            const firstPageData = firstPage.data ?? {
-              content: [],
-              hasNext: false,
-              page: 0,
-              size: 0,
-            };
-            const updatedFirstPageData = {
-              content: [{ ...newComment }, ...firstPageData.content],
-              hasNext: firstPageData.hasNext,
-              page: firstPageData.page,
-              size: firstPageData.size,
-            };
-            newPages[0] = { ...firstPage, data: updatedFirstPageData };
-          } else {
+
+          // 댓글이 없는 경우 pages[0].data에 추가합니다.
+          if (newPages.length === 0) {
             newPages.push({
               data: {
                 content: [{ ...newComment }],
@@ -128,6 +115,19 @@ export const usePostCommentCreate = (idCardId: number, userInfo: UserInfoModel) 
                 size: 10,
               },
             });
+          }
+          // 기존의 댓글이 있는 경우
+          else {
+            // 댓글 작성은 가장 맨 위로 올려야하기 때문에 pages[0].data에 첫 번째 요소로 추가합니다.
+            const firstPage = newPages[0];
+            const firstPageData = firstPage.data;
+            const updatedFirstPageData = {
+              content: [{ ...newComment }, ...firstPageData.content],
+              hasNext: firstPageData.hasNext,
+              page: firstPageData.page,
+              size: firstPageData.size,
+            };
+            newPages[0] = { ...firstPage, data: updatedFirstPageData };
           }
           return {
             pages: newPages,
@@ -152,14 +152,11 @@ export const usePostCommentCreate = (idCardId: number, userInfo: UserInfoModel) 
         oldData => {
           const copyOldData = _.cloneDeep(oldData);
           const newPages = copyOldData?.pages ?? [];
+
+          // commentId를 실제 요청 후 받은 id로 수정합니다.
           if (newPages.length > 0) {
             const firstPage = newPages[0];
-            const firstPageData = firstPage.data ?? {
-              content: [],
-              hasNext: false,
-              page: 0,
-              size: 0,
-            };
+            const firstPageData = firstPage.data;
             firstPageData.content[0].commentId = commentId;
             newPages[0] = { ...firstPage, data: firstPageData };
           }
