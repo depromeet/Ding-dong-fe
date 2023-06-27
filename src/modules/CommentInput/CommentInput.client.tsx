@@ -24,13 +24,16 @@ export const CommentInput = ({ idCardId }: CommentInputProps) => {
 
   const { data: userInfo } = useGetUserInfo();
   const { mutate: mutatePostCommentCreate } = usePostCommentCreate(idCardId, userInfo!);
+
+  const { register, handleSubmit, reset } = useForm<CommentFormData>();
+
   const onSubmit = (data: CommentFormData) => {
     const { contents } = data;
     if (isEmptyText(contents)) return;
     mutatePostCommentCreate({ idCardId, contents });
+    reset();
   };
 
-  const { register, handleSubmit } = useForm<CommentFormData>();
   const { onChangeHandler } = useTextInput({
     onChange: register('contents').onChange,
   });
