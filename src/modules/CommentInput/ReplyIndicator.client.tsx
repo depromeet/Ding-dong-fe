@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import { Divider } from '~/components/Divider';
 import { CancelIcon } from '~/components/Icon';
@@ -8,6 +8,13 @@ import { useReplyRecipientStore } from '~/stores/comment.store';
 
 export const ReplyIndicator = () => {
   const { nickname, clear } = useReplyRecipientStore();
+
+  useEffect(() => {
+    return () => {
+      clear();
+    };
+  }, []);
+
   return nickname ? (
     <>
       <Divider className="bg-grey-200" />
