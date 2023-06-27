@@ -102,8 +102,8 @@ export const usePostCommentCreate = (idCardId: number, userInfo: UserInfoModel) 
       queryClient.setQueryData<InfiniteData<CommentGetResponse>>(
         commentQueryKey.comments(idCardId),
         oldData => {
-          const copyoldData = _.cloneDeep(oldData);
-          const newPages = copyoldData?.pages ?? [];
+          const copyOldData = _.cloneDeep(oldData);
+          const newPages = copyOldData?.pages ?? [];
           if (newPages.length > 0) {
             const firstPage = newPages[0];
             const firstPageData = firstPage.data ?? {
@@ -131,7 +131,7 @@ export const usePostCommentCreate = (idCardId: number, userInfo: UserInfoModel) 
           }
           return {
             pages: newPages,
-            pageParams: copyoldData?.pageParams ?? [],
+            pageParams: copyOldData?.pageParams ?? [],
           };
         },
       );
@@ -143,6 +143,33 @@ export const usePostCommentCreate = (idCardId: number, userInfo: UserInfoModel) 
         // TODO: toast error
         queryClient.setQueryData(commentQueryKey.comments(idCardId), context.previousComments);
       }
+    },
+    onSuccess: response => {
+      const commentId = response.id;
+
+      queryClient.setQueryData<InfiniteData<CommentGetResponse>>(
+        commentQueryKey.comments(idCardId),
+        oldData => {
+          const copyOldData = _.cloneDeep(oldData);
+          const newPages = copyOldData?.pages ?? [];
+          if (newPages.length > 0) {
+            const firstPage = newPages[0];
+            const firstPageData = firstPage.data ?? {
+              content: [],
+              hasNext: false,
+              page: 0,
+              size: 0,
+            };
+            firstPageData.content[0].commentId = commentId;
+            newPages[0] = { ...firstPage, data: firstPageData };
+          }
+
+          return {
+            pages: newPages,
+            pageParams: copyOldData?.pageParams ?? [],
+          };
+        },
+      );
     },
   });
 };
