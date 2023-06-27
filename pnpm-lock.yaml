@@ -35,6 +35,9 @@ dependencies:
   framer-motion:
     specifier: ^10.12.16
     version: 10.12.16(react-dom@18.2.0)(react@18.2.0)
+  lodash:
+    specifier: ^4.17.21
+    version: 4.17.21
   msw:
     specifier: ^1.2.1
     version: 1.2.1(typescript@5.0.4)
