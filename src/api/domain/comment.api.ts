@@ -7,6 +7,7 @@ import {
   useQueryClient,
 } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
+import _ from 'lodash';
 
 import privateApi from '~/api/config/privateApi';
 import {
@@ -71,7 +72,9 @@ export const usePostCommentCreate = (idCardId: number, userInfo: UserInfoModel) 
 
   return useMutation({
     mutationFn: (commentInfo: CommentPostRequest) => postCommentCreate(commentInfo),
-    onMutate: (commentInfo: CommentPostRequest) => {
+    onMutate: async (commentInfo: CommentPostRequest) => {
+      await queryClient.cancelQueries({ queryKey: commentQueryKey.comments(idCardId) });
+
       // 이전 댓글 목록을 가져옵니다.
       const previousComments = queryClient.getQueryData<CommentGetResponse>(
         commentQueryKey.comments(idCardId),
@@ -99,7 +102,8 @@ export const usePostCommentCreate = (idCardId: number, userInfo: UserInfoModel) 
       queryClient.setQueryData<InfiniteData<CommentGetResponse>>(
         commentQueryKey.comments(idCardId),
         oldData => {
-          const newPages = oldData?.pages ?? [];
+          const copyoldData = _.cloneDeep(oldData);
+          const newPages = copyoldData?.pages ?? [];
           if (newPages.length > 0) {
             const firstPage = newPages[0];
             const firstPageData = firstPage.data ?? {
@@ -127,14 +131,19 @@ export const usePostCommentCreate = (idCardId: number, userInfo: UserInfoModel) 
           }
           return {
             pages: newPages,
-            pageParams: oldData?.pageParams ?? [],
+            pageParams: copyoldData?.pageParams ?? [],
           };
         },
       );
 
       return { previousComments };
     },
-    //TODO: 에러처리
+    onError: (err, newTodo, context) => {
+      if (context?.previousComments) {
+        // TODO: toast error
+        queryClient.setQueryData(commentQueryKey.comments(idCardId), context.previousComments);
+      }
+    },
   });
 };
 
