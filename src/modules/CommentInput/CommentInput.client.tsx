@@ -2,23 +2,37 @@
 
 import { useForm } from 'react-hook-form';
 
+import { usePostCommentCreate } from '~/api/domain/comment.api';
 import { useGetUserInfo } from '~/api/domain/user.api';
 import { Divider } from '~/components/Divider';
 import { SendIcon } from '~/components/Icon';
 import { TextInput, useTextInput } from '~/components/TextInput';
 import { ReplyIndicator } from '~/modules/CommentInput/ReplyIndicator.client';
 import { UserProfile } from '~/modules/CommentList/CommentCommon';
+import { isEmptyText } from '~/utils/util.common';
 
-export const CommentInput = () => {
+type CommentInputProps = {
+  idCardId: number;
+};
+
+type CommentFormData = {
+  contents: string;
+};
+
+export const CommentInput = ({ idCardId }: CommentInputProps) => {
   //TODO: 주민증 없는 경우 댓글 작성 못한다고 input placeholder 수정
-  const onSubmit = () => {
-    console.log('제출');
-  };
-  const { data: userInfo } = useGetUserInfo();
 
-  const { register, handleSubmit } = useForm();
+  const { data: userInfo } = useGetUserInfo();
+  const { mutate: mutatePostCommentCreate } = usePostCommentCreate(idCardId);
+  const onSubmit = (data: CommentFormData) => {
+    const { contents } = data;
+    if (isEmptyText(contents)) return;
+    mutatePostCommentCreate({ idCardId, contents });
+  };
+
+  const { register, handleSubmit } = useForm<CommentFormData>();
   const { onChangeHandler } = useTextInput({
-    onChange: register('title').onChange,
+    onChange: register('contents').onChange,
   });
 
   return (
@@ -37,11 +51,13 @@ export const CommentInput = () => {
                 <div className="flex w-full flex-row">
                   <TextInput.Content
                     className="w-full bg-grey-50"
-                    {...register('comment')}
+                    {...register('contents')}
                     placeholder="댓글을 남겨주세요"
                     onChange={onChangeHandler}
                   />
-                  <SendIcon className="fill-none stroke-primary-500" />
+                  <button>
+                    <SendIcon className="fill-none stroke-primary-500" />
+                  </button>
                 </div>
               </TextInput.Border>
             </TextInput>
