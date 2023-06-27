@@ -16,6 +16,7 @@ type CommunityIdCardsProps = {
 export const CommunityIdCardsComponent = ({ communityId }: CommunityIdCardsProps) => {
   const { data: communityIdCards, fetchNextPage } = useGetCommunityIdCards(communityId);
   const { ref, inView } = useInView();
+  const isEmpty = communityIdCards?.pages[0].communityIdCardsDtos.content.length === 0;
 
   useEffect(() => {
     if (inView && communityIdCards?.pages) {
@@ -25,7 +26,7 @@ export const CommunityIdCardsComponent = ({ communityId }: CommunityIdCardsProps
 
   return (
     <div className="flex flex-col gap-18pxr px-[27px]">
-      <h3 className="-mt-28pxr text-h3 text-grey-800">우리 행성 주민을 소개할게요!</h3>
+      {isEmpty || <h3 className="-mt-28pxr text-h3 text-grey-800">우리 행성 주민을 소개할게요!</h3>}
       {communityIdCards?.pages.map(page => {
         return page.communityIdCardsDtos.content.map((idCard: CommunityIdCardsModel) => {
           return <IdCard key={idCard.idCardId} {...idCard} />;
