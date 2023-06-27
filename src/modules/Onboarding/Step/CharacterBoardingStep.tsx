@@ -19,8 +19,7 @@ export const CharacterBoardingStep = ({ onNext }: CharacterBoardingStepProps) =>
         src={info.image}
         width={0}
         height={0}
-        sizes="100vw"
-        className="absolute left-0 top-0 z-below mt-none-t-nav max-h-[100vh] w-full object-contain"
+        className="absolute left-0 top-0 z-below mt-none-t-nav max-h-[100vh] w-full object-cover"
         alt="onboarding planet image"
       />
       <Template>
