@@ -22,7 +22,7 @@ export const CommentInput = ({ idCardId }: CommentInputProps) => {
   //TODO: 주민증 없는 경우 댓글 작성 못한다고 input placeholder 수정
 
   const { data: userInfo } = useGetUserInfo();
-  const { mutate: mutatePostCommentCreate } = usePostCommentCreate(idCardId);
+  const { mutate: mutatePostCommentCreate } = usePostCommentCreate(idCardId, userInfo!);
   const onSubmit = (data: CommentFormData) => {
     const { contents } = data;
     if (isEmptyText(contents)) return;
