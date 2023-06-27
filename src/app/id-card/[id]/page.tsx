@@ -38,7 +38,7 @@ const IdCardDetailPage = async ({ params: { id } }: IdCardDetailPageProps) => {
       >
         <CommentList idCardId={idCardId} />
       </HydrationProvider>
-      <CommentInput />
+      <CommentInput idCardId={idCardId} />
     </main>
   );
 };
