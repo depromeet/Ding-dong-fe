@@ -1,3 +1,18 @@
-export const ReplySubmitButton = () => {
-  return <button className="text-detail text-grey-500">답글 달기</button>;
+import { useReplyRecipientStore } from '~/stores/comment.store';
+
+type ReplySubmitButtonProps = {
+  nickname: string;
+  commentId: number;
+};
+
+export const ReplySubmitButton = ({ nickname, commentId }: ReplySubmitButtonProps) => {
+  const { setReplyRecipient } = useReplyRecipientStore();
+  return (
+    <button
+      className="text-detail text-grey-500"
+      onClick={() => setReplyRecipient(nickname, commentId)}
+    >
+      답글 달기
+    </button>
+  );
 };

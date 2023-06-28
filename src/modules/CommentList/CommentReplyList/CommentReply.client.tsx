@@ -62,7 +62,7 @@ export const CommentReply = ({
             <Content content={content} />
             <div className="mt-8pxr flex gap-16pxr">
               <LikeCount likeCount={likeCount} />
-              <ReplySubmitButton />
+              <ReplySubmitButton nickname={nickname} commentId={commentId} />
             </div>
           </div>
           <div>
