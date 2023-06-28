@@ -2,17 +2,19 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { useState } from 'react';
 
-import { CommentLike } from '~/modules/CommentList/Comment/CommentLike.client';
+import { useDeleteCommentLike, usePostLikeComment } from '~/api/domain/comment.api';
 import {
   Content,
   Header,
   LikeCount,
+  LikeIcon,
   ReplyHideButton,
   ReplyShowButton,
   ReplySubmitButton,
   UserProfile,
 } from '~/modules/CommentList/CommentCommon';
 import { CommentReplyList } from '~/modules/CommentList/CommentReplyList';
+import { useLike } from '~/modules/CommentList/useLike';
 import { CommentModel } from '~/types/comment';
 
 type CommentProps = CommentModel;
@@ -23,11 +25,36 @@ export const Comment = ({
   content,
   createdAt,
   writerInfo,
-  commentReplyLikeInfo,
+  commentLikeInfo,
   commentReplyInfos,
 }: CommentProps) => {
   const { userId, profileImageUrl, nickname } = writerInfo;
   const [isShowReplyList, setIsShowReplyList] = useState(false);
+  const { isLikedByCurrentUser, likeCount, likeComment, cancelLikeComment } =
+    useLike(commentLikeInfo);
+  const mutatePostLike = usePostLikeComment({
+    onError: () => {
+      // TODO toast error
+      cancelLikeComment();
+    },
+  });
+
+  const mutateDeleteLike = useDeleteCommentLike({
+    onError: () => {
+      // TODO toast error
+      likeComment();
+    },
+  });
+
+  const onClickToLike = async () => {
+    likeComment();
+    mutatePostLike.mutate({ idCardId, commentId });
+  };
+
+  const onClickToLikeCancel = async () => {
+    cancelLikeComment();
+    mutateDeleteLike.mutate({ idCardId, commentId });
+  };
 
   const onClickShowReplyList = () => {
     setIsShowReplyList(true);
@@ -46,15 +73,15 @@ export const Comment = ({
           <div className="w-full">
             <Content content={content} />
             <div className="mt-8pxr flex gap-16pxr">
-              <LikeCount commentReplyLikeInfo={commentReplyLikeInfo} />
+              <LikeCount likeCount={likeCount} />
               <ReplySubmitButton />
             </div>
           </div>
           <div>
-            <CommentLike
-              idCardId={idCardId}
-              commentId={commentId}
-              commentReplyLikeInfo={commentReplyLikeInfo}
+            <LikeIcon
+              isLikedByCurrentUser={isLikedByCurrentUser}
+              onClickToLike={onClickToLike}
+              onClickToLikeCancel={onClickToLikeCancel}
             />
           </div>
         </div>

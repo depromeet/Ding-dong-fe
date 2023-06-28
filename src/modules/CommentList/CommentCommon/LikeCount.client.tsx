@@ -1,9 +1,8 @@
-import { CommentModel } from '~/types/comment';
+import { CommentLikeModel } from '~/types/comment';
 
-type LikeCountProps = Pick<CommentModel, 'commentReplyLikeInfo'>;
+type LikeCountProps = Pick<CommentLikeModel, 'likeCount'>;
 
-export const LikeCount = ({ commentReplyLikeInfo }: LikeCountProps) => {
-  return (
-    <span className="text-detail text-grey-500">좋아요 {commentReplyLikeInfo.likeCount}개</span>
-  );
+export const LikeCount = ({ likeCount }: LikeCountProps) => {
+  const countMessage = likeCount === 0 ? '좋아요' : `좋아요 ${likeCount}개`;
+  return <span className="text-detail text-grey-500">{countMessage}</span>;
 };

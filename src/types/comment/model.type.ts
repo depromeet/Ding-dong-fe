@@ -23,6 +23,6 @@ export type CommentModel = {
   content: string;
   createdAt: string;
   writerInfo: CommentWriterIntoModel;
-  commentReplyLikeInfo: CommentLikeModel;
+  commentLikeInfo: CommentLikeModel;
   commentReplyInfos: CommentReplyModel[];
 };
