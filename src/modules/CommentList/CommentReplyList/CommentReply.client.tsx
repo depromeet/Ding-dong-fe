@@ -34,7 +34,7 @@ export const CommentReply = ({
             <Content content={content} />
             <div className="mt-8pxr flex gap-16pxr">
               <LikeCount commentReplyLikeInfo={commentReplyLikeInfo} />
-              <ReplySubmitButton />
+              <ReplySubmitButton nickname={nickname} commentId={commentId} />
             </div>
           </div>
           <div>
