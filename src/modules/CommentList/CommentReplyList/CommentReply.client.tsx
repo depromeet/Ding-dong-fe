@@ -1,14 +1,16 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 'use client';
 
+import { useDeleteCommentReplyLike, usePostLikeCommentReply } from '~/api/domain/comment.api';
 import {
   Content,
   Header,
   LikeCount,
+  LikeIcon,
   ReplySubmitButton,
   UserProfile,
 } from '~/modules/CommentList/CommentCommon';
-import { CommentReplyLike } from '~/modules/CommentList/CommentReplyList/CommentReplyLike.client';
+import { useLike } from '~/modules/CommentList/useLike';
 import { CommentModel, CommentReplyModel } from '~/types/comment';
 
 type CommentProps = Pick<CommentModel, 'idCardId' | 'commentId'> & CommentReplyModel;
@@ -23,6 +25,32 @@ export const CommentReply = ({
   commentReplyLikeInfo,
 }: CommentProps) => {
   const { userId, profileImageUrl, nickname } = writerInfo;
+  const { isLikedByCurrentUser, likeCount, likeComment, cancelLikeComment } =
+    useLike(commentReplyLikeInfo);
+
+  const mutatePostLike = usePostLikeCommentReply({
+    onError: () => {
+      // TODO toast error
+      cancelLikeComment();
+    },
+  });
+
+  const mutateDeleteLike = useDeleteCommentReplyLike({
+    onError: () => {
+      // TODO toast error
+      likeComment();
+    },
+  });
+
+  const onClickToLike = async () => {
+    likeComment();
+    mutatePostLike.mutate({ idCardId, commentId, commentReplyId });
+  };
+
+  const onClickToLikeCancel = async () => {
+    cancelLikeComment();
+    mutateDeleteLike.mutate({ idCardId, commentId, commentReplyId });
+  };
 
   return (
     <li className="flex w-full gap-12pxr px-[calc(layout-sm+42px)]">
@@ -33,16 +61,15 @@ export const CommentReply = ({
           <div className="w-full">
             <Content content={content} />
             <div className="mt-8pxr flex gap-16pxr">
-              <LikeCount commentReplyLikeInfo={commentReplyLikeInfo} />
+              <LikeCount likeCount={likeCount} />
               <ReplySubmitButton nickname={nickname} commentId={commentId} />
             </div>
           </div>
           <div>
-            <CommentReplyLike
-              idCardId={idCardId}
-              commentId={commentId}
-              commentReplyId={commentReplyId}
-              commentReplyLikeInfo={commentReplyLikeInfo}
+            <LikeIcon
+              isLikedByCurrentUser={isLikedByCurrentUser}
+              onClickToLike={onClickToLike}
+              onClickToLikeCancel={onClickToLikeCancel}
             />
           </div>
         </div>
