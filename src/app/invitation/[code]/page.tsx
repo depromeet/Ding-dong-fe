@@ -7,7 +7,10 @@ import {
   useGetUserInfo,
   usePostPlanetJoin,
 } from '~/api/domain/user.api';
+import { Template } from '~/components/Template';
 import { getUserIdClient } from '~/utils/auth/getUserId.client';
+
+const title = '당신을 디프만 행성으로\n 초대합니다';
 
 const InvitationPage = ({ params }: { params: { code: string } }) => {
   const router = useRouter();
@@ -46,12 +49,15 @@ const InvitationPage = ({ params }: { params: { code: string } }) => {
   if (isValidPlanetLoading) return null;
 
   return (
-    <div>
-      <h1>당신을 디프만 행성으로 초대합니다</h1>
-      <button disabled={isInitialLoading || isRefetching} onClick={onClick}>
-        초대 수락하기
-      </button>
-    </div>
+    <Template>
+      <Template.Title className="text-grey-900">
+        <h1>{title}</h1>
+      </Template.Title>
+      <Template.Content />
+      <Template.Button disabled={isInitialLoading || isRefetching} onClick={onClick}>
+        시작하기
+      </Template.Button>
+    </Template>
   );
 };
 
