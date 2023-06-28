@@ -14,6 +14,7 @@ import { getUserIdClient } from '~/utils/auth/getUserId.client';
 export const communityQueryKey = {
   idCards: (communityId: number) => ['communityIdCards', communityId],
   communityList: (userId: number) => ['communityList', userId],
+  communityDetail: (communityId: number) => ['communityDetail', communityId],
 };
 
 export const getCommunityIdCard = async (id: number) => {
@@ -42,6 +43,15 @@ export const useGetCommunityIdCards = (communityId: number) => {
 export const getCommunityDetail = (communityId: number) =>
   privateApi.get<CommunityDetailResponse>(`/communities/${communityId}`);
 
+export const useGetCommunityDetail = (communityId?: number) =>
+  useQuery(
+    communityQueryKey.communityDetail(communityId as number),
+    () => getCommunityDetail(communityId as number),
+    {
+      enabled: !!communityId,
+    },
+  );
+
 export const getCommunityList = (userId: number) =>
   privateApi.get<CommunityListResponse>(`/communities/users/${userId}`);
 
@@ -59,10 +69,9 @@ export const usePostCommunityCreate = () => {
 
   return useMutation({
     mutationFn: (community: CreateCommunityRequest) => postCommunityCreate(community),
-    onSuccess: () => {
+    onSuccess: data => {
       queryClient.invalidateQueries(communityQueryKey.communityList(userId));
-      //TODO: BE 응답형태 변경 후 반영
-      router.replace('/admin/community/create/result');
+      router.replace(`/admin/community/create/result?communityId=${data.id}`);
     },
   });
 };
