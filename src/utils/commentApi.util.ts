@@ -26,7 +26,7 @@ export const createNewComment = ({
       nickname: nickname,
       profileImageUrl: profileImageUrl,
     },
-    commentReplyLikeInfo: {
+    commentLikeInfo: {
       likeCount: 0,
       isLikedByCurrentUser: false,
     },
