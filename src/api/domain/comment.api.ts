@@ -1,5 +1,4 @@
 import {
-  InfiniteData,
   useInfiniteQuery,
   useMutation,
   UseMutationOptions,
@@ -7,7 +6,6 @@ import {
   useQueryClient,
 } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
-import _ from 'lodash';
 
 import privateApi from '~/api/config/privateApi';
 import {
@@ -22,7 +20,6 @@ import {
   CommentLikeCancelRequest,
   CommentLikePostResponse,
   CommentLikeRequest,
-  CommentModel,
   CommentPostReplyRequest,
   CommentPostReplyResponse,
   CommentPostRequest,
@@ -34,6 +31,12 @@ import {
   CommentReplyLikeRequest,
 } from '~/types/comment';
 import { UserInfoModel } from '~/types/user';
+import {
+  addCommentToPages,
+  CommentPages,
+  createNewComment,
+  updateCommentId,
+} from '~/utils/commentApi.util';
 
 export const commentQueryKey = {
   comments: (idCardId: number) => ['comments', idCardId],
@@ -75,70 +78,25 @@ export const usePostCommentCreate = (idCardId: number, userInfo: UserInfoModel) 
     onMutate: async (commentInfo: CommentPostRequest) => {
       await queryClient.cancelQueries({ queryKey: commentQueryKey.comments(idCardId) });
 
-      // 이전 댓글 목록을 가져옵니다.
-      const previousComments = queryClient.getQueryData<CommentGetResponse>(
-        commentQueryKey.comments(idCardId),
-      );
-
-      // 새로운 댓글 객체를 생성합니다.
-      const newComment: CommentModel = {
+      const newComment = createNewComment({
         idCardId: idCardId,
-        commentId: Date.now(), // 임시로 고유한 ID로 사용합니다.
-        content: commentInfo.contents,
-        createdAt: new Date().toISOString(),
-        writerInfo: {
-          userId: userInfo?.userId,
-          nickname: userInfo?.nickname,
-          profileImageUrl: userInfo?.profileImageUrl,
-        },
-        commentReplyLikeInfo: {
-          likeCount: 0,
-          isLikedByCurrentUser: false,
-        },
-        commentReplyInfos: [],
-      };
+        contents: commentInfo.contents,
+        nickname: userInfo.nickname,
+        profileImageUrl: userInfo.profileImageUrl,
+        userId: userInfo.userId,
+      });
 
-      // 새로운 댓글을 이전 목록에 추가합니다.
-      queryClient.setQueryData<InfiniteData<CommentGetResponse>>(
+      const previousComments = queryClient.getQueryData<CommentPages>(
         commentQueryKey.comments(idCardId),
-        oldData => {
-          const copyOldData = _.cloneDeep(oldData);
-          const newPages = copyOldData?.pages ?? [];
-
-          // 댓글이 없는 경우 pages[0].data에 추가합니다.
-          if (newPages.length === 0) {
-            newPages.push({
-              data: {
-                content: [{ ...newComment }],
-                hasNext: false,
-                page: 0,
-                size: 10,
-              },
-            });
-          }
-          // 기존의 댓글이 있는 경우
-          else {
-            // 댓글 작성은 가장 맨 위로 올려야하기 때문에 pages[0].data에 첫 번째 요소로 추가합니다.
-            const firstPage = newPages[0];
-            const firstPageData = firstPage.data;
-            const updatedFirstPageData = {
-              content: [{ ...newComment }, ...firstPageData.content],
-              hasNext: firstPageData.hasNext,
-              page: firstPageData.page,
-              size: firstPageData.size,
-            };
-            newPages[0] = { ...firstPage, data: updatedFirstPageData };
-          }
-          return {
-            pages: newPages,
-            pageParams: copyOldData?.pageParams ?? [],
-          };
-        },
       );
+
+      const updatedComments = addCommentToPages(previousComments, newComment);
+
+      queryClient.setQueryData(commentQueryKey.comments(idCardId), updatedComments);
 
       return { previousComments };
     },
-    onError: (err, newTodo, context) => {
+    onError: (err, newComment, context) => {
       if (context?.previousComments) {
         // TODO: toast error
         queryClient.setQueryData(commentQueryKey.comments(idCardId), context.previousComments);
@@ -147,24 +105,10 @@ export const usePostCommentCreate = (idCardId: number, userInfo: UserInfoModel) 
     onSuccess: response => {
       const commentId = response.id;
 
-      queryClient.setQueryData<InfiniteData<CommentGetResponse>>(
+      queryClient.setQueryData<CommentPages | undefined>(
         commentQueryKey.comments(idCardId),
-        oldData => {
-          const copyOldData = _.cloneDeep(oldData);
-          const newPages = copyOldData?.pages ?? [];
-
-          // commentId를 실제 요청 후 받은 id로 수정합니다.
-          if (newPages.length > 0) {
-            const firstPage = newPages[0];
-            const firstPageData = firstPage.data;
-            firstPageData.content[0].commentId = commentId;
-            newPages[0] = { ...firstPage, data: firstPageData };
-          }
-
-          return {
-            pages: newPages,
-            pageParams: copyOldData?.pageParams ?? [],
-          };
+        previousComments => {
+          return updateCommentId(previousComments, commentId);
         },
       );
     },
