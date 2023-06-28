@@ -1,17 +1,20 @@
+import 'server-only';
+
 import Image from 'next/image';
+import { Suspense } from 'react';
 
+import { getCommunityDetailServer } from '~/api/domain/community.api.server';
+import RetryErrorBoundary from '~/components/ErrorBoundary/RetryErrorBoundary.client';
 import { CommunityLogoImage } from '~/modules/CommunityProfile';
-import { CommunityDetailModel } from '~/types/community';
 
-type CommunityDetailProps = Omit<CommunityDetailModel, 'communityId'>;
+type CommunityDetailProps = {
+  id: number;
+};
 
-export const CommunityDetail = ({
-  logoImageUrl,
-  coverImageUrl,
-  title,
-  idCardCount,
-  description,
-}: CommunityDetailProps) => {
+export const CommunityDetailComponent = async ({ id }: CommunityDetailProps) => {
+  const { communityDetailsDto } = await getCommunityDetailServer(id);
+  const { coverImageUrl, title, logoImageUrl, idCardCount, description } = communityDetailsDto;
+
   return (
     <div>
       {/*  width = 100vw, height = width * 0.48 */}
@@ -31,5 +34,16 @@ export const CommunityDetail = ({
         </div>
       </div>
     </div>
+  );
+};
+
+export const CommunityDetail = ({ id }: CommunityDetailProps) => {
+  return (
+    <RetryErrorBoundary>
+      <Suspense>
+        {/* @ts-expect-error Server Component */}
+        <CommunityDetailComponent id={id} />
+      </Suspense>
+    </RetryErrorBoundary>
   );
 };

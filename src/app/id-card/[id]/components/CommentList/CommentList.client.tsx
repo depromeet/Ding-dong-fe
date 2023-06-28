@@ -1,9 +1,10 @@
 'use client';
 
-import { useEffect } from 'react';
+import { Suspense, useEffect } from 'react';
 import { useInView } from 'react-intersection-observer';
 
 import { useGetComments } from '~/api/domain/comment.api';
+import RetryErrorBoundary from '~/components/ErrorBoundary/RetryErrorBoundary.client';
 import { Comment } from '~/modules/CommentList/Comment';
 import { Empty } from '~/modules/CommentList/CommentCommon';
 import { CommentModel } from '~/types/comment';
@@ -12,7 +13,7 @@ type CommentListProps = {
   idCardId: number;
 };
 
-export const CommentList = ({ idCardId }: CommentListProps) => {
+const CommentListComponent = ({ idCardId }: CommentListProps) => {
   const { data: commentList, fetchNextPage } = useGetComments({
     idCardId,
     pageParam: 1,
@@ -41,5 +42,15 @@ export const CommentList = ({ idCardId }: CommentListProps) => {
       )}
       <div ref={ref}></div>
     </div>
+  );
+};
+
+export const CommentList = ({ idCardId }: CommentListProps) => {
+  return (
+    <RetryErrorBoundary>
+      <Suspense>
+        <CommentListComponent idCardId={idCardId} />
+      </Suspense>
+    </RetryErrorBoundary>
   );
 };

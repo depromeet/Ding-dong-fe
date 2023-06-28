@@ -1,13 +1,10 @@
 import 'server-only';
 
 import { communityQueryKey } from '~/api/domain/community.api';
-import {
-  getCommunityDetailServer,
-  getCommunityIdCardsServer,
-} from '~/api/domain/community.api.server';
+import { getCommunityIdCardsServer } from '~/api/domain/community.api.server';
+import { CommunityDetail } from '~/app/planet/[id]/components/CommunityDetail';
+import { CommunityIdCards } from '~/app/planet/[id]/components/CommunityIdCards';
 import { HydrationProvider } from '~/components/HydrationProvider';
-import { CommunityDetail } from '~/modules/CommunityDetail';
-import { CommunityIdCards } from '~/modules/CommunityIdCards';
 
 type PlanetPageProps = {
   params: {
@@ -17,7 +14,6 @@ type PlanetPageProps = {
 
 const PlanetPage = async ({ params: { id } }: PlanetPageProps) => {
   const communityId = Number(id);
-  const { communityDetailsDto } = await getCommunityDetailServer(communityId);
 
   const getCommunityIdCardsQuery = async () => {
     const data = await getCommunityIdCardsServer({ communityId });
@@ -28,7 +24,7 @@ const PlanetPage = async ({ params: { id } }: PlanetPageProps) => {
 
   return (
     <div>
-      <CommunityDetail {...communityDetailsDto} />
+      <CommunityDetail id={communityId} />
       {/* @ts-expect-error Server Component */}
       <HydrationProvider
         queryKey={communityQueryKey.idCards(communityId)}
