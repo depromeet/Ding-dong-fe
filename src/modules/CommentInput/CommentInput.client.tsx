@@ -26,7 +26,7 @@ export const CommentInput = ({ idCardId }: CommentInputProps) => {
   const { data: userInfo } = useGetUserInfo();
   const { mutate: mutatePostCommentCreate } = usePostCommentCreate(idCardId, userInfo!);
   const { mutate: mutatePostReplyCreate } = usePostReplyCreate(idCardId, userInfo!);
-  const { commentId } = useReplyRecipientStore();
+  const { commentId, clear } = useReplyRecipientStore();
 
   const { register, handleSubmit, reset } = useForm<CommentFormData>();
 
@@ -35,6 +35,7 @@ export const CommentInput = ({ idCardId }: CommentInputProps) => {
     if (isEmptyText(contents)) return;
     if (commentId) {
       mutatePostReplyCreate({ idCardId, contents, commentId });
+      clear();
     } else {
       mutatePostCommentCreate({ idCardId, contents });
     }
