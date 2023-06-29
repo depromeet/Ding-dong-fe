@@ -70,7 +70,8 @@ export const usePostCommunityCreate = () => {
   return useMutation({
     mutationFn: (community: CreateCommunityRequest) => postCommunityCreate(community),
     onSuccess: data => {
-      queryClient.invalidateQueries(communityQueryKey.communityList(userId));
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+      queryClient.invalidateQueries(communityQueryKey.communityList(userId!));
       router.replace(`/admin/community/create/result?communityId=${data.id}`);
     },
   });
@@ -85,7 +86,8 @@ export const usePostCommunityUpdate = (communityId: number) => {
   return useMutation({
     mutationFn: (community: CreateCommunityRequest) => postCommunityUpdate(communityId, community),
     onSuccess: () => {
-      queryClient.invalidateQueries(communityQueryKey.communityList(userId));
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+      queryClient.invalidateQueries(communityQueryKey.communityList(userId!));
     },
   });
 };
