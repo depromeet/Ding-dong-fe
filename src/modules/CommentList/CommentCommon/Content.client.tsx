@@ -16,7 +16,7 @@ export const Content = ({ content }: ContentProps) => {
   const [isShowDetail, setIsShowDetail] = useState(true); // Content의 line-height에 상관없이 우선 무조건 보여주기 (useEffect에서 MAX_LINE 넘으면 생략)
   const [isShowButton, setIsShowButton] = useState(false);
   const buttonLabel = isShowDetail ? '접기' : '자세히보기';
-  const lineClampClass = isShowDetail ? '' : `line-clamp-${MAX_LINE}`;
+  const lineClampClass = isShowDetail ? '' : `line-clamp-5`; // FIXME: MAX_LINE 변수를 쓰고 싶은데 tailwind가 잘 안 먹혀요ㅠㅠ
 
   const shouldHideOverflowContent = () => {
     const contentElement = paragraphRef.current;
