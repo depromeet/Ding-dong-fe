@@ -5,6 +5,7 @@ import { useState } from 'react';
 import { useDeleteCommentLike, usePostLikeComment } from '~/api/domain/comment.api';
 import {
   Content,
+  DeleteButton,
   Header,
   LikeCount,
   LikeIcon,
@@ -75,6 +76,7 @@ export const Comment = ({
             <div className="mt-8pxr flex gap-16pxr">
               <LikeCount likeCount={likeCount} />
               <ReplySubmitButton nickname={nickname} commentId={commentId} />
+              <DeleteButton />
             </div>
           </div>
           <div>
