@@ -1,4 +1,6 @@
-import { CommentModel } from '~/types/comment';
+import _ from 'lodash';
+
+import { CommentModel, CommentReplyModel } from '~/types/comment';
 
 type NewComment = {
   idCardId: number;
@@ -95,4 +97,61 @@ export const updateCommentId = (
     pages: pages,
     pageParams: previousComments?.pageParams ?? [],
   };
+};
+
+type NewReply = {
+  contents: string;
+  userId: number;
+  nickname: string;
+  profileImageUrl: string;
+};
+
+export const createNewReply = ({
+  contents,
+  userId,
+  nickname,
+  profileImageUrl,
+}: NewReply): CommentReplyModel => {
+  return {
+    commentReplyId: Date.now(),
+    content: contents,
+    createdAt: new Date().toISOString(),
+    writerInfo: {
+      userId: userId,
+      nickname: nickname,
+      profileImageUrl: profileImageUrl,
+    },
+    commentReplyLikeInfo: {
+      likeCount: 0,
+      isLikedByCurrentUser: false,
+    },
+  };
+};
+
+export const addReplyToPages = (
+  previousComments: CommentPages | undefined,
+  newReply: CommentReplyModel,
+  commentId: number,
+): CommentPages => {
+  const copyPreviousComments = _.cloneDeep(previousComments);
+  const updatedPages = copyPreviousComments?.pages ? copyPreviousComments.pages : [];
+
+  if (updatedPages.length > 0) {
+    const firstPage = updatedPages[0];
+    const firstPageData = firstPage.data;
+    const commentIndex = firstPageData.content.findIndex(
+      comment => comment.commentId === commentId,
+    );
+
+    if (commentIndex !== -1) {
+      const comment = firstPageData.content[commentIndex];
+      const updatedComment = {
+        ...comment,
+        commentReplyInfos: [...comment.commentReplyInfos, newReply],
+      };
+      firstPageData.content[commentIndex] = updatedComment;
+    }
+  }
+
+  return { pages: updatedPages, pageParams: previousComments?.pageParams ?? [] };
 };

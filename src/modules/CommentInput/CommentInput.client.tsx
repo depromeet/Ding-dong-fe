@@ -2,13 +2,14 @@
 
 import { useForm } from 'react-hook-form';
 
-import { usePostCommentCreate } from '~/api/domain/comment.api';
+import { usePostCommentCreate, usePostReplyCreate } from '~/api/domain/comment.api';
 import { useGetUserInfo } from '~/api/domain/user.api';
 import { Divider } from '~/components/Divider';
 import { SendIcon } from '~/components/Icon';
 import { TextInput, useTextInput } from '~/components/TextInput';
 import { ReplyIndicator } from '~/modules/CommentInput/ReplyIndicator.client';
 import { UserProfile } from '~/modules/CommentList/CommentCommon';
+import { useReplyRecipientStore } from '~/stores/comment.store';
 import { isEmptyText } from '~/utils/util.common';
 
 type CommentInputProps = {
@@ -24,13 +25,19 @@ export const CommentInput = ({ idCardId }: CommentInputProps) => {
 
   const { data: userInfo } = useGetUserInfo();
   const { mutate: mutatePostCommentCreate } = usePostCommentCreate(idCardId, userInfo!);
+  const { mutate: mutatePostReplyCreate } = usePostReplyCreate(idCardId, userInfo!);
+  const { commentId } = useReplyRecipientStore();
 
   const { register, handleSubmit, reset } = useForm<CommentFormData>();
 
   const onSubmit = (data: CommentFormData) => {
     const { contents } = data;
     if (isEmptyText(contents)) return;
-    mutatePostCommentCreate({ idCardId, contents });
+    if (commentId) {
+      mutatePostReplyCreate({ idCardId, contents, commentId });
+    } else {
+      mutatePostCommentCreate({ idCardId, contents });
+    }
     reset();
   };
 

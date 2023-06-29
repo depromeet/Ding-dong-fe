@@ -33,8 +33,10 @@ import {
 import { UserInfoModel } from '~/types/user';
 import {
   addCommentToPages,
+  addReplyToPages,
   CommentPages,
   createNewComment,
+  createNewReply,
   updateCommentId,
 } from '~/utils/commentApi.util';
 
@@ -132,12 +134,30 @@ export const postReplyCreate = ({ idCardId, commentId, contents }: CommentPostRe
     contents,
   });
 
-export const usePostReplyCreate = (idCardId: number) => {
+export const usePostReplyCreate = (idCardId: number, userInfo: UserInfoModel) => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: (replyInfo: CommentPostReplyRequest) => postCommentCreate(replyInfo),
-    onSuccess: () => queryClient.invalidateQueries(commentQueryKey.comments(idCardId)),
+    mutationFn: (replyInfo: CommentPostReplyRequest) => postReplyCreate(replyInfo),
+    onMutate: async (commentInfo: CommentPostReplyRequest) => {
+      await queryClient.cancelQueries({ queryKey: commentQueryKey.comments(idCardId) });
+
+      const newReply = createNewReply({
+        contents: commentInfo.contents,
+        nickname: userInfo.nickname,
+        profileImageUrl: userInfo.profileImageUrl,
+        userId: userInfo.userId,
+      });
+
+      const previousComments = queryClient.getQueryData<CommentPages>(
+        commentQueryKey.comments(idCardId),
+      );
+
+      const updatedComments = addReplyToPages(previousComments, newReply, commentInfo.commentId);
+      queryClient.setQueryData(commentQueryKey.comments(idCardId), updatedComments);
+
+      return { previousComments };
+    },
   });
 };
 
