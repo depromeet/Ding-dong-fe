@@ -7,4 +7,5 @@ export * from './LikeIcon.client';
 export * from './ReplyHideButton.client';
 export * from './ReplyShowButton.client';
 export * from './ReplySubmitButton.client';
+export * from './ReportButton.client';
 export * from './UserProfile.client';
