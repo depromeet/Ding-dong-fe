@@ -33,9 +33,12 @@ import {
 import { UserInfoModel } from '~/types/user';
 import {
   addCommentToPages,
+  addReplyToPages,
   CommentPages,
   createNewComment,
+  createNewReply,
   updateCommentId,
+  updateReplyId,
 } from '~/utils/commentApi.util';
 
 export const commentQueryKey = {
@@ -107,9 +110,7 @@ export const usePostCommentCreate = (idCardId: number, userInfo: UserInfoModel) 
 
       queryClient.setQueryData<CommentPages | undefined>(
         commentQueryKey.comments(idCardId),
-        previousComments => {
-          return updateCommentId(previousComments, commentId);
-        },
+        previousComments => updateCommentId(previousComments, commentId),
       );
     },
   });
@@ -132,12 +133,45 @@ export const postReplyCreate = ({ idCardId, commentId, contents }: CommentPostRe
     contents,
   });
 
-export const usePostReplyCreate = (idCardId: number) => {
+export const usePostReplyCreate = (idCardId: number, userInfo: UserInfoModel) => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: (replyInfo: CommentPostReplyRequest) => postCommentCreate(replyInfo),
-    onSuccess: () => queryClient.invalidateQueries(commentQueryKey.comments(idCardId)),
+    mutationFn: (replyInfo: CommentPostReplyRequest) => postReplyCreate(replyInfo),
+    onMutate: async (commentInfo: CommentPostReplyRequest) => {
+      await queryClient.cancelQueries({ queryKey: commentQueryKey.comments(idCardId) });
+
+      const newReply = createNewReply({
+        contents: commentInfo.contents,
+        nickname: userInfo.nickname,
+        profileImageUrl: userInfo.profileImageUrl,
+        userId: userInfo.userId,
+      });
+
+      const previousComments = queryClient.getQueryData<CommentPages>(
+        commentQueryKey.comments(idCardId),
+      );
+
+      const updatedComments = addReplyToPages(previousComments, newReply, commentInfo.commentId);
+      queryClient.setQueryData(commentQueryKey.comments(idCardId), updatedComments);
+
+      return { previousComments };
+    },
+    onError: (err, newComment, context) => {
+      if (context?.previousComments) {
+        // TODO: toast error
+        queryClient.setQueryData(commentQueryKey.comments(idCardId), context.previousComments);
+      }
+    },
+    onSuccess: (response, commentReplyInfos) => {
+      const replyId = response.id;
+      const commentId = commentReplyInfos.commentId;
+
+      queryClient.setQueryData<CommentPages | undefined>(
+        commentQueryKey.comments(idCardId),
+        previousComments => updateReplyId(previousComments, commentId, replyId),
+      );
+    },
   });
 };
 
