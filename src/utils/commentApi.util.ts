@@ -52,7 +52,8 @@ export const addCommentToPages = (
   previousComments: CommentPages | undefined,
   newComment: CommentModel,
 ): CommentPages => {
-  const updatedPages = previousComments?.pages ? [...previousComments.pages] : [];
+  const copyPreviousComments = _.cloneDeep(previousComments);
+  const updatedPages = copyPreviousComments?.pages ? copyPreviousComments.pages : [];
   const isCommentListEmpty = updatedPages.length === 0;
 
   if (isCommentListEmpty) {
@@ -83,7 +84,8 @@ export const updateCommentId = (
   previousComments: CommentPages | undefined,
   commentId: number,
 ): CommentPages => {
-  const pages = previousComments?.pages ? [...previousComments.pages] : [];
+  const copyPreviousComments = _.cloneDeep(previousComments);
+  const pages = copyPreviousComments?.pages ? copyPreviousComments.pages : [];
 
   // commentId를 실제 요청 후 받은 id로 수정합니다.
   if (pages.length > 0) {
