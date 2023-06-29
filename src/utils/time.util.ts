@@ -6,7 +6,7 @@ export const NOTIFICATION_AGO = {
   REST: '지난 알림',
 };
 
-export const checkNotificationAgo = (createdAt: string) => {
+export const checkCreateAtAgo = (createdAt: string) => {
   const startOfToday = new Date();
   startOfToday.setHours(0, 0, 0, 0);
   const yesterDay = new Date(new Date().setDate(startOfToday.getDate() - 1));
