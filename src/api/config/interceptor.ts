@@ -1,6 +1,6 @@
 import { AxiosError, AxiosResponse, InternalAxiosRequestConfig } from 'axios';
 
-import { ErrorType } from '~/api/config/api.types';
+import { DefaultServerResponseType, ErrorType } from '~/api/config/api.types';
 import { getAccessToken, getAuthTokensByCookie } from '~/utils/auth/tokenHandlers';
 
 import { ApiError } from './customError';
@@ -26,9 +26,10 @@ export const onRequestError = (error: AxiosError) => {
 };
 
 export const onResponse = (response: AxiosResponse) => {
-  const data = response.data;
-  const { headers, status } = response;
-  return { ...data, headers, status };
+  const defaultServerScheme: DefaultServerResponseType = response.data;
+  const { data, statusCode, success } = defaultServerScheme;
+  const { headers } = response;
+  return { ...data, headers, statusCode, success };
 };
 
 export const onResponseError = (error: AxiosError<ErrorType, InternalAxiosRequestConfig>) => {
