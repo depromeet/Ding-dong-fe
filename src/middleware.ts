@@ -35,6 +35,30 @@ const logout = (request: NextRequest) => {
 const middleware = async (request: NextRequest) => {
   const pathname = request.nextUrl.pathname;
 
+  if (pathname.startsWith('/') && pathname.endsWith('/')) {
+    const { isLogin } = await getIsLogin(request);
+    if (isLogin) {
+      // TO DO : middleware에서 api를 보내기
+      // fetch를 이용하는 경우
+      // const data = await getFetch('/profile/user');
+
+      // axios 이용하는 경우
+      //const data = await publicApi.get<UserInfoResponse>(
+      //   `/user/profile`,
+      // );
+      const isCharacterCreated = true; // mock data
+      const planetIds = [1]; // mock data
+
+      if (isCharacterCreated) {
+        return planetIds.length > 0
+          ? NextResponse.redirect(new URL(`/planet/${planetIds[0]}`, request.url))
+          : NextResponse.redirect(new URL('/planet', request.url));
+      }
+      return NextResponse.redirect(new URL('/onboarding', request.url));
+    }
+    return NextResponse.redirect(new URL('/auth/signin', request.url));
+  }
+
   if (pathname.startsWith('/auth/callback/kakao')) {
     const authCode = request.nextUrl.searchParams.get('code');
 
@@ -93,6 +117,6 @@ const middleware = async (request: NextRequest) => {
 const config = {
   // middleware가 적용될 페이지를 설정해 두어야 SC에서의 api 요청이 정상적으로 작동합니다.
   // https://nextjs.org/docs/app/building-your-application/routing/middleware#matcher
-  matcher: ['/auth/callback/kakao/(.*)', ...PRIVATE_ROUTES],
+  matcher: ['/auth/callback/kakao/(.*)', '/', ...PRIVATE_ROUTES],
 };
 export { config, middleware };
