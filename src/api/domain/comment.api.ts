@@ -38,6 +38,7 @@ import {
   createNewComment,
   createNewReply,
   updateCommentId,
+  updateReplyId,
 } from '~/utils/commentApi.util';
 
 export const commentQueryKey = {
@@ -109,9 +110,7 @@ export const usePostCommentCreate = (idCardId: number, userInfo: UserInfoModel) 
 
       queryClient.setQueryData<CommentPages | undefined>(
         commentQueryKey.comments(idCardId),
-        previousComments => {
-          return updateCommentId(previousComments, commentId);
-        },
+        previousComments => updateCommentId(previousComments, commentId),
       );
     },
   });
@@ -157,6 +156,21 @@ export const usePostReplyCreate = (idCardId: number, userInfo: UserInfoModel) =>
       queryClient.setQueryData(commentQueryKey.comments(idCardId), updatedComments);
 
       return { previousComments };
+    },
+    onError: (err, newComment, context) => {
+      if (context?.previousComments) {
+        // TODO: toast error
+        queryClient.setQueryData(commentQueryKey.comments(idCardId), context.previousComments);
+      }
+    },
+    onSuccess: (response, commentReplyInfos) => {
+      const replyId = response.id;
+      const commentId = commentReplyInfos.commentId;
+
+      queryClient.setQueryData<CommentPages | undefined>(
+        commentQueryKey.comments(idCardId),
+        previousComments => updateReplyId(previousComments, commentId, replyId),
+      );
     },
   });
 };

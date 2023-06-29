@@ -155,3 +155,42 @@ export const addReplyToPages = (
 
   return { pages: updatedPages, pageParams: previousComments?.pageParams ?? [] };
 };
+
+export const updateReplyId = (
+  previousComments: CommentPages | undefined,
+  commentId: number,
+  replyId: number,
+): CommentPages => {
+  const copyPreviousComments = _.cloneDeep(previousComments);
+  const pages = copyPreviousComments?.pages ? copyPreviousComments.pages : [];
+
+  const updatedPages = pages.map(page => {
+    const updatedData = {
+      ...page.data,
+      content: page.data.content.map(comment => {
+        if (comment.commentId === commentId) {
+          const lastReplyIndex = comment.commentReplyInfos.length - 1;
+          if (lastReplyIndex >= 0) {
+            const updatedReplies = [...comment.commentReplyInfos];
+            const lastReply = updatedReplies[lastReplyIndex];
+            lastReply.commentReplyId = replyId;
+            return {
+              ...comment,
+              commentReplyInfos: updatedReplies,
+            };
+          }
+        }
+        return comment;
+      }),
+    };
+    return {
+      ...page,
+      data: updatedData,
+    };
+  });
+
+  return {
+    pages: updatedPages,
+    pageParams: previousComments?.pageParams ?? [],
+  };
+};
