@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import { create } from 'zustand';
 
 export type ToastMessageType = 'error' | 'success' | 'info';
@@ -29,7 +30,7 @@ export const useToastMessageStore = create<ToastMessageStore>(set => {
       toastMessageList: [...state.toastMessageList, { toastId, message, type }],
     }));
 
-    setTimeout(() => {
+    _.delay(() => {
       set(state => ({
         toastMessageList: state.toastMessageList.filter(toast => toast.toastId !== toastId),
       }));
