@@ -4,14 +4,17 @@
 import { useDeleteCommentReplyLike, usePostLikeCommentReply } from '~/api/domain/comment.api';
 import {
   Content,
+  DeleteButton,
   Header,
   LikeCount,
   LikeIcon,
   ReplySubmitButton,
+  ReportButton,
   UserProfile,
 } from '~/modules/CommentList/CommentCommon';
 import { useLike } from '~/modules/CommentList/useLike';
 import { CommentModel, CommentReplyModel } from '~/types/comment';
+import { getUserIdClient } from '~/utils/auth/getUserId.client';
 
 type CommentProps = Pick<CommentModel, 'idCardId' | 'commentId'> & CommentReplyModel;
 
@@ -24,9 +27,10 @@ export const CommentReply = ({
   writerInfo,
   commentReplyLikeInfo,
 }: CommentProps) => {
-  const { userId, profileImageUrl, nickname } = writerInfo;
+  const { userId: writerId, profileImageUrl, nickname } = writerInfo;
   const { isLikedByCurrentUser, likeCount, likeComment, cancelLikeComment } =
     useLike(commentReplyLikeInfo);
+  const userId = getUserIdClient();
 
   const mutatePostLike = usePostLikeCommentReply({
     onError: () => {
@@ -63,6 +67,7 @@ export const CommentReply = ({
             <div className="mt-8pxr flex gap-16pxr">
               <LikeCount likeCount={likeCount} />
               <ReplySubmitButton nickname={nickname} commentId={commentId} />
+              {userId === writerId ? <DeleteButton /> : <ReportButton />}
             </div>
           </div>
           <div>

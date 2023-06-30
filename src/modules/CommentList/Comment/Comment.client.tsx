@@ -5,17 +5,20 @@ import { useState } from 'react';
 import { useDeleteCommentLike, usePostLikeComment } from '~/api/domain/comment.api';
 import {
   Content,
+  DeleteButton,
   Header,
   LikeCount,
   LikeIcon,
   ReplyHideButton,
   ReplyShowButton,
   ReplySubmitButton,
+  ReportButton,
   UserProfile,
 } from '~/modules/CommentList/CommentCommon';
 import { CommentReplyList } from '~/modules/CommentList/CommentReplyList';
 import { useLike } from '~/modules/CommentList/useLike';
 import { CommentModel } from '~/types/comment';
+import { getUserIdClient } from '~/utils/auth/getUserId.client';
 
 type CommentProps = CommentModel;
 
@@ -28,10 +31,11 @@ export const Comment = ({
   commentLikeInfo,
   commentReplyInfos,
 }: CommentProps) => {
-  const { userId, profileImageUrl, nickname } = writerInfo;
+  const { userId: writerId, profileImageUrl, nickname } = writerInfo;
   const [isShowReplyList, setIsShowReplyList] = useState(false);
   const { isLikedByCurrentUser, likeCount, likeComment, cancelLikeComment } =
     useLike(commentLikeInfo);
+  const userId = getUserIdClient();
   const mutatePostLike = usePostLikeComment({
     onError: () => {
       // TODO toast error
@@ -75,6 +79,7 @@ export const Comment = ({
             <div className="mt-8pxr flex gap-16pxr">
               <LikeCount likeCount={likeCount} />
               <ReplySubmitButton nickname={nickname} commentId={commentId} />
+              {userId === writerId ? <DeleteButton /> : <ReportButton />}
             </div>
           </div>
           <div>
