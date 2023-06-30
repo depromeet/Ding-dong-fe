@@ -257,7 +257,12 @@ export const removeReplyToPages = (
   };
 };
 
-export const addCommentCount = (commentCountResponse: CommentCountGetResponse | undefined) => {
+export const increaseCommentCount = (commentCountResponse: CommentCountGetResponse | undefined) => {
   if (commentCountResponse === undefined) return { count: 0 };
   return { count: commentCountResponse.count + 1 };
+};
+
+export const decreaseCommentCount = (commentCountResponse: CommentCountGetResponse | undefined) => {
+  if (commentCountResponse === undefined) return { count: 0 };
+  return { count: commentCountResponse.count - 1 };
 };

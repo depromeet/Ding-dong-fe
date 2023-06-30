@@ -32,12 +32,13 @@ import {
 } from '~/types/comment';
 import { UserInfoModel } from '~/types/user';
 import {
-  addCommentCount,
   addCommentToPages,
   addReplyToPages,
   CommentPages,
   createNewComment,
   createNewReply,
+  decreaseCommentCount,
+  increaseCommentCount,
   removeCommentToPages,
   removeReplyToPages,
   updateCommentId,
@@ -101,9 +102,9 @@ export const usePostCommentCreate = (idCardId: number, userInfo: UserInfoModel) 
       );
 
       const updatedComments = addCommentToPages(previousComments, newComment);
-      const updatedCommentCount = addCommentCount(previousCommentCount);
-
       queryClient.setQueryData(commentQueryKey.comments(idCardId), updatedComments);
+
+      const updatedCommentCount = increaseCommentCount(previousCommentCount);
       queryClient.setQueryData(commentQueryKey.commentCount(idCardId), updatedCommentCount);
 
       return { previousComments, previousCommentCount };
@@ -144,15 +145,26 @@ export const useDeleteComment = (idCardId: number) => {
         commentQueryKey.comments(idCardId),
       );
 
+      const previousCommentCount = queryClient.getQueryData<CommentCountGetResponse>(
+        commentQueryKey.commentCount(idCardId),
+      );
+
       const updatedComments = removeCommentToPages(previousComments, commentInfo.commentId);
       queryClient.setQueryData(commentQueryKey.comments(idCardId), updatedComments);
 
-      return { previousComments };
+      const updatedCommentCount = decreaseCommentCount(previousCommentCount);
+      queryClient.setQueryData(commentQueryKey.commentCount(idCardId), updatedCommentCount);
+
+      return { previousComments, previousCommentCount };
     },
     onError: (err, newComment, context) => {
-      if (context?.previousComments) {
+      if (context?.previousComments !== undefined && context?.previousCommentCount !== undefined) {
         // TODO: toast error
         queryClient.setQueryData(commentQueryKey.comments(idCardId), context.previousComments);
+        queryClient.setQueryData(
+          commentQueryKey.commentCount(idCardId),
+          context.previousCommentCount,
+        );
       }
     },
   });
