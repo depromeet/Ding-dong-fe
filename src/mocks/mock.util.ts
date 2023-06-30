@@ -9,7 +9,7 @@ export const generateResponse = <DataType>({
 }: Omit<DefaultServerResponseType<DataType>, 'success'> & { delay?: number }) => {
   const isSuccess = statusCode < 400;
   return response(
-    context.status(200),
+    context.status(statusCode),
     context.delay(delay),
     context.json({
       data,
