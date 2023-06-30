@@ -37,6 +37,7 @@ import {
   CommentPages,
   createNewComment,
   createNewReply,
+  removeCommentToPages,
   updateCommentId,
   updateReplyId,
 } from '~/utils/commentApi.util';
@@ -124,7 +125,24 @@ export const useDeleteComment = (idCardId: number) => {
 
   return useMutation({
     mutationFn: (commentInfo: CommentDeleteRequest) => deleteComment(commentInfo),
-    onSuccess: () => queryClient.invalidateQueries(commentQueryKey.comments(idCardId)),
+    onMutate: async (commentInfo: CommentDeleteRequest) => {
+      await queryClient.cancelQueries({ queryKey: commentQueryKey.comments(idCardId) });
+
+      const previousComments = queryClient.getQueryData<CommentPages>(
+        commentQueryKey.comments(idCardId),
+      );
+
+      const updatedComments = removeCommentToPages(previousComments, commentInfo.commentId);
+      queryClient.setQueryData(commentQueryKey.comments(idCardId), updatedComments);
+
+      return { previousComments };
+    },
+    onError: (err, newComment, context) => {
+      if (context?.previousComments) {
+        // TODO: toast error
+        queryClient.setQueryData(commentQueryKey.comments(idCardId), context.previousComments);
+      }
+    },
   });
 };
 

@@ -2,7 +2,11 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { useState } from 'react';
 
-import { useDeleteCommentLike, usePostLikeComment } from '~/api/domain/comment.api';
+import {
+  useDeleteComment,
+  useDeleteCommentLike,
+  usePostLikeComment,
+} from '~/api/domain/comment.api';
 import {
   Content,
   DeleteButton,
@@ -68,6 +72,12 @@ export const Comment = ({
     setIsShowReplyList(false);
   };
 
+  const { mutate: mutateDeleteComment } = useDeleteComment(idCardId);
+
+  const onClickToDeleteComment = () => {
+    mutateDeleteComment({ idCardId, commentId });
+  };
+
   return (
     <li className="flex w-full gap-12pxr px-layout-sm">
       <UserProfile profileImageUrl={profileImageUrl} />
@@ -79,7 +89,11 @@ export const Comment = ({
             <div className="mt-8pxr flex gap-16pxr">
               <LikeCount likeCount={likeCount} />
               <ReplySubmitButton nickname={nickname} commentId={commentId} />
-              {userId === writerId ? <DeleteButton /> : <ReportButton />}
+              {userId === writerId ? (
+                <DeleteButton onClickToDeleteComment={onClickToDeleteComment} />
+              ) : (
+                <ReportButton />
+              )}
             </div>
           </div>
           <div>

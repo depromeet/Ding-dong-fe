@@ -196,3 +196,27 @@ export const updateReplyId = (
     pageParams: previousComments?.pageParams ?? [],
   };
 };
+
+export const removeCommentToPages = (
+  previousComments: CommentPages | undefined,
+  commentId: number,
+) => {
+  const copyPreviousComments = _.cloneDeep(previousComments);
+  const pages = copyPreviousComments?.pages ? copyPreviousComments.pages : [];
+
+  const updatedPages = pages.map(page => {
+    const updatedData = {
+      ...page.data,
+      content: page.data.content.filter(comment => comment.commentId !== commentId),
+    };
+    return {
+      ...page,
+      data: updatedData,
+    };
+  });
+
+  return {
+    pages: updatedPages,
+    pageParams: previousComments?.pageParams ?? [],
+  };
+};
