@@ -1,11 +1,15 @@
 import { useConfirmPopup } from '~/components/ConfirmPopup';
 import { ConfirmDeleteComment } from '~/components/ConfirmPopup/ConfirmDeleteComment';
 
-export const DeleteButton = () => {
+type DeleteButtonProps = {
+  onClickToDeleteComment: () => void;
+};
+
+export const DeleteButton = ({ onClickToDeleteComment }: DeleteButtonProps) => {
   const { isOpen, openPopup, closePopup, confirm } = useConfirmPopup();
 
   const deleteComment = () => {
-    // TODO: 삭제로직 추가하기
+    onClickToDeleteComment();
   };
 
   const onDeleteComment = async () => {
