@@ -4,7 +4,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { Button } from '~/components/Button';
 import { useToastMessageStore } from '~/stores/toastMessage.store';
 
-import { ToastMessage, ToastMessagePortal } from './index';
+import { ToastMessage, ToastMessageProvider } from './index';
 
 const meta: Meta<typeof ToastMessage> = {
   title: 'components/ToastMessage',
@@ -29,7 +29,7 @@ export const ToastMessageUsage: Story = {
         <Button onClick={() => fireToast('에러 알람?')} type="button" size="medium" color="primary">
           토스트 메시지 추가하기
         </Button>
-        <ToastMessagePortal />
+        <ToastMessageProvider />
       </div>
     );
   },

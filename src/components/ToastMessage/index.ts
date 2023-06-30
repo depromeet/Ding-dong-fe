@@ -1,2 +1,2 @@
 export * from './ToastMessage';
-export * from './ToastMessagePortal';
+export * from './ToastMessageProvider';
