@@ -25,7 +25,7 @@ export const BoardingStep = ({ onNext }: BoardingStepProps) => {
       <div className="pb-32pxr">
         <div className="flex flex-col items-center justify-center">
           <Image
-            src="/assets/images/create-id-card-boarding.png"
+            src="/assets/images/id_card_creation.png"
             alt="explain id card"
             object-fit="contain"
             object-position="center"
@@ -46,7 +46,7 @@ export const BoardingStep = ({ onNext }: BoardingStepProps) => {
         <BottomSheet.Content>
           <div className="flex w-full flex-col items-center justify-center">
             <Image
-              src="/assets/images/create-id-card-boarding-bottom.png"
+              src="/assets/images/memo.png"
               alt="explain id card"
               object-fit="contain"
               object-position="center"
