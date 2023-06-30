@@ -1,7 +1,11 @@
 import { rest } from 'msw';
 
 import { ROOT_API_URL } from '~/api/config/requestUrl';
-import { createCommentCount, createCommentList } from '~/mocks/comment/comment.mock';
+import {
+  createCommentCount,
+  createCommentList,
+  createRandomId,
+} from '~/mocks/comment/comment.mock';
 
 export const commentMockHandler = [
   rest.get(`${ROOT_API_URL}/id-cards/:idCardId/comments?page=:page&size=10`, (req, res, ctx) => {
@@ -20,24 +24,24 @@ export const commentMockHandler = [
     return res(ctx.status(200), ctx.json(createCommentCount()));
   }),
   rest.post(`${ROOT_API_URL}/id-cards/:idCardId/comments`, (req, res, ctx) => {
-    return res(ctx.status(200), ctx.json({ id: 1 }));
+    return res(ctx.status(200), ctx.json(createRandomId()));
   }),
   rest.delete(`${ROOT_API_URL}/id-cards/:idCardId/comments/:commentId`, (req, res, ctx) => {
-    return res(ctx.status(200), ctx.json({ id: 1 }));
+    return res(ctx.status(200), ctx.json(createRandomId()));
   }),
   rest.post(`${ROOT_API_URL}/id-cards/:idCardId/comments/:commentId/replies`, (req, res, ctx) => {
-    return res(ctx.status(200), ctx.json({ id: 1 }));
+    return res(ctx.status(200), ctx.json(createRandomId()));
   }),
   // DELETE reply
   rest.delete(
     `${ROOT_API_URL}/id-cards/:idCardId/comments/:commentId/replies/:commentReplyId`,
     (req, res, ctx) => {
-      return res(ctx.status(200), ctx.json({ id: 1 }));
+      return res(ctx.status(200), ctx.json(createRandomId()));
     },
   ),
   // POST Like
   rest.post(`${ROOT_API_URL}/id-cards/:idCardsId/comments/:commentId/likes`, (req, res, ctx) => {
-    return res(ctx.status(200), ctx.json({ id: 1 }));
+    return res(ctx.status(200), ctx.json(createRandomId()));
   }),
   // POST reply Like
   rest.post(
@@ -48,13 +52,13 @@ export const commentMockHandler = [
   ),
   // DELETE Like
   rest.delete(`${ROOT_API_URL}/id-cards/:idCardsId/comments/:commentId/likes`, (req, res, ctx) => {
-    return res(ctx.status(200), ctx.json({ id: 1 }));
+    return res(ctx.status(200), ctx.json(createRandomId()));
   }),
   // DELETE reply Like
   rest.delete(
     `${ROOT_API_URL}/id-cards/:idCardsId/comments/:commentId/replies/:commentReplyId/reply-likes`,
     (req, res, ctx) => {
-      return res(ctx.status(200), ctx.json({ id: 1 }));
+      return res(ctx.status(200), ctx.json(createRandomId()));
     },
   ),
 ];
