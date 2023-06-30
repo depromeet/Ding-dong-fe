@@ -2,14 +2,23 @@
 'use client';
 
 import {
+  useDeleteCommentReplyLike,
+  useDeleteReply,
+  usePostLikeCommentReply,
+} from '~/api/domain/comment.api';
+import {
   Content,
+  DeleteButton,
   Header,
   LikeCount,
   LikeIcon,
   ReplySubmitButton,
+  ReportButton,
   UserProfile,
 } from '~/modules/CommentList/CommentCommon';
+import { useLike } from '~/modules/CommentList/useLike';
 import { CommentModel, CommentReplyModel } from '~/types/comment';
+import { getUserIdClient } from '~/utils/auth/getUserId.client';
 
 type CommentProps = Pick<CommentModel, 'idCardId' | 'commentId'> & CommentReplyModel;
 
@@ -22,7 +31,40 @@ export const CommentReply = ({
   writerInfo,
   commentReplyLikeInfo,
 }: CommentProps) => {
-  const { userId, profileImageUrl, nickname } = writerInfo;
+  const { userId: writerId, profileImageUrl, nickname } = writerInfo;
+  const { isLikedByCurrentUser, likeCount, likeComment, cancelLikeComment } =
+    useLike(commentReplyLikeInfo);
+  const userId = getUserIdClient();
+
+  const mutatePostLike = usePostLikeCommentReply({
+    onError: () => {
+      // TODO toast error
+      cancelLikeComment();
+    },
+  });
+
+  const mutateDeleteLike = useDeleteCommentReplyLike({
+    onError: () => {
+      // TODO toast error
+      likeComment();
+    },
+  });
+
+  const onClickToLike = async () => {
+    likeComment();
+    mutatePostLike.mutate({ idCardId, commentId, commentReplyId });
+  };
+
+  const onClickToLikeCancel = async () => {
+    cancelLikeComment();
+    mutateDeleteLike.mutate({ idCardId, commentId, commentReplyId });
+  };
+
+  const { mutate: mutateDeleteReply } = useDeleteReply(idCardId);
+
+  const onClickToDeleteComment = () => {
+    mutateDeleteReply({ idCardId, commentId, commentReplyId });
+  };
 
   return (
     <li className="flex w-full gap-12pxr px-[calc(layout-sm+42px)]">
@@ -33,12 +75,21 @@ export const CommentReply = ({
           <div className="w-full">
             <Content content={content} />
             <div className="mt-8pxr flex gap-16pxr">
-              <LikeCount commentReplyLikeInfo={commentReplyLikeInfo} />
-              <ReplySubmitButton />
+              <LikeCount likeCount={likeCount} />
+              <ReplySubmitButton nickname={nickname} commentId={commentId} />
+              {userId === writerId ? (
+                <DeleteButton onClickToDeleteComment={onClickToDeleteComment} />
+              ) : (
+                <ReportButton />
+              )}
             </div>
           </div>
           <div>
-            <LikeIcon commentReplyLikeInfo={commentReplyLikeInfo} />
+            <LikeIcon
+              isLikedByCurrentUser={isLikedByCurrentUser}
+              onClickToLike={onClickToLike}
+              onClickToLikeCancel={onClickToLikeCancel}
+            />
           </div>
         </div>
       </div>

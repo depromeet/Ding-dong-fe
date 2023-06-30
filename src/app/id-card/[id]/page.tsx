@@ -1,24 +1,13 @@
 import 'server-only';
 
-import { dehydrate, Hydrate } from '@tanstack/react-query';
-
 import { commentQueryKey } from '~/api/domain/comment.api';
-import { getCommentCountsServer, getCommentsServer } from '~/api/domain/comment.api.server';
-import { getIdCardDetailServer } from '~/api/domain/idCard.api.server';
+import { getCommentsServer } from '~/api/domain/comment.api.server';
+import { CommentCount } from '~/app/id-card/[id]/components/CommentCount';
+import { CommentList } from '~/app/id-card/[id]/components/CommentList';
+import { IdCardDetail } from '~/app/id-card/[id]/components/IdCardDetail/IdCardDetail';
 import { Divider } from '~/components/Divider';
-import { TopNavigation } from '~/components/TopNavigation';
-import getQueryClient from '~/lib/tanstackQuery/getQueryClient';
+import { HydrationProvider } from '~/components/HydrationProvider';
 import { CommentInput } from '~/modules/CommentInput';
-import { CommentList } from '~/modules/CommentList';
-import { Intro, KeywordContentCard } from '~/modules/IdCardDetail';
-import { CharacterNameModel } from '~/types/idCard';
-
-const bgColors: Record<CharacterNameModel, string> = {
-  BUDDY: 'bg-buddy-100',
-  TOBBY: 'bg-tobby-100',
-  PIPI: 'bg-pipi-100',
-  TRUE: 'bg-true-100',
-};
 
 type IdCardDetailPageProps = {
   params: {
@@ -26,64 +15,28 @@ type IdCardDetailPageProps = {
   };
 };
 
-// TODO: promise all 로 수정하기
 const IdCardDetailPage = async ({ params: { id } }: IdCardDetailPageProps) => {
   const idCardId = Number(id);
-  const { idCardDetailsDto } = await getIdCardDetailServer(idCardId);
-
-  const bgColor = bgColors[idCardDetailsDto.characterType];
-
-  // 로그인한 유저의 id면 수정페이지로 이동할 수 있는 버튼 보이게하기 (다래님이 만들어주심)
-
-  const queryClient = getQueryClient();
   const pageParam = 1;
 
-  await queryClient.prefetchQuery(commentQueryKey.comments(idCardId, pageParam), () =>
-    getCommentsServer({ idCardId, pageParam }).then(data => ({ pages: [data] })),
-  );
-
-  const totalCommentCount = await getCommentCountsServer({ idCardId });
-
-  const dehydratedState = dehydrate(queryClient);
+  const getCommentsQuery = async () => {
+    const data = await getCommentsServer({ idCardId, pageParam });
+    return {
+      pages: [data],
+    };
+  };
 
   return (
-    <Hydrate state={dehydratedState}>
-      <main>
-        <TopNavigation bgColor={bgColor}>
-          <TopNavigation.Left>
-            <TopNavigation.BackButton />
-          </TopNavigation.Left>
-        </TopNavigation>
-        <div className={`${bgColor} pt-[44px]`}>
-          <Intro {...idCardDetailsDto} />
-          <div className="flex flex-col gap-4 bg-white px-5 py-6">
-            {idCardDetailsDto.keywords.map(keyword => (
-              <KeywordContentCard
-                key={keyword.keywordId}
-                title={keyword.title}
-                image={
-                  keyword.imageUrl && (
-                    // eslint-disable-next-line @next/next/no-img-element
-                    <img
-                      src={keyword.imageUrl}
-                      alt={keyword.title}
-                      className="mx-auto my-0 max-h-[192px] max-w-[308px] object-contain"
-                    />
-                  )
-                }
-                content={keyword.content}
-              />
-            ))}
-          </div>
-        </div>
-        <Divider />
-        <div className="mt-24pxr px-layout-sm text-b2 text-grey-900">
-          <span>댓글 {totalCommentCount.count}개</span>
-        </div>
+    <main>
+      <IdCardDetail idCardId={idCardId} />
+      <Divider />
+      <CommentCount idCardId={idCardId} />
+      {/* @ts-expect-error Server Component */}
+      <HydrationProvider queryKey={commentQueryKey.comments(idCardId)} queryFn={getCommentsQuery}>
         <CommentList idCardId={idCardId} />
-        <CommentInput />
-      </main>
-    </Hydrate>
+      </HydrationProvider>
+      <CommentInput idCardId={idCardId} />
+    </main>
   );
 };
 

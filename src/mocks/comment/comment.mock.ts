@@ -41,7 +41,7 @@ export const createComment = (idCardId: number, idx: number): CommentModel => ({
     })
     .toLocaleString(),
   writerInfo: createCommentWriter(idx),
-  commentReplyLikeInfo: createCommentLike(),
+  commentLikeInfo: createCommentLike(),
   commentReplyInfos: createCommentReplyList(faker.number.int({ min: 0, max: 100 })),
 });
 

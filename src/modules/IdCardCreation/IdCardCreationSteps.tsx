@@ -52,7 +52,7 @@ export const IdCardCreationSteps = () => {
     <FormProvider {...methods}>
       {/* planetName 주입이 필요합니다. */}
       <div>
-        {steps[stepOrder] === 'BOARDING' && <BoardingStep planetName="Dingdong" onNext={onNext} />}
+        {steps[stepOrder] === 'BOARDING' && <BoardingStep onNext={onNext} />}
         {['PROFILE', 'KEYWORD', 'KEYWORD_CONTENT'].includes(steps[stepOrder]) && (
           <IdCardCreationForm
             steps={steps}

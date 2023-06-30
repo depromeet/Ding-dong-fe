@@ -1,15 +1,24 @@
+'use client';
+
 import { HeartFillIcon, HeartIcon } from '~/components/Icon';
-import { CommentModel } from '~/types/comment';
+import { CommentLikeModel } from '~/types/comment';
 
-type LikeIconProps = Pick<CommentModel, 'commentReplyLikeInfo'>;
+type LikeIconProps = Pick<CommentLikeModel, 'isLikedByCurrentUser'> & {
+  onClickToLikeCancel: () => Promise<void>;
+  onClickToLike: () => Promise<void>;
+};
 
-export const LikeIcon = ({ commentReplyLikeInfo }: LikeIconProps) => {
+export const LikeIcon = ({
+  isLikedByCurrentUser,
+  onClickToLikeCancel,
+  onClickToLike,
+}: LikeIconProps) => {
   return (
     <>
-      {commentReplyLikeInfo.isLikedByCurrentUser ? (
-        <HeartFillIcon className="fill-blue-500" />
+      {isLikedByCurrentUser ? (
+        <HeartFillIcon onClick={onClickToLikeCancel} className="fill-blue-500" />
       ) : (
-        <HeartIcon className="fill-grey-400" />
+        <HeartIcon onClick={onClickToLike} className="fill-grey-400" />
       )}
     </>
   );

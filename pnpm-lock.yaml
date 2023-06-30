@@ -35,6 +35,9 @@ dependencies:
   framer-motion:
     specifier: ^10.12.16
     version: 10.12.16(react-dom@18.2.0)(react@18.2.0)
+  lodash:
+    specifier: ^4.17.21
+    version: 4.17.21
   msw:
     specifier: ^1.2.1
     version: 1.2.1(typescript@5.0.4)
@@ -50,6 +53,9 @@ dependencies:
   react-dom:
     specifier: 18.2.0
     version: 18.2.0(react@18.2.0)
+  react-error-boundary:
+    specifier: ^4.0.10
+    version: 4.0.10(react@18.2.0)
   react-hook-form:
     specifier: ^7.43.9
     version: 7.43.9(react@18.2.0)
@@ -103,6 +109,9 @@ devDependencies:
   '@storybook/testing-library':
     specifier: ^0.0.14-next.2
     version: 0.0.14-next.2
+  '@types/lodash':
+    specifier: ^4.14.195
+    version: 4.14.195
   '@typescript-eslint/eslint-plugin':
     specifier: ^5.59.7
     version: 5.59.7(@typescript-eslint/parser@5.59.7)(eslint@8.22.0)(typescript@5.0.4)
@@ -10624,6 +10633,15 @@ packages:
       react-dom: 18.2.0(react@18.2.0)
       react-is: 18.1.0
     dev: true
+
+  /react-error-boundary@4.0.10(react@18.2.0):
+    resolution: {integrity: sha512-pvVKdi77j2OoPHo+p3rorgE43OjDWiqFkaqkJz8sJKK6uf/u8xtzuaVfj5qJ2JnDLIgF1De3zY5AJDijp+LVPA==}
+    peerDependencies:
+      react: '>=16.13.1'
+    dependencies:
+      '@babel/runtime': 7.22.5
+      react: 18.2.0
+    dev: false
 
   /react-hook-form@7.43.9(react@18.2.0):
     resolution: {integrity: sha512-AUDN3Pz2NSeoxQ7Hs6OhQhDr6gtF9YRuutGDwPQqhSUAHJSgGl2VeY3qN19MG0SucpjgDiuMJ4iC5T5uB+eaNQ==}

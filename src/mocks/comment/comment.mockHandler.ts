@@ -2,36 +2,58 @@ import { rest } from 'msw';
 
 import { ROOT_API_URL } from '~/api/config/requestUrl';
 import { createCommentCount, createCommentList } from '~/mocks/comment/comment.mock';
+import { generateResponse } from '~/mocks/mock.util';
 
 export const commentMockHandler = [
-  rest.get(`${ROOT_API_URL}/id-cards/:idCardId/comments?page=:page&size=10`, (req, res, ctx) => {
+  rest.get(`${ROOT_API_URL}/id-cards/:idCardId/comments?page=:page&size=10`, req => {
     const { searchParams } = req.url;
     const page = Number(searchParams.get('page'));
-    const idCardId = Number(req.url.pathname.split('/')[2]);
+    const idCardId = Number(req.url.pathname.split('/')[3]);
+    return generateResponse({
+      statusCode: 200,
+      data: { data: createCommentList(10, page, 10, idCardId) },
+    });
+  }),
+  rest.get(`${ROOT_API_URL}/id-cards/:idCardId/comments-count`, () => {
+    return generateResponse({ statusCode: 200, data: createCommentCount() });
+  }),
+  rest.post(`${ROOT_API_URL}/id-cards/:idCardId/comments`, () => {
+    return generateResponse({ statusCode: 200, data: { id: 1 } });
+  }),
+  rest.delete(`${ROOT_API_URL}/id-cards/:idCardId/comments/:commentId`, () => {
+    return generateResponse({ statusCode: 200, data: { id: 1 } });
+  }),
 
-    return res(
-      ctx.status(200),
-      ctx.json({
-        data: createCommentList(10, page, 10, idCardId),
-      }),
-    );
+  rest.post(`${ROOT_API_URL}/id-cards/:idCardId/comments/:commentId/replies`, () => {
+    return generateResponse({ statusCode: 200, data: { id: 1 } });
   }),
-  rest.get(`${ROOT_API_URL}/id-cards/:idCardId/comments-count`, (req, res, ctx) => {
-    return res(ctx.status(200), ctx.json(createCommentCount()));
-  }),
-  rest.post(`${ROOT_API_URL}/id-cards/:idCardId/comments`, (req, res, ctx) => {
-    return res(ctx.status(200), ctx.json({ id: 1 }));
-  }),
-  rest.delete(`${ROOT_API_URL}/id-cards/:idCardId/comments/:commentId`, (req, res, ctx) => {
-    return res(ctx.status(200), ctx.json({ id: 1 }));
-  }),
-  rest.post(`${ROOT_API_URL}/id-cards/:idCardId/comments/:commentId/replies`, (req, res, ctx) => {
-    return res(ctx.status(200), ctx.json({ id: 1 }));
-  }),
+  // DELETE reply
   rest.delete(
     `${ROOT_API_URL}/id-cards/:idCardId/comments/:commentId/replies/:commentReplyId`,
-    (req, res, ctx) => {
-      return res(ctx.status(200), ctx.json({ id: 1 }));
+    () => {
+      return generateResponse({ statusCode: 200, data: { id: 1 } });
+    },
+  ),
+  // POST Like
+  rest.post(`${ROOT_API_URL}/id-cards/:idCardsId/comments/:commentId/likes`, () => {
+    return generateResponse({ statusCode: 200, data: { id: 1 } });
+  }),
+  // POST reply Like
+  rest.post(
+    `${ROOT_API_URL}/id-cards/:idCardsId/comments/:commentId/replies/:commentReplyId/reply-likes`,
+    () => {
+      return generateResponse({ statusCode: 200, data: { id: 1 } });
+    },
+  ),
+  // DELETE Like
+  rest.delete(`${ROOT_API_URL}/id-cards/:idCardsId/comments/:commentId/likes`, () => {
+    return generateResponse({ statusCode: 200, data: { id: 1 } });
+  }),
+  // DELETE reply Like
+  rest.delete(
+    `${ROOT_API_URL}/id-cards/:idCardsId/comments/:commentId/replies/:commentReplyId/reply-likes`,
+    () => {
+      return generateResponse({ statusCode: 200, data: { id: 1 } });
     },
   ),
 ];

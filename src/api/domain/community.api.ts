@@ -1,12 +1,15 @@
-import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
+import { useInfiniteQuery, useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useRouter } from 'next/navigation';
 
 import privateApi from '~/api/config/privateApi';
 import {
   CommunityDetailResponse,
   CommunityIdCardsResponse,
   CommunityListResponse,
+  CommunityUpdateResponse,
 } from '~/types/community';
-import { CommunityIdCardsRequest } from '~/types/community/request.type';
+import { CommunityIdCardsRequest, CreateCommunityRequest } from '~/types/community/request.type';
+import { getUserIdClient } from '~/utils/auth/getUserId.client';
 
 export const communityQueryKey = {
   idCards: (communityId: number) => ['communityIdCards', communityId],
@@ -44,4 +47,38 @@ export const getCommunityList = (userId: number) =>
 
 export const useGetCommunityList = (userId: number) => {
   return useQuery(communityQueryKey.communityList(userId), () => getCommunityList(userId));
+};
+
+export const postCommunityCreate = (community: CreateCommunityRequest) =>
+  privateApi.post<CommunityUpdateResponse>(`/communities`, community);
+
+export const usePostCommunityCreate = () => {
+  const queryClient = useQueryClient();
+  const userId = getUserIdClient();
+  const router = useRouter();
+
+  return useMutation({
+    mutationFn: (community: CreateCommunityRequest) => postCommunityCreate(community),
+    onSuccess: () => {
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+      queryClient.invalidateQueries(communityQueryKey.communityList(userId!));
+      //TODO: BE 응답형태 변경 후 반영
+      router.replace('/admin/community/create/result');
+    },
+  });
+};
+export const postCommunityUpdate = (communityId: number, community: CreateCommunityRequest) =>
+  privateApi.put<CommunityUpdateResponse>(`/communities/${communityId}`, community);
+
+export const usePostCommunityUpdate = (communityId: number) => {
+  const queryClient = useQueryClient();
+  const userId = getUserIdClient();
+
+  return useMutation({
+    mutationFn: (community: CreateCommunityRequest) => postCommunityUpdate(communityId, community),
+    onSuccess: () => {
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+      queryClient.invalidateQueries(communityQueryKey.communityList(userId!));
+    },
+  });
 };
