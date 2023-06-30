@@ -2,9 +2,9 @@
 
 import { usePathname, useRouter } from 'next/navigation';
 
-import { useGetUnreadNotification } from '~/api/domain/notification.api';
 import { Divider } from '~/components/Divider';
 import { BellIcon, HomeIcon, PersonIcon } from '~/components/Icon';
+import { NewNotificationBadge } from '~/modules/Notification/NewNotificationBadge.client';
 
 type BottomNavigationPath = '/planet' | '/notification' | '/my-page';
 
@@ -24,8 +24,6 @@ export const BottomNavigation = () => {
     }
   };
 
-  const hasUnreadNotification = useGetUnreadNotification();
-
   return (
     <nav className="fixed bottom-0 left-0 w-full">
       <Divider />
@@ -37,9 +35,7 @@ export const BottomNavigation = () => {
         </li>
         <li>
           <button onClick={() => handleNavigation('/notification')} className="relative">
-            {hasUnreadNotification.data?.data && (
-              <div className="absolute right-2pxr h-2 w-2 rounded-full border bg-blue-500 outline-white"></div>
-            )}
+            <NewNotificationBadge />
             <BellIcon height={26} className={getSvgcolor('/notification')} />
           </button>
         </li>
