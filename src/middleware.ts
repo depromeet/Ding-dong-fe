@@ -20,7 +20,7 @@ const middleware = async (request: NextRequest) => {
     }
 
     try {
-      const origin = window.location.origin;
+      const origin = `${request.headers.get('x-forwarded-proto')}://${request.headers.get('host')}`;
       const authData = await publicApi.post<AuthResponse>('/auth/login/kakao', {
         authCode,
         redirectUri: `${origin}/auth/callback/kakao`,
