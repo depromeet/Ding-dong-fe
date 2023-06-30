@@ -23,7 +23,6 @@ export const Loading = {
 export const Boarding = {
   render: () => (
     <BoardingStep
-      planetName="Ding dong"
       onNext={() => {
         console.log('next');
       }}

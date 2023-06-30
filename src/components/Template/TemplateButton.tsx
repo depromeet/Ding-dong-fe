@@ -1,17 +1,22 @@
 import { ReactNode } from 'react';
 
-import { Button } from '~/components/Button/Button';
+import { Button, ButtonProps } from '~/components/Button/Button';
 import { tw } from '~/utils/tailwind.util';
 
-type TemplateButtonProps = {
+type TemplateButtonProps = Partial<Omit<ButtonProps, 'children'>> & {
   children: ReactNode | string;
   className?: string;
-  onClick?: () => void;
 };
 
-export const TemplateButton = ({ children, className, onClick }: TemplateButtonProps) => {
+export const TemplateButton = ({ children, className, onClick, ...rest }: TemplateButtonProps) => {
   return (
-    <Button size="large" color="primary" className={tw('mb-15pxr', className)} onClick={onClick}>
+    <Button
+      {...rest}
+      size="large"
+      color="primary"
+      className={tw('mb-15pxr', className)}
+      onClick={onClick}
+    >
       {children}
     </Button>
   );

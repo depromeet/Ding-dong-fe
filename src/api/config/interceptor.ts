@@ -1,6 +1,6 @@
 import { AxiosError, AxiosResponse, InternalAxiosRequestConfig } from 'axios';
 
-import { ErrorType } from '~/api/config/api.types';
+import { DefaultServerResponseType, ErrorType } from '~/api/config/api.types';
 import { getAccessToken, getAuthTokensByCookie } from '~/utils/auth/tokenHandlers';
 
 import { ApiError } from './customError';
@@ -25,10 +25,13 @@ export const onRequestError = (error: AxiosError) => {
   Promise.reject(error);
 };
 
-export const onResponse = (response: AxiosResponse) => {
-  const data = response.data;
-  const { headers, status } = response;
-  return { ...data, headers, status };
+export const onResponse = <DataType>(
+  response: AxiosResponse<DefaultServerResponseType<DataType>>,
+) => {
+  const defaultServerScheme: DefaultServerResponseType<DataType> = response.data;
+  const { data, statusCode, success } = defaultServerScheme;
+  const { headers } = response;
+  return { ...data, headers, statusCode, success };
 };
 
 export const onResponseError = (error: AxiosError<ErrorType, InternalAxiosRequestConfig>) => {
