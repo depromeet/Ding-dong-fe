@@ -10,7 +10,6 @@ type CommentCountProps = {
 
 const CommentCountComponent = ({ idCardId }: CommentCountProps) => {
   const { data: totalCommentCount } = useGetCommentCounts({ idCardId });
-  console.log('totalCommentCount', totalCommentCount);
 
   return (
     <div className="mt-24pxr px-layout-sm text-b2 text-grey-900">
