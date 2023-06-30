@@ -1,7 +1,11 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 'use client';
 
-import { useDeleteCommentReplyLike, usePostLikeCommentReply } from '~/api/domain/comment.api';
+import {
+  useDeleteCommentReplyLike,
+  useDeleteReply,
+  usePostLikeCommentReply,
+} from '~/api/domain/comment.api';
 import {
   Content,
   DeleteButton,
@@ -56,6 +60,12 @@ export const CommentReply = ({
     mutateDeleteLike.mutate({ idCardId, commentId, commentReplyId });
   };
 
+  const { mutate: mutateDeleteReply } = useDeleteReply(idCardId);
+
+  const onClickToDeleteComment = () => {
+    mutateDeleteReply({ idCardId, commentId, commentReplyId });
+  };
+
   return (
     <li className="flex w-full gap-12pxr px-[calc(layout-sm+42px)]">
       <UserProfile profileImageUrl={profileImageUrl} />
@@ -67,7 +77,11 @@ export const CommentReply = ({
             <div className="mt-8pxr flex gap-16pxr">
               <LikeCount likeCount={likeCount} />
               <ReplySubmitButton nickname={nickname} commentId={commentId} />
-              {userId === writerId ? <DeleteButton /> : <ReportButton />}
+              {userId === writerId ? (
+                <DeleteButton onClickToDeleteComment={onClickToDeleteComment} />
+              ) : (
+                <ReportButton />
+              )}
             </div>
           </div>
           <div>

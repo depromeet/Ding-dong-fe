@@ -220,3 +220,39 @@ export const removeCommentToPages = (
     pageParams: previousComments?.pageParams ?? [],
   };
 };
+
+export const removeReplyToPages = (
+  previousComments: CommentPages | undefined,
+  commentId: number,
+  replyId: number,
+) => {
+  const copyPreviousComments = _.cloneDeep(previousComments);
+  const pages = copyPreviousComments?.pages ? copyPreviousComments.pages : [];
+
+  const updatedPages = pages.map(page => {
+    const updatedData = {
+      ...page.data,
+      content: page.data.content.map(comment => {
+        if (comment.commentId !== commentId) {
+          return comment;
+        }
+        const updatedReplies = comment.commentReplyInfos.filter(
+          reply => reply.commentReplyId !== replyId,
+        );
+        return {
+          ...comment,
+          commentReplyInfos: updatedReplies,
+        };
+      }),
+    };
+    return {
+      ...page,
+      data: updatedData,
+    };
+  });
+
+  return {
+    pages: updatedPages,
+    pageParams: previousComments?.pageParams ?? [],
+  };
+};
