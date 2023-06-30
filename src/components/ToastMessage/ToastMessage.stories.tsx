@@ -1,5 +1,6 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import type { Meta, StoryObj } from '@storybook/react';
+import { useState } from 'react';
 
 import { Button } from '~/components/Button';
 import { useToastMessageStore } from '~/stores/toastMessage.store';
@@ -24,12 +25,18 @@ export const Primary: Story = {
 
 export const ToastMessageUsage: Story = {
   render: () => {
-    const { successToast } = useToastMessageStore();
+    const { errorToast } = useToastMessageStore();
+    const [count, setCount] = useState(1);
+
+    const onClickButton = () => {
+      errorToast(`${count} 번 째 에러 알람`);
+      setCount(prev => prev + 1);
+    };
 
     return (
       <div>
         <Button
-          onClick={() => successToast('에러 알람?')}
+          onClick={onClickButton}
           type="button"
           size="medium"
           color="primary"
