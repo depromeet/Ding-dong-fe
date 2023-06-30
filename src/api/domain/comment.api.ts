@@ -32,6 +32,7 @@ import {
 } from '~/types/comment';
 import { UserInfoModel } from '~/types/user';
 import {
+  addCommentCount,
   addCommentToPages,
   addReplyToPages,
   CommentPages,
@@ -95,16 +96,26 @@ export const usePostCommentCreate = (idCardId: number, userInfo: UserInfoModel) 
         commentQueryKey.comments(idCardId),
       );
 
+      const previousCommentCount = queryClient.getQueryData<CommentCountGetResponse>(
+        commentQueryKey.commentCount(idCardId),
+      );
+
       const updatedComments = addCommentToPages(previousComments, newComment);
+      const updatedCommentCount = addCommentCount(previousCommentCount);
 
       queryClient.setQueryData(commentQueryKey.comments(idCardId), updatedComments);
+      queryClient.setQueryData(commentQueryKey.commentCount(idCardId), updatedCommentCount);
 
-      return { previousComments };
+      return { previousComments, previousCommentCount };
     },
     onError: (err, newComment, context) => {
-      if (context?.previousComments) {
+      if (context?.previousComments !== undefined && context?.previousCommentCount !== undefined) {
         // TODO: toast error
         queryClient.setQueryData(commentQueryKey.comments(idCardId), context.previousComments);
+        queryClient.setQueryData(
+          commentQueryKey.commentCount(idCardId),
+          context.previousCommentCount,
+        );
       }
     },
     onSuccess: response => {
