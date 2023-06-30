@@ -1,13 +1,14 @@
 'use client';
 import { AnimatePresence, motion } from 'framer-motion';
 
+import { Portal } from '~/components/Portal';
 import { ToastMessage } from '~/components/ToastMessage/ToastMessage';
 import { useToastMessageStore } from '~/stores/toastMessage.store';
 
 export const ToastMessageProvider = () => {
   const { toastMessageList } = useToastMessageStore();
   return (
-    <div>
+    <Portal documentId="toast-portal">
       <AnimatePresence initial={false}>
         {toastMessageList.map(({ toastId, message }, index) => (
           <motion.div
@@ -26,6 +27,6 @@ export const ToastMessageProvider = () => {
           </motion.div>
         ))}
       </AnimatePresence>
-    </div>
+    </Portal>
   );
 };

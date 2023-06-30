@@ -26,7 +26,13 @@ export const ToastMessageUsage: Story = {
 
     return (
       <div>
-        <Button onClick={() => fireToast('에러 알람?')} type="button" size="medium" color="primary">
+        <Button
+          onClick={() => fireToast('에러 알람?')}
+          type="button"
+          size="medium"
+          color="primary"
+          className="mt-t-nav"
+        >
           토스트 메시지 추가하기
         </Button>
         <ToastMessageProvider />
