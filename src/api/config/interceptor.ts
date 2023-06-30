@@ -31,7 +31,8 @@ export const onResponse = <DataType>(
   const defaultServerScheme: DefaultServerResponseType<DataType> = response.data;
   const { data, statusCode, success } = defaultServerScheme;
   const { headers } = response;
-  return { ...data, headers, statusCode, success };
+  if (typeof data === 'object') return { ...data, headers, statusCode, success };
+  return { data, headers, statusCode, success };
 };
 
 export const onResponseError = (error: AxiosError<ErrorType, InternalAxiosRequestConfig>) => {
