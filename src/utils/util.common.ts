@@ -35,3 +35,11 @@ export const isEqual = (obj1: any, obj2: any): boolean => {
   // 나머지 경우는 값이 다르므로 false 반환
   return false;
 };
+
+export const isEmptyText = (text: string) => {
+  if (!text || text.trim() === '') {
+    return true;
+  } else {
+    return false;
+  }
+};

@@ -33,3 +33,9 @@ export type FetchResponseType<T> = {
   status: number;
   data?: T;
 };
+
+export type DefaultServerResponseType<DataType> = {
+  data: DataType;
+  statusCode: number;
+  success: boolean;
+};

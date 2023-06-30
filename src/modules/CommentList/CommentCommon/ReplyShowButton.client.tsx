@@ -11,9 +11,13 @@ export const ReplyShowButton = ({
   onClickShowReplyList,
   commentReplyInfos,
 }: ReplyShowButtonProps) => {
+  const isReplyListEmpty = commentReplyInfos.length === 0;
+
+  const isShowButton = !isShowReplyList && !isReplyListEmpty;
+
   return (
     <>
-      {!isShowReplyList && (
+      {isShowButton && (
         <button type="button" onClick={onClickShowReplyList} className="mt-24pxr flex gap-8pxr">
           <DashIcon className="fill-grey-500" />
           <span className="text-detail font-semibold text-grey-500">
