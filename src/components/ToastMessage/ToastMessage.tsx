@@ -1,7 +1,14 @@
-type ToastMessageProps = {
-  message: string;
+import { ToastMessageModel, ToastMessageType } from '~/stores/toastMessage.store';
+import { tw } from '~/utils/tailwind.util';
+
+type ToastMessageProps = Omit<ToastMessageModel, 'toastId'>;
+
+const colors: Record<ToastMessageType, string> = {
+  error: 'bg-grey-700 text-white',
+  success: 'bg-grey-700 text-white',
+  info: 'bg-grey-700 text-white',
 };
 
-export const ToastMessage = ({ message }: ToastMessageProps) => {
-  return <div className="rounded-[12px] bg-grey-700 p-16pxr text-b2 text-white">{message}</div>;
+export const ToastMessage = ({ message, type }: ToastMessageProps) => {
+  return <div className={tw('rounded-[12px]  p-16pxr text-b2', colors[type])}>{message}</div>;
 };

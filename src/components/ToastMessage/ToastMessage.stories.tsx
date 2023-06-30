@@ -17,17 +17,19 @@ export default meta;
 type Story = StoryObj<typeof ToastMessage>;
 
 export const Primary: Story = {
-  render: () => <ToastMessage message="문제가 발생했습니다. 다시 한 번 시도해주세요." />,
+  render: () => (
+    <ToastMessage type="error" message="문제가 발생했습니다. 다시 한 번 시도해주세요." />
+  ),
 };
 
 export const ToastMessageUsage: Story = {
   render: () => {
-    const { fireToast } = useToastMessageStore();
+    const { successToast } = useToastMessageStore();
 
     return (
       <div>
         <Button
-          onClick={() => fireToast('에러 알람?')}
+          onClick={() => successToast('에러 알람?')}
           type="button"
           size="medium"
           color="primary"

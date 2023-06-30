@@ -10,7 +10,7 @@ export const ToastMessageProvider = () => {
   return (
     <Portal documentId="toast-portal">
       <AnimatePresence initial={false}>
-        {toastMessageList.map(({ toastId, message }, index) => (
+        {toastMessageList.map(({ toastId, message, type }, index) => (
           <motion.div
             key={toastId}
             initial={{ opacity: 0, y: -20 }}
@@ -23,7 +23,7 @@ export const ToastMessageProvider = () => {
               zIndex: toastMessageList.length - index,
             }}
           >
-            <ToastMessage message={message} />
+            <ToastMessage type={type} message={message} />
           </motion.div>
         ))}
       </AnimatePresence>

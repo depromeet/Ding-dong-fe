@@ -1,35 +1,55 @@
 import { create } from 'zustand';
 
-type ToastMessageModel = {
+export type ToastMessageType = 'error' | 'success' | 'info';
+
+export type ToastMessageModel = {
   toastId: string;
   message: string;
+  type: ToastMessageType;
 };
 
 type ToastMessageStore = {
   toastMessageList: ToastMessageModel[];
-  fireToast: (message: string, duration?: number) => void;
+  errorToast: (message: string, duration?: number) => void;
+  successToast: (message: string, duration?: number) => void;
+  infoToast: (message: string, duration?: number) => void;
   removeToast: (toastId: string) => void;
 };
 
 const DEFAULT_DURATION = 3000;
 
-export const useToastMessageStore = create<ToastMessageStore>(set => ({
-  toastMessageList: [],
-  fireToast: (message: string, duration: number = DEFAULT_DURATION) => {
+export const useToastMessageStore = create<ToastMessageStore>(set => {
+  const fireToast = (
+    message: string,
+    type: ToastMessageType,
+    duration: number = DEFAULT_DURATION,
+  ) => {
     const toastId = Date.now().toString();
     set(state => ({
-      toastMessageList: [...state.toastMessageList, { toastId, message }],
+      toastMessageList: [...state.toastMessageList, { toastId, message, type }],
     }));
-    // 3초뒤에 제거
+
     setTimeout(() => {
       set(state => ({
         toastMessageList: state.toastMessageList.filter(toast => toast.toastId !== toastId),
       }));
     }, duration);
-  },
-  removeToast: (toastId: string) => {
-    set(state => ({
-      toastMessageList: state.toastMessageList.filter(toast => toast.toastId !== toastId),
-    }));
-  },
-}));
+  };
+  return {
+    toastMessageList: [],
+    errorToast: (message: string, duration: number = DEFAULT_DURATION) => {
+      fireToast(message, 'error', duration);
+    },
+    successToast: (message: string, duration: number = DEFAULT_DURATION) => {
+      fireToast(message, 'success', duration);
+    },
+    infoToast: (message: string, duration: number = DEFAULT_DURATION) => {
+      fireToast(message, 'info', duration);
+    },
+    removeToast: (toastId: string) => {
+      set(state => ({
+        toastMessageList: state.toastMessageList.filter(toast => toast.toastId !== toastId),
+      }));
+    },
+  };
+});
