@@ -31,4 +31,6 @@ export const getUnreadNotification = () =>
   privateApi.get<UnreadNotification>(`/notifications/unread`);
 
 export const useGetUnreadNotification = () =>
-  useQuery(notificationQueryKey.unread(), () => getUnreadNotification());
+  useQuery(notificationQueryKey.unread(), () => getUnreadNotification(), {
+    retry: false,
+  });
