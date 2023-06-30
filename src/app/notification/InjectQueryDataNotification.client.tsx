@@ -23,13 +23,13 @@ export const InjectQueryDataNotification = () => {
   return (
     <>
       {data?.pages.map(page => (
-        <div key={page.data.page}>
-          <NotificationList notifications={page.data.content} />
-          {page.data.hasNext && <div ref={ref}></div>}
+        <div key={page.page}>
+          <NotificationList notifications={page.content} />
+          {page.hasNext && <div ref={ref}></div>}
         </div>
       ))}
 
-      {data?.pages[0].data.content.length === 0 && <NotificationNoData />}
+      {data?.pages[0].content.length === 0 && <NotificationNoData />}
     </>
   );
 };
