@@ -25,8 +25,10 @@ export const onRequestError = (error: AxiosError) => {
   Promise.reject(error);
 };
 
-export const onResponse = <T>(response: AxiosResponse<DefaultServerResponseType<T>>) => {
-  const defaultServerScheme: DefaultServerResponseType<T> = response.data;
+export const onResponse = <DataType>(
+  response: AxiosResponse<DefaultServerResponseType<DataType>>,
+) => {
+  const defaultServerScheme: DefaultServerResponseType<DataType> = response.data;
   const { data, statusCode, success } = defaultServerScheme;
   const { headers } = response;
   return { ...data, headers, statusCode, success };
