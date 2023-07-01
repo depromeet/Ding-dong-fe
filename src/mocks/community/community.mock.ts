@@ -42,6 +42,7 @@ export const createCommunityDetail = (): CommunityDetailModel => ({
   title: faker.lorem.sentence(),
   idCardCount: faker.number.int(),
   description: faker.lorem.lines(2),
+  invitationCode: '123#aa',
 });
 
 export const createCommunityList = (): CommunityListModel[] => {

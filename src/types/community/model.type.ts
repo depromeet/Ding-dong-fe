@@ -9,9 +9,13 @@ export type CommunityDetailModel = {
   title: string;
   idCardCount: number;
   description: string;
+  invitationCode: string;
 };
 
-export type CommunityListModel = Omit<CommunityDetailModel, 'coverImageUrl' | 'description'>;
+export type CommunityListModel = Omit<
+  CommunityDetailModel,
+  'coverImageUrl' | 'description' | 'invitationCode'
+>;
 
 export type CommunityIdCardsModel = {
   idCardId: number;
@@ -21,6 +25,7 @@ export type CommunityIdCardsModel = {
   keywordTitles: string[];
 };
 
+// FIXME: 이거 안 쓰는 거 같은데 맞나요?
 export type CommunityCodeModel = {
   id: number;
   invitationCode: string;
