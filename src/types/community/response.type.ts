@@ -1,5 +1,10 @@
 import { SliceResponse } from '~/types/api';
-import { CommunityDetailModel, CommunityIdCardsModel, CommunityListModel } from '~/types/community';
+import {
+  CommunityDetailModel,
+  CommunityIdCardsModel,
+  CommunityListModel,
+  InvitationCodeValidationModel,
+} from '~/types/community';
 
 export type CommunityIdCardsResponse = {
   communityIdCardsDtos: SliceResponse<CommunityIdCardsModel>;
@@ -17,6 +22,7 @@ export type CommunityUpdateResponse = {
   id: number;
 };
 
+export type InvitationCodeValidationResponse = InvitationCodeValidationModel;
 export type CommunityNameCheckResponse = {
   data: boolean;
 };

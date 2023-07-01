@@ -1,3 +1,5 @@
+import { CommunityJoinModel } from './model.type';
+
 export type CommunityIdCardsRequest = {
   pageParam?: number;
   communityId: number;
@@ -9,3 +11,5 @@ export type CreateCommunityRequest = {
   coverImageUrl?: string;
   description?: string;
 };
+
+export type CommunityJoinRequest = CommunityJoinModel;
