@@ -1,26 +1,28 @@
-import { AxiosError, AxiosResponse, InternalAxiosRequestConfig } from 'axios';
+import { AxiosError, InternalAxiosRequestConfig } from 'axios';
 
-import { DefaultServerResponseType, ErrorType } from './api.types';
+import { ErrorType } from '~/api/config/api.types';
+import { getAuthTokensByCookie } from '~/utils/auth/tokenHandlers';
+import { getAccessTokenClient } from '~/utils/auth/tokenValidator.client';
+
 import { ApiError } from './customError';
 
-export const onResponse = <DataType>(
-  response: AxiosResponse<DefaultServerResponseType<DataType>>,
-) => {
-  const defaultServerScheme: DefaultServerResponseType<DataType> = response.data;
-  const { data, statusCode, success } = defaultServerScheme;
-  const { headers } = response;
-  const returnValue = { ...data, headers, statusCode, success, data: null as DataType };
-  if (typeof data !== 'object') {
-    returnValue.data = data;
+export const onRequestClient = async (config: InternalAxiosRequestConfig) => {
+  try {
+    const auth = getAuthTokensByCookie(document.cookie);
+    const validToken = await getAccessTokenClient(auth);
+
+    if (validToken) {
+      config.headers.Authorization = `Bearer ${validToken.accessToken}`;
+      return config;
+    }
+    throw new Error('로그인이 필요합니다.');
+  } catch (error) {
+    // client-side 로그아웃 처리
+    return Promise.reject(error);
   }
-  return returnValue;
 };
 
-export const onRequestError = (error: AxiosError) => {
-  Promise.reject(error);
-};
-
-export const onResponseError = (error: AxiosError<ErrorType, InternalAxiosRequestConfig>) => {
+export const onResponseErrorClient = (error: AxiosError<ErrorType, InternalAxiosRequestConfig>) => {
   // 2xx 외의 범위에 있는 상태 코드는 이 함수를 트리거 합니다.
   // 응답 오류가 있는 작업 수행
   console.error('error', error);
