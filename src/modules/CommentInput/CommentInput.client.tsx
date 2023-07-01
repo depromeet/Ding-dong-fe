@@ -2,7 +2,7 @@
 
 import { useForm } from 'react-hook-form';
 
-import { usePostCommentCreate, usePostReplyCreate } from '~/api/domain/comment.api';
+import { usePostCommentCreate, usePostReplyCreate } from '~/api/domain/comment/comment.api';
 import { useGetUserInfo } from '~/api/domain/user.api';
 import { Divider } from '~/components/Divider';
 import { SendIcon } from '~/components/Icon';

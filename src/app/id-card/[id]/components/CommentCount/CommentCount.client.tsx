@@ -1,7 +1,7 @@
 'use client';
 import { Suspense } from 'react';
 
-import { useGetCommentCounts } from '~/api/domain/comment.api';
+import { useGetCommentCounts } from '~/api/domain/comment/comment.api';
 import RetryErrorBoundary from '~/components/ErrorBoundary/RetryErrorBoundary.client';
 
 type CommentCountProps = {

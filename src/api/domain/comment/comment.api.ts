@@ -8,6 +8,19 @@ import {
 import { AxiosError } from 'axios';
 
 import privateApi from '~/api/config/privateApi';
+import {
+  addCommentToPages,
+  addReplyToPages,
+  CommentPages,
+  createNewComment,
+  createNewReply,
+  decreaseCommentCount,
+  increaseCommentCount,
+  removeCommentToPages,
+  removeReplyToPages,
+  updateCommentId,
+  updateReplyId,
+} from '~/api/domain/comment/comment.helper';
 import { useToastMessageStore } from '~/stores/toastMessage.store';
 import {
   CommentCountGetRequest,
@@ -32,19 +45,6 @@ import {
   CommentReplyLikeRequest,
 } from '~/types/comment';
 import { UserInfoModel } from '~/types/user';
-import {
-  addCommentToPages,
-  addReplyToPages,
-  CommentPages,
-  createNewComment,
-  createNewReply,
-  decreaseCommentCount,
-  increaseCommentCount,
-  removeCommentToPages,
-  removeReplyToPages,
-  updateCommentId,
-  updateReplyId,
-} from '~/utils/commentApi.util';
 
 export const commentQueryKey = {
   comments: (idCardId: number) => ['comments', idCardId],
