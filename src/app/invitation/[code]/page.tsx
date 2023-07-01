@@ -2,11 +2,8 @@
 
 import { useRouter } from 'next/navigation';
 
-import {
-  useGetInvitationCodeIsValid,
-  useGetUserInfo,
-  usePostPlanetJoin,
-} from '~/api/domain/user.api';
+import { useGetInvitationCodeIsValid, usePostCommunityJoin } from '~/api/domain/community.api';
+import { useGetUserInfo } from '~/api/domain/user.api';
 import { Template } from '~/components/Template';
 import { getUserIdClient } from '~/utils/auth/getUserId.client';
 import { STORAGE_REDIRECT_URI_KEY } from '~/utils/route/route';
@@ -21,24 +18,24 @@ const InvitationPage = ({ params }: { params: { code: string } }) => {
   const { data: validPlanet, isLoading: isValidPlanetLoading } = useGetInvitationCodeIsValid(
     params.code,
   );
-  const planetId = validPlanet?.planetId;
+  const communityId = validPlanet?.communityId;
   const userId = getUserIdClient();
   const {
     data: userInfo,
     isRefetching,
     isInitialLoading,
   } = useGetUserInfo({
-    enabled: !!(planetId && userId),
+    enabled: !!(communityId && userId),
   });
-  const { mutateAsync } = usePostPlanetJoin();
+  const { mutateAsync } = usePostCommunityJoin();
 
   const onClick = async () => {
-    if (planetId && userId) {
+    if (communityId && userId) {
       if (window.sessionStorage.getItem(STORAGE_REDIRECT_URI_KEY))
         window.sessionStorage.removeItem(STORAGE_REDIRECT_URI_KEY);
-      await mutateAsync({ planetId, userId });
-      if (userInfo?.isCharacterCreated) {
-        router.push(`/planet/${planetId}`);
+      await mutateAsync({ communityId });
+      if (userInfo?.characterType) {
+        router.push(`/planet/${communityId}`);
       } else {
         router.push('/onboarding');
       }

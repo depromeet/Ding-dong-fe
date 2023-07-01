@@ -1,5 +1,3 @@
-import { InvitationCodeValidationModel, UserInfoModel } from './model.type';
+import { UserInfoModel } from './model.type';
 
 export type UserInfoResponse = UserInfoModel;
-
-export type InvitationCodeValidationResponse = InvitationCodeValidationModel;

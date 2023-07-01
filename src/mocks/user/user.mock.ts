@@ -9,6 +9,6 @@ export const createUserInfo = (): UserInfoModel => ({
   gender: faker.person.gender(),
   ageRange: '',
   profileImageUrl: faker.image.avatar(),
-  isCharacterCreated: true,
-  planetIds: [1],
+  characterType: 'BUDDY',
+  communityIds: [1],
 });
