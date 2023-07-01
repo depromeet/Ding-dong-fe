@@ -3,6 +3,7 @@
 
 import { useSearchParams } from 'next/navigation';
 
+import { ROOT_API_URL } from '~/api/config/requestUrl';
 import { useGetCommunityDetail } from '~/api/domain/community.api';
 import { Button } from '~/components/Button';
 import { CopyInvitation, useConfirmPopup } from '~/components/ConfirmPopup';
@@ -15,7 +16,9 @@ const AdminCommunityCreateResultPage = () => {
   const { data } = useGetCommunityDetail(communityId);
 
   const copyInvitationCodeToClipBoard = () => {
-    navigator.clipboard.writeText(`/invitation/${data?.communityDetailsDto.invitationCode}`);
+    navigator.clipboard.writeText(
+      `${ROOT_API_URL}/invitation/${data?.communityDetailsDto.invitationCode}`,
+    );
   };
 
   const {
