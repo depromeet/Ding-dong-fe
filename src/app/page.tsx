@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 
 import { useGetUserInfo } from '~/api/domain/user.api';
 import { getUserIdClient } from '~/utils/auth/getUserId.client';
+import { STORAGE_REDIRECT_URI_KEY } from '~/utils/route/route';
 
 const Home = () => {
   const router = useRouter();
@@ -12,8 +13,13 @@ const Home = () => {
   const { data: userInfo } = useGetUserInfo({
     enabled: !!userId,
   });
+  const redirectUri = window.sessionStorage.getItem(STORAGE_REDIRECT_URI_KEY);
 
   if (userId) {
+    if (redirectUri) {
+      router.replace(redirectUri);
+    }
+
     if (userInfo) {
       const { isCharacterCreated, planetIds } = userInfo;
       if (isCharacterCreated) {
