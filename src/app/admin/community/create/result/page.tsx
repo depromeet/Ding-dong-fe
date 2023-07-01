@@ -8,8 +8,9 @@ import { KakaoIcon } from '~/components/Icon/KakaoIcon';
 
 const AdminCommunityCreateResultPage = () => {
   const searchParams = useSearchParams();
-  const communityId = searchParams.get('communityId');
-  const { data } = useGetCommunityDetail(Number(communityId) ?? undefined);
+  const communityIdParam = searchParams.get('communityId');
+  const communityId = isNaN(Number(communityIdParam)) ? -1 : Number(communityIdParam);
+  const { data } = useGetCommunityDetail(communityId);
   console.log(data);
 
   return (

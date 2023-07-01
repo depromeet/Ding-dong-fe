@@ -43,14 +43,8 @@ export const useGetCommunityIdCards = (communityId: number) => {
 export const getCommunityDetail = (communityId: number) =>
   privateApi.get<CommunityDetailResponse>(`/communities/${communityId}`);
 
-export const useGetCommunityDetail = (communityId?: number) =>
-  useQuery(
-    communityQueryKey.communityDetail(communityId as number),
-    () => getCommunityDetail(communityId as number),
-    {
-      enabled: !!communityId,
-    },
-  );
+export const useGetCommunityDetail = (communityId: number) =>
+  useQuery(communityQueryKey.communityDetail(communityId), () => getCommunityDetail(communityId));
 
 export const getCommunityList = (userId: number) =>
   privateApi.get<CommunityListResponse>(`/communities/users/${userId}`);
