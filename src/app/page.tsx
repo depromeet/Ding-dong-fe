@@ -1,9 +1,9 @@
-`use client`;
+'use client';
 
+import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 
 import { useGetUserInfo } from '~/api/domain/user.api';
-import PlanetPage from '~/app/planet/page';
 import { getUserIdClient } from '~/utils/auth/getUserId.client';
 
 const Home = () => {
@@ -28,7 +28,14 @@ const Home = () => {
 
   return (
     <main>
-      <PlanetPage />
+      <Image
+        src="/assets/images/splash.png"
+        width={0}
+        height={0}
+        sizes="100vw"
+        alt="splash"
+        className="mt-none-t-nav max-h-[100vh] w-full object-cover"
+      />
     </main>
   );
 };
