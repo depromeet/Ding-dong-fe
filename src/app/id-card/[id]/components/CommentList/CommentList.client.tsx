@@ -3,7 +3,7 @@
 import { Suspense, useEffect } from 'react';
 import { useInView } from 'react-intersection-observer';
 
-import { useGetComments } from '~/api/domain/comment.api';
+import { useGetComments } from '~/api/domain/comment/comment.api';
 import RetryErrorBoundary from '~/components/ErrorBoundary/RetryErrorBoundary.client';
 import { Comment } from '~/modules/CommentList/Comment';
 import { Empty } from '~/modules/CommentList/CommentCommon';

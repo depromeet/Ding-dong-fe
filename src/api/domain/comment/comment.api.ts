@@ -8,6 +8,19 @@ import {
 import { AxiosError } from 'axios';
 
 import privateApi from '~/api/config/privateApi';
+import {
+  addCommentToPages,
+  addReplyToPages,
+  CommentPages,
+  createNewComment,
+  createNewReply,
+  decreaseCommentCount,
+  increaseCommentCount,
+  removeCommentToPages,
+  removeReplyToPages,
+  updateCommentId,
+  updateReplyId,
+} from '~/api/domain/comment/comment.helper';
 import { useToastMessageStore } from '~/stores/toastMessage.store';
 import {
   CommentCountGetRequest,
@@ -32,17 +45,6 @@ import {
   CommentReplyLikeRequest,
 } from '~/types/comment';
 import { UserInfoModel } from '~/types/user';
-import {
-  addCommentToPages,
-  addReplyToPages,
-  CommentPages,
-  createNewComment,
-  createNewReply,
-  removeCommentToPages,
-  removeReplyToPages,
-  updateCommentId,
-  updateReplyId,
-} from '~/utils/commentApi.util';
 
 export const commentQueryKey = {
   comments: (idCardId: number) => ['comments', idCardId],
@@ -97,17 +99,27 @@ export const usePostCommentCreate = (idCardId: number, userInfo: UserInfoModel) 
         commentQueryKey.comments(idCardId),
       );
 
-      const updatedComments = addCommentToPages(previousComments, newComment);
+      const previousCommentCount = queryClient.getQueryData<CommentCountGetResponse>(
+        commentQueryKey.commentCount(idCardId),
+      );
 
+      const updatedComments = addCommentToPages(previousComments, newComment);
       queryClient.setQueryData(commentQueryKey.comments(idCardId), updatedComments);
 
-      return { previousComments };
+      const updatedCommentCount = increaseCommentCount(previousCommentCount);
+      queryClient.setQueryData(commentQueryKey.commentCount(idCardId), updatedCommentCount);
+
+      return { previousComments, previousCommentCount };
     },
     onError: (err, newComment, context) => {
-      if (context?.previousComments) {
+      if (context?.previousComments !== undefined && context?.previousCommentCount !== undefined) {
         // TODO: toast error
         errorToast('에러');
         queryClient.setQueryData(commentQueryKey.comments(idCardId), context.previousComments);
+        queryClient.setQueryData(
+          commentQueryKey.commentCount(idCardId),
+          context.previousCommentCount,
+        );
       }
     },
     onSuccess: response => {
@@ -136,15 +148,26 @@ export const useDeleteComment = (idCardId: number) => {
         commentQueryKey.comments(idCardId),
       );
 
+      const previousCommentCount = queryClient.getQueryData<CommentCountGetResponse>(
+        commentQueryKey.commentCount(idCardId),
+      );
+
       const updatedComments = removeCommentToPages(previousComments, commentInfo.commentId);
       queryClient.setQueryData(commentQueryKey.comments(idCardId), updatedComments);
 
-      return { previousComments };
+      const updatedCommentCount = decreaseCommentCount(previousCommentCount);
+      queryClient.setQueryData(commentQueryKey.commentCount(idCardId), updatedCommentCount);
+
+      return { previousComments, previousCommentCount };
     },
     onError: (err, newComment, context) => {
-      if (context?.previousComments) {
+      if (context?.previousComments !== undefined && context?.previousCommentCount !== undefined) {
         // TODO: toast error
         queryClient.setQueryData(commentQueryKey.comments(idCardId), context.previousComments);
+        queryClient.setQueryData(
+          commentQueryKey.commentCount(idCardId),
+          context.previousCommentCount,
+        );
       }
     },
   });

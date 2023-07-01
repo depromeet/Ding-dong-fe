@@ -1,7 +1,7 @@
 import 'server-only';
 
-import { commentQueryKey } from '~/api/domain/comment.api';
-import { getCommentsServer } from '~/api/domain/comment.api.server';
+import { commentQueryKey } from '~/api/domain/comment/comment.api';
+import { getCommentsServer } from '~/api/domain/comment/comment.api.server';
 import { CommentCount } from '~/app/id-card/[id]/components/CommentCount';
 import { CommentList } from '~/app/id-card/[id]/components/CommentList';
 import { IdCardDetail } from '~/app/id-card/[id]/components/IdCardDetail/IdCardDetail';

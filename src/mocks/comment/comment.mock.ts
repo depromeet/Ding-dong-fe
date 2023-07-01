@@ -60,3 +60,7 @@ export const createCommentList = (
 export const createCommentCount = () => ({
   count: faker.number.int({ min: 0, max: 999 }),
 });
+
+export const createRandomId = () => ({
+  id: faker.number.int({ min: 0, max: 999 }),
+});
