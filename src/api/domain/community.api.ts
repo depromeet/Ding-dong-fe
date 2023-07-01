@@ -1,19 +1,36 @@
-import { useInfiniteQuery, useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import {
+  useInfiniteQuery,
+  useMutation,
+  UseMutationOptions,
+  useQuery,
+  useQueryClient,
+} from '@tanstack/react-query';
+import { AxiosError } from 'axios';
 import { useRouter } from 'next/navigation';
 
 import privateApi from '~/api/config/privateApi';
+import publicApi from '~/api/config/publicApi';
+import { userQueryKey } from '~/api/domain/user.api';
 import {
   CommunityDetailResponse,
   CommunityIdCardsResponse,
   CommunityListResponse,
+  CommunityNameCheckResponse,
   CommunityUpdateResponse,
+  InvitationCodeValidationResponse,
 } from '~/types/community';
-import { CommunityIdCardsRequest, CreateCommunityRequest } from '~/types/community/request.type';
+import {
+  CommunityIdCardsRequest,
+  CommunityJoinRequest,
+  CreateCommunityRequest,
+} from '~/types/community/request.type';
 import { getUserIdClient } from '~/utils/auth/getUserId.client';
 
 export const communityQueryKey = {
   idCards: (communityId: number) => ['communityIdCards', communityId],
   communityList: (userId: number) => ['communityList', userId],
+  invitationCodeIsValid: () => ['invitaion', 'code', 'valid'],
+  communityDetail: (communityId: number) => ['communityDetail', communityId],
 };
 
 export const getCommunityIdCard = async (id: number) => {
@@ -42,6 +59,9 @@ export const useGetCommunityIdCards = (communityId: number) => {
 export const getCommunityDetail = (communityId: number) =>
   privateApi.get<CommunityDetailResponse>(`/communities/${communityId}`);
 
+export const useGetCommunityDetail = (communityId: number) =>
+  useQuery(communityQueryKey.communityDetail(communityId), () => getCommunityDetail(communityId));
+
 export const getCommunityList = (userId: number) =>
   privateApi.get<CommunityListResponse>(`/communities/users/${userId}`);
 
@@ -59,11 +79,10 @@ export const usePostCommunityCreate = () => {
 
   return useMutation({
     mutationFn: (community: CreateCommunityRequest) => postCommunityCreate(community),
-    onSuccess: () => {
+    onSuccess: data => {
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       queryClient.invalidateQueries(communityQueryKey.communityList(userId!));
-      //TODO: BE 응답형태 변경 후 반영
-      router.replace('/admin/community/create/result');
+      router.replace(`/admin/community/create/result?communityId=${data.id}`);
     },
   });
 };
@@ -82,3 +101,37 @@ export const usePostCommunityUpdate = (communityId: number) => {
     },
   });
 };
+
+export const getInvitationCodeIsValid = async (invitationCode: string) => {
+  return await publicApi.get<InvitationCodeValidationResponse>(`/communities/join`, {
+    params: { code: invitationCode },
+  });
+};
+
+export const useGetInvitationCodeIsValid = (invitationCode: string) =>
+  useQuery(communityQueryKey.invitationCodeIsValid(), () =>
+    getInvitationCodeIsValid(invitationCode),
+  );
+
+export const postCommunityJoin = async (communityId: CommunityJoinRequest) => {
+  return await privateApi.post<InvitationCodeValidationResponse>(`/communities/join`, communityId);
+};
+
+export const usePostCommunityJoin = (
+  options?: Omit<UseMutationOptions<unknown, AxiosError, CommunityJoinRequest>, 'mutationFn'>,
+) => {
+  const queryClient = useQueryClient();
+
+  return useMutation<unknown, AxiosError, CommunityJoinRequest>({
+    mutationFn: postCommunityJoin,
+    onSuccess: () => queryClient.invalidateQueries(userQueryKey.userInfo()),
+    ...options,
+  });
+};
+
+export const checkCommunityName = (communityName: string) =>
+  privateApi.get<CommunityNameCheckResponse>('/communities/check', {
+    params: {
+      name: communityName,
+    },
+  });

@@ -22,8 +22,9 @@ const preview: Preview = {
     mswDecorator,
     Story => (
       <QueryClientProvider client={queryClient}>
-        <Story />
         <div id="portal" />
+        <div id="toast-portal" />
+        <Story />
       </QueryClientProvider>
     ),
   ],

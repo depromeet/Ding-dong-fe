@@ -1,6 +1,8 @@
 import { SliceResponse } from '~/types/api';
 import { NotificationModel } from '~/types/notification';
 
-export type NotificationGetResponse = {
-  data: SliceResponse<NotificationModel>;
+export type NotificationGetResponse = SliceResponse<NotificationModel>;
+
+export type UnreadNotification = {
+  data: boolean;
 };

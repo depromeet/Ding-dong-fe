@@ -22,13 +22,22 @@ export const NotificationItem = ({
         )}
         <UserProfile profileImageUrl={userDto.fromUserProfileImageUrl} />
       </div>
-      <div>
+      <div className={notificationStatus === 'READ' ? 'text-gray-400' : ''}>
         <p className="mb-2 text-b2 font-normal">
-          <b className="font-medium">{userDto.fromUserNickname}</b>님 이{' '}
-          <b className="font-medium">회원님의 {NOTIFICATION_TYPE[notificationType]}</b>
+          <b className={`font-medium ${notificationStatus === 'READ' ? 'text-gray-500' : ''}`}>
+            {userDto.fromUserNickname}
+          </b>
+          님 이{' '}
+          <b className={`font-medium ${notificationStatus === 'READ' ? 'text-gray-500' : ''}`}>
+            회원님의 {NOTIFICATION_TYPE[notificationType]}
+          </b>
           {NOTIFICATION_TYPE_ACTION[notificationType]}: {commentDto.comment}
         </p>
-        <div className="text-detail text-gray-500">
+        <div
+          className={`
+            text-detail ${notificationStatus === 'UNREAD' ? 'text-gray-500' : 'text-gray-400'},
+        `}
+        >
           <span className="mr-2">{communityDto.communityName}</span>
           {/* TODO: 시간 보여주는 방식 수정 */}
           <span>{createdAt}</span>

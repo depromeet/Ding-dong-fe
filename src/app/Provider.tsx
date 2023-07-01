@@ -5,6 +5,7 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { SessionProvider } from 'next-auth/react';
 import { useState } from 'react';
 
+import { ToastMessageProvider } from '~/components/ToastMessage';
 import initMocks from '~/mocks';
 
 if (process.env.NEXT_PUBLIC_API_MOCKING === 'enabled') {
@@ -19,6 +20,7 @@ const Provider = ({ children }: { children: React.ReactNode }) => {
     <>
       <SessionProvider basePath="/auth">
         <QueryClientProvider client={queryClient}>
+          <ToastMessageProvider />
           {children}
           <ReactQueryDevtools initialIsOpen={false} />
         </QueryClientProvider>

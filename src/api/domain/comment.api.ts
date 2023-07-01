@@ -8,6 +8,7 @@ import {
 import { AxiosError } from 'axios';
 
 import privateApi from '~/api/config/privateApi';
+import { useToastMessageStore } from '~/stores/toastMessage.store';
 import {
   CommentCountGetRequest,
   CommentCountGetResponse,
@@ -79,6 +80,7 @@ export const postCommentCreate = ({ idCardId, contents }: CommentPostRequest) =>
 
 export const usePostCommentCreate = (idCardId: number, userInfo: UserInfoModel) => {
   const queryClient = useQueryClient();
+  const { errorToast } = useToastMessageStore();
 
   return useMutation({
     mutationFn: (commentInfo: CommentPostRequest) => postCommentCreate(commentInfo),
@@ -112,6 +114,7 @@ export const usePostCommentCreate = (idCardId: number, userInfo: UserInfoModel) 
     onError: (err, newComment, context) => {
       if (context?.previousComments !== undefined && context?.previousCommentCount !== undefined) {
         // TODO: toast error
+        errorToast('에러');
         queryClient.setQueryData(commentQueryKey.comments(idCardId), context.previousComments);
         queryClient.setQueryData(
           commentQueryKey.commentCount(idCardId),

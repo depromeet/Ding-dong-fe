@@ -1,18 +1,17 @@
 import { rest } from 'msw';
 
 import { ROOT_API_URL } from '~/api/config/requestUrl';
+import { generateResponse } from '~/mocks/mock.util';
 
 import { createNotificationList } from './notification.mock';
 
 export const notificationMockHandler = [
-  rest.get(`${ROOT_API_URL}/notifications?page=:page&size=10`, (req, res, ctx) => {
+  rest.get(`${ROOT_API_URL}/notifications?page=:page&size=10`, req => {
     const { searchParams } = req.url;
     const page = Number(searchParams.get('page'));
-    return res(
-      ctx.status(200),
-      ctx.json({
-        data: createNotificationList(10, page, 10),
-      }),
-    );
+    return generateResponse({
+      statusCode: 200,
+      data: createNotificationList(10, page, 10),
+    });
   }),
 ];

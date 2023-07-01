@@ -25,3 +25,11 @@ export type CommunityCodeModel = {
   id: number;
   invitationCode: string;
 };
+
+export type InvitationCodeValidationModel = {
+  communityId: number;
+};
+
+export type CommunityJoinModel = {
+  communityId: number;
+};
