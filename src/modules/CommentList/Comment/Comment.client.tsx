@@ -21,6 +21,7 @@ import {
 } from '~/modules/CommentList/CommentCommon';
 import { CommentReplyList } from '~/modules/CommentList/CommentReplyList';
 import { useLike } from '~/modules/CommentList/useLike';
+import { useToastMessageStore } from '~/stores/toastMessage.store';
 import { CommentModel } from '~/types/comment';
 import { getUserIdClient } from '~/utils/auth/getUserId.client';
 
@@ -35,6 +36,7 @@ export const Comment = ({
   commentLikeInfo,
   commentReplyInfos,
 }: CommentProps) => {
+  const { errorToast } = useToastMessageStore();
   const { userId: writerId, profileImageUrl, nickname } = writerInfo;
   const [isShowReplyList, setIsShowReplyList] = useState(false);
   const { isLikedByCurrentUser, likeCount, likeComment, cancelLikeComment } =
@@ -42,14 +44,16 @@ export const Comment = ({
   const userId = getUserIdClient();
   const mutatePostLike = usePostLikeComment({
     onError: () => {
-      // TODO toast error
+      // TODO: 에러 메시지 수정
+      errorToast('실패?');
       cancelLikeComment();
     },
   });
 
   const mutateDeleteLike = useDeleteCommentLike({
     onError: () => {
-      // TODO toast error
+      // TODO: 에러 메시지 수정
+      errorToast('실패?');
       likeComment();
     },
   });

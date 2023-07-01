@@ -4,6 +4,7 @@ import { usePathname, useRouter } from 'next/navigation';
 
 import { Divider } from '~/components/Divider';
 import { BellIcon, HomeIcon, PersonIcon } from '~/components/Icon';
+import { NewNotificationBadge } from '~/modules/Notification/NewNotificationBadge.client';
 
 type BottomNavigationPath = '/planet' | '/notification' | '/my-page';
 
@@ -33,7 +34,8 @@ export const BottomNavigation = () => {
           </button>
         </li>
         <li>
-          <button onClick={() => handleNavigation('/notification')}>
+          <button onClick={() => handleNavigation('/notification')} className="relative">
+            <NewNotificationBadge />
             <BellIcon height={26} className={getSvgcolor('/notification')} />
           </button>
         </li>

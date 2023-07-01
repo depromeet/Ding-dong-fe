@@ -23,3 +23,6 @@ export type CommunityUpdateResponse = {
 };
 
 export type InvitationCodeValidationResponse = InvitationCodeValidationModel;
+export type CommunityNameCheckResponse = {
+  data: boolean;
+};

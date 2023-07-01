@@ -14,7 +14,7 @@ export const NotificationList = ({ notifications }: NotificationListProps) => {
   return (
     <ul className="flex flex-col gap-7">
       {notifications.map((notification, i) => (
-        <>
+        <div key={notification.notificationId}>
           {(i === 0 || notificationAgoList[i] !== notificationAgoList[i - 1]) && (
             <>
               {i !== 0 && <div className="-ml-5 w-screen border-b border-b-gray-200"></div>}
@@ -22,7 +22,7 @@ export const NotificationList = ({ notifications }: NotificationListProps) => {
             </>
           )}
           <NotificationItem {...notification} key={notification.notificationId} />
-        </>
+        </div>
       ))}
     </ul>
   );

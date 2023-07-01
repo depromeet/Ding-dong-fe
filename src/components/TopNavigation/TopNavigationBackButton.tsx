@@ -1,5 +1,6 @@
 'use client';
 import { useRouter } from 'next/navigation';
+import { twMerge } from 'tailwind-merge';
 
 import { ArrowLeftIcon, CancelIcon, ChevronLeftIcon } from '~/components/Icon';
 
@@ -22,12 +23,14 @@ type TopNavigationBackButtonProps = {
    */
   onClickBackButton?: VoidFunction;
   backLink?: string;
+  direction?: 'left' | 'right';
 };
 
 export const TopNavigationBackButton = ({
   backButtonType = 'chevron',
   backLink,
   onClickBackButton,
+  direction = 'left',
 }: TopNavigationBackButtonProps) => {
   const router = useRouter();
 
@@ -45,7 +48,10 @@ export const TopNavigationBackButton = ({
 
   const BackButtonComponent = BackButton[backButtonType];
   return (
-    <button className="flex w-1/3 justify-start" onClick={handleClickBackButton}>
+    <button
+      className={twMerge('flex w-1/3', direction === 'left' ? 'justify-start' : 'justify-end')}
+      onClick={handleClickBackButton}
+    >
       <BackButtonComponent />
     </button>
   );
