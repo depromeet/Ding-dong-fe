@@ -1,4 +1,8 @@
 'use client';
+
+// FIXME: tailwind가 Swiper에 pagination잘 안먹혀서 어쩔 수 없이 css를 사용했어요
+import './style.css';
+
 import Image from 'next/image';
 
 import { Swiper, SwiperSlide } from '~/components/Swiper';
@@ -41,9 +45,10 @@ export const LoginStep = () => {
     <div>
       <Swiper
         slidesPerView="auto"
-        pagination={{ clickable: true }}
+        pagination={{
+          clickable: true,
+        }}
         allowTouchMove
-        bulletCss="w-[28px] h-[8px] rounded-[41px] bg-primary-500"
       >
         {subStepList.map(({ id, image, label, helperText }) => (
           <SwiperSlide key={id}>
