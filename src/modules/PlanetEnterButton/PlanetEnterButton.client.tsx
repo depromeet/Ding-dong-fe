@@ -1,8 +1,11 @@
 'use client';
 
+import { useRouter } from 'next/navigation';
+
 import { Button, TextButton } from '~/components/Button';
 
 export const PlanetEnterButton = () => {
+  const router = useRouter();
   return (
     <div className="mt-6pxr">
       <TextButton
@@ -12,7 +15,7 @@ export const PlanetEnterButton = () => {
         딩동행성 둘러보기
       </TextButton>
       <div className="mt-[60px] flex flex-col gap-4">
-        <Button color="primary" size="large" onClick={() => console.log('행성 만들기')}>
+        <Button color="primary" size="large" onClick={() => router.push('/admin/community/create')}>
           행성 만들기
         </Button>
       </div>
