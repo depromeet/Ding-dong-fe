@@ -2,7 +2,7 @@ import axios, { InternalAxiosRequestConfig } from 'axios';
 import { cookies } from 'next/headers';
 
 import { AUTH_COOKIE_KEYS } from '~/types/auth';
-import { getAccessToken } from '~/utils/auth/tokenHandlers';
+import { getAccessTokenServer } from '~/utils/auth/tokenValidator.server';
 
 import { CustomInstance } from './api.types';
 import { onResponse } from './interceptor';
@@ -15,9 +15,14 @@ const onServerRequest = async (config: InternalAxiosRequestConfig) => {
     const accessTokenExpireDate = Number(
       cookieStore.get(AUTH_COOKIE_KEYS.accessTokenExpireDate)?.value,
     );
-    const validAccessToken = await getAccessToken({ accessToken, accessTokenExpireDate });
-    if (validAccessToken) {
-      config.headers.Authorization = `Bearer ${validAccessToken}`;
+    const refreshToken = cookieStore.get(AUTH_COOKIE_KEYS.refreshToken)?.value;
+    const validToken = await getAccessTokenServer({
+      accessToken,
+      accessTokenExpireDate,
+      refreshToken,
+    });
+    if (validToken) {
+      config.headers.Authorization = `Bearer ${validToken.accessToken}`;
       return config;
     }
     throw new Error('로그인이 필요합니다.');

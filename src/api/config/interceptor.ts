@@ -1,17 +1,18 @@
 import { AxiosError, AxiosResponse, InternalAxiosRequestConfig } from 'axios';
 
 import { DefaultServerResponseType, ErrorType } from '~/api/config/api.types';
-import { getAccessToken, getAuthTokensByCookie } from '~/utils/auth/tokenHandlers';
+import { getAuthTokensByCookie } from '~/utils/auth/tokenHandlers';
+import { getAccessTokenClient } from '~/utils/auth/tokenValidator.client';
 
 import { ApiError } from './customError';
 
 export const onRequest = async (config: InternalAxiosRequestConfig) => {
   try {
     const auth = getAuthTokensByCookie(document.cookie);
-    const validAccessToken = await getAccessToken(auth);
+    const validToken = await getAccessTokenClient(auth);
 
-    if (validAccessToken) {
-      config.headers.Authorization = `Bearer ${validAccessToken}`;
+    if (validToken) {
+      config.headers.Authorization = `Bearer ${validToken.accessToken}`;
       return config;
     }
     throw new Error('로그인이 필요합니다.');

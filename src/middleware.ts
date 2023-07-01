@@ -3,7 +3,8 @@ import { NextRequest, NextResponse } from 'next/server';
 import publicApi from '~/api/config/publicApi';
 import { AUTH_COOKIE_KEYS, AuthResponse } from '~/types/auth';
 
-import { generateCookiesKeyValues, getAccessToken } from './utils/auth/tokenHandlers';
+import { generateCookiesKeyValues } from './utils/auth/tokenHandlers';
+import { getAccessTokenServer } from './utils/auth/tokenValidator.server';
 
 export const ACCESS_TOKEN_EXPIRE_MARGIN_SECOND = 60;
 
@@ -57,9 +58,14 @@ const middleware = async (request: NextRequest) => {
     const accessTokenExpireDate = Number(
       request.cookies.get(AUTH_COOKIE_KEYS.accessTokenExpireDate)?.value,
     );
-    const validAccessToken = await getAccessToken({ accessToken, accessTokenExpireDate });
-    if (validAccessToken) {
-      requestHeaders.set('Authorization', `Bearer ${accessToken}`);
+    const refreshToken = request.cookies.get(AUTH_COOKIE_KEYS.refreshToken)?.value;
+    const validToken = await getAccessTokenServer({
+      accessToken,
+      accessTokenExpireDate,
+      refreshToken,
+    });
+    if (validToken) {
+      requestHeaders.set('Authorization', `Bearer ${validToken.accessToken}`);
       const response = NextResponse.next({
         request: {
           headers: requestHeaders,
