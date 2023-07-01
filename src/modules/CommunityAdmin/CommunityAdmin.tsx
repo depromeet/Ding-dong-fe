@@ -4,6 +4,8 @@ import { TopNavigation } from '~/components/TopNavigation';
 import { CommunityBgImage, CommunityProfile } from '~/modules/CommunityProfile';
 import { CommunityDetailModel } from '~/types/community';
 
+type CommunityAdminProps = Omit<CommunityDetailModel, 'invitationCode'>;
+
 export const CommunityAdmin = ({
   communityId,
   logoImageUrl,
@@ -11,7 +13,7 @@ export const CommunityAdmin = ({
   title,
   idCardCount,
   description,
-}: CommunityDetailModel) => {
+}: Omit<CommunityAdminProps, 'invitationCode'>) => {
   return (
     <div>
       <TopNavigation>

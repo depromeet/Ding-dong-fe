@@ -11,12 +11,14 @@ import { CommunityDetailModel } from '~/types/community';
 import { DuplicateState } from './CommunityAdmin.type';
 import { CommunityAdminEditForm } from './CommunityAdminEditForm.client';
 
+type CommunityAdminEditProps = Omit<CommunityDetailModel, 'invitationCode'>;
+
 export const CommunityAdminEdit = ({
   logoImageUrl,
   title,
   description,
   communityId,
-}: CommunityDetailModel) => {
+}: CommunityAdminEditProps) => {
   const [isDuplicatedCheck, setIsDuplicatedCheck] = useState<DuplicateState>('DEFAULT');
 
   const methods = useForm<CommunityDetailModel>({
