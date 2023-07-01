@@ -6,6 +6,7 @@ export type AuthResponse = {
   refreshToken: string;
   userId: number;
   accessTokenExpireDate: number;
+  success?: boolean;
 };
 
 export const AUTH_COOKIE_KEYS: Record<string, string> = {

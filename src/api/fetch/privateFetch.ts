@@ -1,7 +1,6 @@
 import { cookies } from 'next/headers';
 
 import { AUTH_COOKIE_KEYS } from '~/types/auth';
-import { getAccessToken } from '~/utils/auth/tokenHandlers';
 
 import { PublicFetch } from './publicFetch';
 
@@ -12,13 +11,10 @@ class PrivateFetch extends PublicFetch {
   async common<T>(route: string, requestInit?: RequestInit) {
     const cookieStore = cookies();
     const accessToken = cookieStore.get(AUTH_COOKIE_KEYS.accessToken)?.value;
-    const accessTokenExpireDate = Number(
-      cookieStore.get(AUTH_COOKIE_KEYS.accessTokenExpireDate)?.value,
-    );
-    const validAccessToken = await getAccessToken({ accessToken, accessTokenExpireDate });
+
     return super.common<T>(route, {
       ...(requestInit ?? {}),
-      headers: { Authorization: `Bearer ${validAccessToken}` },
+      headers: { Authorization: `Bearer ${accessToken}` },
     });
   }
   async get<T>(route: string, requestInit?: RequestInit) {

@@ -24,3 +24,6 @@ export const login = async (code: string | null) => {
 export const useLogin = (code: string | null, options?: UseQueryOptions<AuthResponse>) => {
   return useQuery<AuthResponse>(['login'], async () => login(code), options);
 };
+
+export const reissue = async (refreshToken: string) =>
+  publicApi.get<AuthResponse>('/auth/login/reissue', { params: { REFRESH_TOKEN: refreshToken } });
