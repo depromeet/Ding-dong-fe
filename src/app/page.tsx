@@ -2,6 +2,7 @@
 
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
+import { useEffect } from 'react';
 
 import { useGetUserInfo } from '~/api/domain/user.api';
 import { getUserIdClient } from '~/utils/auth/getUserId.client';
@@ -15,22 +16,24 @@ const Home = () => {
   });
   const redirectUri = window.sessionStorage.getItem(STORAGE_REDIRECT_URI_KEY);
 
-  if (userId) {
-    if (redirectUri) {
-      router.replace(redirectUri);
-    }
-
-    if (userInfo) {
-      const { isCharacterCreated, planetIds } = userInfo;
-      if (isCharacterCreated) {
-        planetIds.length > 0 ? router.push(`/planet/${planetIds[0]}`) : router.push('/planet');
-      } else {
-        router.push('/onboarding');
+  useEffect(() => {
+    if (userId) {
+      if (redirectUri) {
+        router.replace(redirectUri);
       }
+
+      if (userInfo) {
+        const { isCharacterCreated, planetIds } = userInfo;
+        if (isCharacterCreated) {
+          planetIds.length > 0 ? router.push(`/planet/${planetIds[0]}`) : router.push('/planet');
+        } else {
+          router.push('/onboarding');
+        }
+      }
+    } else {
+      router.push('/auth/signin');
     }
-  } else {
-    router.push('/auth/signin');
-  }
+  }, [redirectUri, router, userId, userInfo]);
 
   return (
     <main>
