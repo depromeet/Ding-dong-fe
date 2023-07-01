@@ -1,6 +1,7 @@
 import { UseMutationResult } from '@tanstack/react-query';
 import { useFormContext } from 'react-hook-form';
 
+import { checkCommunityName } from '~/api/domain/community.api';
 import { Button } from '~/components/Button';
 import { ProfileImageEdit } from '~/components/ProfileImageEdit';
 import { TextArea, useTextArea } from '~/components/TextArea';
@@ -34,6 +35,7 @@ export const CommunityAdminEditForm = ({
     setValue,
     handleSubmit,
     formState: { defaultValues },
+    getValues,
   } = useFormContext<CreateCommunityRequest>();
 
   const defaultPlanetLogoImage =
@@ -49,10 +51,9 @@ export const CommunityAdminEditForm = ({
     maxLength: TEXT_AREA_MAX_LENGTH,
   });
 
-  const onCheck = () => {
-    //TODO: 중복확인 로직 추가
-    setIsDuplicatedCheck('SUCCESS');
-    // setIsDuplicatedCheck('ERROR');
+  const onCheck = async () => {
+    const check = await checkCommunityName(getValues('name'));
+    setIsDuplicatedCheck(check.data ? 'ERROR' : 'SUCCESS');
   };
 
   const onClickTitle = () => isDuplicatedCheck !== 'DEFAULT' && setIsDuplicatedCheck('DEFAULT');

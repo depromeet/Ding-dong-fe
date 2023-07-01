@@ -9,11 +9,7 @@ import { PropsWithChildren, useRef } from 'react';
 import { Navigation, Pagination, Scrollbar } from 'swiper';
 import * as SwiperReact from 'swiper/react';
 
-type SwiperProps = PropsWithChildren &
-  SwiperReact.SwiperProps & {
-    bulletCss?: string;
-  };
-
+type SwiperProps = PropsWithChildren & SwiperReact.SwiperProps;
 export const Swiper = ({
   spaceBetween,
   slidesPerView,
@@ -22,25 +18,16 @@ export const Swiper = ({
   onSwiper,
   onSlideChange,
   allowTouchMove,
-  bulletCss,
   children,
 }: SwiperProps) => {
   const swiperRef = useRef<SwiperReact.SwiperRef>(null);
-
-  const customPagination = pagination &&
-    typeof pagination !== 'boolean' && {
-      ...pagination,
-      renderBullet: function (index: number, className: string) {
-        return `<span class="${className} !${bulletCss}"></span>`;
-      },
-    };
 
   return (
     <SwiperReact.Swiper
       ref={swiperRef}
       modules={[Navigation, Pagination, Scrollbar]}
       spaceBetween={spaceBetween}
-      pagination={customPagination}
+      pagination={pagination}
       slidesPerView={slidesPerView}
       scrollbar={scrollbar}
       onSwiper={onSwiper}

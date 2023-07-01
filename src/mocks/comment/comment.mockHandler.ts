@@ -1,7 +1,11 @@
 import { rest } from 'msw';
 
 import { ROOT_API_URL } from '~/api/config/requestUrl';
-import { createCommentCount, createCommentList } from '~/mocks/comment/comment.mock';
+import {
+  createCommentCount,
+  createCommentList,
+  createRandomId,
+} from '~/mocks/comment/comment.mock';
 import { generateResponse } from '~/mocks/mock.util';
 
 export const commentMockHandler = [
@@ -18,42 +22,41 @@ export const commentMockHandler = [
     return generateResponse({ statusCode: 200, data: createCommentCount() });
   }),
   rest.post(`${ROOT_API_URL}/id-cards/:idCardId/comments`, () => {
-    return generateResponse({ statusCode: 200, data: { id: 1 } });
+    return generateResponse({ statusCode: 200, data: createRandomId() });
   }),
   rest.delete(`${ROOT_API_URL}/id-cards/:idCardId/comments/:commentId`, () => {
-    return generateResponse({ statusCode: 200, data: { id: 1 } });
+    return generateResponse({ statusCode: 200, data: createRandomId() });
   }),
 
   rest.post(`${ROOT_API_URL}/id-cards/:idCardId/comments/:commentId/replies`, () => {
-    return generateResponse({ statusCode: 200, data: { id: 1 } });
+    return generateResponse({ statusCode: 200, data: createRandomId() });
   }),
   // DELETE reply
   rest.delete(
     `${ROOT_API_URL}/id-cards/:idCardId/comments/:commentId/replies/:commentReplyId`,
     () => {
-      return generateResponse({ statusCode: 200, data: { id: 1 } });
+      return generateResponse({ statusCode: 200, data: createRandomId() });
     },
   ),
   // POST Like
   rest.post(`${ROOT_API_URL}/id-cards/:idCardsId/comments/:commentId/likes`, () => {
-    return generateResponse({ statusCode: 200, data: { id: 1 } });
+    return generateResponse({ statusCode: 200, data: createRandomId() });
   }),
   // POST reply Like
   rest.post(
     `${ROOT_API_URL}/id-cards/:idCardsId/comments/:commentId/replies/:commentReplyId/reply-likes`,
     () => {
-      return generateResponse({ statusCode: 200, data: { id: 1 } });
+      return generateResponse({ statusCode: 200, data: createRandomId() });
     },
   ),
-  // DELETE Like
   rest.delete(`${ROOT_API_URL}/id-cards/:idCardsId/comments/:commentId/likes`, () => {
-    return generateResponse({ statusCode: 200, data: { id: 1 } });
+    return generateResponse({ statusCode: 200, data: createRandomId() });
   }),
   // DELETE reply Like
   rest.delete(
     `${ROOT_API_URL}/id-cards/:idCardsId/comments/:commentId/replies/:commentReplyId/reply-likes`,
     () => {
-      return generateResponse({ statusCode: 200, data: { id: 1 } });
+      return generateResponse({ statusCode: 200, data: createRandomId() });
     },
   ),
 ];

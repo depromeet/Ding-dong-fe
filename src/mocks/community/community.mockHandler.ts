@@ -31,4 +31,10 @@ export const communityMockHandler = [
       data: { communityListDtos: createCommunityList() },
     });
   }),
+  rest.get(`${ROOT_API_URL}/communities/validate?code=:code`, (req, res, ctx) => {
+    return res(ctx.status(200), ctx.json({ communityId: 1 }));
+  }),
+  rest.post(`${ROOT_API_URL}/communities/join`, (req, res, ctx) => {
+    return res(ctx.status(200), ctx.json({}));
+  }),
 ];

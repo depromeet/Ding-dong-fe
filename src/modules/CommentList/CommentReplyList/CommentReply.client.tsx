@@ -5,7 +5,7 @@ import {
   useDeleteCommentReplyLike,
   useDeleteReply,
   usePostLikeCommentReply,
-} from '~/api/domain/comment.api';
+} from '~/api/domain/comment/comment.api';
 import {
   Content,
   DeleteButton,

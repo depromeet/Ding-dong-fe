@@ -11,19 +11,22 @@ const Layout = ({ children }: PropsWithChildren) => {
           <button
             type="button"
             form="community-admin-edit-form"
-            className="text-h5 font-bold text-primary-500"
+            className="text-h5 font-semibold text-grey-500"
           >
-            완료
+            나중에 할래요
           </button>
         </TopNavigation.Right>
       </TopNavigation>
       <div className="mt-26pxr px-5">
-        <h1 className="text-h2">행성이 만들어졌어요</h1>
-        <p className="mt-11pxr text-b2 font-normal text-gray-700">이제 주민들을 초대해보세요</p>
-        <div className="relative -ml-5 mt-30pxr h-[100vw] w-screen">
+        <h1 className="text-h2">행성 생성 완료</h1>
+        <p className="mt-11pxr text-b2 font-normal text-gray-700">
+          활기찬 행성을 위해 함께 할 주민이 필요할 거에요!
+        </p>
+        <div className="relative mt-30pxr">
           <Image
             src="/assets/images/planet-create-result-bg.png"
-            fill
+            width={375}
+            height={375}
             className="object-contain"
             alt="planet"
           />
