@@ -16,3 +16,7 @@ export type CommunityListResponse = {
 export type CommunityUpdateResponse = {
   id: number;
 };
+
+export type CommunityNameCheckResponse = {
+  data: boolean;
+};
