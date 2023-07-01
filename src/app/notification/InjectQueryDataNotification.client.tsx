@@ -29,7 +29,7 @@ export const InjectQueryDataNotification = () => {
         </div>
       ))}
 
-      {data?.pages[0].content.length === 0 && <NotificationNoData />}
+      {data?.pages[0].content?.length === 0 && <NotificationNoData />}
     </>
   );
 };
