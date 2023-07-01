@@ -14,9 +14,9 @@ const Home = () => {
   const { data: userInfo } = useGetUserInfo({
     enabled: !!userId,
   });
-  const redirectUri = window.sessionStorage.getItem(STORAGE_REDIRECT_URI_KEY);
 
   useEffect(() => {
+    const redirectUri = window.sessionStorage.getItem(STORAGE_REDIRECT_URI_KEY);
     if (userId) {
       if (redirectUri) {
         router.replace(redirectUri);
@@ -35,7 +35,7 @@ const Home = () => {
     } else {
       router.push('/auth/signin');
     }
-  }, [redirectUri, router, userId, userInfo]);
+  }, [router, userId, userInfo]);
 
   return (
     <main>
