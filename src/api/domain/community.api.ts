@@ -6,6 +6,7 @@ import {
   CommunityDetailResponse,
   CommunityIdCardsResponse,
   CommunityListResponse,
+  CommunityNameCheckResponse,
   CommunityUpdateResponse,
 } from '~/types/community';
 import { CommunityIdCardsRequest, CreateCommunityRequest } from '~/types/community/request.type';
@@ -85,3 +86,10 @@ export const usePostCommunityUpdate = (communityId: number) => {
     },
   });
 };
+
+export const checkCommunityName = (communityName: string) =>
+  privateApi.get<CommunityNameCheckResponse>('/communities/check', {
+    params: {
+      name: communityName,
+    },
+  });
