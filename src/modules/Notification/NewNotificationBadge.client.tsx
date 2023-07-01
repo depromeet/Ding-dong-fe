@@ -15,9 +15,10 @@ export const NewNotificationBadge = () => {
 
   useEffect(() => {
     const EventSource = EventSourcePolyfill || NativeEventSource;
+    let newNotificationSource: EventSource | null = null;
     const { accessToken } = getAuthTokensByCookie(document.cookie);
     if (!accessToken) return;
-    let newNotificationSource: EventSource | null = null;
+
     newNotificationSource = new EventSource(`${ROOT_API_URL}/notifications/subscribe`, {
       headers: {
         Authorization: `Bearer ${accessToken}`,
