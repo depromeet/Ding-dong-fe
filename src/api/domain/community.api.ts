@@ -1,19 +1,35 @@
-import { useInfiniteQuery, useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import {
+  useInfiniteQuery,
+  useMutation,
+  UseMutationOptions,
+  useQuery,
+  useQueryClient,
+} from '@tanstack/react-query';
+import { AxiosError } from 'axios';
 import { useRouter } from 'next/navigation';
 
 import privateApi from '~/api/config/privateApi';
+import publicApi from '~/api/config/publicApi';
+import { userQueryKey } from '~/api/domain/user.api';
 import {
   CommunityDetailResponse,
   CommunityIdCardsResponse,
   CommunityListResponse,
+  CommunityNameCheckResponse,
   CommunityUpdateResponse,
+  InvitationCodeValidationResponse,
 } from '~/types/community';
-import { CommunityIdCardsRequest, CreateCommunityRequest } from '~/types/community/request.type';
+import {
+  CommunityIdCardsRequest,
+  CommunityJoinRequest,
+  CreateCommunityRequest,
+} from '~/types/community/request.type';
 import { getUserIdClient } from '~/utils/auth/getUserId.client';
 
 export const communityQueryKey = {
   idCards: (communityId: number) => ['communityIdCards', communityId],
   communityList: (userId: number) => ['communityList', userId],
+  invitationCodeIsValid: () => ['invitaion', 'code', 'valid'],
   communityDetail: (communityId: number) => ['communityDetail', communityId],
 };
 
@@ -85,3 +101,37 @@ export const usePostCommunityUpdate = (communityId: number) => {
     },
   });
 };
+
+export const getInvitationCodeIsValid = async (invitationCode: string) => {
+  return await publicApi.get<InvitationCodeValidationResponse>(`/communities/join`, {
+    params: { code: invitationCode },
+  });
+};
+
+export const useGetInvitationCodeIsValid = (invitationCode: string) =>
+  useQuery(communityQueryKey.invitationCodeIsValid(), () =>
+    getInvitationCodeIsValid(invitationCode),
+  );
+
+export const postCommunityJoin = async (communityId: CommunityJoinRequest) => {
+  return await privateApi.post<InvitationCodeValidationResponse>(`/communities/join`, communityId);
+};
+
+export const usePostCommunityJoin = (
+  options?: Omit<UseMutationOptions<unknown, AxiosError, CommunityJoinRequest>, 'mutationFn'>,
+) => {
+  const queryClient = useQueryClient();
+
+  return useMutation<unknown, AxiosError, CommunityJoinRequest>({
+    mutationFn: postCommunityJoin,
+    onSuccess: () => queryClient.invalidateQueries(userQueryKey.userInfo()),
+    ...options,
+  });
+};
+
+export const checkCommunityName = (communityName: string) =>
+  privateApi.get<CommunityNameCheckResponse>('/communities/check', {
+    params: {
+      name: communityName,
+    },
+  });

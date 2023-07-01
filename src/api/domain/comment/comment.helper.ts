@@ -1,6 +1,6 @@
 import _ from 'lodash';
 
-import { CommentModel, CommentReplyModel } from '~/types/comment';
+import { CommentCountGetResponse, CommentModel, CommentReplyModel } from '~/types/comment';
 
 type NewComment = {
   idCardId: number;
@@ -255,4 +255,14 @@ export const removeReplyToPages = (
     pages: updatedPages,
     pageParams: previousComments?.pageParams ?? [],
   };
+};
+
+export const increaseCommentCount = (commentCountResponse: CommentCountGetResponse | undefined) => {
+  if (commentCountResponse === undefined) return { count: 0 };
+  return { count: commentCountResponse.count + 1 };
+};
+
+export const decreaseCommentCount = (commentCountResponse: CommentCountGetResponse | undefined) => {
+  if (commentCountResponse === undefined) return { count: 0 };
+  return { count: commentCountResponse.count - 1 };
 };

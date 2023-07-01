@@ -2,13 +2,11 @@
 
 import { useRouter } from 'next/navigation';
 
-import {
-  useGetInvitationCodeIsValid,
-  useGetUserInfo,
-  usePostPlanetJoin,
-} from '~/api/domain/user.api';
+import { useGetInvitationCodeIsValid, usePostCommunityJoin } from '~/api/domain/community.api';
+import { useGetUserInfo } from '~/api/domain/user.api';
 import { Template } from '~/components/Template';
 import { getUserIdClient } from '~/utils/auth/getUserId.client';
+import { STORAGE_REDIRECT_URI_KEY } from '~/utils/route/route';
 
 const title = '당신을 디프만 행성으로\n 초대합니다';
 
@@ -20,30 +18,30 @@ const InvitationPage = ({ params }: { params: { code: string } }) => {
   const { data: validPlanet, isLoading: isValidPlanetLoading } = useGetInvitationCodeIsValid(
     params.code,
   );
-  const planetId = validPlanet?.planetId;
+  const communityId = validPlanet?.communityId;
   const userId = getUserIdClient();
   const {
     data: userInfo,
     isRefetching,
     isInitialLoading,
   } = useGetUserInfo({
-    enabled: !!(planetId && userId),
+    enabled: !!(communityId && userId),
   });
-  const { mutateAsync } = usePostPlanetJoin();
+  const { mutateAsync } = usePostCommunityJoin();
 
   const onClick = async () => {
-    const searchParams = new URLSearchParams({
-      redirectUri: `/invitation/${invitationCode}`,
-    }).toString();
-    if (planetId && userId) {
-      await mutateAsync({ planetId, userId });
-      if (userInfo?.isCharacterCreated) {
-        router.push(`/planet/${planetId}`);
+    if (communityId && userId) {
+      if (window.sessionStorage.getItem(STORAGE_REDIRECT_URI_KEY))
+        window.sessionStorage.removeItem(STORAGE_REDIRECT_URI_KEY);
+      await mutateAsync({ communityId });
+      if (userInfo?.characterType) {
+        router.push(`/planet/${communityId}`);
       } else {
-        router.push(`/onboarding?${searchParams}`);
+        router.push('/onboarding');
       }
     } else {
-      router.push(`/auth/signin?${searchParams}`);
+      window.sessionStorage.setItem(STORAGE_REDIRECT_URI_KEY, `/invitation/${invitationCode}`);
+      router.push('/auth/signin');
     }
   };
   if (isValidPlanetLoading) return null;

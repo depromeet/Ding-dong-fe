@@ -1,1 +1,1 @@
-export * from './CommentCount';
+export * from './CommentCount.client';
