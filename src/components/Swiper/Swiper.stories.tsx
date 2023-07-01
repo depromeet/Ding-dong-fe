@@ -32,8 +32,7 @@ export const CustomBullet: Story = {
     <Swiper
       spaceBetween={50}
       slidesPerView={1}
-      pagination={{ clickable: true }}
-      bulletCss="bg-green-500"
+      pagination={{ clickable: true, bulletActiveClass: '!bg-green-500' }}
     >
       {SwiperSlideChildren.map((child, idx) => (
         <SwiperSlide key={idx}>
