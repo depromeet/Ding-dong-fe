@@ -1,10 +1,12 @@
 import { AUTH_COOKIE_KEYS, AuthResponse } from '~/types/auth';
 
-const ACCESS_TOKEN_EXPIRE_MARGIN_SECOND = 60;
+type AuthCookies = [string, AuthResponse[keyof AuthResponse]][];
+export type ValidTokens = {
+  accessToken: string;
+  authCookies?: AuthCookies;
+};
 
-const generateCookiesKeyValues = (
-  authResponse: AuthResponse,
-): [string, AuthResponse[keyof AuthResponse]][] => {
+const generateCookiesKeyValues = (authResponse: AuthResponse): AuthCookies => {
   const {
     accessToken,
     refreshToken,
@@ -20,20 +22,6 @@ const generateCookiesKeyValues = (
     [AUTH_COOKIE_KEYS.userId, userId],
     [AUTH_COOKIE_KEYS.accessTokenExpireDate, accessTokenExpireDate.getTime()],
   ];
-};
-const getAccessToken = async (authTokens: Partial<AuthResponse>): Promise<string | null> => {
-  const { accessToken, refreshToken, accessTokenExpireDate } = authTokens;
-  const isAccessTokenExpired =
-    (accessTokenExpireDate ?? 0) - new Date().getTime() < ACCESS_TOKEN_EXPIRE_MARGIN_SECOND;
-
-  if (accessToken && !isAccessTokenExpired) {
-    return accessToken;
-  } else if (refreshToken) {
-    // token refresh 로직 처리
-    return null;
-  } else {
-    return null;
-  }
 };
 
 const getAuthTokensByCookie = (cookieString: string): Partial<AuthResponse> => {
@@ -53,4 +41,5 @@ const getAuthTokensByCookie = (cookieString: string): Partial<AuthResponse> => {
   return auth;
 };
 
-export { generateCookiesKeyValues, getAccessToken, getAuthTokensByCookie };
+const ACCESS_TOKEN_EXPIRE_MARGIN_SECOND = 60;
+export { ACCESS_TOKEN_EXPIRE_MARGIN_SECOND, generateCookiesKeyValues, getAuthTokensByCookie };
