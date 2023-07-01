@@ -22,10 +22,11 @@ const Layout = ({ children }: PropsWithChildren) => {
         <p className="mt-11pxr text-b2 font-normal text-gray-700">
           활기찬 행성을 위해 함께 할 주민이 필요할 거에요!
         </p>
-        <div className="relative -ml-5 mt-30pxr h-[100vw] w-screen">
+        <div className="relative mt-30pxr">
           <Image
             src="/assets/images/planet-create-result-bg.png"
-            fill
+            width={375}
+            height={375}
             className="object-contain"
             alt="planet"
           />
