@@ -34,7 +34,7 @@ const InvitationPage = ({ params }: { params: { code: string } }) => {
       if (window.sessionStorage.getItem(STORAGE_REDIRECT_URI_KEY))
         window.sessionStorage.removeItem(STORAGE_REDIRECT_URI_KEY);
       await mutateAsync({ communityId });
-      if (userInfo?.isCharacterCreated) {
+      if (userInfo?.characterType) {
         router.push(`/planet/${communityId}`);
       } else {
         router.push('/onboarding');

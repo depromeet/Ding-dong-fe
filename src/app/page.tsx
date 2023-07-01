@@ -23,9 +23,11 @@ const Home = () => {
       }
 
       if (userInfo) {
-        const { isCharacterCreated, planetIds } = userInfo;
-        if (isCharacterCreated) {
-          planetIds.length > 0 ? router.push(`/planet/${planetIds[0]}`) : router.push('/planet');
+        const { characterType, communityIds } = userInfo;
+        if (characterType) {
+          communityIds.length > 0
+            ? router.push(`/planet/${communityIds[0]}`)
+            : router.push('/planet');
         } else {
           router.push('/onboarding');
         }
