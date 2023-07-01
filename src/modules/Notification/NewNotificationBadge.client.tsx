@@ -1,9 +1,11 @@
 import { useQueryClient } from '@tanstack/react-query';
+import { EventSourcePolyfill, NativeEventSource } from 'event-source-polyfill';
 import { usePathname } from 'next/navigation';
 import { useEffect } from 'react';
 
 import { ROOT_API_URL } from '~/api/config/requestUrl';
 import { notificationQueryKey, useGetUnreadNotification } from '~/api/domain/notification.api';
+import { getAuthTokensByCookie } from '~/utils/auth/tokenHandlers';
 
 export const NewNotificationBadge = () => {
   const hasUnreadNotification = useGetUnreadNotification();
@@ -12,11 +14,21 @@ export const NewNotificationBadge = () => {
   const pathname = usePathname();
 
   useEffect(() => {
-    const newNotificationSource = new EventSource(`${ROOT_API_URL}/notifications/subscribe`);
-
+    const EventSource = EventSourcePolyfill || NativeEventSource;
+    const { accessToken } = getAuthTokensByCookie(document.cookie);
+    if (!accessToken) return;
+    let newNotificationSource: EventSource | null = null;
+    newNotificationSource = new EventSource(`${ROOT_API_URL}/notifications/subscribe`, {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
     newNotificationSource.addEventListener('sse', () => {
       queryClient.setQueryData(notificationQueryKey.unread(), { data: true });
     });
+    return () => {
+      newNotificationSource?.close();
+    };
   }, [queryClient]);
 
   useEffect(() => {
