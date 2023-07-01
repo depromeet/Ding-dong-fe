@@ -1,11 +1,6 @@
 import { AUTH_COOKIE_KEYS, AuthResponse } from '~/types/auth';
 
 type AuthCookies = [string, AuthResponse[keyof AuthResponse]][];
-export type ValidTokens = {
-  accessToken: string;
-  authCookies?: AuthCookies;
-};
-
 const generateCookiesKeyValues = (authResponse: AuthResponse): AuthCookies => {
   const {
     accessToken,
