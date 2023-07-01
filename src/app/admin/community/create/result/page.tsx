@@ -14,6 +14,10 @@ const AdminCommunityCreateResultPage = () => {
   const communityId = isNaN(Number(communityIdParam)) ? -1 : Number(communityIdParam);
   const { data } = useGetCommunityDetail(communityId);
 
+  const copyInvitationCodeToClipBoard = () => {
+    navigator.clipboard.writeText(`/invitation/${data?.communityDetailsDto.invitationCode}`);
+  };
+
   const {
     isOpen: isCopyInvitationOpen,
     openPopup: openCopyInvitationPopup,
@@ -32,7 +36,8 @@ const AdminCommunityCreateResultPage = () => {
     const isOk = await openCopyInvitationPopup();
     closeCopyInvitationPopup();
     if (isOk) {
-      // router.back();
+      // router.push();  // TODO: 이후 로직 정해지면 수정할 예정!
+      copyInvitationCodeToClipBoard();
     }
     return;
   };
@@ -41,7 +46,8 @@ const AdminCommunityCreateResultPage = () => {
     const isOk = await openKakaoSharePopup();
     closeKakaoSharePopup();
     if (isOk) {
-      // router.back();
+      // router.push(); // TODO: 이후 로직 정해지면 수정할 예정!
+      copyInvitationCodeToClipBoard();
     }
     return;
   };
