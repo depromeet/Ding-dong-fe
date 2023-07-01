@@ -1,7 +1,11 @@
 import { rest } from 'msw';
 
 import { ROOT_API_URL } from '~/api/config/requestUrl';
-import { createCommentCount, createCommentList, createRandomId } from '~/mocks/comment/comment.mock';
+import {
+  createCommentCount,
+  createCommentList,
+  createRandomId,
+} from '~/mocks/comment/comment.mock';
 import { generateResponse } from '~/mocks/mock.util';
 
 export const commentMockHandler = [
