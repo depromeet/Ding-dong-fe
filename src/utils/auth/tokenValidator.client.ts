@@ -1,33 +1,29 @@
+import { ApiError } from '~/api/config/customError';
 import { reissue } from '~/api/domain/auth.api.client';
 import { AuthResponse } from '~/types/auth';
 
-import {
-  ACCESS_TOKEN_EXPIRE_MARGIN_SECOND,
-  generateCookiesKeyValues,
-  ValidTokens,
-} from './tokenHandlers';
+import { generateCookiesKeyValues } from './tokenHandlers';
 
 export const getAccessTokenClient = async (
   authTokens: Partial<AuthResponse>,
-): Promise<ValidTokens | null> => {
+): Promise<string | null | ApiError> => {
   try {
-    const { accessToken, refreshToken, accessTokenExpireDate } = authTokens;
-    const isAccessTokenExpired =
-      (accessTokenExpireDate ?? 0) - new Date().getTime() < ACCESS_TOKEN_EXPIRE_MARGIN_SECOND;
-
-    if (accessToken && !isAccessTokenExpired) {
-      return { accessToken };
-    } else if (refreshToken) {
+    const { refreshToken } = authTokens;
+    if (refreshToken) {
       // token refresh 로직 처리
-      const authResponse = await reissue(refreshToken);
-      return {
-        accessToken: authResponse.accessToken,
-        authCookies: generateCookiesKeyValues(authResponse),
-      };
+      const { success, ...tokens } = await reissue(refreshToken);
+      if (!success) {
+        return null;
+      }
+      for (const [cookieKey, cookieValue] of generateCookiesKeyValues(tokens)) {
+        document.cookie = `${cookieKey}=${cookieValue}; path=/;`;
+      }
+
+      return tokens.accessToken;
     } else {
       return null;
     }
   } catch (e) {
-    return null;
+    return e as ApiError;
   }
 };

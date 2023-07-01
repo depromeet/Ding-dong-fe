@@ -1,28 +1,29 @@
 import { AxiosError, InternalAxiosRequestConfig } from 'axios';
 
 import { ErrorType } from '~/api/config/api.types';
+import { AUTH_ERROR_CODES } from '~/types/errorCodes';
 import { getAuthTokensByCookie } from '~/utils/auth/tokenHandlers';
 import { getAccessTokenClient } from '~/utils/auth/tokenValidator.client';
 
 import { ApiError } from './customError';
+import privateApi from './privateApi';
 
 export const onRequestClient = async (config: InternalAxiosRequestConfig) => {
   try {
     const auth = getAuthTokensByCookie(document.cookie);
-    const validToken = await getAccessTokenClient(auth);
 
-    if (validToken) {
-      config.headers.Authorization = `Bearer ${validToken.accessToken}`;
-      return config;
+    if (auth.accessToken) {
+      config.headers.Authorization = `Bearer ${auth.accessToken}`;
     }
-    throw new Error('로그인이 필요합니다.');
+    return config;
   } catch (error) {
-    // client-side 로그아웃 처리
     return Promise.reject(error);
   }
 };
 
-export const onResponseErrorClient = (error: AxiosError<ErrorType, InternalAxiosRequestConfig>) => {
+export const onResponseErrorClient = async (
+  error: AxiosError<ErrorType, InternalAxiosRequestConfig>,
+) => {
   // 2xx 외의 범위에 있는 상태 코드는 이 함수를 트리거 합니다.
   // 응답 오류가 있는 작업 수행
   console.error('error', error);
@@ -31,6 +32,38 @@ export const onResponseErrorClient = (error: AxiosError<ErrorType, InternalAxios
 
     const data = error.response.data;
     const { success, statusCode, errorCode, reason } = data;
+
+    if (statusCode === 401) {
+      try {
+        const auth = getAuthTokensByCookie(document.cookie);
+        const validTokenResponse = await getAccessTokenClient(auth);
+        if (!validTokenResponse) {
+          throw new ApiError(
+            success,
+            statusCode,
+            AUTH_ERROR_CODES.UNAUTHORIZED_ERROR,
+            'accessToken 발급중 오류가 발생했습니다.',
+          );
+        } else if (validTokenResponse instanceof ApiError) {
+          throw validTokenResponse;
+        } else {
+          const prevRequest = error.config;
+          if (!prevRequest) {
+            throw new ApiError(
+              success,
+              statusCode,
+              AUTH_ERROR_CODES.UNAUTHORIZED_ERROR,
+              '이전 요청 정보가 없습니다.',
+            );
+          }
+          prevRequest.headers['Authorization'] = `Bearer ${validTokenResponse}`;
+          return privateApi(prevRequest);
+        }
+      } catch (e) {
+        // client-side 로그아웃 처리
+        return Promise.reject(e);
+      }
+    }
 
     // 서버에서 보낸 custom 에러 메세지가 없을 경우 기본 메세지를 에러 메세지로 전달
     return Promise.reject(new ApiError(success, statusCode, errorCode, reason));
