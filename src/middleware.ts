@@ -20,20 +20,20 @@ const middleware = async (request: NextRequest) => {
     }
 
     try {
-      const origin = window.location.origin;
+      const origin = request.nextUrl.origin;
       const authData = await publicApi.post<AuthResponse>('/auth/login/kakao', {
         authCode,
         redirectUri: `${origin}/auth/callback/kakao`,
       });
 
       // TODO: error처리 고도화: response status혹은 메시지에 따라 if문 수정하기
-      if (!authData.data) {
+      if (!authData) {
         // TODO: 에러 메시지 고도화: 로그인 실패
         return NextResponse.redirect(new URL('/auth/signin', request.url));
       }
 
       const response = NextResponse.redirect(new URL('/', request.url));
-      for (const cookie of generateCookiesKeyValues(authData.data as AuthResponse)) {
+      for (const cookie of generateCookiesKeyValues(authData as AuthResponse)) {
         const cookieKey = cookie[0];
         const cookieValue = cookie[1] as string | number;
         response.cookies.set(cookieKey, cookieValue.toString());
