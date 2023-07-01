@@ -11,7 +11,7 @@ export const notificationMockHandler = [
     const page = Number(searchParams.get('page'));
     return generateResponse({
       statusCode: 200,
-      data: { data: createNotificationList(10, page, 10) },
+      data: createNotificationList(10, page, 10),
     });
   }),
 ];

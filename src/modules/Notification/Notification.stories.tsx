@@ -4,6 +4,7 @@ import { createNotification, createNotificationList } from '~/mocks/notification
 
 import { NotificationItem } from './NotificationItem';
 import { NotificationList } from './NotificationList';
+import { NotificationNoData } from './NotificationNoData';
 
 const meta: Meta<typeof NotificationItem> = {
   title: 'modules/Notification',
@@ -22,3 +23,5 @@ export const List = () => (
     <NotificationList notifications={MOCK_NOTIFICATIONS.content} />
   </div>
 );
+
+export const NoData = () => <NotificationNoData />;
