@@ -2,9 +2,9 @@
   "editor.quickSuggestions": {
     "strings": true
   },
-  "cSpell.words": ["kakao", "PIPI", "TOBBY"],
+  "cSpell.words": ["kakao", "PIPI", "signin", "TOBBY"],
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": true
   },
-  "editor.formatOnSave": true,
+  "editor.formatOnSave": true
 }
