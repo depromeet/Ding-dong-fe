@@ -30,7 +30,7 @@ const logout = (request: NextRequest) => {
 const middleware = async (request: NextRequest) => {
   const pathname = request.nextUrl.pathname;
 
-  if (pathname.startsWith('/') && pathname.endsWith('/')) {
+  if (pathname === '/') {
     const accessToken = getAccessToken(request);
     if (accessToken) {
       // TO DO: BE 도메인 정상화 이후 복원 + privateApi로 변경
@@ -41,18 +41,17 @@ const middleware = async (request: NextRequest) => {
       const characterType = 'BUDDY'; // mock data
       const communityIds = [1]; // mock data
 
+      const redirectUri = request.cookies.get(ROUTE_COOKIE_KEYS.redirectUri)?.value;
+      if (redirectUri?.includes('invitation')) {
+        const response = NextResponse.redirect(new URL(redirectUri, request.url));
+        response.cookies.delete(ROUTE_COOKIE_KEYS.redirectUri);
+        return response;
+      }
+
       if (characterType) {
-        const redirectUri = request.cookies.get(ROUTE_COOKIE_KEYS.redirectUri)?.value;
         if (redirectUri) {
           const response = NextResponse.redirect(new URL(redirectUri, request.url));
           response.cookies.delete(ROUTE_COOKIE_KEYS.redirectUri);
-          return response;
-        }
-
-        const invitationCode = request.cookies.get(ROUTE_COOKIE_KEYS.invitationCode)?.value;
-        if (invitationCode) {
-          const response = NextResponse.redirect(new URL(`/planet/${invitationCode}`, request.url));
-          response.cookies.delete(ROUTE_COOKIE_KEYS.invitationCode);
           return response;
         }
 

@@ -55,12 +55,6 @@ export const CharacterCompleteStep = ({ characterName }: CharacterCompleteStepPr
       return router.push(redirectUri);
     }
 
-    const invitationCode = getCookie(ROUTE_COOKIE_KEYS.invitationCode);
-    if (invitationCode) {
-      deleteCookie(ROUTE_COOKIE_KEYS.invitationCode);
-      return router.push(`/planet/${invitationCode}`);
-    }
-
     return communityIds && communityIds.length > 0
       ? router.push(`/planet/${communityIds[0]}`)
       : router.push('/planet');

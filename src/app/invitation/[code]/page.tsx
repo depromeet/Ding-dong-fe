@@ -41,10 +41,11 @@ const InvitationPage = ({ params }: { params: { code: string } }) => {
       if (userInfo?.characterType) {
         router.push(`/planet/${communityId}`);
       } else {
+        setCookie(ROUTE_COOKIE_KEYS.redirectUri, `/planet/${communityId}`);
         router.push('/onboarding');
       }
     } else {
-      setCookie(ROUTE_COOKIE_KEYS.invitationCode, invitationCode);
+      setCookie(ROUTE_COOKIE_KEYS.redirectUri, `/invitation/${invitationCode}`);
       router.push('/auth/signin');
     }
   };
