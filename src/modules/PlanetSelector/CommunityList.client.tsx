@@ -24,7 +24,7 @@ export const CommunityList = ({ ...rest }) => {
 
   const handlePlanetSwitch = (title: string, id: number) => {
     replaceIdInRoute(id);
-    switchCommunity(title, id);
+    switchCommunity(id);
   };
 
   return (
