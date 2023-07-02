@@ -4,6 +4,7 @@ import {
   UseMutationOptions,
   useQuery,
   useQueryClient,
+  UseQueryOptions,
 } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
 import { useRouter } from 'next/navigation';
@@ -104,14 +105,19 @@ export const usePostCommunityUpdate = (communityId: number) => {
 };
 
 export const getInvitationCodeIsValid = async (invitationCode: string) => {
-  return await publicApi.get<InvitationCodeValidationResponse>(`/communities/join`, {
+  return await publicApi.get<InvitationCodeValidationResponse>(`/communities/validate`, {
     params: { code: invitationCode },
   });
 };
 
-export const useGetInvitationCodeIsValid = (invitationCode: string) =>
-  useQuery(communityQueryKey.invitationCodeIsValid(), () =>
-    getInvitationCodeIsValid(invitationCode),
+export const useGetInvitationCodeIsValid = (
+  invitationCode: string,
+  options?: UseQueryOptions<InvitationCodeValidationResponse>,
+) =>
+  useQuery<InvitationCodeValidationResponse>(
+    communityQueryKey.invitationCodeIsValid(),
+    () => getInvitationCodeIsValid(invitationCode),
+    options,
   );
 
 export const postCommunityJoin = async (communityId: CommunityJoinRequest) => {

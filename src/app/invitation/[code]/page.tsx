@@ -6,7 +6,8 @@ import { useGetInvitationCodeIsValid, usePostCommunityJoin } from '~/api/domain/
 import { useGetUserInfo } from '~/api/domain/user.api';
 import { Template } from '~/components/Template';
 import { getUserIdClient } from '~/utils/auth/getUserId.client';
-import { STORAGE_REDIRECT_URI_KEY } from '~/utils/route/route';
+import { setCookie } from '~/utils/cookie.util';
+import { ROUTE_COOKIE_KEYS } from '~/utils/route/route';
 
 const title = '당신을 디프만 행성으로\n 초대합니다';
 
@@ -14,9 +15,14 @@ const InvitationPage = ({ params }: { params: { code: string } }) => {
   const router = useRouter();
   const invitationCode = params.code;
 
-  // TODO: 잘못된 행성 코드인 경우, 에러 처리(error.page)
+  // TODO: 잘못된 행성 코드인 경우, 에러 메시지 보여주기(후순위)
   const { data: validPlanet, isLoading: isValidPlanetLoading } = useGetInvitationCodeIsValid(
     params.code,
+    {
+      onError: () => {
+        router.replace('/');
+      },
+    },
   );
   const communityId = validPlanet?.communityId;
   const userId = getUserIdClient();
@@ -31,16 +37,15 @@ const InvitationPage = ({ params }: { params: { code: string } }) => {
 
   const onClick = async () => {
     if (communityId && userId) {
-      if (window.sessionStorage.getItem(STORAGE_REDIRECT_URI_KEY))
-        window.sessionStorage.removeItem(STORAGE_REDIRECT_URI_KEY);
       await mutateAsync({ communityId });
       if (userInfo?.characterType) {
         router.push(`/planet/${communityId}`);
       } else {
+        setCookie(ROUTE_COOKIE_KEYS.redirectUri, `/planet/${communityId}`);
         router.push('/onboarding');
       }
     } else {
-      window.sessionStorage.setItem(STORAGE_REDIRECT_URI_KEY, `/invitation/${invitationCode}`);
+      setCookie(ROUTE_COOKIE_KEYS.redirectUri, `/invitation/${invitationCode}`);
       router.push('/auth/signin');
     }
   };
