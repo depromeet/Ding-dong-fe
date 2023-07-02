@@ -21,6 +21,7 @@ import {
   updateCommentId,
   updateReplyId,
 } from '~/api/domain/comment/comment.helper';
+import { communityQueryKey } from '~/api/domain/community.api';
 import { useToastMessageStore } from '~/stores/toastMessage.store';
 import {
   CommentCountGetRequest,
@@ -44,7 +45,7 @@ import {
   CommentReplyLikePostResponse,
   CommentReplyLikeRequest,
 } from '~/types/comment';
-import { UserInfoModel } from '~/types/user';
+import { CommunityUserInfoResponse } from '~/types/community';
 
 export const commentQueryKey = {
   comments: (idCardId: number) => ['comments', idCardId],
@@ -55,7 +56,7 @@ export const getComments = ({ idCardId, pageParam }: CommentGetRequest) =>
   privateApi.get<CommentGetResponse>(`/id-cards/${idCardId}/comments?page=${pageParam}&size=10`);
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-export const useGetComments = ({ idCardId, pageParam }: CommentGetRequest) => {
+export const useGetComments = (idCardId: number) => {
   return useInfiniteQuery(
     commentQueryKey.comments(idCardId),
     ({ pageParam = 0 }) => getComments({ idCardId, pageParam }),
@@ -78,7 +79,7 @@ export const useGetCommentCounts = ({ idCardId }: CommentCountGetRequest) =>
 export const postCommentCreate = ({ idCardId, contents }: CommentPostRequest) =>
   privateApi.post<CommentPostResponse>(`id-cards/${idCardId}/comments`, { contents });
 
-export const usePostCommentCreate = (idCardId: number, userInfo: UserInfoModel) => {
+export const usePostCommentCreate = (idCardId: number, communityId: number) => {
   const queryClient = useQueryClient();
   const { errorToast } = useToastMessageStore();
 
@@ -87,29 +88,35 @@ export const usePostCommentCreate = (idCardId: number, userInfo: UserInfoModel) 
     onMutate: async (commentInfo: CommentPostRequest) => {
       await queryClient.cancelQueries({ queryKey: commentQueryKey.comments(idCardId) });
 
-      const newComment = createNewComment({
-        idCardId: idCardId,
-        contents: commentInfo.contents,
-        nickname: userInfo.nickname,
-        profileImageUrl: userInfo.profileImageUrl,
-        userId: userInfo.userId,
-      });
-
-      const previousComments = queryClient.getQueryData<CommentPages>(
-        commentQueryKey.comments(idCardId),
+      const userInfo = queryClient.getQueryData<CommunityUserInfoResponse>(
+        communityQueryKey.communityUserInfo(communityId),
       );
 
-      const previousCommentCount = queryClient.getQueryData<CommentCountGetResponse>(
-        commentQueryKey.commentCount(idCardId),
-      );
+      if (userInfo) {
+        const newComment = createNewComment({
+          idCardId: idCardId,
+          contents: commentInfo.contents,
+          nickname: userInfo.myInfoInInCommunityDto.nickname,
+          profileImageUrl: userInfo.myInfoInInCommunityDto.profileImageUrl,
+          userId: userInfo.myInfoInInCommunityDto.userId,
+        });
 
-      const updatedComments = addCommentToPages(previousComments, newComment);
-      queryClient.setQueryData(commentQueryKey.comments(idCardId), updatedComments);
+        const previousComments = queryClient.getQueryData<CommentPages>(
+          commentQueryKey.comments(idCardId),
+        );
 
-      const updatedCommentCount = increaseCommentCount(previousCommentCount);
-      queryClient.setQueryData(commentQueryKey.commentCount(idCardId), updatedCommentCount);
+        const previousCommentCount = queryClient.getQueryData<CommentCountGetResponse>(
+          commentQueryKey.commentCount(idCardId),
+        );
 
-      return { previousComments, previousCommentCount };
+        const updatedComments = addCommentToPages(previousComments, newComment);
+        queryClient.setQueryData(commentQueryKey.comments(idCardId), updatedComments);
+
+        const updatedCommentCount = increaseCommentCount(previousCommentCount);
+        queryClient.setQueryData(commentQueryKey.commentCount(idCardId), updatedCommentCount);
+
+        return { previousComments, previousCommentCount };
+      }
     },
     onError: (err, newComment, context) => {
       if (context?.previousComments !== undefined && context?.previousCommentCount !== undefined) {
@@ -178,7 +185,7 @@ export const postReplyCreate = ({ idCardId, commentId, contents }: CommentPostRe
     contents,
   });
 
-export const usePostReplyCreate = (idCardId: number, userInfo: UserInfoModel) => {
+export const usePostReplyCreate = (idCardId: number, communityId: number) => {
   const queryClient = useQueryClient();
 
   return useMutation({
@@ -186,21 +193,26 @@ export const usePostReplyCreate = (idCardId: number, userInfo: UserInfoModel) =>
     onMutate: async (commentInfo: CommentPostReplyRequest) => {
       await queryClient.cancelQueries({ queryKey: commentQueryKey.comments(idCardId) });
 
-      const newReply = createNewReply({
-        contents: commentInfo.contents,
-        nickname: userInfo.nickname,
-        profileImageUrl: userInfo.profileImageUrl,
-        userId: userInfo.userId,
-      });
-
-      const previousComments = queryClient.getQueryData<CommentPages>(
-        commentQueryKey.comments(idCardId),
+      const userInfo = queryClient.getQueryData<CommunityUserInfoResponse>(
+        communityQueryKey.communityUserInfo(communityId),
       );
+      if (userInfo) {
+        const newReply = createNewReply({
+          contents: commentInfo.contents,
+          nickname: userInfo.myInfoInInCommunityDto.nickname,
+          profileImageUrl: userInfo.myInfoInInCommunityDto.profileImageUrl,
+          userId: userInfo.myInfoInInCommunityDto.userId,
+        });
 
-      const updatedComments = addReplyToPages(previousComments, newReply, commentInfo.commentId);
-      queryClient.setQueryData(commentQueryKey.comments(idCardId), updatedComments);
+        const previousComments = queryClient.getQueryData<CommentPages>(
+          commentQueryKey.comments(idCardId),
+        );
 
-      return { previousComments };
+        const updatedComments = addReplyToPages(previousComments, newReply, commentInfo.commentId);
+        queryClient.setQueryData(commentQueryKey.comments(idCardId), updatedComments);
+
+        return { previousComments };
+      }
     },
     onError: (err, newComment, context) => {
       if (context?.previousComments) {
