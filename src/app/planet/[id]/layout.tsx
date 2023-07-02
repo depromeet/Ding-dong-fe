@@ -6,7 +6,7 @@ import { PlanetSelector } from '~/modules/PlanetSelector';
 
 const Layout = ({ children }: PropsWithChildren) => {
   return (
-    <div>
+    <div className="pb-70pxr">
       <TopNavigation>
         <TopNavigation.Left>
           <PlanetSelector />
