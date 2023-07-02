@@ -6,9 +6,7 @@ import {
   InvitationCodeValidationModel,
 } from '~/types/community';
 
-export type CommunityIdCardsResponse = {
-  communityIdCardsDtos: SliceResponse<CommunityIdCardsModel>;
-};
+export type CommunityIdCardsResponse = SliceResponse<CommunityIdCardsModel>;
 
 export type CommunityDetailResponse = {
   communityDetailsDto: CommunityDetailModel;

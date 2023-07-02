@@ -14,7 +14,7 @@ export const communityMockHandler = [
     const page = Number(searchParams.get('page'));
     return generateResponse({
       statusCode: 200,
-      data: { communityIdCardsDtos: createCommunityIdCards(10, page, 10) },
+      data: createCommunityIdCards(10, page, 10),
     });
   }),
 
