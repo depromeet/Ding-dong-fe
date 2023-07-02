@@ -18,7 +18,7 @@ export const commentMockHandler = [
       data: createCommentList(10, page, 10, idCardId),
     });
   }),
-  rest.get(`${ROOT_API_URL}/id-cards/:idCardId/comments-count`, () => {
+  rest.get(`${ROOT_API_URL}/id-cards/:idCardId/comment-count`, () => {
     return generateResponse({ statusCode: 200, data: createCommentCount() });
   }),
   rest.post(`${ROOT_API_URL}/id-cards/:idCardId/comments`, () => {

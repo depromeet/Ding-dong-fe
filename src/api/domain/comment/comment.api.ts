@@ -70,7 +70,7 @@ export const useGetComments = ({ idCardId, pageParam }: CommentGetRequest) => {
 };
 
 export const getCommentCounts = ({ idCardId }: CommentCountGetRequest) =>
-  privateApi.get<CommentCountGetResponse>(`/id-cards/${idCardId}/comments-count`);
+  privateApi.get<CommentCountGetResponse>(`/id-cards/${idCardId}/comment-count`);
 
 export const useGetCommentCounts = ({ idCardId }: CommentCountGetRequest) =>
   useQuery(commentQueryKey.commentCount(idCardId), () => getCommentCounts({ idCardId }));
