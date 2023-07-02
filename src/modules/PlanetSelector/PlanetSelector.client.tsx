@@ -21,7 +21,7 @@ export const PlanetSelector = () => {
   const router = useRouter();
 
   const onClickCreateButton = () => {
-    router.push('/admin/community/create');
+    router.push('/admin/planet/create');
   };
 
   useEffect(() => {

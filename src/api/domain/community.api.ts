@@ -83,7 +83,7 @@ export const usePostCommunityCreate = () => {
     onSuccess: data => {
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       queryClient.invalidateQueries(communityQueryKey.communityList(userId!));
-      router.replace(`/admin/community/create/result?communityId=${data.id}`);
+      router.replace(`/admin/planet/create/result?communityId=${data.id}`);
     },
   });
 };
