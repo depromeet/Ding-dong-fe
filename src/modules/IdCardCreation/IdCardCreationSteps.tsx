@@ -8,7 +8,6 @@ import * as yup from 'yup';
 import { usePostIdCardCreate } from '~/api/domain/idCard.api';
 import { IdCardCreationForm } from '~/modules/IdCardCreation/Form';
 import { BoardingStep, CompleteStep } from '~/modules/IdCardCreation/Step';
-import { useCommunityStore } from '~/stores/community.store';
 import { IdCardCreationFormModel } from '~/types/idCard';
 
 import { CreationSteps } from './IdCardCreation.type';
@@ -23,12 +22,14 @@ const schema = yup.object({
   keywords: yup.array().min(1).default([]).required(),
 });
 
-export const IdCardCreationSteps = () => {
-  const { communityId } = useCommunityStore();
+type IdCardCreationStepsProps = {
+  communityId: number;
+};
 
+export const IdCardCreationSteps = ({ communityId }: IdCardCreationStepsProps) => {
   const methods = useForm<IdCardCreationFormModel>({
     defaultValues: {
-      communityId: communityId,
+      communityId,
       profileImageUrl: '',
       nickname: '',
       aboutMe: '',
