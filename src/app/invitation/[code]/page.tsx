@@ -15,9 +15,14 @@ const InvitationPage = ({ params }: { params: { code: string } }) => {
   const router = useRouter();
   const invitationCode = params.code;
 
-  // TODO: 잘못된 행성 코드인 경우, 에러 처리(error.page)
+  // TODO: 잘못된 행성 코드인 경우, 에러 메시지 보여주기(후순위)
   const { data: validPlanet, isLoading: isValidPlanetLoading } = useGetInvitationCodeIsValid(
     params.code,
+    {
+      onError: () => {
+        router.replace('/');
+      },
+    },
   );
   const communityId = validPlanet?.communityId;
   const userId = getUserIdClient();
