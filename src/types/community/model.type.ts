@@ -38,3 +38,8 @@ export type InvitationCodeValidationModel = {
 export type CommunityJoinModel = {
   communityId: number;
 };
+
+export type CheckIdCardModel = {
+  communityId: number;
+  userMakeIdCard: boolean;
+};
