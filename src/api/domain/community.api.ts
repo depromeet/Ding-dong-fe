@@ -18,6 +18,7 @@ import {
   CommunityListResponse,
   CommunityNameCheckResponse,
   CommunityUpdateResponse,
+  CommunityUserInfoResponse,
   InvitationCodeValidationResponse,
 } from '~/types/community';
 import {
@@ -33,6 +34,7 @@ export const communityQueryKey = {
   invitationCodeIsValid: () => ['invitaion', 'code', 'valid'],
   communityDetail: (communityId: number) => ['communityDetail', communityId],
   checkIdCard: (communityId: number) => ['checkIdCard', communityId],
+  communityUserInfo: (communityId: number) => ['communityUserInfo', communityId],
 };
 
 export const getCommunityIdCard = async (id: number) => {
@@ -142,3 +144,11 @@ export const checkIdCard = (communityId: number) =>
 
 export const useCheckIdCards = (communityId: number) =>
   useQuery(communityQueryKey.checkIdCard(communityId), () => checkIdCard(communityId));
+
+export const getCommunityUserInfo = (communityId: number) =>
+  privateApi.get<CommunityUserInfoResponse>(`/communities/${communityId}/my-info`);
+
+export const useGetCommunityUserInfo = (communityId: number) =>
+  useQuery(communityQueryKey.communityUserInfo(communityId), () =>
+    getCommunityUserInfo(communityId),
+  );
