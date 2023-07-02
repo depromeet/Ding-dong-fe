@@ -4,6 +4,8 @@ import publicApi from '~/api/config/publicApi';
 import { AUTH_COOKIE_KEYS, AuthResponse } from '~/types/auth';
 import { generateCookiesKeyValues } from '~/utils/auth/tokenHandlers';
 
+import { ROUTE_COOKIE_KEYS } from './utils/route/route';
+
 export const ACCESS_TOKEN_EXPIRE_MARGIN_SECOND = 60;
 
 // Authorization이 필요한 페이지 경로를 저장합니다.
@@ -40,6 +42,20 @@ const middleware = async (request: NextRequest) => {
       const communityIds = [1]; // mock data
 
       if (characterType) {
+        const redirectUri = request.cookies.get(ROUTE_COOKIE_KEYS.redirectUri)?.value;
+        if (redirectUri) {
+          const response = NextResponse.redirect(new URL(redirectUri, request.url));
+          response.cookies.delete(ROUTE_COOKIE_KEYS.redirectUri);
+          return response;
+        }
+
+        const invitationCode = request.cookies.get(ROUTE_COOKIE_KEYS.invitationCode)?.value;
+        if (invitationCode) {
+          const response = NextResponse.redirect(new URL(`/planet/${invitationCode}`, request.url));
+          response.cookies.delete(ROUTE_COOKIE_KEYS.invitationCode);
+          return response;
+        }
+
         return communityIds.length > 0
           ? NextResponse.redirect(new URL(`/planet/${communityIds[0]}`, request.url))
           : NextResponse.redirect(new URL('/planet', request.url));
