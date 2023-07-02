@@ -1,9 +1,15 @@
+'use client';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 import { PropsWithChildren } from 'react';
 
 import { TopNavigation } from '~/components/TopNavigation';
 
 const Layout = ({ children }: PropsWithChildren) => {
+  const router = useRouter();
+  const onClickLaterButton = () => {
+    router.push('/');
+  };
   return (
     <>
       <TopNavigation>
@@ -12,6 +18,7 @@ const Layout = ({ children }: PropsWithChildren) => {
             type="button"
             form="community-admin-edit-form"
             className="text-h5 font-semibold text-grey-500"
+            onClick={onClickLaterButton}
           >
             나중에 할래요
           </button>
