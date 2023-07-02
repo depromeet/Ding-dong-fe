@@ -3,8 +3,11 @@
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 
+import { useGetUserInfo } from '~/api/domain/user.api';
 import { Template } from '~/components/Template';
 import { CharacterNameModel } from '~/types/idCard';
+import { deleteCookie, getCookie } from '~/utils/cookie.util';
+import { ROUTE_COOKIE_KEYS } from '~/utils/route/route';
 
 type CharacterCompleteStepProps = {
   characterName: CharacterNameModel;
@@ -42,10 +45,25 @@ const characterInfo: Record<CharacterNameModel, CharacterInfo> = {
 
 export const CharacterCompleteStep = ({ characterName }: CharacterCompleteStepProps) => {
   const { title, description, image } = characterInfo[characterName];
+  const { data } = useGetUserInfo();
+  const communityIds = data?.communityIds;
   const router = useRouter();
   const onButtonClick = () => {
-    // TODO: 가입한 행성이 있는지, 없는지에 따라서 경로가 달라짐
-    router.replace('/');
+    const redirectUri = getCookie(ROUTE_COOKIE_KEYS.redirectUri);
+    if (redirectUri) {
+      deleteCookie(ROUTE_COOKIE_KEYS.redirectUri);
+      return router.push(redirectUri);
+    }
+
+    const invitationCode = getCookie(ROUTE_COOKIE_KEYS.invitationCode);
+    if (invitationCode) {
+      deleteCookie(ROUTE_COOKIE_KEYS.invitationCode);
+      return router.push(`/planet/${invitationCode}`);
+    }
+
+    return communityIds && communityIds.length > 0
+      ? router.push(`/planet/${communityIds[0]}`)
+      : router.push('/planet');
   };
 
   return (
