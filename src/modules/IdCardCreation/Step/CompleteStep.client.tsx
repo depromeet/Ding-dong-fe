@@ -1,5 +1,7 @@
 'use client';
 
+import Link from 'next/link';
+import { useParams, useRouter } from 'next/navigation';
 import { useFormContext } from 'react-hook-form';
 
 import { Button } from '~/components/Button';
@@ -17,6 +19,13 @@ export const CompleteStep = ({ userId }: CompleteStepProps) => {
   const values = getValues();
   const { nickname, aboutMe, keywords } = values;
   const keywordTitles = keywords.map(keyword => keyword.title);
+  const router = useRouter();
+  const { communityId } = useParams();
+
+  const onMoveToCommunity = () => {
+    router.push(`/planet/${communityId}`);
+  };
+
   return (
     // TODO: 지금은 커뮤니티 정보가 없는데 나중에 커뮤니티 타이틀 추가
     <div className="flex min-h-[calc(100vh-50px)] flex-col px-layout-sm ">
@@ -30,15 +39,14 @@ export const CompleteStep = ({ userId }: CompleteStepProps) => {
           // TODO: 로그인 할때 캐릭터 타입 정보 넣어서 가져오기
           characterType="TOBBY"
         />
-        <p className="my-52px flex w-full flex-1 items-center justify-center text-center text-b1 text-primary-500">
-          주민증을 눌러보세요!
-        </p>
-        {
-          // TODO: 행성 정보 생기면 그때 이동하기 만들기
-          <Button size="large" color="primary" className="mb-8pxr">
-            행성 방문하기
-          </Button>
-        }
+        <Link href={`/planet/${communityId}/id-card/${userId}`}>
+          <p className="my-52px flex w-full flex-1 items-center justify-center text-center text-b1 text-primary-500">
+            주민증을 눌러보세요!
+          </p>
+        </Link>
+        <Button size="large" color="primary" className="mb-8pxr" onClick={onMoveToCommunity}>
+          행성 방문하기
+        </Button>
       </div>
     </div>
   );
