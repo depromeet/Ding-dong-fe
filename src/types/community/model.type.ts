@@ -43,3 +43,9 @@ export type CheckIdCardModel = {
   communityId: number;
   userMakeIdCard: boolean;
 };
+
+export type CommunityUserInfoModel = {
+  userId: number;
+  nickname: string;
+  profileImageUrl: string;
+};

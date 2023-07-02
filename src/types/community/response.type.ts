@@ -4,6 +4,7 @@ import {
   CommunityDetailModel,
   CommunityIdCardsModel,
   CommunityListModel,
+  CommunityUserInfoModel,
   InvitationCodeValidationModel,
 } from '~/types/community';
 
@@ -27,3 +28,7 @@ export type CommunityNameCheckResponse = {
 };
 
 export type CheckIdCardResponse = CheckIdCardModel;
+
+export type CommunityUserInfoResponse = {
+  myInfoInInCommunityDto: CommunityUserInfoModel;
+};
