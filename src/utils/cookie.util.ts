@@ -11,6 +11,7 @@ export const getCookie = (name: string) => {
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const setCookie = (name: string, value: any, options?: any) => {
   const cookieOptions = {
+    path: '/',
     ...options,
   };
 
