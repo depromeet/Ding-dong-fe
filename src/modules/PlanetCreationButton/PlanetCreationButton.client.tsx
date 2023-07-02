@@ -8,8 +8,7 @@ export const PlanetCreationButton = () => {
   const router = useRouter();
 
   const onClickCreateButton = () => {
-    // TODO: 행성만들기 페이지로 수정하기
-    router.push('/id-card/create');
+    router.push(`/admin/community/create`);
   };
 
   return (
