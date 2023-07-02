@@ -10,7 +10,7 @@
     "prepare": "husky install",
     "sb": "storybook dev -p 6006",
     "build-storybook": "storybook build",
-    "msw": "NEXT_PUBLIC_API_MOCKING=enabled next dev"
+    "msw": "NEXT_PUBLIC_API_MOCKING=enable next dev"
   },
   "dependencies": {
     "@faker-js/faker": "^8.0.2",
