@@ -12,6 +12,7 @@ import privateApi from '~/api/config/privateApi';
 import publicApi from '~/api/config/publicApi';
 import { userQueryKey } from '~/api/domain/user.api';
 import {
+  CheckIdCardResponse,
   CommunityDetailResponse,
   CommunityIdCardsResponse,
   CommunityListResponse,
@@ -31,6 +32,7 @@ export const communityQueryKey = {
   communityList: (userId: number) => ['communityList', userId],
   invitationCodeIsValid: () => ['invitaion', 'code', 'valid'],
   communityDetail: (communityId: number) => ['communityDetail', communityId],
+  checkIdCard: (communityId: number) => ['checkIdCard', communityId],
 };
 
 export const getCommunityIdCard = async (id: number) => {
@@ -134,3 +136,9 @@ export const checkCommunityName = (communityName: string) =>
       name: communityName,
     },
   });
+
+export const checkIdCard = (communityId: number) =>
+  privateApi.get<CheckIdCardResponse>(`/communities/${communityId}/users`);
+
+export const useCheckIdCards = (communityId: number) =>
+  useQuery(communityQueryKey.checkIdCard(communityId), () => checkIdCard(communityId));

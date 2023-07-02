@@ -4,6 +4,7 @@ import { communityQueryKey } from '~/api/domain/community.api';
 import { getCommunityIdCardsServer } from '~/api/domain/community.api.server';
 import { CommunityDetail } from '~/app/planet/[id]/components/CommunityDetail';
 import { CommunityIdCards } from '~/app/planet/[id]/components/CommunityIdCards';
+import { IdCardCreatorButton } from '~/app/planet/[id]/components/IdCardCreatorButton';
 import { HydrationProvider } from '~/components/HydrationProvider';
 
 type PlanetPageProps = {
@@ -25,6 +26,7 @@ const PlanetPage = async ({ params: { id } }: PlanetPageProps) => {
   return (
     <div>
       <CommunityDetail id={communityId} />
+      <IdCardCreatorButton communityId={communityId} />
       {/* @ts-expect-error Server Component */}
       <HydrationProvider
         queryKey={communityQueryKey.idCards(communityId)}

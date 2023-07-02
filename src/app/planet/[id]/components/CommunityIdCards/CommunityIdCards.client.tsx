@@ -25,10 +25,10 @@ export const CommunityIdCardsComponent = ({ communityId }: CommunityIdCardsProps
   }, [inView, fetchNextPage, communityIdCards?.pages]);
 
   return (
-    <div className="flex flex-col gap-18pxr px-[27px]">
+    <div className="px-[27px]">
       {isEmpty || (
-        <div>
-          <h3 className="-mt-28pxr text-h3 text-grey-800">우리 행성 주민을 소개할게요!</h3>
+        <div className="flex flex-col gap-18pxr">
+          <h3 className="text-h3 text-grey-800">우리 행성 주민을 소개할게요!</h3>
           {communityIdCards?.pages.map(page => {
             return page.content.map((idCard: CommunityIdCardsModel) => {
               return <IdCard key={idCard.idCardId} {...idCard} />;
