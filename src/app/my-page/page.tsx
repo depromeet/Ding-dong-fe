@@ -3,24 +3,35 @@ import Image from 'next/image';
 import { usePathname, useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 
+import { useGetCommunityList } from '~/api/domain/community.api';
 import { useCommunityStore } from '~/stores/community.store';
+import { getUserIdClient } from '~/utils/auth/getUserId.client';
 
 const MyPage = () => {
-  const { communityId } = useCommunityStore();
+  const { communityId, switchCommunity } = useCommunityStore();
   const pathname = usePathname();
   const router = useRouter();
 
-  const shouldRenderDefaultCommunity = () => {
-    if (communityId) {
+  const userId = getUserIdClient();
+  const { data: communityList } = useGetCommunityList(userId ?? -1);
+
+  useEffect(() => {
+    if (communityId > 0) {
       router.push(`${pathname}/${communityId}`);
+    } else if (communityList) {
+      // communityId 저장이 완료된 시점이 명확하지 않아 communityList 호출 로직을 추가했습니다.
+      const lastCommunity = communityList?.communityListDtos.slice(-1)[0];
+
+      if (lastCommunity) {
+        switchCommunity(lastCommunity.communityId);
+        router.push(`${pathname}/${lastCommunity.communityId}`);
+      } else {
+        router.push(`${pathname}/empty`);
+      }
     } else {
       router.push(`${pathname}/empty`);
     }
-  };
-
-  useEffect(() => {
-    shouldRenderDefaultCommunity();
-  }, [communityId]);
+  }, [communityId, communityList, pathname, router, switchCommunity]);
 
   return (
     <div className="mt-24pxr">

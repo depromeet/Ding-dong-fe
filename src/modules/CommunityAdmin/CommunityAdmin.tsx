@@ -1,5 +1,5 @@
-import { useParams } from 'next/navigation';
-import { useRouter } from 'next/router';
+'use client';
+import { usePathname, useRouter } from 'next/navigation';
 
 import { Button } from '~/components/Button';
 import { KakaoIcon } from '~/components/Icon/KakaoIcon';
@@ -18,10 +18,9 @@ export const CommunityAdmin = ({
   description,
 }: Omit<CommunityAdminProps, 'invitationCode'>) => {
   const router = useRouter();
-  const { id } = useParams();
-
-  const onEditClick = () => {
-    router.push(`/admin/planet/${id}/edit`);
+  const pathname = usePathname();
+  const goEdit = () => {
+    router.push(`${pathname}/edit`);
   };
 
   return (
@@ -44,10 +43,10 @@ export const CommunityAdmin = ({
             <div className="mt-6pxr flex items-center justify-between py-10pxr">
               <h1 className="text-h1 font-bold text-gray-800">{title}</h1>
               <Button
+                onClick={goEdit}
                 size="small"
                 color="secondary"
                 className="w-fit  px-12pxr py-8pxr"
-                onClick={onEditClick}
               >
                 수정
               </Button>
