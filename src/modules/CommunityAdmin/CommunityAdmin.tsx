@@ -1,3 +1,6 @@
+import { useParams } from 'next/navigation';
+import { useRouter } from 'next/router';
+
 import { Button } from '~/components/Button';
 import { KakaoIcon } from '~/components/Icon/KakaoIcon';
 import { TopNavigation } from '~/components/TopNavigation';
@@ -14,6 +17,13 @@ export const CommunityAdmin = ({
   idCardCount,
   description,
 }: Omit<CommunityAdminProps, 'invitationCode'>) => {
+  const router = useRouter();
+  const { id } = useParams();
+
+  const onEditClick = () => {
+    router.push(`/admin/planet/${id}/edit`);
+  };
+
   return (
     <div>
       <TopNavigation>
@@ -33,7 +43,12 @@ export const CommunityAdmin = ({
           top={
             <div className="mt-6pxr flex items-center justify-between py-10pxr">
               <h1 className="text-h1 font-bold text-gray-800">{title}</h1>
-              <Button size="small" color="secondary" className="w-fit  px-12pxr py-8pxr">
+              <Button
+                size="small"
+                color="secondary"
+                className="w-fit  px-12pxr py-8pxr"
+                onClick={onEditClick}
+              >
                 수정
               </Button>
             </div>
