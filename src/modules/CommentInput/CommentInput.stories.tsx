@@ -10,7 +10,7 @@ const meta: Meta<typeof CommentInput> = {
 type Story = StoryObj<typeof CommentInput>;
 
 export const Default: Story = {
-  render: () => <CommentInput communityId={2} idCardId={1} />,
+  render: () => <CommentInput idCardId={1} communityId={1} />,
 };
 
 export default meta;

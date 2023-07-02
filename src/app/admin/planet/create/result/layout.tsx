@@ -1,14 +1,17 @@
 'use client';
 import Image from 'next/image';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { PropsWithChildren } from 'react';
 
 import { TopNavigation } from '~/components/TopNavigation';
 
 const Layout = ({ children }: PropsWithChildren) => {
+  const searchParams = useSearchParams();
+  const communityIdParam = searchParams.get('communityId');
+  const communityId = isNaN(Number(communityIdParam)) ? -1 : Number(communityIdParam);
   const router = useRouter();
   const onClickLaterButton = () => {
-    router.push('/');
+    router.push(`/planet/${communityId}`);
   };
   return (
     <>
