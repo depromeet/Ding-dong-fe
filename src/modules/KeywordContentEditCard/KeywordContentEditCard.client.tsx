@@ -82,9 +82,9 @@ export const KeywordContentEditCard = ({
           content={
             <textarea
               {...register(`keywords.${index}.content`)}
+              // ref={textareaRef} // FIXME: onCardClick가 동작하지 않음. 하지만 해당 이슈를 위해 주석처리  https://github.com/depromeet/Ding-dong-fe/issues/154
               onFocus={onTextFocus}
               onBlur={onTextBlur}
-              ref={textareaRef}
               className="w-full resize-none bg-grey-100"
             />
           }
