@@ -25,8 +25,9 @@ export const PlanetSelector = () => {
   };
 
   useEffect(() => {
-    if (!communityId && communityList?.communityListDtos[0]) {
-      switchCommunity(communityList?.communityListDtos[0].communityId);
+    const lastCommunity = communityList?.communityListDtos.slice(-1)[0];
+    if (communityId < 0 && lastCommunity) {
+      switchCommunity(lastCommunity.communityId);
     }
   }, [communityId, communityList?.communityListDtos, switchCommunity]);
 
