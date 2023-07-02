@@ -9,6 +9,15 @@ export const ACCESS_TOKEN_EXPIRE_MARGIN_SECOND = 60;
 // Authorization이 필요한 페이지 경로를 저장합니다.
 const PRIVATE_ROUTES = ['/accounts'];
 
+const getAccessToken = (request: NextRequest) =>
+  request.cookies.get(AUTH_COOKIE_KEYS.accessToken)?.value;
+
+const getAuthRequestHeaders = (request: NextRequest, accessToken: string) => {
+  const requestHeaders = new Headers(request.headers);
+  requestHeaders.set('Authorization', `Bearer ${accessToken}`);
+  return requestHeaders;
+};
+
 const logout = (request: NextRequest) => {
   // server-side 로그아웃 처리
   for (const cookieKey of Object.values(AUTH_COOKIE_KEYS)) {
@@ -18,6 +27,27 @@ const logout = (request: NextRequest) => {
 
 const middleware = async (request: NextRequest) => {
   const pathname = request.nextUrl.pathname;
+
+  if (pathname.startsWith('/') && pathname.endsWith('/')) {
+    const accessToken = getAccessToken(request);
+    if (accessToken) {
+      // TO DO: BE 도메인 정상화 이후 복원 + privateApi로 변경
+      // const { characterType, communityIds } = await publicApi.get<UserInfoResponse>(
+      //   `/user/profile`,
+      // );
+
+      const characterType = 'BUDDY'; // mock data
+      const communityIds = [1]; // mock data
+
+      if (characterType) {
+        return communityIds.length > 0
+          ? NextResponse.redirect(new URL(`/planet/${communityIds[0]}`, request.url))
+          : NextResponse.redirect(new URL('/planet', request.url));
+      }
+      return NextResponse.redirect(new URL('/onboarding', request.url));
+    }
+    return NextResponse.redirect(new URL('/auth/signin', request.url));
+  }
 
   if (pathname.startsWith('/auth/callback/kakao')) {
     const authCode = request.nextUrl.searchParams.get('code');
@@ -60,11 +90,10 @@ const middleware = async (request: NextRequest) => {
   );
 
   if (currentPrivateRoute) {
-    const requestHeaders = new Headers(request.headers);
-    const accessToken = request.cookies.get(AUTH_COOKIE_KEYS.accessToken)?.value;
+    const accessToken = getAccessToken(request);
 
     if (accessToken) {
-      requestHeaders.set('Authorization', `Bearer ${accessToken}`);
+      const requestHeaders = getAuthRequestHeaders(request, accessToken);
       const response = NextResponse.next({
         request: {
           headers: requestHeaders,
@@ -80,6 +109,6 @@ const middleware = async (request: NextRequest) => {
 const config = {
   // middleware가 적용될 페이지를 설정해 두어야 SC에서의 api 요청이 정상적으로 작동합니다.
   // https://nextjs.org/docs/app/building-your-application/routing/middleware#matcher
-  matcher: ['/auth/callback/kakao/(.*)', ...PRIVATE_ROUTES],
+  matcher: ['/auth/callback/kakao/(.*)', '/', ...PRIVATE_ROUTES],
 };
 export { config, middleware };
