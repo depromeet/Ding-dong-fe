@@ -1,5 +1,7 @@
 'use client';
 
+import { useRouter } from 'next/navigation';
+
 import { useBottomSheet } from '~/components/BottomSheet';
 import BottomSheet from '~/components/BottomSheet/BottomSheet';
 import { ArrowVerticalIcon, PlusIcon } from '~/components/Icon';
@@ -10,6 +12,12 @@ import { tw } from '~/utils/tailwind.util';
 export const PlanetSelector = () => {
   const bottomSheetHandlers = useBottomSheet();
   const { communityTitle } = useCommunityStore();
+
+  const router = useRouter();
+
+  const onClickCreateButton = () => {
+    router.push('/admin/community/create');
+  };
 
   return (
     <div>
@@ -27,7 +35,12 @@ export const PlanetSelector = () => {
                 <div className="flex h-[36px] w-[36px] items-center justify-center rounded-3xl bg-grey-100">
                   <PlusIcon />
                 </div>
-                <p className={`${tw('text-b1 text-[#282828]', 'font-bold')}`}>행성 만들기</p>
+                <p
+                  onClick={onClickCreateButton}
+                  className={`${tw('text-b1 text-[#282828]', 'font-bold')}`}
+                >
+                  행성 만들기
+                </p>
               </button>
             </div>
           </div>
