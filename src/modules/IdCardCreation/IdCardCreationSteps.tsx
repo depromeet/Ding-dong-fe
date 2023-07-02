@@ -8,6 +8,7 @@ import * as yup from 'yup';
 import { usePostIdCardCreate } from '~/api/domain/idCard.api';
 import { IdCardCreationForm } from '~/modules/IdCardCreation/Form';
 import { BoardingStep, CompleteStep } from '~/modules/IdCardCreation/Step';
+import { useCommunityStore } from '~/stores/community.store';
 import { IdCardCreationFormModel } from '~/types/idCard';
 
 import { CreationSteps } from './IdCardCreation.type';
@@ -23,8 +24,14 @@ const schema = yup.object({
 });
 
 export const IdCardCreationSteps = () => {
+  const { communityId } = useCommunityStore();
+
   const methods = useForm<IdCardCreationFormModel>({
     defaultValues: {
+      communityId: communityId,
+      profileImageUrl: '',
+      nickname: '',
+      aboutMe: '',
       keywords: [],
     },
     mode: 'onChange',
@@ -41,6 +48,7 @@ export const IdCardCreationSteps = () => {
       setUserId(data.id);
     },
   });
+
   const onSubmit = () => {
     methods.handleSubmit(async data => {
       await mutateAsync(data);
