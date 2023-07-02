@@ -27,7 +27,7 @@ const CommentListComponent = ({ idCardId }: CommentListProps) => {
     }
   }, [inView, fetchNextPage, commentList?.pages]);
 
-  const isEmpty = commentList?.pages[0].data.content.length === 0;
+  const isEmpty = commentList?.pages[0].content.length === 0;
 
   return (
     <div className="mt-24pxr flex flex-col gap-24pxr pb-50pxr">
@@ -35,7 +35,7 @@ const CommentListComponent = ({ idCardId }: CommentListProps) => {
         <Empty />
       ) : (
         commentList?.pages.map(page =>
-          page.data.content.map((comment: CommentModel) => (
+          page.content.map((comment: CommentModel) => (
             <Comment key={comment.commentId} {...comment} />
           )),
         )
