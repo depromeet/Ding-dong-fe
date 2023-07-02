@@ -1,6 +1,6 @@
 'use client';
 
-import { usePathname, useRouter } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 
 import { useCheckIdCards } from '~/api/domain/community.api';
 import { ChevronRightIcon } from '~/components/Icon';
@@ -12,10 +12,9 @@ type IdCardCreatorButtonProps = {
 export const IdCardCreatorButton = ({ communityId }: IdCardCreatorButtonProps) => {
   const { data: checkIdCard } = useCheckIdCards(communityId);
   const router = useRouter();
-  const pathname = usePathname();
 
   const onClickCreateIdCardButton = () => {
-    router.push(`${pathname}/id-card/create`);
+    router.push(`/planet/${communityId}/id-card/create`);
   };
 
   return (
