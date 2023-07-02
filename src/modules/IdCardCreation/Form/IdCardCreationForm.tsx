@@ -1,4 +1,5 @@
 'use client';
+import { FormEvent } from 'react';
 import { useFormContext } from 'react-hook-form';
 
 import { TopNavigation } from '~/components/TopNavigation';
@@ -28,7 +29,6 @@ export const IdCardCreationForm = ({
 }: IdCardCreationFormProps) => {
   const {
     formState: { errors, isDirty, isValid, isSubmitting },
-    handleSubmit,
   } = useFormContext<IdCardCreationFormModel>();
 
   const getNavigationButton = () => {
@@ -80,7 +80,7 @@ export const IdCardCreationForm = ({
         <TopNavigation.ProgressBar currentStep={stepOrder} stepsLength={3} />
       </TopNavigation>
 
-      <form className="mt-24pxr" onSubmit={handleSubmit(onSubmit)}>
+      <form className="mt-24pxr" onSubmit={(e: FormEvent<HTMLFormElement>) => e.preventDefault()}>
         {steps[stepOrder] === 'PROFILE' && <ProfileStep />}
         {steps[stepOrder] === 'KEYWORD' && <KeywordStep />}
         {steps[stepOrder] === 'KEYWORD_CONTENT' && <KeywordContentStep />}
