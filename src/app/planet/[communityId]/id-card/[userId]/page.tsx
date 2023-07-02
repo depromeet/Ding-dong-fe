@@ -12,15 +12,16 @@ import { CommentInput } from '~/modules/CommentInput';
 type IdCardDetailPageProps = {
   params: {
     userId: string;
+    communityId: string;
   };
 };
 
-const IdCardDetailPage = async ({ params: { userId } }: IdCardDetailPageProps) => {
+const IdCardDetailPage = async ({ params: { userId, communityId } }: IdCardDetailPageProps) => {
   const idCardId = Number(userId);
-  const pageParam = 1;
+  const id = Number(communityId);
 
   const getCommentsQuery = async () => {
-    const data = await getCommentsServer({ idCardId, pageParam });
+    const data = await getCommentsServer({ idCardId });
     return {
       pages: [data],
     };
@@ -35,7 +36,7 @@ const IdCardDetailPage = async ({ params: { userId } }: IdCardDetailPageProps) =
       <HydrationProvider queryKey={commentQueryKey.comments(idCardId)} queryFn={getCommentsQuery}>
         <CommentList idCardId={idCardId} />
       </HydrationProvider>
-      <CommentInput idCardId={idCardId} />
+      <CommentInput idCardId={idCardId} communityId={id} />
     </main>
   );
 };
