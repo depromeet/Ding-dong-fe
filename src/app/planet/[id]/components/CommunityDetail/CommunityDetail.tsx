@@ -11,6 +11,7 @@ type CommunityDetailProps = {
   id: number;
 };
 
+// TODO: 디폴트 관련 논의 후 수정
 export const CommunityDetailComponent = async ({ id }: CommunityDetailProps) => {
   const { communityDetailsDto } = await getCommunityDetailServer(id);
   const { coverImageUrl, title, logoImageUrl, idCardCount, description } = communityDetailsDto;
@@ -21,7 +22,7 @@ export const CommunityDetailComponent = async ({ id }: CommunityDetailProps) => 
       <div className="relative h-[calc(410px*0.48)] mobile:h-[calc(100vw*0.48)]">
         <Image
           fill
-          src={coverImageUrl}
+          src={coverImageUrl ?? '/assets/images/planet-cover-default-image.png'}
           alt={`${title} cover image`}
           style={{ objectFit: 'cover' }}
         />
@@ -30,7 +31,9 @@ export const CommunityDetailComponent = async ({ id }: CommunityDetailProps) => 
         <CommunityLogoImage logoImageUrl={logoImageUrl} />
         <div className="flex flex-col gap-8pxr">
           <p className="text-sm font-medium text-gray-800">{`주민 ${idCardCount}`}</p>
-          <p className="text-detail text-gray-800 ">{`${description}`}</p>
+          <p className="text-detail text-gray-800 ">{`${
+            description ?? '우리 행성에 온 걸 환영해~!'
+          }`}</p>
         </div>
       </div>
     </div>
