@@ -1,7 +1,7 @@
 'use client';
 
 import Image from 'next/image';
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 
 import Tag from '~/components/Tag/Tag';
 import { CharacterNameModel } from '~/types/idCard';
@@ -33,9 +33,10 @@ export const IdCard = ({
 }: IdCardProps) => {
   const bgColor = bgColors[characterType];
   const router = useRouter();
+  const pathname = usePathname();
 
   const handleClickIdCard = () => {
-    router.push(`/id-card/${idCardId}`);
+    router.push(`${pathname}/id-card/${idCardId}`);
   };
 
   return (

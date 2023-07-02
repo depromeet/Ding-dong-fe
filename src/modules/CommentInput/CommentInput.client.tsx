@@ -3,7 +3,7 @@
 import { useForm } from 'react-hook-form';
 
 import { usePostCommentCreate, usePostReplyCreate } from '~/api/domain/comment/comment.api';
-import { useGetUserInfo } from '~/api/domain/user.api';
+import { useGetCommunityUserInfo } from '~/api/domain/community.api';
 import { Divider } from '~/components/Divider';
 import { SendIcon } from '~/components/Icon';
 import { TextInput, useTextInput } from '~/components/TextInput';
@@ -14,18 +14,19 @@ import { isEmptyText } from '~/utils/util.common';
 
 type CommentInputProps = {
   idCardId: number;
+  communityId: number;
 };
 
 type CommentFormData = {
   contents: string;
 };
 
-export const CommentInput = ({ idCardId }: CommentInputProps) => {
+export const CommentInput = ({ idCardId, communityId }: CommentInputProps) => {
   //TODO: 주민증 없는 경우 댓글 작성 못한다고 input placeholder 수정
 
-  const { data: userInfo } = useGetUserInfo();
-  const { mutate: mutatePostCommentCreate } = usePostCommentCreate(idCardId, userInfo!);
-  const { mutate: mutatePostReplyCreate } = usePostReplyCreate(idCardId, userInfo!);
+  const { data: userInfo } = useGetCommunityUserInfo(communityId);
+  const { mutate: mutatePostCommentCreate } = usePostCommentCreate(idCardId, communityId);
+  const { mutate: mutatePostReplyCreate } = usePostReplyCreate(idCardId, communityId);
   const { commentId, clear } = useReplyRecipientStore();
 
   const { register, handleSubmit, reset } = useForm<CommentFormData>();
@@ -56,7 +57,7 @@ export const CommentInput = ({ idCardId }: CommentInputProps) => {
             className="flex items-center gap-8pxr px-[20px] py-[8px]"
             onSubmit={handleSubmit(onSubmit)}
           >
-            <UserProfile profileImageUrl={userInfo?.profileImageUrl} />
+            <UserProfile profileImageUrl={userInfo?.myInfoInInCommunityDto.profileImageUrl} />
             <TextInput>
               <TextInput.Border className="rounded-[15px] px-[16px] py-[8px]">
                 <div className="flex w-full flex-row">

@@ -1,6 +1,6 @@
 export type CommentGetRequest = {
   idCardId: number;
-  pageParam: number;
+  pageParam?: number;
 };
 
 export type CommentCountGetRequest = {

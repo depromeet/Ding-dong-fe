@@ -4,6 +4,7 @@ import {
   UseMutationOptions,
   useQuery,
   useQueryClient,
+  UseQueryOptions,
 } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
 import { useRouter } from 'next/navigation';
@@ -18,6 +19,7 @@ import {
   CommunityListResponse,
   CommunityNameCheckResponse,
   CommunityUpdateResponse,
+  CommunityUserInfoResponse,
   InvitationCodeValidationResponse,
 } from '~/types/community';
 import {
@@ -33,6 +35,7 @@ export const communityQueryKey = {
   invitationCodeIsValid: () => ['invitaion', 'code', 'valid'],
   communityDetail: (communityId: number) => ['communityDetail', communityId],
   checkIdCard: (communityId: number) => ['checkIdCard', communityId],
+  communityUserInfo: (communityId: number) => ['communityUserInfo', communityId],
 };
 
 export const getCommunityIdCard = async (id: number) => {
@@ -106,14 +109,19 @@ export const usePostCommunityUpdate = (communityId: number) => {
 };
 
 export const getInvitationCodeIsValid = async (invitationCode: string) => {
-  return await publicApi.get<InvitationCodeValidationResponse>(`/communities/join`, {
+  return await publicApi.get<InvitationCodeValidationResponse>(`/communities/validate`, {
     params: { code: invitationCode },
   });
 };
 
-export const useGetInvitationCodeIsValid = (invitationCode: string) =>
-  useQuery(communityQueryKey.invitationCodeIsValid(), () =>
-    getInvitationCodeIsValid(invitationCode),
+export const useGetInvitationCodeIsValid = (
+  invitationCode: string,
+  options?: UseQueryOptions<InvitationCodeValidationResponse>,
+) =>
+  useQuery<InvitationCodeValidationResponse>(
+    communityQueryKey.invitationCodeIsValid(),
+    () => getInvitationCodeIsValid(invitationCode),
+    options,
   );
 
 export const postCommunityJoin = async (communityId: CommunityJoinRequest) => {
@@ -144,3 +152,11 @@ export const checkIdCard = (communityId: number) =>
 
 export const useCheckIdCards = (communityId: number) =>
   useQuery(communityQueryKey.checkIdCard(communityId), () => checkIdCard(communityId));
+
+export const getCommunityUserInfo = (communityId: number) =>
+  privateApi.get<CommunityUserInfoResponse>(`/communities/${communityId}/my-info`);
+
+export const useGetCommunityUserInfo = (communityId: number) =>
+  useQuery(communityQueryKey.communityUserInfo(communityId), () =>
+    getCommunityUserInfo(communityId),
+  );

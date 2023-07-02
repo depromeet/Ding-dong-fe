@@ -1,1 +1,3 @@
-export const STORAGE_REDIRECT_URI_KEY = 'redirectUri';
+export const ROUTE_COOKIE_KEYS = {
+  redirectUri: 'redirectUri',
+};

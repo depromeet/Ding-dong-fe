@@ -40,7 +40,8 @@ export const getCharacterName = (
   characterAlphabet: CharacterCreationFormType,
 ): CharacterNameModel => {
   const { firstAlphabet, secondAlphabet, thirdAlphabet, fourthAlphabet } = characterAlphabet;
-  const characterWord = [firstAlphabet, secondAlphabet, thirdAlphabet, fourthAlphabet].join('');
+  const characterWord = [firstAlphabet, fourthAlphabet, secondAlphabet, thirdAlphabet].join('');
+  console.log({ characterWord });
   switch (characterWord) {
     case 'INFJ':
     case 'INFP':

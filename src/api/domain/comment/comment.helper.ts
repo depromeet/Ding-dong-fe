@@ -38,12 +38,10 @@ export const createNewComment = ({
 
 export type CommentPages = {
   pages: {
-    data: {
-      content: CommentModel[];
-      hasNext: boolean;
-      page: number;
-      size: number;
-    };
+    content: CommentModel[];
+    hasNext: boolean;
+    page: number;
+    size: number;
   }[];
   pageParams: number[]; // 페이지 파라미터 타입을 사용하거나 필요에 맞게 수정해주세요
 };
@@ -58,23 +56,21 @@ export const addCommentToPages = (
 
   if (isCommentListEmpty) {
     updatedPages.push({
-      data: {
-        content: [newComment],
-        hasNext: false,
-        page: 0,
-        size: 10,
-      },
+      content: [newComment],
+      hasNext: false,
+      page: 0,
+      size: 10,
     });
   } else {
     const firstPage = updatedPages[0];
-    const firstPageData = firstPage.data;
+    const firstPageData = firstPage;
     const updatedFirstPageData = {
       content: [newComment, ...firstPageData.content],
       hasNext: firstPageData.hasNext,
       page: firstPageData.page,
       size: firstPageData.size,
     };
-    updatedPages[0] = { ...firstPage, data: updatedFirstPageData };
+    updatedPages[0] = { ...firstPage, ...updatedFirstPageData };
   }
 
   return { pages: updatedPages, pageParams: previousComments?.pageParams ?? [] };
@@ -90,9 +86,9 @@ export const updateCommentId = (
   // commentId를 실제 요청 후 받은 id로 수정합니다.
   if (pages.length > 0) {
     const firstPage = pages[0];
-    const firstPageData = firstPage.data;
+    const firstPageData = firstPage;
     firstPageData.content[0].commentId = commentId;
-    pages[0] = { ...firstPage, data: firstPageData };
+    pages[0] = { ...firstPage, ...firstPageData };
   }
 
   return {
@@ -140,7 +136,7 @@ export const addReplyToPages = (
 
   if (updatedPages.length > 0) {
     const firstPage = updatedPages[0];
-    const firstPageData = firstPage.data;
+    const firstPageData = firstPage;
     const commentIndex = firstPageData.content.findIndex(
       comment => comment.commentId === commentId,
     );
@@ -168,8 +164,8 @@ export const updateReplyId = (
 
   const updatedPages = pages.map(page => {
     const updatedData = {
-      ...page.data,
-      content: page.data.content.map(comment => {
+      ...page,
+      content: page.content.map(comment => {
         if (comment.commentId === commentId) {
           const lastReplyIndex = comment.commentReplyInfos.length - 1;
           if (lastReplyIndex >= 0) {
@@ -206,8 +202,8 @@ export const removeCommentToPages = (
 
   const updatedPages = pages.map(page => {
     const updatedData = {
-      ...page.data,
-      content: page.data.content.filter(comment => comment.commentId !== commentId),
+      ...page,
+      content: page.content.filter(comment => comment.commentId !== commentId),
     };
     return {
       ...page,
@@ -231,8 +227,8 @@ export const removeReplyToPages = (
 
   const updatedPages = pages.map(page => {
     const updatedData = {
-      ...page.data,
-      content: page.data.content.map(comment => {
+      ...page,
+      content: page.content.map(comment => {
         if (comment.commentId !== commentId) {
           return comment;
         }
