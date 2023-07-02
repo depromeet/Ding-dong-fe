@@ -59,6 +59,7 @@ export const CommunityAdminEdit = ({
             mutation={mutation}
             isDuplicatedCheck={isDuplicatedCheck}
             setIsDuplicatedCheck={setIsDuplicatedCheck}
+            hasDescription={true}
           />
         </FormProvider>
       </div>

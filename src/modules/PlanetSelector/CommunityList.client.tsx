@@ -6,12 +6,12 @@ import { useGetCommunityList } from '~/api/domain/community.api';
 import { Divider } from '~/components/Divider';
 import { useCommunityStore } from '~/stores/community.store';
 import { CommunityListModel } from '~/types/community';
+import { getUserIdClient } from '~/utils/auth/getUserId.client';
 import { tw } from '~/utils/tailwind.util';
 
 export const CommunityList = ({ ...rest }) => {
-  // TODO: userId 수정 필요
-  const userId = 1;
-  const { data: communityList } = useGetCommunityList(userId);
+  const userId = getUserIdClient();
+  const { data: communityList } = useGetCommunityList(userId ?? -1);
   const pathname = usePathname();
   const router = useRouter();
   const { switchCommunity } = useCommunityStore();
@@ -24,7 +24,7 @@ export const CommunityList = ({ ...rest }) => {
 
   const handlePlanetSwitch = (title: string, id: number) => {
     replaceIdInRoute(id);
-    switchCommunity(title, id);
+    switchCommunity(id);
   };
 
   return (

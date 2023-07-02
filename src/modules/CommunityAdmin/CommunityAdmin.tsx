@@ -1,3 +1,6 @@
+'use client';
+import { usePathname, useRouter } from 'next/navigation';
+
 import { Button } from '~/components/Button';
 import { KakaoIcon } from '~/components/Icon/KakaoIcon';
 import { TopNavigation } from '~/components/TopNavigation';
@@ -14,6 +17,12 @@ export const CommunityAdmin = ({
   idCardCount,
   description,
 }: Omit<CommunityAdminProps, 'invitationCode'>) => {
+  const router = useRouter();
+  const pathname = usePathname();
+  const goEdit = () => {
+    router.push(`${pathname}/edit`);
+  };
+
   return (
     <div>
       <TopNavigation>
@@ -33,7 +42,12 @@ export const CommunityAdmin = ({
           top={
             <div className="mt-6pxr flex items-center justify-between py-10pxr">
               <h1 className="text-h1 font-bold text-gray-800">{title}</h1>
-              <Button size="small" color="secondary" className="w-fit  px-12pxr py-8pxr">
+              <Button
+                onClick={goEdit}
+                size="small"
+                color="secondary"
+                className="w-fit  px-12pxr py-8pxr"
+              >
                 수정
               </Button>
             </div>

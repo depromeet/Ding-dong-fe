@@ -8,7 +8,7 @@ export const PlanetCreationButton = () => {
   const router = useRouter();
 
   const onClickCreateButton = () => {
-    router.push(`/admin/community/create`);
+    router.push('/admin/planet/create');
   };
 
   return (
