@@ -28,6 +28,7 @@ export const IdCardCreationForm = ({
 }: IdCardCreationFormProps) => {
   const {
     formState: { errors, isDirty, isValid, isSubmitting },
+    handleSubmit,
   } = useFormContext<IdCardCreationFormModel>();
 
   const getNavigationButton = () => {
@@ -79,7 +80,7 @@ export const IdCardCreationForm = ({
         <TopNavigation.ProgressBar currentStep={stepOrder} stepsLength={3} />
       </TopNavigation>
 
-      <form className="mt-24pxr">
+      <form className="mt-24pxr" onSubmit={handleSubmit(onSubmit)}>
         {steps[stepOrder] === 'PROFILE' && <ProfileStep />}
         {steps[stepOrder] === 'KEYWORD' && <KeywordStep />}
         {steps[stepOrder] === 'KEYWORD_CONTENT' && <KeywordContentStep />}
