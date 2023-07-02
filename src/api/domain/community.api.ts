@@ -104,7 +104,7 @@ export const usePostCommunityUpdate = (communityId: number) => {
 };
 
 export const getInvitationCodeIsValid = async (invitationCode: string) => {
-  return await publicApi.get<InvitationCodeValidationResponse>(`/communities/join`, {
+  return await publicApi.get<InvitationCodeValidationResponse>(`/communities/validate`, {
     params: { code: invitationCode },
   });
 };
