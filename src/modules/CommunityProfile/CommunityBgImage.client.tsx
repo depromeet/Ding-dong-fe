@@ -7,12 +7,12 @@ import { ChangeEvent, useState } from 'react';
 import { Button } from '~/components/Button';
 
 type CommunityBgImageProps = {
-  coverImageUrl: string;
+  coverImageUrl?: string;
   isEditable?: boolean;
   communityId?: number;
 };
 export const CommunityBgImage = ({ coverImageUrl, isEditable }: CommunityBgImageProps) => {
-  const [profileImage, setProfileImage] = useState<string>(coverImageUrl);
+  const [profileImage, setProfileImage] = useState<string | undefined>(coverImageUrl);
 
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
     const imageFileList = e.target.files;
@@ -33,7 +33,9 @@ export const CommunityBgImage = ({ coverImageUrl, isEditable }: CommunityBgImage
           <label htmlFor="file">커버 변경</label>
         </Button>
       )}
-      <Image alt="planet cover image" src={profileImage} fill={true} className="object-cover" />
+      {profileImage && (
+        <Image alt="planet cover image" src={profileImage} fill={true} className="object-cover" />
+      )}
       <input
         className="hidden"
         onChange={onChange}
