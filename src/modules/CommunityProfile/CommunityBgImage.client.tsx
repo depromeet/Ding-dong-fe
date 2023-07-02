@@ -33,9 +33,14 @@ export const CommunityBgImage = ({ coverImageUrl, isEditable }: CommunityBgImage
           <label htmlFor="file">커버 변경</label>
         </Button>
       )}
-      {profileImage && (
-        <Image alt="planet cover image" src={profileImage} fill={true} className="object-cover" />
-      )}
+
+      <Image
+        alt="planet cover image"
+        src={profileImage ?? '/assets/images/planet-cover-default-image.png'}
+        fill={true}
+        className="object-cover"
+      />
+
       <input
         className="hidden"
         onChange={onChange}
