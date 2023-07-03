@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 
 import publicApi from '~/api/config/publicApi';
 import { AUTH_COOKIE_KEYS, AuthResponse } from '~/types/auth';
+// import { UserInfoResponse } from '~/types/user';
 import { generateCookiesKeyValues } from '~/utils/auth/tokenHandlers';
 
 import { ROUTE_COOKIE_KEYS } from './utils/route/route';
@@ -33,9 +34,15 @@ const middleware = async (request: NextRequest) => {
   if (pathname === '/') {
     const accessToken = getAccessToken(request);
     if (accessToken) {
-      // TO DO: BE 도메인 정상화 이후 복원 + privateApi로 변경
+      // TO DO: BE 도메인 정상화 이후 복원
+      // https://github.com/vercel/next.js/discussions/49246 관련 이슈로 privateApi가 아닌 publicApi 사용해야함
       // const { characterType, communityIds } = await publicApi.get<UserInfoResponse>(
       //   `/user/profile`,
+      //   {
+      //     headers: {
+      //       Authorization: `Bearer ${accessToken}`,
+      //     },
+      //   },
       // );
 
       const characterType = 'BUDDY'; // mock data
@@ -78,6 +85,7 @@ const middleware = async (request: NextRequest) => {
         authCode,
         redirectUri: `${origin}/auth/callback/kakao`,
       });
+      console.log('authData', authData);
 
       // TODO: error처리 고도화: response status혹은 메시지에 따라 if문 수정하기
       if (!authData) {
