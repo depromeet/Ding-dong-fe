@@ -6,15 +6,12 @@ import { AUTH_COOKIE_KEYS } from '~/types/auth';
 import { UserInfoResponse } from '~/types/user';
 import { ROUTE_COOKIE_KEYS } from '~/utils/route/route';
 
-type UserInfo = {
-  userProfileDto: UserInfoResponse;
-};
 export async function GET(request: NextRequest) {
   const cookieStore = cookies();
   const accessToken = cookieStore.get(AUTH_COOKIE_KEYS.accessToken)?.value;
   if (accessToken) {
     // TO DO: BE 도메인 정상화 이후 복원 + privateApi로 변경
-    const { userProfileDto } = await privateApi.get<UserInfo>(`/user/profile`);
+    const { userProfileDto } = await privateApi.get<UserInfoResponse>(`/user/profile`);
     const { characterType, communityIds } = userProfileDto;
 
     const redirectUri = request.cookies.get(ROUTE_COOKIE_KEYS.redirectUri)?.value;

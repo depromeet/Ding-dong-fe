@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import { useGetInvitationCodeIsValid, usePostCommunityJoin } from '~/api/domain/community.api';
 import { useGetUserInfo } from '~/api/domain/user.api';
 import { Template } from '~/components/Template';
+import { useToastMessageStore } from '~/stores/toastMessage.store';
 import { getUserIdClient } from '~/utils/auth/getUserId.client';
 import { setCookie } from '~/utils/cookie.util';
 import { ROUTE_COOKIE_KEYS } from '~/utils/route/route';
@@ -13,6 +14,7 @@ const title = '당신을 디프만 행성으로\n 초대합니다';
 
 const InvitationPage = ({ params }: { params: { code: string } }) => {
   const router = useRouter();
+  const { errorToast } = useToastMessageStore();
   const invitationCode = params.code;
 
   // TODO: 잘못된 행성 코드인 경우, 에러 메시지 보여주기(후순위)
@@ -25,20 +27,22 @@ const InvitationPage = ({ params }: { params: { code: string } }) => {
     },
   );
   const communityId = validPlanet?.id;
+
   const userId = getUserIdClient();
-  const {
-    data: userInfo,
-    isRefetching,
-    isInitialLoading,
-  } = useGetUserInfo({
+  const { data, isRefetching, isInitialLoading } = useGetUserInfo({
     enabled: !!(communityId && userId),
   });
-  const { mutateAsync } = usePostCommunityJoin();
+
+  const { mutateAsync } = usePostCommunityJoin({
+    onError: () => {
+      errorToast('에러'); // TODO 무슨에러인지 response보이게 수정하기
+    },
+  });
 
   const onClick = async () => {
     if (communityId && userId) {
       await mutateAsync({ communityId });
-      if (userInfo?.characterType) {
+      if (data?.userProfileDto.characterType) {
         router.push(`/planet/${communityId}`);
       } else {
         setCookie(ROUTE_COOKIE_KEYS.redirectUri, `/planet/${communityId}`);
