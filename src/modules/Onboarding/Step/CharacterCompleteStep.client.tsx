@@ -46,7 +46,7 @@ const characterInfo: Record<CharacterNameModel, CharacterInfo> = {
 export const CharacterCompleteStep = ({ characterName }: CharacterCompleteStepProps) => {
   const { title, description, image } = characterInfo[characterName];
   const { data } = useGetUserInfo();
-  const communityIds = data?.communityIds;
+  const communityIds = data?.userProfileDto.communityIds;
   const router = useRouter();
   const onButtonClick = () => {
     const redirectUri = getCookie(ROUTE_COOKIE_KEYS.redirectUri);
