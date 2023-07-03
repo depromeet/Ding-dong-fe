@@ -30,11 +30,12 @@ const logout = (request: NextRequest) => {
 const middleware = async (request: NextRequest) => {
   const pathname = request.nextUrl.pathname;
 
-  if (pathname === '/') {
+  // 미들웨어 base경로 잠시 해제
+  if (pathname === '/off') {
     const accessToken = getAccessToken(request);
     if (accessToken) {
       // TO DO: BE 도메인 정상화 이후 복원 + privateApi로 변경
-      // const { characterType, communityIds } = await publicApi.get<UserInfoResponse>(
+      // const { characterType, communityIds } = await privateApi.get<UserInfoResponse>(
       //   `/user/profile`,
       // );
 
