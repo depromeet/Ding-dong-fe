@@ -1,4 +1,3 @@
-import { faker } from '@faker-js/faker';
 import { useFormContext } from 'react-hook-form';
 
 import { Chip } from '~/components/Chip';
@@ -13,7 +12,7 @@ type EditKeywordContentStepProps = {
 export const EditKeywordContentStep = ({ onClickMoveTargetStep }: EditKeywordContentStepProps) => {
   const { setValue, getValues } = useFormContext<IdCardEditorFormValues>();
   const values = getValues();
-  const { nickname, aboutMe, keywords } = values;
+  const { nickname, aboutMe, keywords, profileImageUrl } = values;
 
   const onClickKeywordPlus = () => {
     onClickMoveTargetStep('KEYWORD');
@@ -34,7 +33,7 @@ export const EditKeywordContentStep = ({ onClickMoveTargetStep }: EditKeywordCon
           <ProfileImageEdit<IdCardEditorFormValues>
             className="mx-auto mt-20pxr"
             fieldName="profileImageUrl"
-            defaultProfileImage={faker.image.avatar()}
+            defaultProfileImage={profileImageUrl}
             setValue={setValue}
           />
         </div>
