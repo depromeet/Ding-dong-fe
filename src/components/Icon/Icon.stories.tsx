@@ -10,6 +10,7 @@ import {
   ChevronRightIcon,
   DashIcon,
   GearFillIcon,
+  GearIcon,
   HeartFillIcon,
   HeartIcon,
   HomeIcon,
@@ -69,6 +70,10 @@ export const Dash = {
 
 export const GearFill = {
   render: () => <GearFillIcon />,
+};
+
+export const Gear = {
+  render: () => <GearIcon />,
 };
 
 export const HeartFill = {
