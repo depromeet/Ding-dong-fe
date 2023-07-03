@@ -1,3 +1,5 @@
+import 'server-only';
+
 import { getCommunityDetailServer } from '~/api/domain/community.api.server';
 import { CommunityAdmin } from '~/modules/CommunityAdmin/CommunityAdmin';
 

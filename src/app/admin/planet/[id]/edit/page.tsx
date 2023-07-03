@@ -1,18 +1,18 @@
-'use client';
+import 'server-only';
 
-import { useGetCommunityDetail } from '~/api/domain/community.api';
+import { getCommunityDetailServer } from '~/api/domain/community.api.server';
 import { CommunityAdminEdit } from '~/modules/CommunityAdmin/CommunityAdminEdit.client';
 
-type AdminCommunityDetailPageProps = {
+type AdminCommunityEditPageProps = {
   params: {
     id: number;
   };
 };
 
-const AdminCommunityDetailPage = ({ params: { id } }: AdminCommunityDetailPageProps) => {
-  const { data } = useGetCommunityDetail(id);
+const AdminCommunityEditPage = async ({ params: { id } }: AdminCommunityEditPageProps) => {
+  const { communityDetailsDto } = await getCommunityDetailServer(Number(id));
 
-  return <>{data?.communityDetailsDto && <CommunityAdminEdit {...data.communityDetailsDto} />}</>;
+  return <CommunityAdminEdit {...communityDetailsDto} />;
 };
 
-export default AdminCommunityDetailPage;
+export default AdminCommunityEditPage;
