@@ -7,6 +7,7 @@ export * from './ChevronLeftIcon';
 export * from './ChevronRightIcon';
 export * from './DashIcon';
 export * from './GearFillIcon';
+export * from './GearIcon';
 export * from './HeartFillIcon';
 export * from './HeartIcon';
 export * from './HomeIcon';
