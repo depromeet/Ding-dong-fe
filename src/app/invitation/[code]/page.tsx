@@ -24,7 +24,7 @@ const InvitationPage = ({ params }: { params: { code: string } }) => {
       },
     },
   );
-  const communityId = validPlanet?.communityId;
+  const communityId = validPlanet?.id;
   const userId = getUserIdClient();
   const {
     data: userInfo,

@@ -32,7 +32,7 @@ export type CommunityCodeModel = {
 };
 
 export type InvitationCodeValidationModel = {
-  communityId: number;
+  id: number;
 };
 
 export type CommunityJoinModel = {
