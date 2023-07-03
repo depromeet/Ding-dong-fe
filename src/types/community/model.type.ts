@@ -5,7 +5,7 @@ export type CommunityIdCardSummaryModel = Omit<IdCardDetailModel, 'profileImageU
 export type CommunityDetailModel = {
   communityId: number;
   logoImageUrl: string;
-  coverImageUrl: string;
+  coverImageUrl?: string;
   title: string;
   idCardCount: number;
   description: string;
@@ -32,7 +32,7 @@ export type CommunityCodeModel = {
 };
 
 export type InvitationCodeValidationModel = {
-  communityId: number;
+  id: number;
 };
 
 export type CommunityJoinModel = {

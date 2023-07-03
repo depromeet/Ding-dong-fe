@@ -6,7 +6,7 @@ import {
   CommentGetResponse,
 } from '~/types/comment';
 
-export const getCommentsServer = ({ idCardId, pageParam }: CommentGetRequest) =>
+export const getCommentsServer = ({ idCardId, pageParam = 0 }: CommentGetRequest) =>
   privateApi.get<CommentGetResponse>(`/id-cards/${idCardId}/comments?page=${pageParam}&size=10`);
 
 export const getCommentCountsServer = ({ idCardId }: CommentCountGetRequest) =>

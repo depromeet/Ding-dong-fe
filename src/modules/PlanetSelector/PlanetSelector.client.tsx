@@ -1,20 +1,44 @@
 'use client';
 
+import { useRouter } from 'next/navigation';
+import { useEffect } from 'react';
+
+import { useGetCommunityList } from '~/api/domain/community.api';
 import { useBottomSheet } from '~/components/BottomSheet';
 import BottomSheet from '~/components/BottomSheet/BottomSheet';
 import { ArrowVerticalIcon, PlusIcon } from '~/components/Icon';
 import { CommunityList } from '~/modules/PlanetSelector/CommunityList.client';
 import { useCommunityStore } from '~/stores/community.store';
+import { getUserIdClient } from '~/utils/auth/getUserId.client';
 import { tw } from '~/utils/tailwind.util';
 
 export const PlanetSelector = () => {
   const bottomSheetHandlers = useBottomSheet();
-  const { communityTitle } = useCommunityStore();
+  const userId = getUserIdClient();
+  const { data: communityList } = useGetCommunityList(userId ?? -1);
+  const { communityId, switchCommunity } = useCommunityStore();
+
+  const router = useRouter();
+
+  const onClickCreateButton = () => {
+    router.push('/admin/planet/create');
+  };
+
+  useEffect(() => {
+    const lastCommunity = communityList?.communityListDtos.slice(-1)[0];
+    if (communityId < 0 && lastCommunity) {
+      switchCommunity(lastCommunity.communityId);
+    }
+  }, [communityId, communityList?.communityListDtos, switchCommunity]);
+
+  const defaultCommunity = communityList?.communityListDtos.find(
+    community => community.communityId === communityId,
+  );
 
   return (
     <div>
       <div className="flex items-center gap-8pxr" onClick={bottomSheetHandlers.onOpen}>
-        <p className="text-h1 text-grey-800">{communityTitle}</p>
+        <p className="text-h1 text-grey-800">{defaultCommunity?.title}</p>
         <ArrowVerticalIcon />
       </div>
       <BottomSheet {...bottomSheetHandlers}>
@@ -27,7 +51,12 @@ export const PlanetSelector = () => {
                 <div className="flex h-[36px] w-[36px] items-center justify-center rounded-3xl bg-grey-100">
                   <PlusIcon />
                 </div>
-                <p className={`${tw('text-b1 text-[#282828]', 'font-bold')}`}>행성 만들기</p>
+                <p
+                  onClick={onClickCreateButton}
+                  className={`${tw('text-b1 text-[#282828]', 'font-bold')}`}
+                >
+                  행성 만들기
+                </p>
               </button>
             </div>
           </div>

@@ -3,7 +3,7 @@ import { twMerge } from 'tailwind-merge';
 
 type LogoSize = 'small' | 'medium' | 'large';
 type CommunityLogoImageProps = {
-  logoImageUrl: string;
+  logoImageUrl?: string;
   size?: LogoSize;
 };
 
@@ -14,9 +14,16 @@ const sizes: Record<LogoSize, string> = {
 };
 export const CommunityLogoImage = ({ logoImageUrl, size = 'large' }: CommunityLogoImageProps) => {
   const logoSize = sizes[size];
+  const defaultPlanetLogoImage = logoImageUrl || '/assets/images/default_planet_logo.png';
+
   return (
     <div className={twMerge(logoSize, 'relative flex-shrink-0 overflow-hidden rounded-full')}>
-      <Image src={logoImageUrl} alt="planet logo image" fill={true} className="object-cover" />
+      <Image
+        src={defaultPlanetLogoImage}
+        alt="planet logo image"
+        fill={true}
+        className="object-cover"
+      />
     </div>
   );
 };

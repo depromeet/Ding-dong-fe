@@ -1,16 +1,16 @@
 import 'server-only';
 
-import { MyPageIdCard } from '~/app/my-page/[id]/components/MyPageIdCard';
+import { MyPageIdCard } from '~/app/my-page/[communityId]/components/MyPageIdCard';
 import { IdCardEditButton } from '~/modules/IdCardEditButton';
 import { PlanetCreationButton } from '~/modules/PlanetCreationButton';
 
 type MyPageProps = {
   params: {
-    id: number;
+    communityId: number;
   };
 };
 
-const MyPage = ({ params: { id } }: MyPageProps) => {
+const MyPage = ({ params: { communityId } }: MyPageProps) => {
   return (
     <main className="pt-35pxr">
       <div className="mx-layout-l">
@@ -18,7 +18,7 @@ const MyPage = ({ params: { id } }: MyPageProps) => {
           <h2 className="text-h3 text-grey-800">내 주민증</h2>
           <IdCardEditButton />
         </div>
-        <MyPageIdCard id={id} />
+        <MyPageIdCard id={communityId} />
       </div>
       <div className="mx-layout-sm mt-28pxr">
         <PlanetCreationButton />

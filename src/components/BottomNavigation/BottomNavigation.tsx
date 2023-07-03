@@ -6,7 +6,7 @@ import { Divider } from '~/components/Divider';
 import { BellIcon, HomeIcon, PersonIcon } from '~/components/Icon';
 import { NewNotificationBadge } from '~/modules/Notification/NewNotificationBadge.client';
 
-type BottomNavigationPath = '/planet' | '/notification' | '/my-page';
+type BottomNavigationPath = '/planet' | '/notification' | '/my-page' | '/';
 
 export const BottomNavigation = () => {
   const pathname = usePathname();
@@ -29,7 +29,7 @@ export const BottomNavigation = () => {
       <Divider />
       <ul className="flex h-b-nav items-center justify-evenly bg-white">
         <li>
-          <button onClick={() => handleNavigation('/planet')}>
+          <button onClick={() => handleNavigation('/')}>
             <HomeIcon className={getSvgcolor('/planet')} />
           </button>
         </li>

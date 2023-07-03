@@ -6,7 +6,7 @@ import { twMerge } from 'tailwind-merge';
 
 import { usePostCommunityUpdate } from '~/api/domain/community.api';
 import { TopNavigation } from '~/components/TopNavigation';
-import { CommunityDetailModel } from '~/types/community';
+import { CommunityDetailModel, CreateCommunityRequest } from '~/types/community';
 
 import { DuplicateState } from './CommunityAdmin.type';
 import { CommunityAdminEditForm } from './CommunityAdminEditForm.client';
@@ -21,9 +21,9 @@ export const CommunityAdminEdit = ({
 }: CommunityAdminEditProps) => {
   const [isDuplicatedCheck, setIsDuplicatedCheck] = useState<DuplicateState>('DEFAULT');
 
-  const methods = useForm<CommunityDetailModel>({
+  const methods = useForm<CreateCommunityRequest>({
     defaultValues: {
-      title,
+      name: title,
       logoImageUrl,
       description,
     },
@@ -59,6 +59,7 @@ export const CommunityAdminEdit = ({
             mutation={mutation}
             isDuplicatedCheck={isDuplicatedCheck}
             setIsDuplicatedCheck={setIsDuplicatedCheck}
+            hasDescription={true}
           />
         </FormProvider>
       </div>

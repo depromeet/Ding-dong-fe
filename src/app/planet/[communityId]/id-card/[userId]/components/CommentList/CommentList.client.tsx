@@ -14,10 +14,7 @@ type CommentListProps = {
 };
 
 const CommentListComponent = ({ idCardId }: CommentListProps) => {
-  const { data: commentList, fetchNextPage } = useGetComments({
-    idCardId,
-    pageParam: 1,
-  });
+  const { data: commentList, fetchNextPage } = useGetComments(idCardId);
   // TODO: CommunityIdCards에서 사용하는 로직과 통일하기
   const { ref, inView } = useInView();
 
