@@ -1,3 +1,5 @@
 import { UserInfoModel } from './model.type';
 
-export type UserInfoResponse = UserInfoModel;
+export type UserInfoResponse = {
+  userProfileDto: UserInfoModel;
+};

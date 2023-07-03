@@ -8,9 +8,5 @@ type TemplateWrapperProps = {
 };
 
 export const TemplateWrapper = ({ children, className }: TemplateWrapperProps) => {
-  return (
-    <div className={tw('flex min-h-[calc(100vh-50px)] flex-col px-layout-sm ', className)}>
-      {children}
-    </div>
-  );
+  return <div className={tw('flex flex-col px-layout-sm ', className)}>{children}</div>;
 };

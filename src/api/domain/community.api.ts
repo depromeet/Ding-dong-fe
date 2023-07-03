@@ -10,7 +10,6 @@ import { AxiosError } from 'axios';
 import { useRouter } from 'next/navigation';
 
 import privateApi from '~/api/config/privateApi';
-import publicApi from '~/api/config/publicApi';
 import { userQueryKey } from '~/api/domain/user.api';
 import {
   CheckIdCardResponse,
@@ -109,7 +108,7 @@ export const usePostCommunityUpdate = (communityId: number) => {
 };
 
 export const getInvitationCodeIsValid = async (invitationCode: string) => {
-  return await publicApi.get<InvitationCodeValidationResponse>(`/communities/validate`, {
+  return await privateApi.get<InvitationCodeValidationResponse>(`/communities/validate`, {
     params: { code: invitationCode },
   });
 };
