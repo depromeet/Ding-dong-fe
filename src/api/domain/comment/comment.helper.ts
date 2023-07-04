@@ -183,7 +183,7 @@ export const updateReplyId = (
     };
     return {
       ...page,
-      data: updatedData,
+      ...updatedData,
     };
   });
 
@@ -207,7 +207,7 @@ export const removeCommentToPages = (
     };
     return {
       ...page,
-      data: updatedData,
+      ...updatedData,
     };
   });
 
@@ -243,7 +243,7 @@ export const removeReplyToPages = (
     };
     return {
       ...page,
-      data: updatedData,
+      ...updatedData,
     };
   });
 
