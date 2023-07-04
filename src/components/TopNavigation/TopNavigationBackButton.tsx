@@ -49,7 +49,7 @@ export const TopNavigationBackButton = ({
   const BackButtonComponent = BackButton[backButtonType];
   return (
     <button
-      className={twMerge('flex w-1/3', direction === 'left' ? 'justify-start' : 'justify-end')}
+      className={twMerge(direction === 'left' ? 'justify-start' : 'justify-end')}
       onClick={handleClickBackButton}
     >
       <BackButtonComponent />

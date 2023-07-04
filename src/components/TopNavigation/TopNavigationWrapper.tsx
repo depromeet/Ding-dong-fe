@@ -15,7 +15,7 @@ export const TopNavigationWrapper = ({
   const borderBottomStyle = bottomBorderColor ? `border-b-${bottomBorderColor} border-b-[1px]` : '';
   return (
     <nav
-      className={`fixed left-0 right-0 top-0 z-top1 flex h-t-nav w-full items-center px-layout-sm ${borderBottomStyle} ${bgColor}`}
+      className={`fixed left-0 right-0 top-0 z-top1 flex h-t-nav w-full items-center justify-between px-layout-sm ${borderBottomStyle} ${bgColor}`}
     >
       {children}
     </nav>

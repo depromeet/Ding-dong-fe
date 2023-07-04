@@ -17,7 +17,6 @@ const Layout = ({ children }: PropsWithChildren) => {
         <TopNavigation.Left>
           <PlanetSelector />
         </TopNavigation.Left>
-        <TopNavigation.Title></TopNavigation.Title>
         <TopNavigation.Right>
           <Link href={`/admin/${pathname}`}>
             <GearIcon />
