@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 
 import { useGetInvitationCodeIsValid, usePostCommunityJoin } from '~/api/domain/community.api';
@@ -56,12 +57,24 @@ const InvitationPage = ({ params }: { params: { code: string } }) => {
   if (isValidPlanetLoading) return null;
 
   return (
-    <Template>
-      <Template.Title className="text-grey-900">
+    <Template className="relative mt-none-t-nav h-[100vh] bg-[linear-gradient(180deg,_#fff_5.75%,_#e0deff_48.77%)]">
+      <Image
+        src="/assets/images/invitation.png"
+        width={0}
+        height={0}
+        sizes="100vw"
+        className="absolute left-0 top-0 mt-none-t-nav max-h-[100vh] w-full object-cover"
+        alt="invitation image"
+      />
+      <Template.Title className="z-mid2 mt-50pxr text-grey-900">
         <h1>{title}</h1>
       </Template.Title>
       <Template.Content />
-      <Template.Button disabled={isInitialLoading || isRefetching} onClick={onClick}>
+      <Template.Button
+        disabled={isInitialLoading || isRefetching}
+        onClick={onClick}
+        className="z-mid2"
+      >
         시작하기
       </Template.Button>
     </Template>
