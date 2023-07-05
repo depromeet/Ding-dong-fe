@@ -17,10 +17,10 @@ type IdCardDetailPageProps = {
 };
 
 const IdCardDetailPage = async ({
-  params: { idCardId: idCardIdParam, communityId },
+  params: { idCardId: idCardIdParam, communityId: communityIdParam },
 }: IdCardDetailPageProps) => {
   const idCardId = Number(idCardIdParam);
-  const id = Number(communityId);
+  const communityId = Number(communityIdParam);
 
   const getCommentsQuery = async () => {
     const data = await getCommentsServer({ idCardId });
@@ -31,14 +31,14 @@ const IdCardDetailPage = async ({
 
   return (
     <main>
-      <IdCardDetail idCardId={idCardId} />
+      <IdCardDetail idCardId={idCardId} communityId={communityId} />
       <Divider />
       <CommentCount idCardId={idCardId} />
       {/* @ts-expect-error Server Component */}
       <HydrationProvider queryKey={commentQueryKey.comments(idCardId)} queryFn={getCommentsQuery}>
         <CommentList idCardId={idCardId} />
       </HydrationProvider>
-      <CommentInput idCardId={idCardId} communityId={id} />
+      <CommentInput idCardId={idCardId} communityId={communityId} />
     </main>
   );
 };
