@@ -11,8 +11,6 @@ import { getUserIdClient } from '~/utils/auth/getUserId.client';
 import { setCookie } from '~/utils/cookie.util';
 import { ROUTE_COOKIE_KEYS } from '~/utils/route/route';
 
-const title = '당신을 디프만 행성으로\n 초대합니다';
-
 const InvitationPage = ({ params }: { params: { code: string } }) => {
   const router = useRouter();
   const { errorToast } = useToastMessageStore();
@@ -27,7 +25,8 @@ const InvitationPage = ({ params }: { params: { code: string } }) => {
       },
     },
   );
-  const communityId = validPlanet?.id;
+  const communityId = validPlanet?.checkInvitationCodeDto.communityId;
+  const title = `당신을 ${validPlanet?.checkInvitationCodeDto.name || ''} 행성으로\n 초대합니다`;
 
   const userId = getUserIdClient();
   const { data, isRefetching, isInitialLoading } = useGetUserInfo({
