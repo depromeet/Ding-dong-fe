@@ -11,6 +11,7 @@ export type CharacterNameModel = keyof CharacterModel;
 
 export type IdCardDetailModel = {
   idCardId: number;
+  userId: number;
   nickname: string;
   aboutMe: string;
   profileImageUrl: string;
