@@ -51,7 +51,7 @@ export const CommunityAdmin = ({
           idCardCount={idCardCount}
           description={description}
           top={
-            <div className="mt-6pxr flex items-center justify-between py-10pxr">
+            <div className="mt-6pxr flex items-center justify-between gap-12pxr py-10pxr">
               <h1 className="text-h1 font-bold text-gray-800">{title}</h1>
               <Button
                 onClick={goEdit}
