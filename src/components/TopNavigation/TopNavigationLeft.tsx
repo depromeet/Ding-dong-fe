@@ -10,5 +10,7 @@ export const TopNavigationLeft = ({
   children,
   className,
 }: PropsWithChildren<TopNavigationLeftProps>) => {
-  return <div className={tw('flex min-w-[33%] justify-start', className)}>{children}</div>;
+  return (
+    <div className={tw('flex min-w-[33%] max-w-full justify-start', className)}>{children}</div>
+  );
 };
