@@ -1,9 +1,12 @@
+'use client';
+
 import Image from 'next/image';
-import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
 import { Button } from '~/components/Button';
 
 const NotFound = () => {
+  const router = useRouter();
   return (
     <div className="relative flex h-[calc(100vh-50px)] flex-col items-center">
       <Image
@@ -18,11 +21,11 @@ const NotFound = () => {
         <p>입력한 주소의 페이지를 찾을 수 없어요.</p>
         <p>주소를 다시 한 번 확인해 주세요.</p>
       </div>
-      <Link className="absolute top-[calc(100vh-50px)] w-full translate-y-[-160%]" href="/">
-        <Button color="primary" size="large">
+      <div className="absolute top-[calc(100vh-50px)] w-full translate-y-[-160%]">
+        <Button color="primary" size="large" onClick={() => router.push('/')}>
           홈으로 돌아가기
         </Button>
-      </Link>
+      </div>
     </div>
   );
 };
