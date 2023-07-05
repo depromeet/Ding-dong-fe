@@ -7,7 +7,7 @@ export type CommunityDetailModel = {
   logoImageUrl: string;
   coverImageUrl?: string;
   title: string;
-  idCardCount: number;
+  userCount: number;
   description: string;
   invitationCode: string;
 };

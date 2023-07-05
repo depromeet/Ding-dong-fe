@@ -14,7 +14,7 @@ type CommunityDetailProps = {
 // TODO: 디폴트 관련 논의 후 수정
 export const CommunityDetailComponent = async ({ id }: CommunityDetailProps) => {
   const { communityDetailsDto } = await getCommunityDetailServer(id);
-  const { coverImageUrl, title, logoImageUrl, idCardCount, description } = communityDetailsDto;
+  const { coverImageUrl, title, logoImageUrl, userCount, description } = communityDetailsDto;
 
   return (
     <div>
@@ -30,7 +30,7 @@ export const CommunityDetailComponent = async ({ id }: CommunityDetailProps) => 
       <div className="flex w-[calc(100vw-40px)] max-w-[calc(410px-40px)] translate-x-[20px] translate-y-[-50%] items-center gap-12pxr rounded-3xl border border-grey-100 bg-white p-18pxr">
         <CommunityLogoImage logoImageUrl={logoImageUrl} />
         <div className="flex flex-col gap-8pxr">
-          <p className="text-sm font-medium text-gray-800">{`주민 ${idCardCount}`}</p>
+          <p className="text-sm font-medium text-gray-800">{`주민 ${userCount ?? 0}`}</p>
           <p className="text-detail text-gray-800 ">{`${
             description ?? '우리 행성에 온 걸 환영해~!'
           }`}</p>
