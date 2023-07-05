@@ -2,22 +2,24 @@ import 'server-only';
 
 import { commentQueryKey } from '~/api/domain/comment/comment.api';
 import { getCommentsServer } from '~/api/domain/comment/comment.api.server';
-import { CommentCount } from '~/app/planet/[communityId]/id-card/[userId]/components/CommentCount';
-import { CommentList } from '~/app/planet/[communityId]/id-card/[userId]/components/CommentList';
-import { IdCardDetail } from '~/app/planet/[communityId]/id-card/[userId]/components/IdCardDetail/IdCardDetail';
+import { CommentCount } from '~/app/planet/[communityId]/id-card/[idCardId]/components/CommentCount';
+import { CommentList } from '~/app/planet/[communityId]/id-card/[idCardId]/components/CommentList';
+import { IdCardDetail } from '~/app/planet/[communityId]/id-card/[idCardId]/components/IdCardDetail';
 import { Divider } from '~/components/Divider';
 import { HydrationProvider } from '~/components/HydrationProvider';
 import { CommentInput } from '~/modules/CommentInput';
 
 type IdCardDetailPageProps = {
   params: {
-    userId: string;
+    idCardId: string;
     communityId: string;
   };
 };
 
-const IdCardDetailPage = async ({ params: { userId, communityId } }: IdCardDetailPageProps) => {
-  const idCardId = Number(userId);
+const IdCardDetailPage = async ({
+  params: { idCardId: idCardIdParam, communityId },
+}: IdCardDetailPageProps) => {
+  const idCardId = Number(idCardIdParam);
   const id = Number(communityId);
 
   const getCommentsQuery = async () => {
