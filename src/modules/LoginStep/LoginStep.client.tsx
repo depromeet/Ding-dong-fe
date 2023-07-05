@@ -6,7 +6,7 @@ import './style.css';
 import Image from 'next/image';
 
 import { Swiper, SwiperSlide } from '~/components/Swiper';
-import { AppleLoginButton } from '~/modules/LoginStep/AppleLoginButton.client';
+/* import { AppleLoginButton } from '~/modules/LoginStep/AppleLoginButton.client'; */
 import { KakaoLoginButton } from '~/modules/LoginStep/kakaoLoginButton.client';
 import { KAKAO_PROVIDER } from '~/utils/auth/loginProviders';
 
@@ -73,7 +73,8 @@ export const LoginStep = () => {
       </Swiper>
       <div className="mt-28pxr flex flex-col gap-16pxr">
         <KakaoLoginButton provider={KAKAO_PROVIDER} />
-        <AppleLoginButton />
+        {/* // TODO Apple 로그인 구현됐을 때 주석 풀기
+        <AppleLoginButton /> */}
       </div>
     </div>
   );
