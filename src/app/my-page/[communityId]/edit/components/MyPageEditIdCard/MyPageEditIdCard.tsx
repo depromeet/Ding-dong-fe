@@ -7,32 +7,30 @@ import RetryErrorBoundary from '~/components/ErrorBoundary/RetryErrorBoundary.cl
 import { IdCardEditor } from '~/modules/IdCardEditor';
 
 type EditMyPageProps = {
-  id: number;
+  communityId: number;
 };
 
-const MyPageEditCardComponent = async ({ id }: EditMyPageProps) => {
-  const { idCardDetailsDto } = await getCommunityMyIdCardDetailServer(id);
+const MyPageEditCardComponent = async ({ communityId }: EditMyPageProps) => {
+  const { idCardDetailsDto } = await getCommunityMyIdCardDetailServer(communityId);
   const { idCardId, nickname, aboutMe, profileImageUrl, keywords } = idCardDetailsDto;
 
   return (
-    <main>
-      <IdCardEditor
-        idCardId={idCardId}
-        nickname={nickname}
-        aboutMe={aboutMe}
-        profileImageUrl={profileImageUrl}
-        keywords={keywords}
-      />
-    </main>
+    <IdCardEditor
+      idCardId={idCardId}
+      nickname={nickname}
+      aboutMe={aboutMe}
+      profileImageUrl={profileImageUrl}
+      keywords={keywords}
+    />
   );
 };
 
-export const MyPageEditIdCard = ({ id }: EditMyPageProps) => {
+export const MyPageEditIdCard = ({ communityId }: EditMyPageProps) => {
   return (
     <RetryErrorBoundary>
       <Suspense>
         {/* @ts-expect-error Server Component */}
-        <MyPageEditCardComponent id={id} />
+        <MyPageEditCardComponent communityId={communityId} />
       </Suspense>
     </RetryErrorBoundary>
   );
