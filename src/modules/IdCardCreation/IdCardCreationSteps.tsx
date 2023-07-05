@@ -48,7 +48,7 @@ export const IdCardCreationSteps = ({ communityId }: IdCardCreationStepsProps) =
     mode: 'onChange',
     resolver: yupResolver(schema),
   });
-  const [userId, setUserId] = useState<number>();
+  const [idCardId, setIdCardId] = useState<number>();
 
   const [stepOrder, setStepOrder] = useState<number>(INIT_STEP);
   const onNext = () => setStepOrder(stepOrder + 1);
@@ -56,7 +56,7 @@ export const IdCardCreationSteps = ({ communityId }: IdCardCreationStepsProps) =
 
   const { mutateAsync } = usePostIdCardCreate({
     onSuccess: data => {
-      setUserId(data.id);
+      setIdCardId(data.id);
     },
     onError: error => {
       errorToast(error.message);
@@ -88,7 +88,7 @@ export const IdCardCreationSteps = ({ communityId }: IdCardCreationStepsProps) =
             onSubmit={onSubmit}
           />
         )}
-        {steps[stepOrder] === 'COMPLETE' && userId && <CompleteStep userId={userId} />}
+        {steps[stepOrder] === 'COMPLETE' && idCardId && <CompleteStep idCardId={idCardId} />}
       </div>
     </FormProvider>
   );
