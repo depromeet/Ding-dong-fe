@@ -36,7 +36,8 @@ export const IdCard = ({
   const pathname = usePathname();
 
   const handleClickIdCard = () => {
-    router.push(`${pathname}/id-card/${idCardId}`);
+    const planetIdPathname = pathname.replace('/create', '');
+    router.push(`${planetIdPathname}/id-card/${idCardId}`);
   };
 
   return (
