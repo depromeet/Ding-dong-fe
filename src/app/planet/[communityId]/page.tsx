@@ -5,7 +5,10 @@ import { getCommunityIdCardsServer } from '~/api/domain/community.api.server';
 import { CommunityDetail } from '~/app/planet/[communityId]/components/CommunityDetail';
 import { CommunityIdCards } from '~/app/planet/[communityId]/components/CommunityIdCards';
 import { IdCardCreatorButton } from '~/app/planet/[communityId]/components/IdCardCreatorButton';
+import { BottomNavigation } from '~/components/BottomNavigation';
 import { HydrationProvider } from '~/components/HydrationProvider';
+import { TopNavigation } from '~/components/TopNavigation';
+import { PlanetSelector } from '~/modules/PlanetSelector';
 
 type PlanetPageProps = {
   params: {
@@ -24,7 +27,12 @@ const PlanetPage = async ({ params: { communityId: communityIdParam } }: PlanetP
   };
 
   return (
-    <div>
+    <main>
+      <TopNavigation>
+        <TopNavigation.Left>
+          <PlanetSelector />
+        </TopNavigation.Left>
+      </TopNavigation>
       <CommunityDetail id={communityId} />
       <IdCardCreatorButton communityId={communityId} />
       {/* @ts-expect-error Server Component */}
@@ -34,7 +42,8 @@ const PlanetPage = async ({ params: { communityId: communityIdParam } }: PlanetP
       >
         <CommunityIdCards communityId={communityId} />
       </HydrationProvider>
-    </div>
+      <BottomNavigation />
+    </main>
   );
 };
 
