@@ -10,7 +10,6 @@ export async function GET(request: NextRequest) {
     const cookieStore = cookies();
     const accessToken = cookieStore.get(AUTH_COOKIE_KEYS.accessToken)?.value;
     if (accessToken) {
-      // TO DO: BE 도메인 정상화 이후 복원 + privateApi로 변경
       const { userProfileDto } = await privateApi.get<UserInfoResponse>(`/user/profile`);
       const { communityIds } = userProfileDto;
 
