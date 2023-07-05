@@ -40,7 +40,7 @@ export const createCommunityDetail = (): CommunityDetailModel => ({
   logoImageUrl: faker.image.avatar(),
   coverImageUrl: faker.image.avatar(),
   title: faker.lorem.sentence(),
-  idCardCount: faker.number.int(),
+  userCount: faker.number.int(),
   description: faker.lorem.lines(2),
   invitationCode: '123#aa',
 });
@@ -50,6 +50,6 @@ export const createCommunityList = (): CommunityListModel[] => {
     communityId: faker.number.int(),
     logoImageUrl: faker.image.avatar(),
     title: faker.string.alphanumeric(5),
-    idCardCount: faker.number.int(),
+    userCount: faker.number.int(),
   }));
 };

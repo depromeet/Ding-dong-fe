@@ -15,7 +15,7 @@ export const CommunityAdmin = ({
   logoImageUrl,
   coverImageUrl,
   title,
-  idCardCount,
+  userCount,
   description,
 }: Omit<CommunityAdminProps, 'invitationCode'>) => {
   const router = useRouter();
@@ -48,7 +48,7 @@ export const CommunityAdmin = ({
       <div className="mt-16pxr px-20pxr">
         <CommunityProfile
           logoImageUrl={logoImageUrl}
-          idCardCount={idCardCount}
+          userCount={userCount}
           description={description}
           top={
             <div className="mt-6pxr flex items-center justify-between gap-12pxr py-10pxr">

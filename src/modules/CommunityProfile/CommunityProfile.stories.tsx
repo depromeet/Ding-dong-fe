@@ -15,7 +15,7 @@ export const CommunityProfileStory: Story = {
   render: () => (
     <CommunityProfile
       logoImageUrl="/assets/images/pipi.png"
-      idCardCount={22}
+      userCount={22}
       description="디프만은 디자이너와 개발자가기획부터 론칭까지 함께 경험하는 성장추구형 커뮤니티입니다"
     />
   ),
