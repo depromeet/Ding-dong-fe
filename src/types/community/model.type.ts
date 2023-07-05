@@ -7,7 +7,7 @@ export type CommunityDetailModel = {
   logoImageUrl: string;
   coverImageUrl?: string;
   title: string;
-  idCardCount: number;
+  userCount: number;
   description: string;
   invitationCode: string;
 };
@@ -32,7 +32,10 @@ export type CommunityCodeModel = {
 };
 
 export type InvitationCodeValidationModel = {
-  id: number;
+  checkInvitationCodeDto: {
+    communityId: number;
+    name: string;
+  };
 };
 
 export type CommunityJoinModel = {

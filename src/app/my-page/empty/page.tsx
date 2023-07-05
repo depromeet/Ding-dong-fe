@@ -11,7 +11,7 @@ const EmptyPlanet = () => {
 
   // TODO: communityId가 없는 경우 에러 처리가 필요해요( ex. 홈이나 다른 페이지로 보내기)
   const onClickCreateIdCardButton = () => {
-    router.push(`/planet/${communityId}/id-card/create`);
+    router.replace(`/planet/${communityId}/id-card/create`);
   };
 
   return (

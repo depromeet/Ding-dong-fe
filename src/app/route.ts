@@ -30,7 +30,9 @@ export async function GET(request: NextRequest) {
         }
 
         return communityIds.length > 0
-          ? NextResponse.redirect(new URL(`/planet/${communityIds[0]}`, request.url))
+          ? NextResponse.redirect(
+              new URL(`/planet/${communityIds[communityIds.length - 1]}`, request.url),
+            )
           : NextResponse.redirect(new URL('/planet', request.url));
       }
       return NextResponse.redirect(new URL('/onboarding', request.url));
