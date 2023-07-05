@@ -19,7 +19,6 @@ const Layout = ({ children }: PropsWithChildren) => {
         <TopNavigation.Left>
           <PlanetSelector />
         </TopNavigation.Left>
-        <TopNavigation.Title></TopNavigation.Title>
         <TopNavigation.Right>
           <GearFillIcon onClick={onClickGearFill} />
         </TopNavigation.Right>

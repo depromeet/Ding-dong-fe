@@ -27,7 +27,7 @@ const PlanetPage = async ({ params: { communityId: communityIdParam } }: PlanetP
   };
 
   return (
-    <main>
+    <main className="mb-60pxr">
       <TopNavigation>
         <TopNavigation.Left>
           <PlanetSelector />
