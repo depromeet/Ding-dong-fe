@@ -36,9 +36,11 @@ export const PlanetSelector = () => {
   );
 
   return (
-    <div>
-      <div className="flex items-center gap-8pxr" onClick={bottomSheetHandlers.onOpen}>
-        <p className="text-h1 text-grey-800">{defaultCommunity?.title}</p>
+    <div className="w-full">
+      <div className="flex w-full items-center gap-8pxr" onClick={bottomSheetHandlers.onOpen}>
+        <p className="mix-w-[70%] overflow-hidden text-ellipsis whitespace-nowrap text-h1 text-grey-800">
+          {defaultCommunity?.title}
+        </p>
         <ArrowVerticalIcon />
       </div>
       <BottomSheet {...bottomSheetHandlers}>
