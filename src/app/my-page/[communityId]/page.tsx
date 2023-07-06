@@ -1,10 +1,13 @@
+import 'server-only';
+
 import Link from 'next/link';
 
+import { checkIdCardServer } from '~/api/domain/community.api.server';
 import { MyPageIdCard } from '~/app/my-page/[communityId]/components/MyPageIdCard';
 import { BottomNavigation } from '~/components/BottomNavigation';
 import { GearFillIcon } from '~/components/Icon';
 import { TopNavigation } from '~/components/TopNavigation';
-import { IdCardEditButton } from '~/modules/IdCardEditButton';
+import { CreateIdCardButton } from '~/modules/CreateIdCardButton';
 import { PlanetCreationButton } from '~/modules/PlanetCreationButton';
 import { PlanetSelector } from '~/modules/PlanetSelector';
 
@@ -14,7 +17,9 @@ type MyPageProps = {
   };
 };
 
-const MyPage = ({ params: { communityId } }: MyPageProps) => {
+const MyPage = async ({ params: { communityId } }: MyPageProps) => {
+  const { userMakeIdCard } = await checkIdCardServer(communityId);
+  const isUserMakeIdCard = userMakeIdCard;
   return (
     <div>
       <TopNavigation bottomBorderColor="bg-grey-100">
@@ -29,11 +34,7 @@ const MyPage = ({ params: { communityId } }: MyPageProps) => {
       </TopNavigation>
       <main className="pt-35pxr">
         <div className="mx-layout-l">
-          <div className="mb-16pxr flex w-full justify-between">
-            <h2 className="text-h3 text-grey-800">내 주민증</h2>
-            <IdCardEditButton />
-          </div>
-          <MyPageIdCard id={communityId} />
+          {isUserMakeIdCard ? <MyPageIdCard communityId={communityId} /> : <CreateIdCardButton />}
         </div>
         <div className="mx-layout-sm mt-28pxr">
           <PlanetCreationButton />

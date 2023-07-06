@@ -1,4 +1,5 @@
 import {
+  CheckIdCardResponse,
   CommunityDetailResponse,
   CommunityIdCardsRequest,
   CommunityIdCardsResponse,
@@ -24,3 +25,6 @@ export const getCommunityIdCardsServer = ({
 
 export const getCommunityListServer = (userId: number) =>
   privateApi.get<CommunityListResponse>(`/communities/users/${userId}`);
+
+export const checkIdCardServer = (communityId: number) =>
+  privateApi.get<CheckIdCardResponse>(`/communities/${communityId}/users`);
