@@ -18,8 +18,13 @@ export const PlanetSelector = () => {
   const pathname = usePathname();
   const userId = getUserIdClient();
   const { data: communityList } = useGetCommunityList(userId ?? -1);
-  const { communityId, switchCommunity } = useCommunityStore();
+  const { communityId: communityIdInStore, switchCommunity } = useCommunityStore();
   const { extractPlanetIdFromPathname } = usePlanetNavigate();
+
+  const communityId =
+    communityIdInStore > 0
+      ? communityIdInStore
+      : communityList?.communityListDtos.slice(-1)[0]?.communityId;
 
   const INIT_PLANET_ID = -1;
 
