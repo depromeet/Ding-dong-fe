@@ -23,5 +23,5 @@ const keywordsWithoutId = MOCK_ID_CARD.keywords.map(({ title, imageUrl, content 
 }));
 
 export const Primary: Story = {
-  render: () => <IdCardEditor {...MOCK_ID_CARD} keywords={keywordsWithoutId} />,
+  render: () => <IdCardEditor communityId={123} {...MOCK_ID_CARD} keywords={keywordsWithoutId} />,
 };
