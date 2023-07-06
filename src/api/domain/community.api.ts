@@ -175,7 +175,7 @@ export const useWithdrawalCommunity = (communityId: number) => {
     onSuccess: () => {
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       queryClient.invalidateQueries(communityQueryKey.communityList(userId!));
-      router.push('/');
+      router.push('/my-page');
       infoToast('행성을 떠났어요.');
     },
     onError: () => {
