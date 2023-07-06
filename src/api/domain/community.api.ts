@@ -178,8 +178,8 @@ export const useWithdrawalCommunity = (communityId: number) => {
       router.push('/my-page');
       infoToast('행성을 떠났어요.');
     },
-    onError: () => {
-      errorToast('행성 탈퇴에 실패했어요.');
+    onError: (error: AxiosError) => {
+      errorToast(`${error.message}`);
     },
   });
 };

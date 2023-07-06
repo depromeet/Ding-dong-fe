@@ -10,8 +10,7 @@ import { useRouter } from 'next/navigation';
 
 import privateApi from '~/api/config/privateApi';
 import { useToastMessageStore } from '~/stores/toastMessage.store';
-import { CharacterCreateRequest } from '~/types/user';
-import { UserInfoResponse } from '~/types/user';
+import { CharacterCreateRequest, UserInfoResponse } from '~/types/user';
 
 export const userQueryKey = {
   userInfo: () => ['userInfo'],
@@ -48,8 +47,8 @@ export const useDeleteUser = () => {
       router.replace(`/`);
       infoToast('회원탈퇴가 완료되었습니다.');
     },
-    onError: () => {
-      errorToast('회원탈퇴에 실패하였습니다.');
+    onError: (error: AxiosError) => {
+      errorToast(`${error.message}`);
     },
   });
 };
