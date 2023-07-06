@@ -1,5 +1,3 @@
-import 'server-only';
-
 import { MyPageEditIdCard } from '~/app/my-page/[communityId]/edit/components/MyPageEditIdCard';
 
 type MyPageEditProps = {
