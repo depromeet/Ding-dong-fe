@@ -29,3 +29,26 @@ export const checkNotificationAgo = (createdAt: string) => {
     return NOTIFICATION_AGO.REST;
   }
 };
+
+export const getCreatedAtFormat = (createdAt: string) => {
+  const currentTime = new Date();
+  const postDate = new Date(createdAt);
+  const timeDiff = currentTime.getTime() - postDate.getTime();
+
+  if (timeDiff < 60 * 1000) {
+    // 1분 이내 게시
+    return '방금';
+  } else if (timeDiff < 60 * 60 * 1000) {
+    // 1시간 이내 게시
+    return `${Math.floor(timeDiff / 1000 / 60)}분`;
+  } else if (timeDiff < 24 * 60 * 60 * 1000) {
+    // 1일 이내 게시
+    return `${Math.floor(timeDiff / 1000 / 60 / 60)}시간`;
+  } else if (timeDiff < 7 * 24 * 60 * 60 * 1000) {
+    // 7일 이내 게시
+    return `${Math.floor(timeDiff / 1000 / 60 / 60 / 24)}일`;
+  } else {
+    // 주 단위
+    return `${Math.floor(timeDiff / 1000 / 60 / 60 / 24 / 7)}주`;
+  }
+};
