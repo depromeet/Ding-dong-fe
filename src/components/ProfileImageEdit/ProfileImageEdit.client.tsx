@@ -20,6 +20,7 @@ function ProfileImageEditComponent<T extends FieldValues>(
   { defaultProfileImage, className, fieldName, setValue, ...rest }: ProfileImageEditProps<T>,
   ref: ForwardedRef<HTMLInputElement>,
 ) {
+  // FIXME: default profile url로 수정
   const [profileImage, setProfileImage] = useState<string>(defaultProfileImage || '');
   const { mutateAsync } = usePostImageUrl();
 
