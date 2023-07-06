@@ -1,6 +1,6 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 
 import { useGetCommunityList } from '~/api/domain/community.api';
@@ -14,9 +14,12 @@ import { tw } from '~/utils/tailwind.util';
 
 export const PlanetSelector = () => {
   const bottomSheetHandlers = useBottomSheet();
+  const pathname = usePathname();
   const userId = getUserIdClient();
   const { data: communityList } = useGetCommunityList(userId ?? -1);
   const { communityId, switchCommunity } = useCommunityStore();
+
+  const INIT_PLANET_ID = -1;
 
   const router = useRouter();
 
@@ -24,12 +27,46 @@ export const PlanetSelector = () => {
     router.push('/admin/planet/create');
   };
 
-  useEffect(() => {
+  const isSamePlanetIdFromPathname = (pathPlanetId: number) => pathPlanetId === communityId;
+
+  const extractPlanetIdFromPathname = (currentPathname: string) => {
+    const parts = currentPathname.split('/');
+    const planetIdIndex = parts.findIndex(part => part === 'planet' || part === 'my-page');
+
+    const notFoundPlanetID = planetIdIndex === -1;
+    const planetIdIndexOverPathLength = planetIdIndex + 1 >= parts.length;
+
+    if (notFoundPlanetID) return null;
+    if (planetIdIndexOverPathLength) return null;
+
+    return Number(parts[planetIdIndex + 1]);
+  };
+
+  const getLastPlanetId = () => {
     const lastCommunity = communityList?.communityListDtos.slice(-1)[0];
-    if (communityId < 0 && lastCommunity) {
-      switchCommunity(lastCommunity.communityId);
+    if (!lastCommunity) return INIT_PLANET_ID;
+    return lastCommunity.communityId;
+  };
+
+  const switchPlanetIdByPathname = () => {
+    const planetId = extractPlanetIdFromPathname(pathname);
+
+    if (!planetId) {
+      const lastPlanetId = getLastPlanetId();
+      switchCommunity(lastPlanetId);
+      return;
     }
-  }, [communityId, communityList?.communityListDtos, switchCommunity]);
+
+    if (isSamePlanetIdFromPathname(planetId)) {
+      return;
+    }
+
+    switchCommunity(planetId);
+  };
+
+  useEffect(() => {
+    switchPlanetIdByPathname();
+  }, [pathname]);
 
   const defaultCommunity = communityList?.communityListDtos.find(
     community => community.communityId === communityId,
