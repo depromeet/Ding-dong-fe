@@ -1,5 +1,5 @@
 'use client';
-import { faker } from '@faker-js/faker/locale/ko';
+
 import { useFormContext } from 'react-hook-form';
 
 import { ProfileImageEdit } from '~/components/ProfileImageEdit';
@@ -14,9 +14,13 @@ const TEXT_AREA_MAX_LENGTH = 50;
 export const ProfileStep = () => {
   const {
     register,
+    getValues,
     setValue,
     formState: { errors },
   } = useFormContext<IdCardCreationFormModel>();
+
+  const profileImageUrl = getValues('profileImageUrl');
+
   const { textCount, onChangeHandler } = useTextInput({
     onChange: register('nickname').onChange,
     maxLength: TEXT_MAX_LENGTH,
@@ -30,11 +34,10 @@ export const ProfileStep = () => {
   return (
     <div className="px-layout-sm">
       <h1 className="text-h1">{title}</h1>
-      {/*TODO: 캐릭터 디자인 나오면 faker 삭제 예정*/}
       <ProfileImageEdit<IdCardCreationFormModel>
         className="mx-auto mt-20pxr"
         fieldName="profileImageUrl"
-        defaultProfileImage={faker.image.avatar()}
+        defaultProfileImage={profileImageUrl}
         setValue={setValue}
       />
       <TextInput>

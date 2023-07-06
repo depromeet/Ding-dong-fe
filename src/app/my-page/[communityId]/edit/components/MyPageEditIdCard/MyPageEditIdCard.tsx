@@ -1,38 +1,42 @@
-import 'server-only';
-
 import { Suspense } from 'react';
 
+import { idCardQueryKey } from '~/api/domain/idCard.api';
 import { getCommunityMyIdCardDetailServer } from '~/api/domain/idCard.api.server';
 import RetryErrorBoundary from '~/components/ErrorBoundary/RetryErrorBoundary.client';
+import { HydrationProvider } from '~/components/HydrationProvider';
 import { IdCardEditor } from '~/modules/IdCardEditor';
 
 type EditMyPageProps = {
-  id: number;
+  communityId: number;
 };
 
-const MyPageEditCardComponent = async ({ id }: EditMyPageProps) => {
-  const { idCardDetailsDto } = await getCommunityMyIdCardDetailServer(id);
-  const { idCardId, nickname, aboutMe, profileImageUrl, keywords } = idCardDetailsDto;
+const MyPageEditCardComponent = ({ communityId }: EditMyPageProps) => {
+  const getCommunityMyIdCardDetailQuery = async () => {
+    const { idCardDetailsDto } = await getCommunityMyIdCardDetailServer(communityId);
+
+    return {
+      idCardDetailsDto,
+    };
+  };
 
   return (
-    <main>
-      <IdCardEditor
-        idCardId={idCardId}
-        nickname={nickname}
-        aboutMe={aboutMe}
-        profileImageUrl={profileImageUrl}
-        keywords={keywords}
-      />
-    </main>
+    <>
+      {/* @ts-expect-error Server Component */}
+      <HydrationProvider
+        queryKey={idCardQueryKey.myCommunity(communityId)}
+        queryFn={getCommunityMyIdCardDetailQuery}
+      >
+        <IdCardEditor communityId={communityId} />
+      </HydrationProvider>
+    </>
   );
 };
 
-export const MyPageEditIdCard = ({ id }: EditMyPageProps) => {
+export const MyPageEditIdCard = ({ communityId }: EditMyPageProps) => {
   return (
     <RetryErrorBoundary>
       <Suspense>
-        {/* @ts-expect-error Server Component */}
-        <MyPageEditCardComponent id={id} />
+        <MyPageEditCardComponent communityId={communityId} />
       </Suspense>
     </RetryErrorBoundary>
   );

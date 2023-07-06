@@ -8,7 +8,7 @@ export const IdCardEditButton = () => {
   const router = useRouter();
 
   const onClickIdCardEditButton = () => {
-    router.push(`${pathname}/edit`);
+    router.replace(`${pathname}/edit`);
   };
 
   return (

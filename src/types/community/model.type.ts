@@ -1,13 +1,14 @@
 import { CharacterNameModel, IdCardDetailModel } from '~/types/idCard';
 
-export type CommunityIdCardSummaryModel = Omit<IdCardDetailModel, 'profileImageUrl'>;
+// FIXME: 아래 타입 어디서 사용하죠? 아무대서도 사용 안하는 것 같은뎁
+export type CommunityIdCardSummaryModel = Omit<IdCardDetailModel, 'profileImageUrl' | 'userId'>;
 
 export type CommunityDetailModel = {
   communityId: number;
   logoImageUrl: string;
   coverImageUrl?: string;
   title: string;
-  idCardCount: number;
+  userCount: number;
   description: string;
   invitationCode: string;
 };
@@ -32,7 +33,10 @@ export type CommunityCodeModel = {
 };
 
 export type InvitationCodeValidationModel = {
-  id: number;
+  checkInvitationCodeDto: {
+    communityId: number;
+    name: string;
+  };
 };
 
 export type CommunityJoinModel = {

@@ -1,6 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
+import { GearIcon } from '~/components/Icon';
 import { TopNavigation } from '~/components/TopNavigation';
+import { PlanetSelector } from '~/modules/PlanetSelector';
 
 import { TopNavigationProgressBar } from './TopNavigationProgressBar';
 
@@ -26,6 +28,33 @@ export const Primary: Story = {
   },
 };
 
+export const WithPlanetSelector: Story = {
+  render: () => {
+    return (
+      <TopNavigation>
+        <TopNavigation.Left>
+          <PlanetSelector />
+        </TopNavigation.Left>
+      </TopNavigation>
+    );
+  },
+};
+
+export const PlanetTitleWithRightButton: Story = {
+  render: () => {
+    return (
+      <TopNavigation>
+        <TopNavigation.Left>
+          <PlanetSelector />
+        </TopNavigation.Left>
+        <TopNavigation.Right>
+          <GearIcon />
+        </TopNavigation.Right>
+      </TopNavigation>
+    );
+  },
+};
+
 export const CancelBackButton: Story = {
   render: () => (
     <TopNavigation>
@@ -46,40 +75,16 @@ export const BackButtonWithCustomLink: Story = {
   ),
 };
 
-export const TitleWithDBackButton: Story = {
-  render: () => (
-    <TopNavigation>
-      <TopNavigation.Left>
-        <TopNavigation.BackButton backLink="/custom-link" />
-      </TopNavigation.Left>
-      <TopNavigation.Title>Title</TopNavigation.Title>
-    </TopNavigation>
-  ),
-};
-
-export const TitleWithTwoLine: Story = {
-  render: () => (
-    <TopNavigation>
-      <TopNavigation.Left>
-        <TopNavigation.BackButton backLink="/custom-link" />
-      </TopNavigation.Left>
-      <TopNavigation.Title>
-        <div className="flex flex-col items-center justify-center">
-          <span className="text-b3 text-grey-500">김피피</span>
-          <span className="text-grey-900">주민정보</span>
-        </div>
-      </TopNavigation.Title>
-    </TopNavigation>
-  ),
-};
-
 export const BottomBorder: Story = {
   render: () => (
     <TopNavigation bottomBorderColor="primary-500">
       <TopNavigation.Left>
-        <TopNavigation.BackButton backLink="/custom-link" />
+        <TopNavigation.BackButton />
       </TopNavigation.Left>
       <TopNavigation.Title>Title</TopNavigation.Title>
+      <TopNavigation.Right>
+        <GearIcon />
+      </TopNavigation.Right>
     </TopNavigation>
   ),
 };

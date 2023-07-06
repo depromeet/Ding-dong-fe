@@ -50,7 +50,7 @@ export const CommunityList = ({ ...rest }) => {
               />
               <div className="flex flex-col gap-4pxr">
                 <p className={`${tw('text-b1 text-[#282828]', 'font-bold')}`}>{community.title}</p>
-                <p className="text-b2 text-[#848484]">{community.idCardCount} 주민</p>
+                <p className="text-b2 text-[#848484]">{community.userCount} 주민</p>
               </div>
             </div>
             <Divider />

@@ -13,7 +13,6 @@ export type CommentReplyModel = {
   commentReplyId: number;
   content: string;
   createdAt: string;
-  writerInfo: CommentWriterIntoModel;
   commentReplyLikeInfo: CommentLikeModel;
 };
 

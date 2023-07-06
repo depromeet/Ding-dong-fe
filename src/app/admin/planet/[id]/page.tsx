@@ -1,7 +1,4 @@
-import 'server-only';
-
-import { getCommunityDetailServer } from '~/api/domain/community.api.server';
-import { CommunityAdmin } from '~/modules/CommunityAdmin/CommunityAdmin';
+import { AdminPlanetDetail } from '~/app/admin/planet/[id]/components/AdminPlanetDetailPage';
 
 type AdminCommunityDetailPageProps = {
   params: {
@@ -9,9 +6,8 @@ type AdminCommunityDetailPageProps = {
   };
 };
 
-const AdminCommunityDetailPage = async ({ params: { id } }: AdminCommunityDetailPageProps) => {
-  const { communityDetailsDto } = await getCommunityDetailServer(Number(id));
-  return <CommunityAdmin {...communityDetailsDto} />;
+const AdminCommunityDetailPage = ({ params: { id } }: AdminCommunityDetailPageProps) => {
+  return <AdminPlanetDetail planetId={Number(id)} />;
 };
 
 export default AdminCommunityDetailPage;

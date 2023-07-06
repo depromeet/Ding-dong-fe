@@ -4,6 +4,7 @@ import { usePathname, useRouter } from 'next/navigation';
 
 import { Divider } from '~/components/Divider';
 import { BellIcon, HomeIcon, PersonIcon } from '~/components/Icon';
+import { usePlanetNavigate } from '~/hooks/usePlanetNavigate';
 import { NewNotificationBadge } from '~/modules/Notification/NewNotificationBadge.client';
 
 type BottomNavigationPath = '/planet' | '/notification' | '/my-page' | '/';
@@ -11,8 +12,9 @@ type BottomNavigationPath = '/planet' | '/notification' | '/my-page' | '/';
 export const BottomNavigation = () => {
   const pathname = usePathname();
   const router = useRouter();
+  const { extractPlanetIdFromPathname } = usePlanetNavigate();
 
-  const handleNavigation = (path: BottomNavigationPath) => {
+  const handleNavigation = (path: string) => {
     router.push(path);
   };
 
@@ -24,23 +26,43 @@ export const BottomNavigation = () => {
     }
   };
 
+  const onClickHome = () => {
+    const planetId = extractPlanetIdFromPathname(pathname);
+    if (planetId) {
+      handleNavigation(`/planet/${planetId}`);
+      return;
+    }
+    handleNavigation('/');
+  };
+  const onClickNotification = () => {
+    handleNavigation('/notification');
+  };
+  const onClickMyPage = () => {
+    const planetId = extractPlanetIdFromPathname(pathname);
+    if (planetId) {
+      handleNavigation(`/my-page/${planetId}`);
+      return;
+    }
+    handleNavigation('/my-page');
+  };
+
   return (
     <nav className="fixed bottom-0 left-0 w-full">
       <Divider />
       <ul className="flex h-b-nav items-center justify-evenly bg-white">
         <li>
-          <button onClick={() => handleNavigation('/')}>
+          <button onClick={onClickHome}>
             <HomeIcon className={getSvgcolor('/planet')} />
           </button>
         </li>
         <li>
-          <button onClick={() => handleNavigation('/notification')} className="relative">
+          <button onClick={onClickNotification} className="relative">
             <NewNotificationBadge />
             <BellIcon height={26} className={getSvgcolor('/notification')} />
           </button>
         </li>
         <li>
-          <button onClick={() => handleNavigation('/my-page')}>
+          <button onClick={onClickMyPage}>
             <PersonIcon className={getSvgcolor('/my-page')} />
           </button>
         </li>

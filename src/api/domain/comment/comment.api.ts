@@ -120,8 +120,8 @@ export const usePostCommentCreate = (idCardId: number, communityId: number) => {
     },
     onError: (err, newComment, context) => {
       if (context?.previousComments !== undefined && context?.previousCommentCount !== undefined) {
-        // TODO: toast error
-        errorToast('에러');
+        const error = err as AxiosError;
+        errorToast(error.message);
         queryClient.setQueryData(commentQueryKey.comments(idCardId), context.previousComments);
         queryClient.setQueryData(
           commentQueryKey.commentCount(idCardId),
@@ -145,6 +145,7 @@ export const deleteComment = ({ idCardId, commentId }: CommentDeleteRequest) =>
 
 export const useDeleteComment = (idCardId: number) => {
   const queryClient = useQueryClient();
+  const { errorToast } = useToastMessageStore();
 
   return useMutation({
     mutationFn: (commentInfo: CommentDeleteRequest) => deleteComment(commentInfo),
@@ -169,7 +170,8 @@ export const useDeleteComment = (idCardId: number) => {
     },
     onError: (err, newComment, context) => {
       if (context?.previousComments !== undefined && context?.previousCommentCount !== undefined) {
-        // TODO: toast error
+        const error = err as AxiosError;
+        errorToast(error.message);
         queryClient.setQueryData(commentQueryKey.comments(idCardId), context.previousComments);
         queryClient.setQueryData(
           commentQueryKey.commentCount(idCardId),
@@ -187,6 +189,7 @@ export const postReplyCreate = ({ idCardId, commentId, contents }: CommentPostRe
 
 export const usePostReplyCreate = (idCardId: number, communityId: number) => {
   const queryClient = useQueryClient();
+  const { errorToast } = useToastMessageStore();
 
   return useMutation({
     mutationFn: (replyInfo: CommentPostReplyRequest) => postReplyCreate(replyInfo),
@@ -199,9 +202,6 @@ export const usePostReplyCreate = (idCardId: number, communityId: number) => {
       if (userInfo) {
         const newReply = createNewReply({
           contents: commentInfo.contents,
-          nickname: userInfo.myInfoInInCommunityDto.nickname,
-          profileImageUrl: userInfo.myInfoInInCommunityDto.profileImageUrl,
-          userId: userInfo.myInfoInInCommunityDto.userId,
         });
 
         const previousComments = queryClient.getQueryData<CommentPages>(
@@ -216,7 +216,8 @@ export const usePostReplyCreate = (idCardId: number, communityId: number) => {
     },
     onError: (err, newComment, context) => {
       if (context?.previousComments) {
-        // TODO: toast error
+        const error = err as AxiosError;
+        errorToast(error.message);
         queryClient.setQueryData(commentQueryKey.comments(idCardId), context.previousComments);
       }
     },
@@ -239,6 +240,7 @@ export const deleteReply = ({ idCardId, commentId, commentReplyId }: CommentRepl
 
 export const useDeleteReply = (idCardId: number) => {
   const queryClient = useQueryClient();
+  const { errorToast } = useToastMessageStore();
 
   return useMutation({
     mutationFn: (replyInfo: CommentReplyDeleteRequest) => deleteReply(replyInfo),
@@ -260,7 +262,8 @@ export const useDeleteReply = (idCardId: number) => {
     },
     onError: (err, newComment, context) => {
       if (context?.previousComments) {
-        // TODO: toast error
+        const error = err as AxiosError;
+        errorToast(error.message);
         queryClient.setQueryData(commentQueryKey.comments(idCardId), context.previousComments);
       }
     },

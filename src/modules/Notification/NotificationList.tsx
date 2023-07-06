@@ -1,5 +1,5 @@
 import { NotificationModel } from '~/types/notification';
-import { checkCreateAtAgo } from '~/utils/time.util';
+import { checkNotificationAgo } from '~/utils/time.util';
 
 import { NotificationItem } from './NotificationItem';
 
@@ -8,7 +8,7 @@ type NotificationListProps = {
 };
 export const NotificationList = ({ notifications }: NotificationListProps) => {
   const notificationAgoList = notifications.map(notification =>
-    checkCreateAtAgo(notification.createdAt),
+    checkNotificationAgo(notification.createdAt),
   );
 
   return (

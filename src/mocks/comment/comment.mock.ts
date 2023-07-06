@@ -23,7 +23,6 @@ export const createCommentReply = (idx: number): CommentReplyModel => ({
       to: '2023-08-31T00:00:00.000Z',
     })
     .toLocaleString(),
-  writerInfo: createCommentWriter(idx),
   commentReplyLikeInfo: createCommentLike(),
 });
 

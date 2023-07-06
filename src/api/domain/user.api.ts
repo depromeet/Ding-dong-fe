@@ -1,13 +1,20 @@
-import { useMutation, UseMutationOptions, useQuery, UseQueryOptions } from '@tanstack/react-query';
+import {
+  useMutation,
+  UseMutationOptions,
+  useQuery,
+  useQueryClient,
+  UseQueryOptions,
+} from '@tanstack/react-query';
 import { AxiosError } from 'axios';
+import { useRouter } from 'next/navigation';
 
 import privateApi from '~/api/config/privateApi';
-import { CharacterCreateRequest } from '~/types/user';
-import { UserInfoResponse } from '~/types/user';
+import { useToastMessageStore } from '~/stores/toastMessage.store';
+import { CharacterCreateRequest, UserInfoResponse } from '~/types/user';
 
 export const userQueryKey = {
   userInfo: () => ['userInfo'],
-  invitationCodeIsValid: () => ['invitaion', 'code', 'valid'],
+  invitationCodeIsValid: () => ['invitation', 'code', 'valid'],
 };
 
 export const getUserInfo = () => privateApi.get<UserInfoResponse>(`/user/profile`);
@@ -25,3 +32,23 @@ export const usePostCharacterCreate = (
     mutationFn: postCharacterCreate,
     ...options,
   });
+
+export const deleteUser = () => privateApi.delete(`/user`);
+
+export const useDeleteUser = () => {
+  const queryClient = useQueryClient();
+  const router = useRouter();
+  const { infoToast, errorToast } = useToastMessageStore();
+
+  return useMutation<unknown, AxiosError>({
+    mutationFn: deleteUser,
+    onSuccess: () => {
+      queryClient.invalidateQueries(userQueryKey.userInfo());
+      router.replace(`/`);
+      infoToast('회원탈퇴가 완료되었습니다.');
+    },
+    onError: (error: AxiosError) => {
+      errorToast(`${error.message}`);
+    },
+  });
+};

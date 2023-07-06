@@ -1,16 +1,21 @@
 'use client';
 
 import { yupResolver } from '@hookform/resolvers/yup';
+import { usePathname, useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import * as yup from 'yup';
 
 import { usePostIdCardCreate } from '~/api/domain/idCard.api';
+import { useGetUserInfo } from '~/api/domain/user.api';
 import { IdCardCreationForm } from '~/modules/IdCardCreation/Form';
 import { BoardingStep, CompleteStep } from '~/modules/IdCardCreation/Step';
+import { useToastMessageStore } from '~/stores/toastMessage.store';
 import { IdCardCreationFormModel } from '~/types/idCard';
 
 import { CreationSteps } from './IdCardCreation.type';
+
+const INIT_STEP = 0;
 
 const steps: CreationSteps[] = ['BOARDING', 'PROFILE', 'KEYWORD', 'KEYWORD_CONTENT', 'COMPLETE'];
 
@@ -27,10 +32,15 @@ type IdCardCreationStepsProps = {
 };
 
 export const IdCardCreationSteps = ({ communityId }: IdCardCreationStepsProps) => {
+  const { errorToast } = useToastMessageStore();
+  const { data } = useGetUserInfo();
+  const profileImageUrl = data?.userProfileDto.profileImageUrl;
+  const router = useRouter();
+  const pathname = usePathname();
   const methods = useForm<IdCardCreationFormModel>({
     defaultValues: {
       communityId,
-      profileImageUrl: '',
+      profileImageUrl,
       nickname: '',
       aboutMe: '',
       keywords: [],
@@ -38,15 +48,22 @@ export const IdCardCreationSteps = ({ communityId }: IdCardCreationStepsProps) =
     mode: 'onChange',
     resolver: yupResolver(schema),
   });
-  const [userId, setUserId] = useState<number>();
+  const [idCardId, setIdCardId] = useState<number>();
 
-  const [stepOrder, setStepOrder] = useState<number>(0);
+  const [stepOrder, setStepOrder] = useState<number>(INIT_STEP);
   const onNext = () => setStepOrder(stepOrder + 1);
   const onPrev = () => setStepOrder(stepOrder - 1);
 
   const { mutateAsync } = usePostIdCardCreate({
     onSuccess: data => {
-      setUserId(data.id);
+      setIdCardId(data.id);
+    },
+    onError: error => {
+      errorToast(error.message);
+      setTimeout(() => {
+        const planetIdPathname = pathname.replace('/id-card/create', '');
+        router.push(`${planetIdPathname}`);
+      }, 2000);
     },
   });
 
@@ -71,7 +88,7 @@ export const IdCardCreationSteps = ({ communityId }: IdCardCreationStepsProps) =
             onSubmit={onSubmit}
           />
         )}
-        {steps[stepOrder] === 'COMPLETE' && userId && <CompleteStep userId={userId} />}
+        {steps[stepOrder] === 'COMPLETE' && idCardId && <CompleteStep idCardId={idCardId} />}
       </div>
     </FormProvider>
   );

@@ -1,63 +1,61 @@
 'use client';
 
+import Image from 'next/image';
 import { useSearchParams } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 
-import { ROOT_URL } from '~/api/config/requestUrl';
-import { useGetCommunityDetail } from '~/api/domain/community.api';
-import { Button } from '~/components/Button';
-import { CopyInvitation, useConfirmPopup } from '~/components/ConfirmPopup';
-import { KakaoIcon } from '~/components/Icon/KakaoIcon';
-import { useToastMessageStore } from '~/stores/toastMessage.store';
+import { useGetCommunityList } from '~/api/domain/community.api';
+import { TopNavigation } from '~/components/TopNavigation';
+import { InvitationButtons } from '~/modules/InvitationButtons/InvitationButtons.client';
+import { getUserIdClient } from '~/utils/auth/getUserId.client';
 
 const AdminCommunityCreateResultPage = () => {
+  const userId = getUserIdClient();
+  const router = useRouter();
   const searchParams = useSearchParams();
   const communityIdParam = searchParams.get('communityId');
-  const communityId = isNaN(Number(communityIdParam)) ? -1 : Number(communityIdParam);
-  const { data } = useGetCommunityDetail(communityId);
-  const { infoToast } = useToastMessageStore();
 
-  const copyInvitationCodeToClipBoard = () => {
-    navigator.clipboard.writeText(
-      `${ROOT_URL}/invitation/${data?.communityDetailsDto.invitationCode}`,
-    );
+  const { data: communityList } = useGetCommunityList(userId ?? -1);
+
+  const lastCommunityId = communityList?.communityListDtos.slice(-1)[0].communityId || -1;
+
+  const communityId = communityIdParam ? Number(communityIdParam) : lastCommunityId;
+
+  const onClickLaterButton = () => {
+    router.push(`/planet/${communityId}`);
   };
-
-  const {
-    isOpen: isKakaoShareOpen,
-    openPopup: openKakaoSharePopup,
-    closePopup: closeKakaoSharePopup,
-    confirm: kakaoShare,
-  } = useConfirmPopup();
-
-  const onClickCopyWebLinkButton = async () => {
-    copyInvitationCodeToClipBoard();
-    infoToast('클립보드에 복사가 완료됐어요!');
-  };
-
-  const onClickKakaoShareButton = async () => {
-    const isOk = await openKakaoSharePopup();
-    closeKakaoSharePopup();
-    if (isOk) {
-      copyInvitationCodeToClipBoard();
-      infoToast('공유하기 기능은 준비 중이에요...😓');
-    }
-  };
-
   return (
-    <div className="mt-3pxr flex flex-col gap-16pxr">
-      <Button color="primary" size="xLarge" onClick={onClickCopyWebLinkButton}>
-        초대 링크 복사하기
-      </Button>
-      <Button
-        color="primary"
-        size="medium"
-        className="flex justify-center gap-4pxr bg-[#F9DF4A] pb-15pxr pt-17pxr text-[#391B1B]"
-        onClick={onClickKakaoShareButton}
-      >
-        <KakaoIcon className="mt-1pxr" />
-        카카오톡으로 초대하기
-      </Button>
-      {isKakaoShareOpen && <CopyInvitation confirm={kakaoShare} />}
+    <div>
+      <TopNavigation>
+        <TopNavigation.Right className="w-screen">
+          <button
+            type="button"
+            form="community-admin-edit-form"
+            className="text-h5 font-semibold text-grey-500"
+            onClick={onClickLaterButton}
+          >
+            나중에 할래요
+          </button>
+        </TopNavigation.Right>
+      </TopNavigation>
+      <main className="mt-26pxr px-5">
+        <h1 className="text-h2">행성 생성 완료</h1>
+        <p className="mt-11pxr text-b2 font-normal text-gray-700">
+          활기찬 행성을 위해 함께 할 주민이 필요할 거에요!
+        </p>
+        <div className="relative mt-30pxr">
+          <Image
+            src="/assets/images/planet-create-result-bg.png"
+            width={375}
+            height={375}
+            className="object-contain"
+            alt="planet"
+          />
+        </div>
+        <div className="mt-3pxr">
+          <InvitationButtons communityId={communityId} />
+        </div>
+      </main>
     </div>
   );
 };

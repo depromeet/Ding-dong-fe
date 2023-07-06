@@ -17,10 +17,11 @@ import {
   UserProfile,
 } from '~/modules/CommentList/CommentCommon';
 import { useLike } from '~/modules/CommentList/useLike';
+import { useToastMessageStore } from '~/stores/toastMessage.store';
 import { CommentModel, CommentReplyModel } from '~/types/comment';
 import { getUserIdClient } from '~/utils/auth/getUserId.client';
 
-type CommentProps = Pick<CommentModel, 'idCardId' | 'commentId'> & CommentReplyModel;
+type CommentProps = Pick<CommentModel, 'idCardId' | 'commentId' | 'writerInfo'> & CommentReplyModel;
 
 export const CommentReply = ({
   idCardId,
@@ -31,21 +32,22 @@ export const CommentReply = ({
   writerInfo,
   commentReplyLikeInfo,
 }: CommentProps) => {
+  const { errorToast } = useToastMessageStore();
   const { userId: writerId, profileImageUrl, nickname } = writerInfo;
   const { isLikedByCurrentUser, likeCount, likeComment, cancelLikeComment } =
     useLike(commentReplyLikeInfo);
   const userId = getUserIdClient();
 
   const mutatePostLike = usePostLikeCommentReply({
-    onError: () => {
-      // TODO toast error
+    onError: error => {
+      errorToast(error.message);
       cancelLikeComment();
     },
   });
 
   const mutateDeleteLike = useDeleteCommentReplyLike({
-    onError: () => {
-      // TODO toast error
+    onError: error => {
+      errorToast(error.message);
       likeComment();
     },
   });

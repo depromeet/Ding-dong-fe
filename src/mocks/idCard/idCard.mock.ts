@@ -4,6 +4,7 @@ import { IdCardCreateResponse, IdCardDetailModel } from '~/types/idCard';
 
 export const idCardDetailMock = (): IdCardDetailModel => ({
   idCardId: faker.number.int(),
+  userId: faker.number.int(),
   nickname: faker.person.fullName(),
   profileImageUrl: faker.image.avatar(),
   aboutMe: faker.lorem.paragraph(),

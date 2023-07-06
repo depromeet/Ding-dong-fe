@@ -1,4 +1,5 @@
 import { UseMutationResult } from '@tanstack/react-query';
+import { ChangeEvent } from 'react';
 import { useFormContext } from 'react-hook-form';
 
 import { checkCommunityName } from '~/api/domain/community.api';
@@ -42,7 +43,10 @@ export const CommunityAdminEditForm = ({
     defaultValues?.logoImageUrl || '/assets/images/default_planet_logo.png';
 
   const { textCount, onChangeHandler } = useTextInput({
-    onChange: register('name').onChange,
+    onChange: (e: ChangeEvent<HTMLInputElement>) => {
+      register('name').onChange(e);
+      checkDuplicate(e.target.value);
+    },
     maxLength: TEXT_MAX_LENGTH,
   });
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -56,7 +60,10 @@ export const CommunityAdminEditForm = ({
     setIsDuplicatedCheck(check.data ? 'ERROR' : 'SUCCESS');
   };
 
-  const onClickTitle = () => isDuplicatedCheck !== 'DEFAULT' && setIsDuplicatedCheck('DEFAULT');
+  const checkDuplicate = (value: string) => {
+    if (value === defaultValues?.name && isDuplicatedCheck === 'SUCCESS') return;
+    isDuplicatedCheck !== 'DEFAULT' && setIsDuplicatedCheck('DEFAULT');
+  };
 
   return (
     <form id="community-admin-edit-form" onSubmit={handleSubmit(onSubmit)}>
@@ -66,7 +73,7 @@ export const CommunityAdminEditForm = ({
         defaultProfileImage={defaultPlanetLogoImage}
         setValue={setValue}
       />
-      <TextInput onClick={onClickTitle}>
+      <TextInput>
         <TextInput.Label name="title" required>
           행성 이름
         </TextInput.Label>

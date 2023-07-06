@@ -1,6 +1,9 @@
+'use client';
+import Link from 'next/link';
 import { Suspense } from 'react';
 
-import { getIdCardDetailServer } from '~/api/domain/idCard.api.server';
+import { useGetIdCardDetail } from '~/api/domain/idCard.api';
+import { useGetUserInfo } from '~/api/domain/user.api';
 import RetryErrorBoundary from '~/components/ErrorBoundary/RetryErrorBoundary.client';
 import { TopNavigation } from '~/components/TopNavigation';
 import { Intro, KeywordContentCard } from '~/modules/IdCardDetail';
@@ -15,11 +18,19 @@ const bgColors: Record<CharacterNameModel, string> = {
 
 type IdCardDetailProps = {
   idCardId: number;
+  communityId: number;
 };
 
-const IdCardDetailComponent = async ({ idCardId }: IdCardDetailProps) => {
-  const { idCardDetailsDto } = await getIdCardDetailServer(idCardId);
+const IdCardDetailComponent = ({ idCardId, communityId }: IdCardDetailProps) => {
+  const { data: idCardDetail } = useGetIdCardDetail(idCardId);
+  const { data: userInfo } = useGetUserInfo();
+
+  const idCardDetailsDto = idCardDetail!.idCardDetailsDto;
+  const userId = userInfo!.userProfileDto.userId;
+
   const bgColor = bgColors[idCardDetailsDto.characterType];
+
+  const isMyIdCard = userId === idCardDetailsDto.userId;
 
   return (
     <>
@@ -27,6 +38,16 @@ const IdCardDetailComponent = async ({ idCardId }: IdCardDetailProps) => {
         <TopNavigation.Left>
           <TopNavigation.BackButton />
         </TopNavigation.Left>
+        {isMyIdCard && (
+          <TopNavigation.Right>
+            <Link
+              href={`/my-page/${communityId}/edit`}
+              className="text-h5 font-semibold text-primary-500"
+            >
+              수정
+            </Link>
+          </TopNavigation.Right>
+        )}
       </TopNavigation>
       <div className={`${bgColor} pt-[44px]`}>
         <Intro {...idCardDetailsDto} />
@@ -54,12 +75,11 @@ const IdCardDetailComponent = async ({ idCardId }: IdCardDetailProps) => {
   );
 };
 
-export const IdCardDetail = ({ idCardId }: IdCardDetailProps) => {
+export const IdCardDetail = ({ idCardId, communityId }: IdCardDetailProps) => {
   return (
     <RetryErrorBoundary>
       <Suspense>
-        {/* @ts-expect-error Server Component */}
-        <IdCardDetailComponent idCardId={idCardId} />
+        <IdCardDetailComponent idCardId={idCardId} communityId={communityId} />
       </Suspense>
     </RetryErrorBoundary>
   );

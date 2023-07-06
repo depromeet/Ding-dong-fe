@@ -1,7 +1,10 @@
 import { CommentReply } from '~/modules/CommentList/CommentReplyList/CommentReply.client';
 import { CommentModel } from '~/types/comment';
 
-type CommentReplyListProps = Pick<CommentModel, 'commentReplyInfos' | 'idCardId' | 'commentId'> & {
+type CommentReplyListProps = Pick<
+  CommentModel,
+  'commentReplyInfos' | 'idCardId' | 'commentId' | 'writerInfo'
+> & {
   isShowReplyList: boolean;
 };
 export const CommentReplyList = ({
@@ -9,6 +12,7 @@ export const CommentReplyList = ({
   commentId,
   commentReplyInfos,
   isShowReplyList,
+  writerInfo,
 }: CommentReplyListProps) => {
   return (
     <>
@@ -19,6 +23,7 @@ export const CommentReplyList = ({
               key={commentReply.commentReplyId}
               idCardId={idCardId}
               commentId={commentId}
+              writerInfo={writerInfo}
               {...commentReply}
             />
           ))}

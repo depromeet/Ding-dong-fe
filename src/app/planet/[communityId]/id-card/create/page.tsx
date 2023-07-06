@@ -7,7 +7,11 @@ type IdCardCreationPageProps = {
 };
 
 const IdCardCreationPage = ({ params: { communityId } }: IdCardCreationPageProps) => {
-  return <IdCardCreationSteps communityId={Number(communityId)} />;
+  return (
+    <main>
+      <IdCardCreationSteps communityId={Number(communityId)} />
+    </main>
+  );
 };
 
 export default IdCardCreationPage;

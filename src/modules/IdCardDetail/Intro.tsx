@@ -1,3 +1,5 @@
+import Image from 'next/image';
+
 import Tag from '~/components/Tag/Tag';
 import { CharacterNameModel, IdCardDetailModel } from '~/types/idCard';
 
@@ -8,19 +10,30 @@ const bgColors: Record<CharacterNameModel, string> = {
   TRUE: 'bg-true-100',
 };
 
-type IntroProps = Omit<IdCardDetailModel, 'idCardId' | 'profileImageUrl'>;
+type IntroProps = Omit<IdCardDetailModel, 'idCardId' | 'userId'>;
 
-export const Intro = ({ nickname, aboutMe, keywords, characterType }: IntroProps) => {
+export const Intro = ({
+  nickname,
+  profileImageUrl,
+  aboutMe,
+  keywords,
+  characterType,
+}: IntroProps) => {
   const bgColor = bgColors[characterType];
 
   return (
-    <div className={`${bgColor} flex flex-col gap-[9px] px-[21px] pb-[25px] pt-[8px]`}>
-      <p className="text-h3">{nickname}</p>
-      <p className="text-b3 text-grey-600">{aboutMe}</p>
-      <div className="flex max-h-14 flex-wrap gap-1.5 overflow-hidden">
-        {keywords.map(keyword => (
-          <Tag key={keyword.title} type={characterType} label={keyword.title} />
-        ))}
+    <div className="flex justify-between gap-10pxr px-21pxr pb-25pxr pt-8pxr">
+      <div className={`${bgColor} flex flex-col gap-[9px]`}>
+        <p className="text-h3">{nickname}</p>
+        <p className="text-b3 text-grey-600">{aboutMe}</p>
+        <div className="flex max-h-14 flex-wrap gap-6pxr overflow-hidden">
+          {keywords.map(keyword => (
+            <Tag key={keyword.title} type={characterType} label={keyword.title} />
+          ))}
+        </div>
+      </div>
+      <div className="h-80pxr w-80pxr flex-shrink-0 overflow-hidden rounded-full">
+        <Image width={80} height={80} src={profileImageUrl} alt="profile image" />
       </div>
     </div>
   );
