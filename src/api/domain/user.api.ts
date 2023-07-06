@@ -7,7 +7,7 @@ import { UserInfoResponse } from '~/types/user';
 
 export const userQueryKey = {
   userInfo: () => ['userInfo'],
-  invitationCodeIsValid: () => ['invitaion', 'code', 'valid'],
+  invitationCodeIsValid: () => ['invitation', 'code', 'valid'],
 };
 
 export const getUserInfo = () => privateApi.get<UserInfoResponse>(`/user/profile`);
