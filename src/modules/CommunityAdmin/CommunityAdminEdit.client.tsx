@@ -19,7 +19,7 @@ export const CommunityAdminEdit = ({
   description,
   communityId,
 }: CommunityAdminEditProps) => {
-  const [isDuplicatedCheck, setIsDuplicatedCheck] = useState<DuplicateState>('DEFAULT');
+  const [isDuplicatedCheck, setIsDuplicatedCheck] = useState<DuplicateState>('SUCCESS');
 
   const methods = useForm<CreateCommunityRequest>({
     defaultValues: {

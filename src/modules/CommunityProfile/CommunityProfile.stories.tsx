@@ -22,5 +22,17 @@ export const CommunityProfileStory: Story = {
 };
 
 export const CommunityBgImageStory: StoryObj<typeof CommunityBgImage> = {
-  render: () => <CommunityBgImage coverImageUrl="/assets/images/planet-with-shadow.png" />,
+  render: () => (
+    <CommunityBgImage
+      community={{
+        coverImageUrl: '/assets/images/planet-with-shadow.png',
+        communityId: 1,
+        title: 'planet',
+        logoImageUrl: '/assets/images/pipi.png',
+        userCount: 22,
+        description:
+          '디프만은 디자이너와 개발자가기획부터 론칭까지 함께 경험하는 성장추구형 커뮤니티입니다',
+      }}
+    />
+  ),
 };

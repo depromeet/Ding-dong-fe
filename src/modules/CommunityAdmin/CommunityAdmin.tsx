@@ -10,14 +10,7 @@ import { CommunityDetailModel } from '~/types/community';
 
 type CommunityAdminProps = Omit<CommunityDetailModel, 'invitationCode'>;
 
-export const CommunityAdmin = ({
-  communityId,
-  logoImageUrl,
-  coverImageUrl,
-  title,
-  userCount,
-  description,
-}: Omit<CommunityAdminProps, 'invitationCode'>) => {
+export const CommunityAdmin = (community: Omit<CommunityAdminProps, 'invitationCode'>) => {
   const router = useRouter();
 
   const pathname = usePathname();
@@ -25,11 +18,7 @@ export const CommunityAdmin = ({
     router.push(`${pathname}/edit`);
   };
 
-  const onClickDoneButton = () => {
-    // TODO: 커버 사진 변경 api 요청 로직 추가
-    router.push(`/planet/${communityId}`);
-  };
-
+  const { logoImageUrl, userCount, description, title, communityId } = community;
   return (
     <div>
       <TopNavigation>
@@ -39,13 +28,9 @@ export const CommunityAdmin = ({
         <TopNavigation.Title>
           <p className="text-h5">행성 관리</p>
         </TopNavigation.Title>
-        <TopNavigation.Right>
-          <button onClick={onClickDoneButton} className="text-h5 text-primary-500">
-            완료
-          </button>
-        </TopNavigation.Right>
+        <TopNavigation.Right></TopNavigation.Right>
       </TopNavigation>
-      <CommunityBgImage coverImageUrl={coverImageUrl} isEditable communityId={communityId} />
+      <CommunityBgImage isEditable community={community} />
       <div className="mt-16pxr px-20pxr">
         <CommunityProfile
           logoImageUrl={logoImageUrl}

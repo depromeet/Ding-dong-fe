@@ -1,25 +1,43 @@
 'use client';
 
-import { faker } from '@faker-js/faker';
 import Image from 'next/image';
 import { ChangeEvent, useState } from 'react';
 
+import { usePostCommunityUpdate } from '~/api/domain/community.api';
+import { usePostImageUrl } from '~/api/domain/image.api';
 import { Button } from '~/components/Button';
+import { useToastMessageStore } from '~/stores/toastMessage.store';
+import { CommunityDetailModel } from '~/types/community';
 
 type CommunityBgImageProps = {
   coverImageUrl?: string;
   isEditable?: boolean;
-  communityId?: number;
+  community: Omit<CommunityDetailModel, 'invitationCode'>;
 };
-export const CommunityBgImage = ({ coverImageUrl, isEditable }: CommunityBgImageProps) => {
+export const CommunityBgImage = ({ isEditable, community }: CommunityBgImageProps) => {
+  const { title, logoImageUrl, coverImageUrl, description, communityId } = community;
   const [profileImage, setProfileImage] = useState<string | undefined>(coverImageUrl);
 
-  const onChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const { mutateAsync } = usePostImageUrl();
+  const mutation = usePostCommunityUpdate(communityId);
+  const { infoToast, errorToast } = useToastMessageStore();
+
+  const onChange = async (e: ChangeEvent<HTMLInputElement>) => {
     const imageFileList = e.target.files;
     if (imageFileList && imageFileList.length > 0) {
-      //TODO: S3 로직 추가 예정
-      const fakerImage = faker.image.avatar();
-      setProfileImage(fakerImage);
+      const data = await mutateAsync(imageFileList[0]);
+      if (data) {
+        setProfileImage(data.imageUrl);
+        mutation.mutate(
+          { name: title, coverImageUrl: data.imageUrl, logoImageUrl, description },
+          {
+            onSuccess: () => infoToast('커버 이미지가 변경되었습니다.'),
+            onError: () => errorToast('커버 이미지 변경에 실패했습니다. 다시 시도해 주세요.'),
+          },
+        );
+      } else {
+        errorToast('커버 이미지 변경에 실패했습니다. 다시 시도해 주세요.');
+      }
     }
   };
   return (
