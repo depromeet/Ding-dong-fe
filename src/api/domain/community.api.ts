@@ -11,6 +11,7 @@ import { useRouter } from 'next/navigation';
 
 import privateApi from '~/api/config/privateApi';
 import { userQueryKey } from '~/api/domain/user.api';
+import { useToastMessageStore } from '~/stores/toastMessage.store';
 import {
   CheckIdCardResponse,
   CommunityDetailResponse,
@@ -159,3 +160,26 @@ export const useGetCommunityUserInfo = (communityId: number) =>
   useQuery(communityQueryKey.communityUserInfo(communityId), () =>
     getCommunityUserInfo(communityId),
   );
+
+export const withdrawalCommunity = (communityId: number) =>
+  privateApi.put(`/communities/${communityId}/withdrawal`);
+
+export const useWithdrawalCommunity = (communityId: number) => {
+  const queryClient = useQueryClient();
+  const userId = getUserIdClient();
+  const router = useRouter();
+  const { infoToast, errorToast } = useToastMessageStore();
+
+  return useMutation({
+    mutationFn: () => withdrawalCommunity(communityId),
+    onSuccess: () => {
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+      queryClient.invalidateQueries(communityQueryKey.communityList(userId!));
+      router.push('/');
+      infoToast('행성을 떠났어요.');
+    },
+    onError: () => {
+      errorToast('행성 탈퇴에 실패했어요.');
+    },
+  });
+};

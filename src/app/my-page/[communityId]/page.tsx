@@ -20,6 +20,7 @@ type MyPageProps = {
 const MyPage = async ({ params: { communityId } }: MyPageProps) => {
   const { userMakeIdCard } = await checkIdCardServer(communityId);
   const isUserMakeIdCard = userMakeIdCard;
+
   return (
     <div>
       <TopNavigation bottomBorderColor="bg-grey-100">
@@ -27,7 +28,7 @@ const MyPage = async ({ params: { communityId } }: MyPageProps) => {
           <PlanetSelector />
         </TopNavigation.Left>
         <TopNavigation.Right>
-          <Link href="/my-page/config">
+          <Link href={`/my-page/config?communityId=${communityId}`}>
             <GearFillIcon />
           </Link>
         </TopNavigation.Right>

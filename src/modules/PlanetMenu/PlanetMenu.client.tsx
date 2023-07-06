@@ -1,12 +1,17 @@
 'use client';
+import { useSearchParams } from 'next/navigation';
+
+import { useWithdrawalCommunity } from '~/api/domain/community.api';
 import { Menu } from '~/components/Menu';
-import { useCommunityStore } from '~/stores/community.store';
 
 export const PlanetMenu = () => {
-  const { communityId } = useCommunityStore();
+  const searchParams = useSearchParams();
+  const communityIdParam = searchParams.get('communityId');
+  const communityId = isNaN(Number(communityIdParam)) ? -1 : Number(communityIdParam);
+  const { mutate } = useWithdrawalCommunity(communityId);
 
   const onClickEscapePlanet = () => {
-    console.log('행성 떠나기 로직 추가 예정', communityId);
+    mutate();
   };
   return (
     <Menu className="px-layout-sm">
