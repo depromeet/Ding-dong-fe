@@ -1,30 +1,27 @@
 'use client';
 
+import { isEqual } from 'lodash';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 
-import { useEditIdCardDetail } from '~/api/domain/idCard.api';
+import { useEditIdCardDetail, useGetCommunityMyIdCardDetail } from '~/api/domain/idCard.api';
 import { ConfirmUnSave, useConfirmPopup } from '~/components/ConfirmPopup';
 import { TopNavigation } from '~/components/TopNavigation';
 import { IdCardEditorForm } from '~/modules/IdCardEditor/Form';
 import { editorSteps, KEYWORD_CONTENT_STEP } from '~/modules/IdCardEditor/IdCardEditor.constant';
 import { EditorSteps, IdCardEditorFormValues } from '~/modules/IdCardEditor/IdCardEditor.type';
-import { IdCardEditorFormModel } from '~/types/idCard';
-import { getEntries, isEqual } from '~/utils/util.common';
+import { getEntries } from '~/utils/util.common';
 
-type IdCardEditorProps = IdCardEditorFormModel & {
+type IdCardEditorProps = {
   communityId: number;
 };
 
-export const IdCardEditor = ({
-  communityId,
-  idCardId,
-  profileImageUrl,
-  nickname,
-  aboutMe,
-  keywords,
-}: IdCardEditorProps) => {
+export const IdCardEditor = ({ communityId }: IdCardEditorProps) => {
+  const { data } = useGetCommunityMyIdCardDetail(communityId);
+
+  const { idCardId, nickname, aboutMe, profileImageUrl, keywords } = data!.idCardDetailsDto;
+
   const initFormValue = {
     nickname,
     aboutMe,
@@ -34,7 +31,7 @@ export const IdCardEditor = ({
 
   const router = useRouter();
   const [stepOrder, setStepOrder] = useState<number>(KEYWORD_CONTENT_STEP);
-  const { mutate: mutateEditIdCardDetail } = useEditIdCardDetail(communityId);
+  const { mutateAsync: mutateEditIdCardDetail } = useEditIdCardDetail(communityId);
   const [submitState, setSubmitState] = useState<IdCardEditorFormValues>(initFormValue);
 
   const {
@@ -52,7 +49,7 @@ export const IdCardEditor = ({
   });
 
   const onSubmit = async (idCardInfo: IdCardEditorFormValues) => {
-    mutateEditIdCardDetail({ idCardId, ...idCardInfo });
+    await mutateEditIdCardDetail({ idCardId, ...idCardInfo });
   };
 
   const isValueChanged = () =>
@@ -75,14 +72,20 @@ export const IdCardEditor = ({
 
   const onClickBackButton = async () => {
     if (isEntry) {
-      const isOk = await openConfirmUnSavePopup();
-      closeConfirmUnSavePopup();
-      if (isOk) {
-        router.back();
+      if (isValueChanged()) {
+        const isOk = await openConfirmUnSavePopup();
+        closeConfirmUnSavePopup();
+        if (isOk) {
+          router.back();
+        }
+        return;
       }
+      router.back();
       return;
     }
 
+    console.log('submitState', submitState);
+    console.log('methods.getValues()', methods.getValues());
     if (isValueChanged()) {
       const isOk = await openConfirmUnSavePopup();
       closeConfirmUnSavePopup();
@@ -97,13 +100,14 @@ export const IdCardEditor = ({
   };
 
   const onClickCompleteButton = async () => {
+    updateFormState();
     if (isEntry) {
       await methods.handleSubmit(onSubmit)();
+
       // TODO: onSubmit이 정상 실행될 때만 뒤로 가기: useMutation 정상 실행여부 판단하기
       router.back();
       return;
     }
-    updateFormState();
     setStepOrder(KEYWORD_CONTENT_STEP);
   };
 

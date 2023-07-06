@@ -56,8 +56,8 @@ export const useEditIdCardDetail = (communityId: number) => {
   return useMutation({
     mutationFn: (idCardInfo: EditIdCardRequest) => editIdCardDetail(idCardInfo),
     onSuccess: (data: IdCardEditResponse) => {
-      queryClient.invalidateQueries(idCardQueryKey.idCards(data.id));
       queryClient.invalidateQueries(idCardQueryKey.myCommunity(communityId));
+      queryClient.invalidateQueries(idCardQueryKey.idCards(data.id));
     },
   });
 };
