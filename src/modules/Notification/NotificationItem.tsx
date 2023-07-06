@@ -3,6 +3,7 @@ import {
   NOTIFICATION_TYPE_ACTION,
   NotificationModel,
 } from '~/types/notification';
+import { getCreatedAtFormat } from '~/utils/time.util';
 
 import { UserProfile } from '../CommentList/CommentCommon';
 
@@ -39,8 +40,7 @@ export const NotificationItem = ({
         `}
         >
           <span className="mr-2">{communityDto.communityName}</span>
-          {/* TODO: 시간 보여주는 방식 수정 */}
-          <span>{createdAt}</span>
+          <span>{getCreatedAtFormat(createdAt)} 전</span>
         </div>
       </div>
     </li>
