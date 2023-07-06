@@ -1,8 +1,12 @@
 'use client';
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 
-import { PlusIcon } from '~/components/Icon';
+import { BottomNavigation } from '~/components/BottomNavigation';
+import { GearFillIcon, PlusIcon } from '~/components/Icon';
+import { TopNavigation } from '~/components/TopNavigation';
 import { PlanetCreationButton } from '~/modules/PlanetCreationButton';
+import { PlanetSelector } from '~/modules/PlanetSelector';
 import { useCommunityStore } from '~/stores/community.store';
 
 const EmptyPlanet = () => {
@@ -15,25 +19,38 @@ const EmptyPlanet = () => {
   };
 
   return (
-    <main className="pt-35pxr">
-      <div className="mx-layout-l">
-        <h1 className="text-h3 text-grey-800">내 주민증</h1>
-        <div className="mt-16pxr flex h-[404px] w-full items-center justify-center rounded-[16px] border border-dashed border-primary-500 bg-blue-100">
-          <div className="flex flex-col items-center gap-8pxr">
-            <button
-              onClick={onClickCreateIdCardButton}
-              className="flex h-[52px] w-[52px] items-center justify-center rounded-full bg-blue-200"
-            >
-              <PlusIcon className="fill-primary-500 stroke-2" />
-            </button>
-            <span className="text-b1 text-primary-500">주민증 만들기</span>
+    <div>
+      <TopNavigation bottomBorderColor="bg-grey-100">
+        <TopNavigation.Left>
+          <PlanetSelector />
+        </TopNavigation.Left>
+        <TopNavigation.Right>
+          <Link href="/my-page/config">
+            <GearFillIcon />
+          </Link>
+        </TopNavigation.Right>
+      </TopNavigation>
+      <main className="pt-35pxr">
+        <div className="mx-layout-l">
+          <h1 className="text-h3 text-grey-800">내 주민증</h1>
+          <div className="mt-16pxr flex h-[404px] w-full items-center justify-center rounded-[16px] border border-dashed border-primary-500 bg-blue-100">
+            <div className="flex flex-col items-center gap-8pxr">
+              <button
+                onClick={onClickCreateIdCardButton}
+                className="flex h-[52px] w-[52px] items-center justify-center rounded-full bg-blue-200"
+              >
+                <PlusIcon className="fill-primary-500 stroke-2" />
+              </button>
+              <span className="text-b1 text-primary-500">주민증 만들기</span>
+            </div>
           </div>
         </div>
-      </div>
-      <div className="mx-layout-sm mt-28pxr">
-        <PlanetCreationButton />
-      </div>
-    </main>
+        <div className="mx-layout-sm mt-28pxr">
+          <PlanetCreationButton />
+        </div>
+      </main>
+      <BottomNavigation />
+    </div>
   );
 };
 
