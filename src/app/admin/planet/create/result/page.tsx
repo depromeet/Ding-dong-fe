@@ -4,14 +4,23 @@ import Image from 'next/image';
 import { useSearchParams } from 'next/navigation';
 import { useRouter } from 'next/navigation';
 
+import { useGetCommunityList } from '~/api/domain/community.api';
 import { TopNavigation } from '~/components/TopNavigation';
 import { InvitationButtons } from '~/modules/InvitationButtons/InvitationButtons.client';
+import { getUserIdClient } from '~/utils/auth/getUserId.client';
 
 const AdminCommunityCreateResultPage = () => {
+  const userId = getUserIdClient();
   const router = useRouter();
   const searchParams = useSearchParams();
   const communityIdParam = searchParams.get('communityId');
-  const communityId = isNaN(Number(communityIdParam)) ? -1 : Number(communityIdParam);
+
+  const { data: communityList } = useGetCommunityList(userId ?? -1);
+
+  const lastCommunityId = communityList?.communityListDtos.slice(-1)[0].communityId || -1;
+
+  const communityId = communityIdParam ? Number(communityIdParam) : lastCommunityId;
+
   const onClickLaterButton = () => {
     router.push(`/planet/${communityId}`);
   };
