@@ -20,7 +20,7 @@ import { useLike } from '~/modules/CommentList/useLike';
 import { CommentModel, CommentReplyModel } from '~/types/comment';
 import { getUserIdClient } from '~/utils/auth/getUserId.client';
 
-type CommentProps = Pick<CommentModel, 'idCardId' | 'commentId'> & CommentReplyModel;
+type CommentProps = Pick<CommentModel, 'idCardId' | 'commentId' | 'writerInfo'> & CommentReplyModel;
 
 export const CommentReply = ({
   idCardId,

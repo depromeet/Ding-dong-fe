@@ -116,6 +116,7 @@ export const Comment = ({
         <CommentReplyList
           idCardId={idCardId}
           commentId={commentId}
+          writerInfo={writerInfo}
           isShowReplyList={isShowReplyList}
           commentReplyInfos={commentReplyInfos}
         />
