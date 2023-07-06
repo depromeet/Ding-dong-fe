@@ -34,7 +34,7 @@ export const CommunityAdmin = ({
     <div>
       <TopNavigation>
         <TopNavigation.Left>
-          <TopNavigation.BackButton backLink="" />
+          <TopNavigation.BackButton />
         </TopNavigation.Left>
         <TopNavigation.Title>
           <p className="text-h5">행성 관리</p>
