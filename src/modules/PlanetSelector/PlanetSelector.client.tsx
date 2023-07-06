@@ -7,6 +7,7 @@ import { useGetCommunityList } from '~/api/domain/community.api';
 import { useBottomSheet } from '~/components/BottomSheet';
 import BottomSheet from '~/components/BottomSheet/BottomSheet';
 import { ArrowVerticalIcon, PlusIcon } from '~/components/Icon';
+import { usePlanetNavigate } from '~/hooks/usePlanetNavigate';
 import { CommunityList } from '~/modules/PlanetSelector/CommunityList.client';
 import { useCommunityStore } from '~/stores/community.store';
 import { getUserIdClient } from '~/utils/auth/getUserId.client';
@@ -18,6 +19,7 @@ export const PlanetSelector = () => {
   const userId = getUserIdClient();
   const { data: communityList } = useGetCommunityList(userId ?? -1);
   const { communityId, switchCommunity } = useCommunityStore();
+  const { extractPlanetIdFromPathname } = usePlanetNavigate();
 
   const INIT_PLANET_ID = -1;
 
@@ -27,26 +29,12 @@ export const PlanetSelector = () => {
     router.push('/admin/planet/create');
   };
 
-  const isSamePlanetIdFromPathname = (pathPlanetId: number) => pathPlanetId === communityId;
-
-  const extractPlanetIdFromPathname = (currentPathname: string) => {
-    const parts = currentPathname.split('/');
-    const planetIdIndex = parts.findIndex(part => part === 'planet' || part === 'my-page');
-
-    const notFoundPlanetID = planetIdIndex === -1;
-    const planetIdIndexOverPathLength = planetIdIndex + 1 >= parts.length;
-
-    if (notFoundPlanetID) return null;
-    if (planetIdIndexOverPathLength) return null;
-
-    return Number(parts[planetIdIndex + 1]);
-  };
-
   const getLastPlanetId = () => {
     const lastCommunity = communityList?.communityListDtos.slice(-1)[0];
     if (!lastCommunity) return INIT_PLANET_ID;
     return lastCommunity.communityId;
   };
+  const isSamePlanetIdFromPathname = (pathPlanetId: number) => pathPlanetId === communityId;
 
   const switchPlanetIdByPathname = () => {
     const planetId = extractPlanetIdFromPathname(pathname);
@@ -65,6 +53,9 @@ export const PlanetSelector = () => {
   };
 
   useEffect(() => {
+    if (communityId !== -1) {
+      return;
+    }
     switchPlanetIdByPathname();
   }, [pathname]);
 
