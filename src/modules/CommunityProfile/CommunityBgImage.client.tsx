@@ -1,10 +1,11 @@
 'use client';
 
-import { faker } from '@faker-js/faker';
 import Image from 'next/image';
 import { ChangeEvent, useState } from 'react';
 
+import { usePostImageUrl } from '~/api/domain/image.api';
 import { Button } from '~/components/Button';
+import { useToastMessageStore } from '~/stores/toastMessage.store';
 
 type CommunityBgImageProps = {
   coverImageUrl?: string;
@@ -14,12 +15,18 @@ type CommunityBgImageProps = {
 export const CommunityBgImage = ({ coverImageUrl, isEditable }: CommunityBgImageProps) => {
   const [profileImage, setProfileImage] = useState<string | undefined>(coverImageUrl);
 
-  const onChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const { mutateAsync } = usePostImageUrl();
+  const { infoToast, errorToast } = useToastMessageStore();
+  const onChange = async (e: ChangeEvent<HTMLInputElement>) => {
     const imageFileList = e.target.files;
     if (imageFileList && imageFileList.length > 0) {
-      //TODO: S3 로직 추가 예정
-      const fakerImage = faker.image.avatar();
-      setProfileImage(fakerImage);
+      const data = await mutateAsync(imageFileList[0]);
+      if (data) {
+        setProfileImage(data.imageUrl);
+        infoToast('커버 이미지가 변경되었습니다.');
+      } else {
+        errorToast('커버 이미지 변경에 실패했습니다. 다시 시도해 주세요.');
+      }
     }
   };
   return (
