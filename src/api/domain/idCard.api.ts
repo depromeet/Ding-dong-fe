@@ -17,7 +17,7 @@ import {
 } from '~/types/idCard';
 
 export const idCardQueryKey = {
-  idCards: (idCardId: number) => ['getIdCardDetail', idCardId],
+  idCards: (idCardId: number) => ['IdCardDetail', idCardId],
   myCommunity: (communityId: number) => ['CommunityMyIdCard', communityId],
 };
 
@@ -50,13 +50,14 @@ export const editIdCardDetail = (idCardInfo: EditIdCardRequest) => {
   });
 };
 
-export const useEditIdCardDetail = () => {
+export const useEditIdCardDetail = (communityId: number) => {
   const queryClient = useQueryClient();
 
   return useMutation({
     mutationFn: (idCardInfo: EditIdCardRequest) => editIdCardDetail(idCardInfo),
     onSuccess: (data: IdCardEditResponse) => {
       queryClient.invalidateQueries(idCardQueryKey.idCards(data.id));
+      queryClient.invalidateQueries(idCardQueryKey.myCommunity(communityId));
     },
   });
 };

@@ -13,9 +13,12 @@ import { EditorSteps, IdCardEditorFormValues } from '~/modules/IdCardEditor/IdCa
 import { IdCardEditorFormModel } from '~/types/idCard';
 import { getEntries, isEqual } from '~/utils/util.common';
 
-type IdCardEditorProps = IdCardEditorFormModel;
+type IdCardEditorProps = IdCardEditorFormModel & {
+  communityId: number;
+};
 
 export const IdCardEditor = ({
+  communityId,
   idCardId,
   profileImageUrl,
   nickname,
@@ -28,9 +31,10 @@ export const IdCardEditor = ({
     profileImageUrl,
     keywords,
   };
+
   const router = useRouter();
   const [stepOrder, setStepOrder] = useState<number>(KEYWORD_CONTENT_STEP);
-  const { mutate: mutateEditIdCardDetail } = useEditIdCardDetail();
+  const { mutate: mutateEditIdCardDetail } = useEditIdCardDetail(communityId);
   const [submitState, setSubmitState] = useState<IdCardEditorFormValues>(initFormValue);
 
   const {

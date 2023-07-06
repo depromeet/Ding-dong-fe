@@ -16,6 +16,7 @@ const MyPageEditCardComponent = async ({ communityId }: EditMyPageProps) => {
 
   return (
     <IdCardEditor
+      communityId={communityId}
       idCardId={idCardId}
       nickname={nickname}
       aboutMe={aboutMe}
