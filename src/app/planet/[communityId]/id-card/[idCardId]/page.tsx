@@ -1,7 +1,9 @@
-import 'server-only';
-
 import { commentQueryKey } from '~/api/domain/comment/comment.api';
 import { getCommentsServer } from '~/api/domain/comment/comment.api.server';
+import { idCardQueryKey } from '~/api/domain/idCard.api';
+import { getIdCardDetailServer } from '~/api/domain/idCard.api.server';
+import { userQueryKey } from '~/api/domain/user.api';
+import { getUserInfoServer } from '~/api/domain/user.api.server';
 import { CommentCount } from '~/app/planet/[communityId]/id-card/[idCardId]/components/CommentCount';
 import { CommentList } from '~/app/planet/[communityId]/id-card/[idCardId]/components/CommentList';
 import { IdCardDetail } from '~/app/planet/[communityId]/id-card/[idCardId]/components/IdCardDetail';
@@ -16,7 +18,7 @@ type IdCardDetailPageProps = {
   };
 };
 
-const IdCardDetailPage = async ({
+const IdCardDetailPage = ({
   params: { idCardId: idCardIdParam, communityId: communityIdParam },
 }: IdCardDetailPageProps) => {
   const idCardId = Number(idCardIdParam);
@@ -29,9 +31,30 @@ const IdCardDetailPage = async ({
     };
   };
 
+  const getUserInfoQuery = async () => {
+    const { userProfileDto } = await getUserInfoServer();
+    return {
+      userProfileDto,
+    };
+  };
+
+  const getIdCardDetailQuery = async () => {
+    const { idCardDetailsDto } = await getIdCardDetailServer(idCardId);
+
+    return {
+      idCardDetailsDto,
+    };
+  };
+
   return (
     <main>
-      <IdCardDetail idCardId={idCardId} communityId={communityId} />
+      {/* @ts-expect-error Server Component */}
+      <HydrationProvider queryKey={idCardQueryKey.idCards(idCardId)} queryFn={getIdCardDetailQuery}>
+        {/* @ts-expect-error Server Component */}
+        <HydrationProvider queryKey={userQueryKey.userInfo()} queryFn={getUserInfoQuery}>
+          <IdCardDetail idCardId={idCardId} communityId={communityId} />
+        </HydrationProvider>
+      </HydrationProvider>
       <Divider />
       <CommentCount idCardId={idCardId} />
       {/* @ts-expect-error Server Component */}

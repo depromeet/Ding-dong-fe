@@ -1,8 +1,9 @@
+'use client';
 import Link from 'next/link';
 import { Suspense } from 'react';
 
-import { getIdCardDetailServer } from '~/api/domain/idCard.api.server';
-import { getUserInfoServer } from '~/api/domain/user.api.server';
+import { useGetIdCardDetail } from '~/api/domain/idCard.api';
+import { useGetUserInfo } from '~/api/domain/user.api';
 import RetryErrorBoundary from '~/components/ErrorBoundary/RetryErrorBoundary.client';
 import { TopNavigation } from '~/components/TopNavigation';
 import { Intro, KeywordContentCard } from '~/modules/IdCardDetail';
@@ -20,14 +21,16 @@ type IdCardDetailProps = {
   communityId: number;
 };
 
-const IdCardDetailComponent = async ({ idCardId, communityId }: IdCardDetailProps) => {
-  const [idCardDetailsDto, userProfileDto] = await Promise.all([
-    getIdCardDetailServer(idCardId).then(response => response.idCardDetailsDto),
-    getUserInfoServer().then(response => response.userProfileDto),
-  ]);
+const IdCardDetailComponent = ({ idCardId, communityId }: IdCardDetailProps) => {
+  const { data: idCardDetail } = useGetIdCardDetail(idCardId);
+  const { data: userInfo } = useGetUserInfo();
+
+  const idCardDetailsDto = idCardDetail!.idCardDetailsDto;
+  const userId = userInfo!.userProfileDto.userId;
+
   const bgColor = bgColors[idCardDetailsDto.characterType];
 
-  const isMyIdCard = userProfileDto.userId === idCardDetailsDto.userId;
+  const isMyIdCard = userId === idCardDetailsDto.userId;
 
   return (
     <>
@@ -76,7 +79,6 @@ export const IdCardDetail = ({ idCardId, communityId }: IdCardDetailProps) => {
   return (
     <RetryErrorBoundary>
       <Suspense>
-        {/* @ts-expect-error Server Component */}
         <IdCardDetailComponent idCardId={idCardId} communityId={communityId} />
       </Suspense>
     </RetryErrorBoundary>

@@ -1,5 +1,6 @@
 import { useFormContext } from 'react-hook-form';
 
+import { Button } from '~/components/Button';
 import { Chip } from '~/components/Chip';
 import { ProfileImageEdit } from '~/components/ProfileImageEdit';
 import { EditorSteps, IdCardEditorFormValues } from '~/modules/IdCardEditor/IdCardEditor.type';
@@ -18,27 +19,38 @@ export const EditKeywordContentStep = ({ onClickMoveTargetStep }: EditKeywordCon
     onClickMoveTargetStep('KEYWORD');
   };
 
+  const onClickEditProfileButton = () => {
+    onClickMoveTargetStep('PROFILE');
+  };
+
   return (
     <div>
-      <div className="mb-24pxr flex  px-layout-sm pb-[25px]">
+      <div className="flex justify-between px-layout-sm">
         <div className="flex flex-col gap-12pxr">
           <div className="flex gap-6pxr">
             <p className="text-h3">{nickname}</p>
-            {/* TODO: 아이콘 확정되면 수정할 예정 */}
-            <button onClick={() => onClickMoveTargetStep('PROFILE')}>PROFILE EDIT</button>
           </div>
           <p className="text-b3 text-grey-600">{aboutMe}</p>
+          <Button
+            color="secondary"
+            size="small"
+            className="mt-12pxr px-12pxr py-8pxr font-bold"
+            width="w-fit"
+            onClick={onClickEditProfileButton}
+          >
+            프로필 편집
+          </Button>
         </div>
-        <div className="pl-18pxr">
+        <div className="flex items-start pl-18pxr">
           <ProfileImageEdit<IdCardEditorFormValues>
-            className="mx-auto mt-20pxr"
+            className="mx-auto"
             fieldName="profileImageUrl"
             defaultProfileImage={profileImageUrl}
             setValue={setValue}
           />
         </div>
       </div>
-      <ul className="mb-34pxr flex w-full flex-wrap items-center gap-x-4pxr gap-y-8pxr bg-grey-100 px-20pxr py-15pxr">
+      <ul className="mb-34pxr mt-28pxr flex w-full flex-wrap items-center gap-x-4pxr gap-y-8pxr bg-grey-100 px-20pxr py-15pxr">
         {keywords.map(({ title }) => (
           <Chip key={title} text={title} isSelected={true} />
         ))}
