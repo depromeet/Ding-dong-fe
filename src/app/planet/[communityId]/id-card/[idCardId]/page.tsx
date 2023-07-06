@@ -1,5 +1,3 @@
-import 'server-only';
-
 import { commentQueryKey } from '~/api/domain/comment/comment.api';
 import { getCommentsServer } from '~/api/domain/comment/comment.api.server';
 import { idCardQueryKey } from '~/api/domain/idCard.api';
@@ -20,7 +18,7 @@ type IdCardDetailPageProps = {
   };
 };
 
-const IdCardDetailPage = async ({
+const IdCardDetailPage = ({
   params: { idCardId: idCardIdParam, communityId: communityIdParam },
 }: IdCardDetailPageProps) => {
   const idCardId = Number(idCardIdParam);
