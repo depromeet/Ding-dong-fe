@@ -20,7 +20,7 @@ function ProfileImageEditComponent<T extends FieldValues>(
   { defaultProfileImage, className, fieldName, setValue, ...rest }: ProfileImageEditProps<T>,
   ref: ForwardedRef<HTMLInputElement>,
 ) {
-  const [profileImage, setProfileImage] = useState<string>(defaultProfileImage);
+  const [profileImage, setProfileImage] = useState<string>(defaultProfileImage || '');
   const { mutateAsync } = usePostImageUrl();
 
   const onChange = async (e: ChangeEvent<HTMLInputElement>) => {

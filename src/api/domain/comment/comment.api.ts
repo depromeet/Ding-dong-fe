@@ -202,9 +202,6 @@ export const usePostReplyCreate = (idCardId: number, communityId: number) => {
       if (userInfo) {
         const newReply = createNewReply({
           contents: commentInfo.contents,
-          nickname: userInfo.myInfoInInCommunityDto.nickname,
-          profileImageUrl: userInfo.myInfoInInCommunityDto.profileImageUrl,
-          userId: userInfo.myInfoInInCommunityDto.userId,
         });
 
         const previousComments = queryClient.getQueryData<CommentPages>(

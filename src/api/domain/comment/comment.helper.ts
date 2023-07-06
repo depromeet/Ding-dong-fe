@@ -99,26 +99,13 @@ export const updateCommentId = (
 
 type NewReply = {
   contents: string;
-  userId: number;
-  nickname: string;
-  profileImageUrl: string;
 };
 
-export const createNewReply = ({
-  contents,
-  userId,
-  nickname,
-  profileImageUrl,
-}: NewReply): CommentReplyModel => {
+export const createNewReply = ({ contents }: NewReply): CommentReplyModel => {
   return {
     commentReplyId: Date.now(),
     content: contents,
     createdAt: new Date().toISOString(),
-    writerInfo: {
-      userId: userId,
-      nickname: nickname,
-      profileImageUrl: profileImageUrl,
-    },
     commentReplyLikeInfo: {
       likeCount: 0,
       isLikedByCurrentUser: false,
