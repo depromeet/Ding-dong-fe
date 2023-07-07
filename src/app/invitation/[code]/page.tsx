@@ -36,9 +36,8 @@ const InvitationPage = ({ params }: { params: { code: string } }) => {
   const { mutateAsync } = usePostCommunityJoin({
     onError: error => {
       if (error.statusCode === 300) {
-        router.push(`/planet/${communityId}`);
+        return false;
       }
-
       errorToast(error.reason);
     },
   });
