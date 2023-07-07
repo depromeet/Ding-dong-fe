@@ -18,9 +18,11 @@ export const ReplyIndicator = () => {
   return nickname ? (
     <>
       <Divider className="bg-grey-200" />
-      <div className="flex justify-between bg-grey-200 px-20pxr py-10pxr text-b3 text-grey-500">
+      <div className="flex items-center justify-between bg-grey-200 px-20pxr py-10pxr text-b3 text-grey-500">
         <span>{nickname}님에게 답글 남기는 중</span>
-        <CancelIcon className="p-3pxr" onClick={() => clear()} />
+        <button className="p-3pxr" onClick={() => clear()}>
+          <CancelIcon />
+        </button>
       </div>
     </>
   ) : (
