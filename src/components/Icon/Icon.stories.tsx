@@ -11,7 +11,6 @@ import {
   ChevronLeftIcon,
   ChevronRightIcon,
   DashIcon,
-  GearFillIcon,
   GearIcon,
   HeartFillIcon,
   HeartIcon,
@@ -77,10 +76,6 @@ export const QuestionCircle = {
 
 export const Dash = {
   render: () => <DashIcon />,
-};
-
-export const GearFill = {
-  render: () => <GearFillIcon />,
 };
 
 export const Gear = {
