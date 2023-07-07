@@ -55,7 +55,8 @@ export const ActiveCommentInput = ({
         className="flex items-center gap-8pxr px-[20px] py-[8px]"
         onSubmit={handleSubmit(onSubmit)}
       >
-        <UserProfile profileImageUrl={myInfoInInCommunityDto.profileImageUrl} />
+        {/* FIXME: default profile url로 수정 */}
+        <UserProfile profileImageUrl={myInfoInInCommunityDto.profileImageUrl || ''} />
         <TextInput>
           <TextInput.Border className="rounded-[15px] px-[16px] py-[8px]">
             <div className="flex w-full flex-row">

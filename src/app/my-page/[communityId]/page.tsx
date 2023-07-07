@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { checkIdCardServer } from '~/api/domain/community.api.server';
 import { MyPageIdCard } from '~/app/my-page/[communityId]/components/MyPageIdCard';
 import { BottomNavigation } from '~/components/BottomNavigation';
-import { GearFillIcon } from '~/components/Icon';
+import { ThreeDotsVerticalIcon } from '~/components/Icon';
 import { TopNavigation } from '~/components/TopNavigation';
 import { CreateIdCardButton } from '~/modules/CreateIdCardButton';
 import { PlanetCreationButton } from '~/modules/PlanetCreationButton';
@@ -29,7 +29,7 @@ const MyPage = async ({ params: { communityId } }: MyPageProps) => {
         </TopNavigation.Left>
         <TopNavigation.Right>
           <Link href={`/my-page/config?communityId=${communityId}`}>
-            <GearFillIcon />
+            <ThreeDotsVerticalIcon />
           </Link>
         </TopNavigation.Right>
       </TopNavigation>
