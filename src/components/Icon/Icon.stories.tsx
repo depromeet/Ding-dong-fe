@@ -5,6 +5,7 @@ import {
   ArrowVerticalIcon,
   BellIcon,
   CameraIcon,
+  CancelBoldIcon,
   CancelCircleIcon,
   CancelIcon,
   ChevronLeftIcon,
@@ -51,6 +52,10 @@ export const CancelCircle = {
 
 export const Cancel = {
   render: () => <CancelIcon />,
+};
+
+export const CancelBold = {
+  render: () => <CancelBoldIcon />,
 };
 
 export const ChevronLeft = {

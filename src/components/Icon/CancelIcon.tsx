@@ -1,6 +1,7 @@
 import { ComponentProps } from 'react';
 
 import { Svg } from '~/components/Svg';
+import { tw } from '~/utils/tailwind.util';
 
 export const CancelIcon = ({
   className,
@@ -10,8 +11,36 @@ export const CancelIcon = ({
   ...rest
 }: ComponentProps<typeof Svg>) => {
   return (
-    <Svg size={size} width={width ?? 16} height={height ?? 16} className={className} {...rest}>
-      <path d="M16 1.4L14.6 0L8 6.6L1.4 0L0 1.4L6.6 8L0 14.6L1.4 16L8 9.4L14.6 16L16 14.6L9.4 8L16 1.4Z" />
+    <Svg
+      size={size}
+      width={width ?? 12}
+      height={height ?? 12}
+      className={tw('stroke-black', className)}
+      {...rest}
+    >
+      <path d="M2.25 2L9.75 10" strokeWidth="1.3" strokeLinecap="round" />
+      <path d="M9.75 2L2.25 10" strokeWidth="1.3" strokeLinecap="round" />
+    </Svg>
+  );
+};
+
+export const CancelBoldIcon = ({
+  className,
+  size,
+  width,
+  height,
+  ...rest
+}: ComponentProps<typeof Svg>) => {
+  return (
+    <Svg
+      size={size}
+      width={width ?? 24}
+      height={height ?? 24}
+      className={tw('stroke-black', className)}
+      {...rest}
+    >
+      <path d="M4.5 4L19.5 20" strokeWidth="1.7" strokeLinecap="round" />
+      <path d="M19.5 4L4.5 20" strokeWidth="1.7" strokeLinecap="round" />
     </Svg>
   );
 };
