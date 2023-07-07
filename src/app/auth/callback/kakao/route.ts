@@ -9,7 +9,7 @@ export async function GET(request: NextRequest) {
 
   if (!authCode) {
     // TODO: 에러 메시지 고도화: 카카오 인증 실패
-    return NextResponse.redirect(new URL('/auth/signin', request.url));
+    return NextResponse.redirect(new URL('/auth/signin', request.nextUrl.origin));
   }
 
   try {
@@ -22,10 +22,10 @@ export async function GET(request: NextRequest) {
     // TODO: error처리 고도화: response status혹은 메시지에 따라 if문 수정하기
     if (!authData) {
       // TODO: 에러 메시지 고도화: 로그인 실패
-      return NextResponse.redirect(new URL('/auth/signin', request.url));
+      return NextResponse.redirect(new URL('/auth/signin', request.nextUrl.origin));
     }
 
-    const response = NextResponse.redirect(new URL('/', request.url));
+    const response = NextResponse.redirect(new URL('/', request.nextUrl.origin));
     for (const cookie of generateCookiesKeyValues(authData as AuthResponse)) {
       const cookieKey = cookie[0];
       const cookieValue = cookie[1] as string | number;
@@ -34,6 +34,6 @@ export async function GET(request: NextRequest) {
     return response;
   } catch (e) {
     // server-side 로그인 실패
-    return NextResponse.redirect(new URL('/auth/signin', request.url));
+    return NextResponse.redirect(new URL('/auth/signin', request.nextUrl.origin));
   }
 }

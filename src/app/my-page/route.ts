@@ -15,12 +15,12 @@ export async function GET(request: NextRequest) {
 
       if (communityIds.length !== 0)
         return NextResponse.redirect(
-          new URL(`/my-page/${communityIds[communityIds.length - 1]}`, request.url),
+          new URL(`/my-page/${communityIds[communityIds.length - 1]}`, request.nextUrl.origin),
         );
-      else return NextResponse.redirect(new URL('/my-page/empty', request.url));
+      else return NextResponse.redirect(new URL('/my-page/empty', request.nextUrl.origin));
     }
-    return NextResponse.redirect(new URL('/auth/signin', request.url));
+    return NextResponse.redirect(new URL('/auth/signin', request.nextUrl.origin));
   } catch (e) {
-    return NextResponse.redirect(new URL('/auth/signin', request.url));
+    return NextResponse.redirect(new URL('/auth/signin', request.nextUrl.origin));
   }
 }

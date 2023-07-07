@@ -48,25 +48,25 @@ const middleware = async (request: NextRequest) => {
 
       const redirectUri = request.cookies.get(ROUTE_COOKIE_KEYS.redirectUri)?.value;
       if (redirectUri?.includes('invitation')) {
-        const response = NextResponse.redirect(new URL(redirectUri, request.url));
+        const response = NextResponse.redirect(new URL(redirectUri, request.nextUrl.origin));
         response.cookies.delete(ROUTE_COOKIE_KEYS.redirectUri);
         return response;
       }
 
       if (characterType) {
         if (redirectUri) {
-          const response = NextResponse.redirect(new URL(redirectUri, request.url));
+          const response = NextResponse.redirect(new URL(redirectUri, request.nextUrl.origin));
           response.cookies.delete(ROUTE_COOKIE_KEYS.redirectUri);
           return response;
         }
 
         return communityIds.length > 0
-          ? NextResponse.redirect(new URL(`/planet/${communityIds[0]}`, request.url))
-          : NextResponse.redirect(new URL('/planet', request.url));
+          ? NextResponse.redirect(new URL(`/planet/${communityIds[0]}`, request.nextUrl.origin))
+          : NextResponse.redirect(new URL('/planet', request.nextUrl.origin));
       }
-      return NextResponse.redirect(new URL('/onboarding', request.url));
+      return NextResponse.redirect(new URL('/onboarding', request.nextUrl.origin));
     }
-    return NextResponse.redirect(new URL('/auth/signin', request.url));
+    return NextResponse.redirect(new URL('/auth/signin', request.nextUrl.origin));
   }
 
   //   if (pathname.startsWith('/auth/callback/kakao')) {
@@ -74,7 +74,7 @@ const middleware = async (request: NextRequest) => {
 
   //     if (!authCode) {
   //       // TODO: 에러 메시지 고도화: 카카오 인증 실패
-  //       return NextResponse.redirect(new URL('/auth/signin', request.url));
+  //       return NextResponse.redirect(new URL('/auth/signin',  request.nextUrl.origin));
   //     }
 
   //     try {
@@ -88,10 +88,10 @@ const middleware = async (request: NextRequest) => {
   //       // TODO: error처리 고도화: response status혹은 메시지에 따라 if문 수정하기
   //       if (!authData) {
   //         // TODO: 에러 메시지 고도화: 로그인 실패
-  //         return NextResponse.redirect(new URL('/auth/signin', request.url));
+  //         return NextResponse.redirect(new URL('/auth/signin',  request.nextUrl.origin));
   //       }
 
-  //       const response = NextResponse.redirect(new URL('/', request.url));
+  //       const response = NextResponse.redirect(new URL('/',  request.nextUrl.origin));
   //       for (const cookie of generateCookiesKeyValues(authData as AuthResponse)) {
   //         const cookieKey = cookie[0];
   //         const cookieValue = cookie[1] as string | number;
@@ -123,7 +123,7 @@ const middleware = async (request: NextRequest) => {
   //       return response;
   //     }
   //     logout(request);
-  //     return NextResponse.redirect(new URL('/auth/signin', request.url));
+  //     return NextResponse.redirect(new URL('/auth/signin',  request.nextUrl.origin));
   //   }
 };
 
