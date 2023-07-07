@@ -5,6 +5,7 @@ import {
   ArrowVerticalIcon,
   BellIcon,
   CameraIcon,
+  CancelCircleIcon,
   CancelIcon,
   ChevronLeftIcon,
   ChevronRightIcon,
@@ -42,6 +43,10 @@ export const HoverActiveIcon = {
 
 export const ArrowLeft = {
   render: () => <ArrowLeftIcon />,
+};
+
+export const CancelCircle = {
+  render: () => <CancelCircleIcon />,
 };
 
 export const Cancel = {
