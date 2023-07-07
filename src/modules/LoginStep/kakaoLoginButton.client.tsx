@@ -13,7 +13,7 @@ export const KakaoLoginButton = ({ provider }: KakaoLoginButtonProps) => {
         onClick={() =>
           signIn(provider.id, {
             redirect: true,
-            callbackUrl: 'https://ding-dong-planet.com/auth/callback/kakao',
+            callbackUrl: provider.callbackUrl,
           })
         }
       >

@@ -1,8 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 
-import publicApi from '~/api/config/publicApi';
+import { ROOT_API_URL } from '~/api/config/requestUrl';
 import { AUTH_COOKIE_KEYS } from '~/types/auth';
-import { UserInfoResponse } from '~/types/user';
 import { ROUTE_COOKIE_KEYS } from '~/utils/route/route';
 
 // import { UserInfoResponse } from '~/types/user';
@@ -38,13 +37,23 @@ const middleware = async (request: NextRequest) => {
     if (accessToken) {
       //TO DO: BE 도메인 정상화 이후 복원
       //https://github.com/vercel/next.js/discussions/49246 관련 이슈로 privateApi가 아닌 publicApi 사용해야함
-      const {
-        userProfileDto: { characterType, communityIds },
-      } = await publicApi.get<UserInfoResponse>(`/user/profile`, {
-        headers: {
+
+      const response = await fetch(`${ROOT_API_URL}/user/profile`, {
+        method: 'GET',
+        headers: new Headers({
+          'content-type': 'application/json',
           Authorization: `Bearer ${accessToken}`,
-        },
+        }),
+        mode: 'no-cors',
+        credentials: 'include',
       });
+
+      if (!response.ok) {
+        return NextResponse.redirect(new URL('/auth/signin', request.url));
+      }
+      const data = await response.json();
+
+      const { characterType, communityIds } = data.data.userProfileDto;
 
       const redirectUri = request.cookies.get(ROUTE_COOKIE_KEYS.redirectUri)?.value;
       if (redirectUri?.includes('invitation')) {
