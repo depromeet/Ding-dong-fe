@@ -43,17 +43,15 @@ export const Comment = ({
     useLike(commentLikeInfo);
   const userId = getUserIdClient();
   const mutatePostLike = usePostLikeComment({
-    onError: () => {
-      // TODO: 에러 메시지 수정
-      errorToast('실패?');
+    onError: error => {
+      errorToast(error.message);
       cancelLikeComment();
     },
   });
 
   const mutateDeleteLike = useDeleteCommentLike({
-    onError: () => {
-      // TODO: 에러 메시지 수정
-      errorToast('실패?');
+    onError: error => {
+      errorToast(error.message);
       likeComment();
     },
   });
