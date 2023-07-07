@@ -20,6 +20,7 @@ import {
   PlusIcon,
   QuestionCircleIcon,
   SendIcon,
+  ThreeDotsVerticalIcon,
 } from '~/components/Icon';
 
 const meta: Meta = {
@@ -116,4 +117,8 @@ export const ArrowVertical = {
 
 export const Send = {
   render: () => <SendIcon />,
+};
+
+export const ThreeDotsVertical = {
+  render: () => <ThreeDotsVerticalIcon />,
 };

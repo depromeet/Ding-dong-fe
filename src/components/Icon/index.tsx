@@ -16,3 +16,4 @@ export * from './PersonIcon';
 export * from './PlusIcon';
 export * from './QuestionCircleIcon';
 export * from './SendIcon';
+export * from './ThreeDotsVerticalIcon';
