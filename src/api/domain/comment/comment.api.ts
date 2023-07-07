@@ -92,7 +92,11 @@ export const usePostCommentCreate = (idCardId: number, communityId: number) => {
         communityQueryKey.communityUserInfo(communityId),
       );
 
-      if (userInfo) {
+      if (
+        userInfo &&
+        userInfo.myInfoInInCommunityDto.nickname &&
+        userInfo.myInfoInInCommunityDto.profileImageUrl
+      ) {
         const newComment = createNewComment({
           idCardId: idCardId,
           contents: commentInfo.contents,
