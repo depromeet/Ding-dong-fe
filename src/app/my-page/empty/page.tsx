@@ -1,7 +1,7 @@
 import Link from 'next/link';
 
 import { BottomNavigation } from '~/components/BottomNavigation';
-import { GearFillIcon } from '~/components/Icon';
+import { ThreeDotsVerticalIcon } from '~/components/Icon';
 import { TopNavigation } from '~/components/TopNavigation';
 import { CreateIdCardButton } from '~/modules/CreateIdCardButton';
 import { PlanetCreationButton } from '~/modules/PlanetCreationButton';
@@ -13,7 +13,7 @@ const EmptyPlanet = () => {
         <TopNavigation.Left></TopNavigation.Left>
         <TopNavigation.Right>
           <Link href="/my-page/config">
-            <GearFillIcon />
+            <ThreeDotsVerticalIcon />
           </Link>
         </TopNavigation.Right>
       </TopNavigation>

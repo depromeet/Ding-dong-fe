@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 
-import { GearFillIcon } from '~/components/Icon';
+import { ThreeDotsVerticalIcon } from '~/components/Icon';
 import { TopNavigation } from '~/components/TopNavigation';
 import { PlanetEnterButton } from '~/modules/PlanetEnterButton';
 
@@ -13,7 +13,7 @@ const PlanetPage = () => {
         <TopNavigation.Title />
         <TopNavigation.Right>
           <Link href="/my-page/config">
-            <GearFillIcon className="fill-gray-700" />
+            <ThreeDotsVerticalIcon />
           </Link>
         </TopNavigation.Right>
       </TopNavigation>

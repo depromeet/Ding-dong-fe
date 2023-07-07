@@ -5,7 +5,7 @@ import { useFormContext } from 'react-hook-form';
 
 import { usePostImageUrl } from '~/api/domain/image.api';
 import { ConfirmDeleteKeyword, useConfirmPopup } from '~/components/ConfirmPopup';
-import { CancelIcon } from '~/components/Icon';
+import { CancelCircleIcon } from '~/components/Icon';
 import { KeywordContentImage } from '~/modules/IdCardCreation/Step/KeywordContentImage.client';
 import { KeywordContentCard } from '~/modules/IdCardDetail';
 import { FormKeywordModel } from '~/types/idCard';
@@ -89,14 +89,12 @@ export const KeywordContentEditCard = ({
             />
           }
         />
-        <div className="absolute right-[12px] top-[12px] flex h-[16px] w-[16px]  items-center justify-center rounded-full bg-grey-800">
-          <CancelIcon
-            size={8}
-            viewBox="0 0 16 16"
-            className="block fill-white"
-            onClick={onDeleteKeywordContent}
-          />
-        </div>
+        <button
+          className="rounded-ful absolute right-[12px] top-[12px] flex items-center justify-center"
+          onClick={onDeleteKeywordContent}
+        >
+          <CancelCircleIcon className="fill-grey-500" />
+        </button>
       </div>
       <div className="mt-[10px] flex justify-end">
         <label

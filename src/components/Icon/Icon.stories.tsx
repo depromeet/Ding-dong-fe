@@ -5,11 +5,12 @@ import {
   ArrowVerticalIcon,
   BellIcon,
   CameraIcon,
+  CancelBoldIcon,
+  CancelCircleIcon,
   CancelIcon,
   ChevronLeftIcon,
   ChevronRightIcon,
   DashIcon,
-  GearFillIcon,
   GearIcon,
   HeartFillIcon,
   HeartIcon,
@@ -18,6 +19,7 @@ import {
   PlusIcon,
   QuestionCircleIcon,
   SendIcon,
+  ThreeDotsVerticalIcon,
 } from '~/components/Icon';
 
 const meta: Meta = {
@@ -44,8 +46,16 @@ export const ArrowLeft = {
   render: () => <ArrowLeftIcon />,
 };
 
+export const CancelCircle = {
+  render: () => <CancelCircleIcon />,
+};
+
 export const Cancel = {
   render: () => <CancelIcon />,
+};
+
+export const CancelBold = {
+  render: () => <CancelBoldIcon />,
 };
 
 export const ChevronLeft = {
@@ -66,10 +76,6 @@ export const QuestionCircle = {
 
 export const Dash = {
   render: () => <DashIcon />,
-};
-
-export const GearFill = {
-  render: () => <GearFillIcon />,
 };
 
 export const Gear = {
@@ -106,4 +112,8 @@ export const ArrowVertical = {
 
 export const Send = {
   render: () => <SendIcon />,
+};
+
+export const ThreeDotsVertical = {
+  render: () => <ThreeDotsVerticalIcon />,
 };
