@@ -34,8 +34,12 @@ const InvitationPage = ({ params }: { params: { code: string } }) => {
   });
 
   const { mutateAsync } = usePostCommunityJoin({
-    onError: () => {
-      errorToast('에러'); // TODO 무슨에러인지 response보이게 수정하기
+    onError: error => {
+      if (error.statusCode === 300) {
+        router.push(`/planet/${communityId}`);
+      }
+
+      errorToast(error.reason);
     },
   });
 
