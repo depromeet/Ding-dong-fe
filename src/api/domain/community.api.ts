@@ -127,7 +127,7 @@ export const useGetInvitationCodeIsValid = (
   );
 
 export const postCommunityJoin = async (communityId: CommunityJoinRequest) => {
-  return await privateApi.post<InvitationCodeValidationResponse>(`/communities/join`, communityId);
+  return await privateApi.post(`/communities/join`, communityId);
 };
 
 export const usePostCommunityJoin = (
