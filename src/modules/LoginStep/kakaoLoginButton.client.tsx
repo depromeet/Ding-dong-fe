@@ -10,7 +10,12 @@ export const KakaoLoginButton = ({ provider }: KakaoLoginButtonProps) => {
   return (
     <div className="overflow-hidden rounded-[12px]">
       <button
-        onClick={() => signIn(provider.id, { redirect: true, callbackUrl: provider.callbackUrl })}
+        onClick={() =>
+          signIn(provider.id, {
+            redirect: true,
+            callbackUrl: 'https://ding-dong-fe.vercel.app/auth/callback/kakao',
+          })
+        }
       >
         <Image
           src="/assets/images/kakao_login_large_wide.png"
