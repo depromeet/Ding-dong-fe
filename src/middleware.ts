@@ -78,6 +78,39 @@ const middleware = async (request: NextRequest) => {
     return NextResponse.redirect(new URL('/auth/signin', request.nextUrl.origin));
   }
 
+  if (pathname === '/my-page') {
+    try {
+      const accessToken = getAccessToken(request);
+
+      if (accessToken) {
+        const response = await fetch(`${ROOT_API_URL}/user/profile`, {
+          method: 'GET',
+          headers: new Headers({
+            'content-type': 'application/json',
+            Authorization: `Bearer ${accessToken}`,
+          }),
+          mode: 'no-cors',
+          credentials: 'include',
+        });
+        if (!response.ok) {
+          return NextResponse.redirect(new URL('/auth/signin', request.url));
+        }
+        const data = await response.json();
+
+        const { communityIds } = data.data.userProfileDto;
+
+        if (communityIds.length !== 0)
+          return NextResponse.redirect(
+            new URL(`/my-page/${communityIds[communityIds.length - 1]}`, request.url),
+          );
+        else return NextResponse.redirect(new URL('/my-page/empty', request.url));
+      }
+      return NextResponse.redirect(new URL('/auth/signin', request.url));
+    } catch (e) {
+      return NextResponse.redirect(new URL('/auth/signin', request.url));
+    }
+  }
+
   //   if (pathname.startsWith('/auth/callback/kakao')) {
   //     const authCode = request.nextUrl.searchParams.get('code');
 
