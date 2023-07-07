@@ -4,6 +4,7 @@ import {
   CommunityIdCardsRequest,
   CommunityIdCardsResponse,
   CommunityListResponse,
+  CommunityUserInfoResponse,
 } from '~/types/community';
 
 import { privateApi } from '../config/privateApi.server';
@@ -28,3 +29,6 @@ export const getCommunityListServer = (userId: number) =>
 
 export const checkIdCardServer = (communityId: number) =>
   privateApi.get<CheckIdCardResponse>(`/communities/${communityId}/users`);
+
+export const getCommunityUserInfoServer = (communityId: number) =>
+  privateApi.get<CommunityUserInfoResponse>(`/communities/${communityId}/my-info`);

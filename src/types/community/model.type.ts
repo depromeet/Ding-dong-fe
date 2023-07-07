@@ -50,6 +50,8 @@ export type CheckIdCardModel = {
 
 export type CommunityUserInfoModel = {
   userId: number;
-  nickname: string;
-  profileImageUrl: string;
+  nickname: string | null;
+  profileImageUrl: string | null;
+  isAdmin: boolean;
+  isExistsIdCard: boolean;
 };

@@ -3,7 +3,10 @@ import 'server-only';
 import Link from 'next/link';
 
 import { communityQueryKey } from '~/api/domain/community.api';
-import { getCommunityIdCardsServer } from '~/api/domain/community.api.server';
+import {
+  getCommunityIdCardsServer,
+  getCommunityUserInfoServer,
+} from '~/api/domain/community.api.server';
 import { CommunityDetail } from '~/app/planet/[communityId]/components/CommunityDetail';
 import { CommunityIdCards } from '~/app/planet/[communityId]/components/CommunityIdCards';
 import { IdCardCreatorButton } from '~/app/planet/[communityId]/components/IdCardCreatorButton';
@@ -21,8 +24,8 @@ type PlanetPageProps = {
 
 const PlanetPage = async ({ params: { communityId: communityIdParam } }: PlanetPageProps) => {
   const communityId = Number(communityIdParam);
-
-  const isMyPlanet = true; // TODO 관리자인지 여부 API 필요
+  const { myInfoInInCommunityDto } = await getCommunityUserInfoServer(communityId);
+  const isMyPlanet = myInfoInInCommunityDto.isAdmin;
 
   const getCommunityIdCardsQuery = async () => {
     const data = await getCommunityIdCardsServer({ communityId });
