@@ -2,11 +2,11 @@
 import { useRouter } from 'next/navigation';
 import { twMerge } from 'tailwind-merge';
 
-import { ArrowLeftIcon, CancelIcon, ChevronLeftIcon } from '~/components/Icon';
+import { ArrowLeftIcon, CancelBoldIcon, ChevronLeftIcon } from '~/components/Icon';
 
 const BackButton = {
   chevron: ChevronLeftIcon,
-  cancel: CancelIcon,
+  cancel: CancelBoldIcon,
   arrow: ArrowLeftIcon,
 };
 
