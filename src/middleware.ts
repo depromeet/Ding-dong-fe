@@ -49,7 +49,7 @@ const middleware = async (request: NextRequest) => {
       });
 
       if (!response.ok) {
-        return NextResponse.redirect(new URL('/auth/signin', request.url));
+        return NextResponse.redirect(new URL('/auth/signin', request.nextUrl.origin));
       }
       const data = await response.json();
 
