@@ -13,7 +13,7 @@ export const KakaoLoginButton = ({ provider }: KakaoLoginButtonProps) => {
         onClick={() =>
           signIn(provider.id, {
             redirect: true,
-            callbackUrl: 'https://ding-dong-fe.vercel.app/auth/callback/kakao',
+            callbackUrl: 'https://ding-dong-planet.com/auth/callback/kakao',
           })
         }
       >
