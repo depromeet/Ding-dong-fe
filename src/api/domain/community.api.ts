@@ -29,6 +29,8 @@ import {
 } from '~/types/community/request.type';
 import { getUserIdClient } from '~/utils/auth/getUserId.client';
 
+import { ApiError } from '../config/customError';
+
 export const communityQueryKey = {
   idCards: (communityId: number) => ['communityIdCards', communityId],
   communityList: (userId: number) => ['communityList', userId],
@@ -129,11 +131,11 @@ export const postCommunityJoin = async (communityId: CommunityJoinRequest) => {
 };
 
 export const usePostCommunityJoin = (
-  options?: Omit<UseMutationOptions<unknown, AxiosError, CommunityJoinRequest>, 'mutationFn'>,
+  options?: Omit<UseMutationOptions<unknown, ApiError, CommunityJoinRequest>, 'mutationFn'>,
 ) => {
   const queryClient = useQueryClient();
 
-  return useMutation<unknown, AxiosError, CommunityJoinRequest>({
+  return useMutation<unknown, ApiError, CommunityJoinRequest>({
     mutationFn: postCommunityJoin,
     onSuccess: () => queryClient.invalidateQueries(userQueryKey.userInfo()),
     ...options,
