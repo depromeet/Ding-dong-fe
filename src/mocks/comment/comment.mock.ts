@@ -23,11 +23,9 @@ export const createCommentReply = (idx: number): CommentReplyModel => ({
       to: '2023-08-31T00:00:00.000Z',
     })
     .toLocaleString(),
+  writerInfo: createCommentWriter(idx),
   commentReplyLikeInfo: createCommentLike(),
 });
-
-export const createCommentReplyList = (n: number) =>
-  Array.from({ length: n }, (_, idx) => createCommentReply(Number(`${idx}${idx}`)));
 
 export const createComment = (idCardId: number, idx: number): CommentModel => ({
   idCardId,
@@ -41,8 +39,19 @@ export const createComment = (idCardId: number, idx: number): CommentModel => ({
     .toLocaleString(),
   writerInfo: createCommentWriter(idx),
   commentLikeInfo: createCommentLike(),
-  commentReplyInfos: createCommentReplyList(faker.number.int({ min: 0, max: 100 })),
+  repliesCount: faker.number.int({ min: 0, max: 999 }),
 });
+
+export const createCommentCount = () => ({
+  count: faker.number.int({ min: 0, max: 999 }),
+});
+
+export const createRandomId = () => ({
+  id: faker.number.int({ min: 0, max: 999 }),
+});
+
+export const createCommentReplyList = (n: number) =>
+  Array.from({ length: n }, (_, idx) => createCommentReply(Number(`${idx}${idx}`)));
 
 export const createCommentList = (
   n: number,
@@ -54,12 +63,4 @@ export const createCommentList = (
   page,
   size,
   hasNext: page === 5,
-});
-
-export const createCommentCount = () => ({
-  count: faker.number.int({ min: 0, max: 999 }),
-});
-
-export const createRandomId = () => ({
-  id: faker.number.int({ min: 0, max: 999 }),
 });
