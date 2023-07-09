@@ -34,7 +34,7 @@ export const Comment = ({
   createdAt,
   writerInfo,
   commentLikeInfo,
-  commentReplyInfos,
+  repliesCount,
 }: CommentProps) => {
   const { errorToast } = useToastMessageStore();
   const { userId: writerId, profileImageUrl, nickname } = writerInfo;
@@ -109,14 +109,12 @@ export const Comment = ({
         <ReplyShowButton
           isShowReplyList={isShowReplyList}
           onClickShowReplyList={onClickShowReplyList}
-          commentReplyInfos={commentReplyInfos}
+          repliesCount={repliesCount}
         />
         <CommentReplyList
           idCardId={idCardId}
           commentId={commentId}
-          writerInfo={writerInfo}
           isShowReplyList={isShowReplyList}
-          commentReplyInfos={commentReplyInfos}
         />
         <div className="mt-24pxr">
           <ReplyHideButton

@@ -40,6 +40,8 @@ import {
   CommentPostRequest,
   CommentPostResponse,
   CommentReplyDeleteRequest,
+  CommentReplyGetRequest,
+  CommentReplyGetResponse,
   CommentReplyLikeCancelDeleteResponse,
   CommentReplyLikeCancelRequest,
   CommentReplyLikePostResponse,
@@ -49,6 +51,7 @@ import { CommunityUserInfoResponse } from '~/types/community';
 
 export const commentQueryKey = {
   comments: (idCardId: number) => ['comments', idCardId],
+  commentReplies: (idCardId: number, commentId: number) => ['replies', idCardId, commentId],
   commentCount: (idCardId: number) => ['commentCount', idCardId],
 };
 
@@ -75,6 +78,14 @@ export const getCommentCounts = ({ idCardId }: CommentCountGetRequest) =>
 
 export const useGetCommentCounts = ({ idCardId }: CommentCountGetRequest) =>
   useQuery(commentQueryKey.commentCount(idCardId), () => getCommentCounts({ idCardId }));
+
+export const getCommentReplies = ({ idCardId, commentId }: CommentReplyGetRequest) =>
+  privateApi.get<CommentReplyGetResponse>(`/id-cards/${idCardId}/comments/${commentId}/replies`);
+
+export const useGetCommentReplies = ({ idCardId, commentId }: CommentReplyGetRequest) =>
+  useQuery(commentQueryKey.commentCount(idCardId), () =>
+    getCommentReplies({ idCardId, commentId }),
+  );
 
 export const postCommentCreate = ({ idCardId, contents }: CommentPostRequest) =>
   privateApi.post<CommentPostResponse>(`id-cards/${idCardId}/comments`, { contents });

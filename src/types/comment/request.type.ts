@@ -7,6 +7,11 @@ export type CommentCountGetRequest = {
   idCardId: number;
 };
 
+export type CommentReplyGetRequest = {
+  idCardId: number;
+  commentId: number;
+};
+
 export type CommentPostRequest = {
   idCardId: number;
   contents: string;

@@ -1,10 +1,15 @@
 import { SliceResponse } from '~/types/api';
-import { CommentModel } from '~/types/comment/model.type';
+import { CommentModel, CommentReplyModel } from '~/types/comment/model.type';
 
 export type CommentGetResponse = SliceResponse<CommentModel>;
 
 export type CommentCountGetResponse = {
   count: number;
+};
+
+export type CommentReplyGetResponse = {
+  commentId: number;
+  repliesInfo: CommentReplyModel[];
 };
 
 export type CommentPostResponse = {
