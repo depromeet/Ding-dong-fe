@@ -1,3 +1,4 @@
+export * from './CommentOptions.client';
 export * from './Content.client';
 export * from './DeleteButton.client';
 export * from './Empty.client';
