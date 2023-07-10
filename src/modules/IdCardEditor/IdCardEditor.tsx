@@ -1,9 +1,11 @@
 'use client';
 
+import { yupResolver } from '@hookform/resolvers/yup';
 import { isEqual } from 'lodash';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
+import * as yup from 'yup';
 
 import { useEditIdCardDetail, useGetCommunityMyIdCardDetail } from '~/api/domain/idCard.api';
 import { ConfirmUnSave, useConfirmPopup } from '~/components/ConfirmPopup';
@@ -16,6 +18,14 @@ import { getEntries } from '~/utils/util.common';
 type IdCardEditorProps = {
   communityId: number;
 };
+
+const schema = yup.object({
+  profileImageUrl: yup.string(),
+  communityId: yup.number(),
+  nickname: yup.string().required('이름을 입력해 주세요.'),
+  aboutMe: yup.string(),
+  keywords: yup.array().min(1).default([]).required(),
+});
 
 export const IdCardEditor = ({ communityId }: IdCardEditorProps) => {
   const { data } = useGetCommunityMyIdCardDetail(communityId);
@@ -46,11 +56,15 @@ export const IdCardEditor = ({ communityId }: IdCardEditorProps) => {
 
   const methods = useForm<IdCardEditorFormValues>({
     defaultValues: initFormValue,
+    mode: 'onChange',
+    resolver: yupResolver(schema),
   });
 
   const onSubmit = async (idCardInfo: IdCardEditorFormValues) => {
     await mutateEditIdCardDetail({ idCardId, ...idCardInfo });
   };
+  const canSubmit = methods.formState.isValid && !methods.formState.isSubmitting;
+  const submitButtonStyle = canSubmit ? 'text-primary-500' : 'text-grey-400';
 
   const isValueChanged = () =>
     getEntries(submitState).some(([name, value]) => !isEqual(methods.getValues(name), value));
@@ -117,8 +131,12 @@ export const IdCardEditor = ({ communityId }: IdCardEditorProps) => {
             <TopNavigation.BackButton onClickBackButton={onClickBackButton} />
           </TopNavigation.Left>
           <TopNavigation.Title>{title}</TopNavigation.Title>
-          <TopNavigation.Right>
-            <button onClick={onClickCompleteButton} className="text-h5 font-semibold text-blue-500">
+          <TopNavigation.Right className="text-h5 font-semibold">
+            <button
+              onClick={onClickCompleteButton}
+              disabled={!canSubmit}
+              className={submitButtonStyle}
+            >
               완료
             </button>
           </TopNavigation.Right>
