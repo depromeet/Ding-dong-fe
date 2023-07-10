@@ -56,14 +56,14 @@ export const BottomNavigation = () => {
           </button>
         </li>
         <li>
-          <button onClick={onClickNotification} className="relative">
-            <NewNotificationBadge />
-            <BellIcon height={26} className={getSvgcolor('/notification')} />
+          <button onClick={onClickMyPage}>
+            <PersonIcon className={getSvgcolor('/my-page')} />
           </button>
         </li>
         <li>
-          <button onClick={onClickMyPage}>
-            <PersonIcon className={getSvgcolor('/my-page')} />
+          <button onClick={onClickNotification} className="relative">
+            <NewNotificationBadge />
+            <BellIcon height={26} className={getSvgcolor('/notification')} />
           </button>
         </li>
       </ul>
