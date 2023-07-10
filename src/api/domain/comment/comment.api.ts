@@ -278,7 +278,8 @@ export const usePostReplyCreate = (idCardId: number, communityId: number) => {
 
       queryClient.setQueryData<CommentReplyGetResponse | undefined>(
         commentQueryKey.commentReplies(idCardId, commentId),
-        previousComments => updateReplyId(commentId, replyId, previousComments),
+        previousCommentRepliesResponse =>
+          updateReplyId(commentId, replyId, previousCommentRepliesResponse),
       );
     },
   });

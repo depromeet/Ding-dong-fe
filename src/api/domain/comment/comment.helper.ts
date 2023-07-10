@@ -176,9 +176,9 @@ export const addReplyCountToPages = (
 export const updateReplyId = (
   commentId: number,
   replyId: number,
-  previousComments?: CommentReplyGetResponse,
+  previousCommentRepliesResponse?: CommentReplyGetResponse,
 ): CommentReplyGetResponse => {
-  const copyPreviousCommentReplies = cloneDeep(previousComments?.repliesInfo || []);
+  const copyPreviousCommentReplies = cloneDeep(previousCommentRepliesResponse?.repliesInfo || []);
 
   const updated = copyPreviousCommentReplies.map(reply => {
     if (reply.commentReplyId === replyId) {
