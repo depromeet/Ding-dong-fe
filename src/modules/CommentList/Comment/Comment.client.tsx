@@ -1,5 +1,4 @@
 'use client';
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { useState } from 'react';
 
 import {
@@ -8,22 +7,20 @@ import {
   usePostLikeComment,
 } from '~/api/domain/comment/comment.api';
 import {
+  CommentOptions,
   Content,
-  DeleteButton,
   Header,
   LikeCount,
   LikeIcon,
   ReplyHideButton,
   ReplyShowButton,
   ReplySubmitButton,
-  ReportButton,
   UserProfile,
 } from '~/modules/CommentList/CommentCommon';
 import { CommentReplyList } from '~/modules/CommentList/CommentReplyList';
 import { useLike } from '~/modules/CommentList/useLike';
 import { useToastMessageStore } from '~/stores/toastMessage.store';
 import { CommentModel } from '~/types/comment';
-import { getUserIdClient } from '~/utils/auth/getUserId.client';
 
 type CommentProps = CommentModel;
 
@@ -34,14 +31,14 @@ export const Comment = ({
   createdAt,
   writerInfo,
   commentLikeInfo,
-  commentReplyInfos,
+  repliesCount,
 }: CommentProps) => {
   const { errorToast } = useToastMessageStore();
-  const { userId: writerId, profileImageUrl, nickname } = writerInfo;
+  const { profileImageUrl, nickname } = writerInfo;
   const [isShowReplyList, setIsShowReplyList] = useState(false);
   const { isLikedByCurrentUser, likeCount, likeComment, cancelLikeComment } =
     useLike(commentLikeInfo);
-  const userId = getUserIdClient();
+
   const mutatePostLike = usePostLikeComment({
     onError: error => {
       errorToast(error.message);
@@ -88,14 +85,13 @@ export const Comment = ({
         <div className="flex w-full gap-12pxr">
           <div className="w-full">
             <Content content={content} />
-            <div className="mt-8pxr flex gap-16pxr">
+            <div className="mt-8pxr flex items-center gap-16pxr">
               <LikeCount likeCount={likeCount} />
               <ReplySubmitButton nickname={nickname} commentId={commentId} />
-              {userId === writerId ? (
-                <DeleteButton onClickToDeleteComment={onClickToDeleteComment} />
-              ) : (
-                <ReportButton />
-              )}
+              <CommentOptions
+                writerInfo={writerInfo}
+                onClickToDeleteComment={onClickToDeleteComment}
+              />
             </div>
           </div>
           <div>
@@ -109,14 +105,12 @@ export const Comment = ({
         <ReplyShowButton
           isShowReplyList={isShowReplyList}
           onClickShowReplyList={onClickShowReplyList}
-          commentReplyInfos={commentReplyInfos}
+          repliesCount={repliesCount}
         />
         <CommentReplyList
           idCardId={idCardId}
           commentId={commentId}
-          writerInfo={writerInfo}
           isShowReplyList={isShowReplyList}
-          commentReplyInfos={commentReplyInfos}
         />
         <div className="mt-24pxr">
           <ReplyHideButton

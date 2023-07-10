@@ -9,13 +9,6 @@ export type CommentWriterIntoModel = {
   profileImageUrl: string;
 };
 
-export type CommentReplyModel = {
-  commentReplyId: number;
-  content: string;
-  createdAt: string;
-  commentReplyLikeInfo: CommentLikeModel;
-};
-
 export type CommentModel = {
   idCardId: number;
   commentId: number;
@@ -23,5 +16,13 @@ export type CommentModel = {
   createdAt: string;
   writerInfo: CommentWriterIntoModel;
   commentLikeInfo: CommentLikeModel;
-  commentReplyInfos: CommentReplyModel[];
+  repliesCount: number;
+};
+
+export type CommentReplyModel = {
+  commentReplyId: number;
+  content: string;
+  createdAt: string;
+  writerInfo: CommentWriterIntoModel;
+  commentReplyLikeInfo: CommentLikeModel;
 };

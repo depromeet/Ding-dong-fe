@@ -1,7 +1,7 @@
 import { DashIcon } from '~/components/Icon';
 import { CommentModel } from '~/types/comment';
 
-type ReplyShowButtonProps = Pick<CommentModel, 'commentReplyInfos'> & {
+type ReplyShowButtonProps = Pick<CommentModel, 'repliesCount'> & {
   isShowReplyList: boolean;
   onClickShowReplyList: VoidFunction;
 };
@@ -9,9 +9,9 @@ type ReplyShowButtonProps = Pick<CommentModel, 'commentReplyInfos'> & {
 export const ReplyShowButton = ({
   isShowReplyList,
   onClickShowReplyList,
-  commentReplyInfos,
+  repliesCount,
 }: ReplyShowButtonProps) => {
-  const isReplyListEmpty = commentReplyInfos.length === 0;
+  const isReplyListEmpty = repliesCount === 0;
 
   const isShowButton = !isShowReplyList && !isReplyListEmpty;
 
@@ -21,7 +21,7 @@ export const ReplyShowButton = ({
         <button type="button" onClick={onClickShowReplyList} className="mt-24pxr flex gap-8pxr">
           <DashIcon className="fill-grey-500" />
           <span className="text-detail font-semibold text-grey-500">
-            답글 {commentReplyInfos.length}개 더보기
+            답글 {repliesCount}개 더보기
           </span>
         </button>
       )}

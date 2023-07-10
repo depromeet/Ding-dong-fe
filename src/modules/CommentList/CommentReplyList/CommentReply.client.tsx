@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 'use client';
 
 import {
@@ -7,19 +6,17 @@ import {
   usePostLikeCommentReply,
 } from '~/api/domain/comment/comment.api';
 import {
+  CommentOptions,
   Content,
-  DeleteButton,
   Header,
   LikeCount,
   LikeIcon,
   ReplySubmitButton,
-  ReportButton,
   UserProfile,
 } from '~/modules/CommentList/CommentCommon';
 import { useLike } from '~/modules/CommentList/useLike';
 import { useToastMessageStore } from '~/stores/toastMessage.store';
 import { CommentModel, CommentReplyModel } from '~/types/comment';
-import { getUserIdClient } from '~/utils/auth/getUserId.client';
 
 type CommentProps = Pick<CommentModel, 'idCardId' | 'commentId' | 'writerInfo'> & CommentReplyModel;
 
@@ -33,10 +30,9 @@ export const CommentReply = ({
   commentReplyLikeInfo,
 }: CommentProps) => {
   const { errorToast } = useToastMessageStore();
-  const { userId: writerId, profileImageUrl, nickname } = writerInfo;
+  const { profileImageUrl, nickname } = writerInfo;
   const { isLikedByCurrentUser, likeCount, likeComment, cancelLikeComment } =
     useLike(commentReplyLikeInfo);
-  const userId = getUserIdClient();
 
   const mutatePostLike = usePostLikeCommentReply({
     onError: error => {
@@ -76,14 +72,13 @@ export const CommentReply = ({
         <div className="flex w-full gap-12pxr">
           <div className="w-full">
             <Content content={content} />
-            <div className="mt-8pxr flex gap-16pxr">
+            <div className="mt-8pxr flex items-center gap-16pxr">
               <LikeCount likeCount={likeCount} />
               <ReplySubmitButton nickname={nickname} commentId={commentId} />
-              {userId === writerId ? (
-                <DeleteButton onClickToDeleteComment={onClickToDeleteComment} />
-              ) : (
-                <ReportButton />
-              )}
+              <CommentOptions
+                writerInfo={writerInfo}
+                onClickToDeleteComment={onClickToDeleteComment}
+              />
             </div>
           </div>
           <div>
