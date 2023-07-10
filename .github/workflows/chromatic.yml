@@ -4,10 +4,11 @@
 name: 'Chromatic'
 
 # Event for the workflow
-on:
-  pull_request:
-    branches:
-      - main
+# Temporarily disable features for rapid development
+# on:
+#   pull_request:
+#     branches:
+#       - main
 
 # List of jobs
 jobs:
