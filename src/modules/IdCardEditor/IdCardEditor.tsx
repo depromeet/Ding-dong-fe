@@ -5,11 +5,11 @@ import { isEqual } from 'lodash';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
-import * as yup from 'yup';
 
 import { useEditIdCardDetail, useGetCommunityMyIdCardDetail } from '~/api/domain/idCard.api';
 import { ConfirmUnSave, useConfirmPopup } from '~/components/ConfirmPopup';
 import { TopNavigation } from '~/components/TopNavigation';
+import { idCardCreationSchema as idCardEditorSchema } from '~/modules/IdCardCreation';
 import { IdCardEditorForm } from '~/modules/IdCardEditor/Form';
 import { editorSteps, KEYWORD_CONTENT_STEP } from '~/modules/IdCardEditor/IdCardEditor.constant';
 import { EditorSteps, IdCardEditorFormValues } from '~/modules/IdCardEditor/IdCardEditor.type';
@@ -18,14 +18,6 @@ import { getEntries } from '~/utils/util.common';
 type IdCardEditorProps = {
   communityId: number;
 };
-
-const schema = yup.object({
-  profileImageUrl: yup.string(),
-  communityId: yup.number(),
-  nickname: yup.string().required('이름을 입력해 주세요.'),
-  aboutMe: yup.string(),
-  keywords: yup.array().min(1).default([]).required(),
-});
 
 export const IdCardEditor = ({ communityId }: IdCardEditorProps) => {
   const { data } = useGetCommunityMyIdCardDetail(communityId);
@@ -57,7 +49,7 @@ export const IdCardEditor = ({ communityId }: IdCardEditorProps) => {
   const methods = useForm<IdCardEditorFormValues>({
     defaultValues: initFormValue,
     mode: 'onChange',
-    resolver: yupResolver(schema),
+    resolver: yupResolver(idCardEditorSchema),
   });
 
   const onSubmit = async (idCardInfo: IdCardEditorFormValues) => {

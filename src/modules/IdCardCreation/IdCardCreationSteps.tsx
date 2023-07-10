@@ -19,7 +19,7 @@ const INIT_STEP = 0;
 
 const steps: CreationSteps[] = ['BOARDING', 'PROFILE', 'KEYWORD', 'KEYWORD_CONTENT', 'COMPLETE'];
 
-const schema = yup.object({
+export const idCardCreationSchema = yup.object({
   profileImageUrl: yup.string(),
   communityId: yup.number(),
   nickname: yup.string().required('이름을 입력해 주세요.'),
@@ -46,7 +46,7 @@ export const IdCardCreationSteps = ({ communityId }: IdCardCreationStepsProps) =
       keywords: [],
     },
     mode: 'onChange',
-    resolver: yupResolver(schema),
+    resolver: yupResolver(idCardCreationSchema),
   });
   const [idCardId, setIdCardId] = useState<number>();
 
