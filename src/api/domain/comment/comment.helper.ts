@@ -1,6 +1,11 @@
-import _ from 'lodash';
+import { cloneDeep } from 'lodash';
 
-import { CommentCountGetResponse, CommentModel, CommentReplyModel } from '~/types/comment';
+import {
+  CommentCountGetResponse,
+  CommentModel,
+  CommentReplyGetResponse,
+  CommentReplyModel,
+} from '~/types/comment';
 
 type NewComment = {
   idCardId: number;
@@ -24,15 +29,15 @@ export const createNewComment = ({
     content: contents,
     createdAt: new Date().toISOString(),
     writerInfo: {
-      userId: userId,
-      nickname: nickname,
-      profileImageUrl: profileImageUrl,
+      userId,
+      nickname,
+      profileImageUrl,
     },
     commentLikeInfo: {
       likeCount: 0,
       isLikedByCurrentUser: false,
     },
-    commentReplyInfos: [],
+    repliesCount: 0,
   };
 };
 
@@ -50,7 +55,7 @@ export const addCommentToPages = (
   previousComments: CommentPages | undefined,
   newComment: CommentModel,
 ): CommentPages => {
-  const copyPreviousComments = _.cloneDeep(previousComments);
+  const copyPreviousComments = cloneDeep(previousComments);
   const updatedPages = copyPreviousComments?.pages ? copyPreviousComments.pages : [];
   const isCommentListEmpty = updatedPages.length === 0;
 
@@ -80,7 +85,7 @@ export const updateCommentId = (
   previousComments: CommentPages | undefined,
   commentId: number,
 ): CommentPages => {
-  const copyPreviousComments = _.cloneDeep(previousComments);
+  const copyPreviousComments = cloneDeep(previousComments);
   const pages = copyPreviousComments?.pages ? copyPreviousComments.pages : [];
 
   // commentId를 실제 요청 후 받은 id로 수정합니다.
@@ -99,9 +104,17 @@ export const updateCommentId = (
 
 type NewReply = {
   contents: string;
+  userId: number;
+  nickname: string;
+  profileImageUrl: string;
 };
 
-export const createNewReply = ({ contents }: NewReply): CommentReplyModel => {
+export const createNewReply = ({
+  contents,
+  userId,
+  nickname,
+  profileImageUrl,
+}: NewReply): CommentReplyModel => {
   return {
     commentReplyId: Date.now(),
     content: contents,
@@ -110,15 +123,34 @@ export const createNewReply = ({ contents }: NewReply): CommentReplyModel => {
       likeCount: 0,
       isLikedByCurrentUser: false,
     },
+    writerInfo: {
+      userId,
+      nickname,
+      profileImageUrl,
+    },
   };
 };
 
-export const addReplyToPages = (
-  previousComments: CommentPages | undefined,
+export const addReplyToComment = (
   newReply: CommentReplyModel,
   commentId: number,
+  previousComments: CommentReplyModel[],
+): CommentReplyGetResponse => {
+  const copyPreviousCommentReplies = cloneDeep(previousComments);
+
+  const updatedCommentReplies = [...copyPreviousCommentReplies, newReply];
+
+  return {
+    commentId,
+    repliesInfo: updatedCommentReplies,
+  };
+};
+
+export const addReplyCountToPages = (
+  previousComments: CommentPages | undefined,
+  commentId: number,
 ): CommentPages => {
-  const copyPreviousComments = _.cloneDeep(previousComments);
+  const copyPreviousComments = cloneDeep(previousComments);
   const updatedPages = copyPreviousComments?.pages ? copyPreviousComments.pages : [];
 
   if (updatedPages.length > 0) {
@@ -132,7 +164,7 @@ export const addReplyToPages = (
       const comment = firstPageData.content[commentIndex];
       const updatedComment = {
         ...comment,
-        commentReplyInfos: [...comment.commentReplyInfos, newReply],
+        repliesCount: comment.repliesCount + 1,
       };
       firstPageData.content[commentIndex] = updatedComment;
     }
@@ -142,41 +174,25 @@ export const addReplyToPages = (
 };
 
 export const updateReplyId = (
-  previousComments: CommentPages | undefined,
   commentId: number,
   replyId: number,
-): CommentPages => {
-  const copyPreviousComments = _.cloneDeep(previousComments);
-  const pages = copyPreviousComments?.pages ? copyPreviousComments.pages : [];
+  previousComments?: CommentReplyGetResponse,
+): CommentReplyGetResponse => {
+  const copyPreviousCommentReplies = cloneDeep(previousComments?.repliesInfo || []);
 
-  const updatedPages = pages.map(page => {
-    const updatedData = {
-      ...page,
-      content: page.content.map(comment => {
-        if (comment.commentId === commentId) {
-          const lastReplyIndex = comment.commentReplyInfos.length - 1;
-          if (lastReplyIndex >= 0) {
-            const updatedReplies = [...comment.commentReplyInfos];
-            const lastReply = updatedReplies[lastReplyIndex];
-            lastReply.commentReplyId = replyId;
+  const updated = copyPreviousCommentReplies.map(reply => {
+    if (reply.commentReplyId === replyId) {
             return {
-              ...comment,
-              commentReplyInfos: updatedReplies,
+        ...reply,
+        commentReplyId: replyId,
             };
           }
-        }
-        return comment;
-      }),
-    };
-    return {
-      ...page,
-      ...updatedData,
-    };
+    return reply;
   });
 
   return {
-    pages: updatedPages,
-    pageParams: previousComments?.pageParams ?? [],
+    commentId,
+    repliesInfo: updated,
   };
 };
 

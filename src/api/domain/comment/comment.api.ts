@@ -10,7 +10,8 @@ import { AxiosError } from 'axios';
 import privateApi from '~/api/config/privateApi';
 import {
   addCommentToPages,
-  addReplyToPages,
+  addReplyCountToPages,
+  addReplyToComment,
   CommentPages,
   createNewComment,
   createNewReply,
