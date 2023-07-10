@@ -6,7 +6,12 @@ import { createUserInfo } from '~/mocks/user/user.mock';
 
 export const userMockHandler = [
   rest.get(`${ROOT_API_URL}/user/profile`, () => {
-    return generateResponse({ statusCode: 200, data: createUserInfo() });
+    return generateResponse({
+      statusCode: 200,
+      data: {
+        userProfileDto: createUserInfo(),
+      },
+    });
   }),
   rest.post(`${ROOT_API_URL}/user/character`, () => {
     return generateResponse({ statusCode: 200, data: {} });
