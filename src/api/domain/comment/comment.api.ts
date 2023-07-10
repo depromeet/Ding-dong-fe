@@ -18,7 +18,8 @@ import {
   decreaseCommentCount,
   increaseCommentCount,
   removeCommentToPages,
-  removeReplyToPages,
+  removeReplyToComment,
+  subtractReplyCountToPages,
   updateCommentId,
   updateReplyId,
 } from '~/api/domain/comment/comment.helper';
@@ -84,7 +85,7 @@ export const getCommentReplies = ({ idCardId, commentId }: CommentReplyGetReques
   privateApi.get<CommentReplyGetResponse>(`/id-cards/${idCardId}/comments/${commentId}/replies`);
 
 export const useGetCommentReplies = ({ idCardId, commentId }: CommentReplyGetRequest) =>
-  useQuery(commentQueryKey.commentCount(idCardId), () =>
+  useQuery(commentQueryKey.commentReplies(idCardId, commentId), () =>
     getCommentReplies({ idCardId, commentId }),
   );
 
@@ -208,42 +209,76 @@ export const usePostReplyCreate = (idCardId: number, communityId: number) => {
   const { errorToast } = useToastMessageStore();
 
   return useMutation({
-    mutationFn: (replyInfo: CommentPostReplyRequest) => postReplyCreate(replyInfo),
+    mutationFn: postReplyCreate,
     onMutate: async (commentInfo: CommentPostReplyRequest) => {
+      const { contents, commentId } = commentInfo;
       await queryClient.cancelQueries({ queryKey: commentQueryKey.comments(idCardId) });
 
       const userInfo = queryClient.getQueryData<CommunityUserInfoResponse>(
         communityQueryKey.communityUserInfo(communityId),
       );
-      if (userInfo) {
+      if (
+        userInfo &&
+        userInfo.myInfoInInCommunityDto.nickname &&
+        userInfo.myInfoInInCommunityDto.profileImageUrl
+      ) {
         const newReply = createNewReply({
-          contents: commentInfo.contents,
+          contents,
+          nickname: userInfo.myInfoInInCommunityDto.nickname,
+          profileImageUrl: userInfo.myInfoInInCommunityDto.profileImageUrl,
+          userId: userInfo.myInfoInInCommunityDto.userId,
         });
 
-        const previousComments = queryClient.getQueryData<CommentPages>(
+        // update reply to target comment
+        const previousCommentRepliesResponse = queryClient.getQueryData<CommentReplyGetResponse>(
+          commentQueryKey.commentReplies(idCardId, commentId),
+        );
+
+        if (previousCommentRepliesResponse) {
+          const updatedCommentRepliesResponse = addReplyToComment(
+            newReply,
+            commentId,
+            previousCommentRepliesResponse.repliesInfo,
+          );
+          queryClient.setQueryData(
+            commentQueryKey.commentReplies(idCardId, commentId),
+            updatedCommentRepliesResponse,
+          );
+        }
+
+        const previousCommentsResponse = queryClient.getQueryData<CommentPages>(
           commentQueryKey.comments(idCardId),
         );
 
-        const updatedComments = addReplyToPages(previousComments, newReply, commentInfo.commentId);
-        queryClient.setQueryData(commentQueryKey.comments(idCardId), updatedComments);
+        // update target comment's reply count
+        const updatedCommentsResponse = addReplyCountToPages(
+          previousCommentsResponse,
+          commentInfo.commentId,
+        );
+        queryClient.setQueryData(commentQueryKey.comments(idCardId), updatedCommentsResponse);
 
-        return { previousComments };
+        return { previousCommentRepliesResponse, previousCommentsResponse };
       }
     },
-    onError: (err, newComment, context) => {
-      if (context?.previousComments) {
+    onError: (err, requestInfo, context) => {
+      if (context) {
+        const { previousCommentRepliesResponse, previousCommentsResponse } = context;
         const error = err as AxiosError;
         errorToast(error.message);
-        queryClient.setQueryData(commentQueryKey.comments(idCardId), context.previousComments);
+        queryClient.setQueryData(
+          commentQueryKey.commentReplies(idCardId, requestInfo.commentId),
+          previousCommentRepliesResponse,
+        );
+        queryClient.setQueryData(commentQueryKey.comments(idCardId), previousCommentsResponse);
       }
     },
     onSuccess: (response, commentReplyInfos) => {
       const replyId = response.id;
       const commentId = commentReplyInfos.commentId;
 
-      queryClient.setQueryData<CommentPages | undefined>(
-        commentQueryKey.comments(idCardId),
-        previousComments => updateReplyId(previousComments, commentId, replyId),
+      queryClient.setQueryData<CommentReplyGetResponse | undefined>(
+        commentQueryKey.commentReplies(idCardId, commentId),
+        previousComments => updateReplyId(commentId, replyId, previousComments),
       );
     },
   });
@@ -259,28 +294,54 @@ export const useDeleteReply = (idCardId: number) => {
   const { errorToast } = useToastMessageStore();
 
   return useMutation({
-    mutationFn: (replyInfo: CommentReplyDeleteRequest) => deleteReply(replyInfo),
+    mutationFn: deleteReply,
     onMutate: async (replyInfo: CommentReplyDeleteRequest) => {
-      await queryClient.cancelQueries({ queryKey: commentQueryKey.comments(idCardId) });
+      const { idCardId, commentId, commentReplyId } = replyInfo;
 
-      const previousComments = queryClient.getQueryData<CommentPages>(
+      await queryClient.cancelQueries({
+        queryKey: commentQueryKey.commentReplies(idCardId, commentId),
+      });
+
+      // update reply to target comment
+      const previousCommentRepliesResponse = queryClient.getQueryData<CommentReplyGetResponse>(
+        commentQueryKey.commentReplies(idCardId, commentId),
+      );
+
+      if (previousCommentRepliesResponse) {
+        const updatedCommentReplies = removeReplyToComment(
+          commentReplyId,
+          commentId,
+          previousCommentRepliesResponse.repliesInfo,
+        );
+        queryClient.setQueryData(
+          commentQueryKey.commentReplies(idCardId, commentId),
+          updatedCommentReplies,
+        );
+      }
+
+      // update target comment's reply count
+      const previousCommentsResponse = queryClient.getQueryData<CommentPages>(
         commentQueryKey.comments(idCardId),
       );
 
-      const updatedComments = removeReplyToPages(
-        previousComments,
-        replyInfo.commentId,
-        replyInfo.commentReplyId,
+      const updatedCommentsResponse = subtractReplyCountToPages(
+        previousCommentsResponse,
+        commentId,
       );
-      queryClient.setQueryData(commentQueryKey.comments(idCardId), updatedComments);
+      queryClient.setQueryData(commentQueryKey.comments(idCardId), updatedCommentsResponse);
 
-      return { previousComments };
+      return { previousCommentsResponse, previousCommentRepliesResponse };
     },
-    onError: (err, newComment, context) => {
-      if (context?.previousComments) {
+    onError: (err, requestInfo, context) => {
+      if (context) {
+        const { previousCommentRepliesResponse, previousCommentsResponse } = context;
         const error = err as AxiosError;
         errorToast(error.message);
-        queryClient.setQueryData(commentQueryKey.comments(idCardId), context.previousComments);
+        queryClient.setQueryData(
+          commentQueryKey.commentReplies(idCardId, requestInfo.commentId),
+          previousCommentRepliesResponse,
+        );
+        queryClient.setQueryData(commentQueryKey.comments(idCardId), previousCommentsResponse);
       }
     },
   });

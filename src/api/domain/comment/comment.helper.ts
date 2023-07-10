@@ -182,11 +182,11 @@ export const updateReplyId = (
 
   const updated = copyPreviousCommentReplies.map(reply => {
     if (reply.commentReplyId === replyId) {
-            return {
+      return {
         ...reply,
         commentReplyId: replyId,
-            };
-          }
+      };
+    }
     return reply;
   });
 
@@ -200,7 +200,7 @@ export const removeCommentToPages = (
   previousComments: CommentPages | undefined,
   commentId: number,
 ) => {
-  const copyPreviousComments = _.cloneDeep(previousComments);
+  const copyPreviousComments = cloneDeep(previousComments);
   const pages = copyPreviousComments?.pages ? copyPreviousComments.pages : [];
 
   const updatedPages = pages.map(page => {
@@ -220,40 +220,48 @@ export const removeCommentToPages = (
   };
 };
 
-export const removeReplyToPages = (
-  previousComments: CommentPages | undefined,
-  commentId: number,
+export const removeReplyToComment = (
   replyId: number,
-) => {
-  const copyPreviousComments = _.cloneDeep(previousComments);
-  const pages = copyPreviousComments?.pages ? copyPreviousComments.pages : [];
+  commentId: number,
+  previousComments: CommentReplyModel[],
+): CommentReplyGetResponse => {
+  const copyPreviousCommentReplies = cloneDeep(previousComments);
 
-  const updatedPages = pages.map(page => {
-    const updatedData = {
-      ...page,
-      content: page.content.map(comment => {
-        if (comment.commentId !== commentId) {
-          return comment;
-        }
-        const updatedReplies = comment.commentReplyInfos.filter(
-          reply => reply.commentReplyId !== replyId,
-        );
-        return {
-          ...comment,
-          commentReplyInfos: updatedReplies,
-        };
-      }),
-    };
-    return {
-      ...page,
-      ...updatedData,
-    };
-  });
+  const updatedCommentReplies = copyPreviousCommentReplies.filter(
+    reply => reply.commentReplyId !== replyId,
+  );
 
   return {
-    pages: updatedPages,
-    pageParams: previousComments?.pageParams ?? [],
+    commentId,
+    repliesInfo: updatedCommentReplies,
   };
+};
+
+export const subtractReplyCountToPages = (
+  previousComments: CommentPages | undefined,
+  commentId: number,
+): CommentPages => {
+  const copyPreviousComments = cloneDeep(previousComments);
+  const updatedPages = copyPreviousComments?.pages ? copyPreviousComments.pages : [];
+
+  if (updatedPages.length > 0) {
+    const firstPage = updatedPages[0];
+    const firstPageData = firstPage;
+    const commentIndex = firstPageData.content.findIndex(
+      comment => comment.commentId === commentId,
+    );
+
+    if (commentIndex !== -1) {
+      const comment = firstPageData.content[commentIndex];
+      const updatedComment = {
+        ...comment,
+        repliesCount: comment.repliesCount - 1,
+      };
+      firstPageData.content[commentIndex] = updatedComment;
+    }
+  }
+
+  return { pages: updatedPages, pageParams: previousComments?.pageParams ?? [] };
 };
 
 export const increaseCommentCount = (commentCountResponse: CommentCountGetResponse | undefined) => {
