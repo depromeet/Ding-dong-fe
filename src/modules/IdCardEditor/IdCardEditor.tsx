@@ -84,8 +84,6 @@ export const IdCardEditor = ({ communityId }: IdCardEditorProps) => {
       return;
     }
 
-    console.log('submitState', submitState);
-    console.log('methods.getValues()', methods.getValues());
     if (isValueChanged()) {
       const isOk = await openConfirmUnSavePopup();
       closeConfirmUnSavePopup();
