@@ -26,11 +26,6 @@ export const CommunityAdminEditForm = ({
   hasDescription,
   mutation,
 }: CommunityAdminEditFormProps) => {
-  const onSubmit = (data: CreateCommunityRequest) => {
-    console.log('제출');
-    mutation.mutate(data);
-  };
-
   const {
     register,
     setValue,
@@ -38,6 +33,10 @@ export const CommunityAdminEditForm = ({
     formState: { defaultValues },
     getValues,
   } = useFormContext<CreateCommunityRequest>();
+
+  const onSubmit = (data: CreateCommunityRequest) => {
+    mutation.mutate({ ...defaultValues, ...data });
+  };
 
   const defaultPlanetLogoImage =
     defaultValues?.logoImageUrl || '/assets/images/default_planet_logo.png';
