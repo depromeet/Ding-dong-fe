@@ -18,7 +18,7 @@ export const BottomNavigation = () => {
     router.push(path);
   };
 
-  const getSvgcolor = (bottomNavigationPath: BottomNavigationPath) => {
+  const getSvgColor = (bottomNavigationPath: BottomNavigationPath) => {
     if (pathname.includes(bottomNavigationPath)) {
       return 'fill-primary-500 stroke-primary-500';
     } else {
@@ -52,18 +52,18 @@ export const BottomNavigation = () => {
       <ul className="flex h-b-nav items-center justify-evenly bg-white">
         <li>
           <button onClick={onClickHome}>
-            <HomeIcon className={getSvgcolor('/planet')} />
+            <HomeIcon className={getSvgColor('/planet')} />
+          </button>
+        </li>
+        <li>
+          <button onClick={onClickMyPage}>
+            <PersonIcon className={getSvgColor('/my-page')} />
           </button>
         </li>
         <li>
           <button onClick={onClickNotification} className="relative">
             <NewNotificationBadge />
-            <BellIcon height={26} className={getSvgcolor('/notification')} />
-          </button>
-        </li>
-        <li>
-          <button onClick={onClickMyPage}>
-            <PersonIcon className={getSvgcolor('/my-page')} />
+            <BellIcon height={26} className={getSvgColor('/notification')} />
           </button>
         </li>
       </ul>
