@@ -16,7 +16,7 @@
 
 body {
   width: 100%;
-  max-width: 410px;
+  max-width: 420px;
   min-width: 375px;
   min-height: calc(100vh-50px);
   margin: 0 auto;
