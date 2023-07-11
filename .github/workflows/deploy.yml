@@ -1,8 +1,8 @@
-name: 'ci'
+name: 'Ding-dong-fe CI/CD'
 
 on:
   push:
-    branches: [main]
+    branches: [ "main" ]
 
 env:
   CACHED_DEPENDENCY_PATHS: ${{ github.workspace }}/node_modules
