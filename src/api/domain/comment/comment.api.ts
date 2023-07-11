@@ -10,6 +10,8 @@ import { AxiosError } from 'axios';
 import privateApi from '~/api/config/privateApi';
 import {
   addCommentToPages,
+  addLikeCommentToPages,
+  addLikeReplyToComment,
   addReplyCountToPages,
   addReplyToComment,
   CommentPages,
@@ -18,6 +20,8 @@ import {
   decreaseCommentCount,
   increaseCommentCount,
   removeCommentToPages,
+  removeLikeCommentToPages,
+  removeLikeReplyToComment,
   removeReplyToComment,
   subtractReplyCountToPages,
   updateCommentId,
@@ -212,7 +216,12 @@ export const usePostReplyCreate = (idCardId: number, communityId: number) => {
     mutationFn: postReplyCreate,
     onMutate: async (commentInfo: CommentPostReplyRequest) => {
       const { contents, commentId } = commentInfo;
-      await queryClient.cancelQueries({ queryKey: commentQueryKey.comments(idCardId) });
+      await Promise.all([
+        queryClient.cancelQueries({ queryKey: commentQueryKey.comments(idCardId) }),
+        queryClient.cancelQueries({
+          queryKey: commentQueryKey.commentReplies(idCardId, commentId),
+        }),
+      ]);
 
       const userInfo = queryClient.getQueryData<CommunityUserInfoResponse>(
         communityQueryKey.communityUserInfo(communityId),
@@ -257,29 +266,36 @@ export const usePostReplyCreate = (idCardId: number, communityId: number) => {
         );
         queryClient.setQueryData(commentQueryKey.comments(idCardId), updatedCommentsResponse);
 
-        return { previousCommentRepliesResponse, previousCommentsResponse };
+        return { previousCommentRepliesResponse, previousCommentsResponse, newReply };
       }
     },
     onError: (err, requestInfo, context) => {
-      if (context) {
-        const { previousCommentRepliesResponse, previousCommentsResponse } = context;
-        const error = err as AxiosError;
-        errorToast(error.message);
-        queryClient.setQueryData(
-          commentQueryKey.commentReplies(idCardId, requestInfo.commentId),
-          previousCommentRepliesResponse,
-        );
-        queryClient.setQueryData(commentQueryKey.comments(idCardId), previousCommentsResponse);
-      }
+      if (!context) return;
+
+      const { previousCommentRepliesResponse, previousCommentsResponse } = context;
+      const error = err as AxiosError;
+      errorToast(error.message);
+      queryClient.setQueryData(
+        commentQueryKey.commentReplies(idCardId, requestInfo.commentId),
+        previousCommentRepliesResponse,
+      );
+      queryClient.setQueryData(commentQueryKey.comments(idCardId), previousCommentsResponse);
     },
-    onSuccess: (response, commentReplyInfos) => {
+    onSuccess: (response, commentReplyInfos, context) => {
+      if (!context) return;
+      const { newReply } = context;
       const replyId = response.id;
       const commentId = commentReplyInfos.commentId;
 
       queryClient.setQueryData<CommentReplyGetResponse | undefined>(
         commentQueryKey.commentReplies(idCardId, commentId),
         previousCommentRepliesResponse =>
-          updateReplyId(commentId, replyId, previousCommentRepliesResponse),
+          updateReplyId(
+            commentId,
+            replyId,
+            newReply.commentReplyId,
+            previousCommentRepliesResponse,
+          ),
       );
     },
   });
@@ -299,9 +315,12 @@ export const useDeleteReply = (idCardId: number) => {
     onMutate: async (replyInfo: CommentReplyDeleteRequest) => {
       const { idCardId, commentId, commentReplyId } = replyInfo;
 
-      await queryClient.cancelQueries({
-        queryKey: commentQueryKey.commentReplies(idCardId, commentId),
-      });
+      await Promise.all([
+        queryClient.cancelQueries({ queryKey: commentQueryKey.comments(idCardId) }),
+        queryClient.cancelQueries({
+          queryKey: commentQueryKey.commentReplies(idCardId, commentId),
+        }),
+      ]);
 
       // update reply to target comment
       const previousCommentRepliesResponse = queryClient.getQueryData<CommentReplyGetResponse>(
@@ -357,8 +376,27 @@ export const usePostLikeComment = (
     'mutationFn'
   >,
 ) => {
+  const queryClient = useQueryClient();
   return useMutation({
     mutationFn: postLikeComment,
+    onMutate: async ({ idCardId, commentId }: CommentLikeRequest) => {
+      await queryClient.cancelQueries({ queryKey: commentQueryKey.comments(idCardId) });
+      const previousCommentsResponse = queryClient.getQueryData<CommentPages>(
+        commentQueryKey.comments(idCardId),
+      );
+      if (previousCommentsResponse) {
+        const updatedCommentsResponse = addLikeCommentToPages(previousCommentsResponse, commentId);
+        queryClient.setQueryData(commentQueryKey.comments(idCardId), updatedCommentsResponse);
+      }
+      return { idCardId, previousCommentsResponse };
+    },
+    onError: (err, requestInfo, context) => {
+      if (context) {
+        const { idCardId, previousCommentsResponse } = context as any; //FIXME: UseMutationOptions랑 사용했을 때 context의 타입추론이 안 됨
+
+        queryClient.setQueryData(commentQueryKey.comments(idCardId), previousCommentsResponse);
+      }
+    },
     ...options,
   });
 };
@@ -378,8 +416,39 @@ export const usePostLikeCommentReply = (
     'mutationFn'
   >,
 ) => {
+  const queryClient = useQueryClient();
   return useMutation({
     mutationFn: postLikeCommentReply,
+    onMutate: async ({ idCardId, commentId, commentReplyId }: CommentReplyLikeRequest) => {
+      await queryClient.cancelQueries({
+        queryKey: commentQueryKey.commentReplies(idCardId, commentId),
+      });
+      const previousCommentRepliesResponse = queryClient.getQueryData<CommentReplyGetResponse>(
+        commentQueryKey.commentReplies(idCardId, commentId),
+      );
+      if (previousCommentRepliesResponse) {
+        const updatedCommentsResponse = addLikeReplyToComment(
+          commentId,
+          commentReplyId,
+          previousCommentRepliesResponse,
+        );
+        queryClient.setQueryData(
+          commentQueryKey.commentReplies(idCardId, commentId),
+          updatedCommentsResponse,
+        );
+      }
+      return { idCardId, commentId, previousCommentRepliesResponse };
+    },
+    onError: (err, requestInfo, context) => {
+      if (context) {
+        const { idCardId, commentId, previousCommentsResponse } = context as any; //FIXME: UseMutationOptions랑 사용했을 때 context의 타입추론이 안 됨
+
+        queryClient.setQueryData(
+          commentQueryKey.commentReplies(idCardId, commentId),
+          previousCommentsResponse,
+        );
+      }
+    },
     ...options,
   });
 };
@@ -395,8 +464,30 @@ export const useDeleteCommentLike = (
     'mutationFn'
   >,
 ) => {
+  const queryClient = useQueryClient();
   return useMutation({
     mutationFn: deleteCommentLike,
+    onMutate: async ({ idCardId, commentId }: CommentLikeRequest) => {
+      await queryClient.cancelQueries({ queryKey: commentQueryKey.comments(idCardId) });
+      const previousCommentsResponse = queryClient.getQueryData<CommentPages>(
+        commentQueryKey.comments(idCardId),
+      );
+      if (previousCommentsResponse) {
+        const updatedCommentsResponse = removeLikeCommentToPages(
+          previousCommentsResponse,
+          commentId,
+        );
+        queryClient.setQueryData(commentQueryKey.comments(idCardId), updatedCommentsResponse);
+      }
+      return { idCardId, previousCommentsResponse };
+    },
+    onError: (err, requestInfo, context) => {
+      if (context) {
+        const { idCardId, previousCommentsResponse } = context as any; //FIXME: UseMutationOptions랑 사용했을 때 context의 타입추론이 안 됨
+
+        queryClient.setQueryData(commentQueryKey.comments(idCardId), previousCommentsResponse);
+      }
+    },
     ...options,
   });
 };
@@ -421,8 +512,39 @@ export const useDeleteCommentReplyLike = (
     'mutationFn'
   >,
 ) => {
+  const queryClient = useQueryClient();
   return useMutation({
     mutationFn: deleteCommentReplyLike,
+    onMutate: async ({ idCardId, commentId, commentReplyId }: CommentReplyLikeRequest) => {
+      await queryClient.cancelQueries({
+        queryKey: commentQueryKey.commentReplies(idCardId, commentId),
+      });
+      const previousCommentRepliesResponse = queryClient.getQueryData<CommentReplyGetResponse>(
+        commentQueryKey.commentReplies(idCardId, commentId),
+      );
+      if (previousCommentRepliesResponse) {
+        const updatedCommentsResponse = removeLikeReplyToComment(
+          commentId,
+          commentReplyId,
+          previousCommentRepliesResponse,
+        );
+        queryClient.setQueryData(
+          commentQueryKey.commentReplies(idCardId, commentId),
+          updatedCommentsResponse,
+        );
+      }
+      return { idCardId, commentId, previousCommentRepliesResponse };
+    },
+    onError: (err, requestInfo, context) => {
+      if (context) {
+        const { idCardId, commentId, previousCommentsResponse } = context as any; //FIXME: UseMutationOptions랑 사용했을 때 context의 타입추론이 안 됨
+
+        queryClient.setQueryData(
+          commentQueryKey.commentReplies(idCardId, commentId),
+          previousCommentsResponse,
+        );
+      }
+    },
     ...options,
   });
 };

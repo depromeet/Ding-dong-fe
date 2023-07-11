@@ -5,24 +5,24 @@ import { CommentLikeModel } from '~/types/comment';
 type UseLikeProps = CommentLikeModel;
 
 export const useLike = ({
-  isLikedByCurrentUser: initIsLikedByCurrentUser,
+  likedByCurrentUser: initLikedByCurrentUser,
   likeCount: initLikeCount,
 }: UseLikeProps) => {
-  const [isLikedByCurrentUser, setIsLikedByCurrentUser] = useState(initIsLikedByCurrentUser);
+  const [likedByCurrentUser, setLikedByCurrentUser] = useState(initLikedByCurrentUser);
   const [likeCount, setLikeCount] = useState(initLikeCount);
 
   const likeComment = () => {
-    setIsLikedByCurrentUser(true);
+    setLikedByCurrentUser(true);
     setLikeCount(prev => prev + 1);
   };
 
   const cancelLikeComment = () => {
-    setIsLikedByCurrentUser(false);
+    setLikedByCurrentUser(false);
     setLikeCount(prev => (prev === 0 ? prev : prev - 1));
   };
 
   return {
-    isLikedByCurrentUser,
+    likedByCurrentUser,
     likeCount,
     likeComment,
     cancelLikeComment,
