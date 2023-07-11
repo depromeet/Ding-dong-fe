@@ -69,8 +69,15 @@ const middleware = async (request: NextRequest) => {
           return response;
         }
 
+        const currentCommunityId = request.cookies.get('communityId')?.value;
+        if (currentCommunityId)
+          return NextResponse.redirect(
+            new URL(`/planet/${currentCommunityId}`, request.nextUrl.origin),
+          );
         return communityIds.length > 0
-          ? NextResponse.redirect(new URL(`/planet/${communityIds[0]}`, request.nextUrl.origin))
+          ? NextResponse.redirect(
+              new URL(`/planet/${communityIds[communityIds.length - 1]}`, request.nextUrl.origin),
+            )
           : NextResponse.redirect(new URL('/planet', request.nextUrl.origin));
       }
       return NextResponse.redirect(new URL('/onboarding', request.nextUrl.origin));
@@ -98,8 +105,11 @@ const middleware = async (request: NextRequest) => {
         const data = await response.json();
 
         const { communityIds } = data.data.userProfileDto;
+        const currentCommunityId = request.cookies.get('communityId')?.value;
 
-        if (communityIds.length !== 0)
+        if (currentCommunityId) {
+          return NextResponse.redirect(new URL(`/my-page/${currentCommunityId}`, request.url));
+        } else if (communityIds.length !== 0)
           return NextResponse.redirect(
             new URL(`/my-page/${communityIds[communityIds.length - 1]}`, request.url),
           );
