@@ -1,1 +1,1 @@
-export * from './MyPageIdCard';
+export * from './MyPageIdCard.client';
