@@ -11,6 +11,9 @@ dependencies:
   '@sentry/nextjs':
     specifier: ^7.57.0
     version: 7.57.0(next@13.4.3)(react@18.2.0)(webpack@5.86.0)
+  '@sentry/utils':
+    specifier: ^7.57.0
+    version: 7.57.0
   '@tanstack/react-query':
     specifier: ^4.29.7
     version: 4.29.7(react-dom@18.2.0)(react@18.2.0)
