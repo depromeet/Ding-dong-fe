@@ -2,8 +2,7 @@
 import { useSearchParams } from 'next/navigation';
 
 import { useGetCommunityDetail, useWithdrawalCommunity } from '~/api/domain/community.api';
-import { useConfirmPopup } from '~/components/ConfirmPopup';
-import { SimpleConfirmPopup } from '~/components/ConfirmPopup/SimpleConfirmPopup/SimpleConfirmPopup.client';
+import { SimpleConfirmPopup, useConfirmPopup } from '~/components/ConfirmPopup';
 import { Menu } from '~/components/Menu';
 
 export const PlanetMenu = () => {

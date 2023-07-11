@@ -1,5 +1,6 @@
 'use client';
 
+import { yupResolver } from '@hookform/resolvers/yup';
 import { isEqual } from 'lodash';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
@@ -8,9 +9,11 @@ import { FormProvider, useForm } from 'react-hook-form';
 import { useEditIdCardDetail, useGetCommunityMyIdCardDetail } from '~/api/domain/idCard.api';
 import { ConfirmUnSave, useConfirmPopup } from '~/components/ConfirmPopup';
 import { TopNavigation } from '~/components/TopNavigation';
+import { idCardCreationSchema as idCardEditorSchema } from '~/modules/IdCardCreation';
 import { IdCardEditorForm } from '~/modules/IdCardEditor/Form';
 import { editorSteps, KEYWORD_CONTENT_STEP } from '~/modules/IdCardEditor/IdCardEditor.constant';
 import { EditorSteps, IdCardEditorFormValues } from '~/modules/IdCardEditor/IdCardEditor.type';
+import { useToastMessageStore } from '~/stores/toastMessage.store';
 import { getEntries } from '~/utils/util.common';
 
 type IdCardEditorProps = {
@@ -19,6 +22,7 @@ type IdCardEditorProps = {
 
 export const IdCardEditor = ({ communityId }: IdCardEditorProps) => {
   const { data } = useGetCommunityMyIdCardDetail(communityId);
+  const { errorToast } = useToastMessageStore();
 
   const { idCardId, nickname, aboutMe, profileImageUrl, keywords } = data!.idCardDetailsDto;
 
@@ -46,11 +50,29 @@ export const IdCardEditor = ({ communityId }: IdCardEditorProps) => {
 
   const methods = useForm<IdCardEditorFormValues>({
     defaultValues: initFormValue,
+    mode: 'onChange',
+    resolver: yupResolver(idCardEditorSchema),
   });
 
   const onSubmit = async (idCardInfo: IdCardEditorFormValues) => {
-    await mutateEditIdCardDetail({ idCardId, ...idCardInfo });
+    await mutateEditIdCardDetail(
+      { idCardId, ...idCardInfo },
+      {
+        onError: error => {
+          errorToast(error.message);
+        },
+        onSuccess: () => {
+          router.back();
+        },
+        onSettled: () => {
+          methods.reset();
+        },
+      },
+    );
   };
+
+  const canSubmit = methods.formState.isValid && !methods.formState.isSubmitting;
+  const submitButtonStyle = canSubmit ? 'text-primary-500' : 'text-grey-400';
 
   const isValueChanged = () =>
     getEntries(submitState).some(([name, value]) => !isEqual(methods.getValues(name), value));
@@ -84,8 +106,6 @@ export const IdCardEditor = ({ communityId }: IdCardEditorProps) => {
       return;
     }
 
-    console.log('submitState', submitState);
-    console.log('methods.getValues()', methods.getValues());
     if (isValueChanged()) {
       const isOk = await openConfirmUnSavePopup();
       closeConfirmUnSavePopup();
@@ -104,8 +124,6 @@ export const IdCardEditor = ({ communityId }: IdCardEditorProps) => {
     if (isEntry) {
       await methods.handleSubmit(onSubmit)();
 
-      // TODO: onSubmit이 정상 실행될 때만 뒤로 가기: useMutation 정상 실행여부 판단하기
-      router.back();
       return;
     }
     setStepOrder(KEYWORD_CONTENT_STEP);
@@ -119,8 +137,12 @@ export const IdCardEditor = ({ communityId }: IdCardEditorProps) => {
             <TopNavigation.BackButton onClickBackButton={onClickBackButton} />
           </TopNavigation.Left>
           <TopNavigation.Title>{title}</TopNavigation.Title>
-          <TopNavigation.Right>
-            <button onClick={onClickCompleteButton} className="text-h5 font-semibold text-blue-500">
+          <TopNavigation.Right className="text-h5 font-semibold">
+            <button
+              onClick={onClickCompleteButton}
+              disabled={!canSubmit}
+              className={submitButtonStyle}
+            >
               완료
             </button>
           </TopNavigation.Right>

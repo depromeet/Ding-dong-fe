@@ -137,7 +137,7 @@ module.exports = {
       },
     },
     screens: {
-      mobile: { max: '410px' },
+      mobile: { max: '420px' },
     },
   },
 

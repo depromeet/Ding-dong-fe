@@ -92,6 +92,7 @@ export const KeywordContentEditCard = ({
         <button
           className="rounded-ful absolute right-[12px] top-[12px] flex items-center justify-center"
           onClick={onDeleteKeywordContent}
+          type="button"
         >
           <CancelCircleIcon className="fill-grey-500" />
         </button>

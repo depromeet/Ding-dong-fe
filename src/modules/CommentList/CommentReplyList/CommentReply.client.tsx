@@ -31,7 +31,7 @@ export const CommentReply = ({
 }: CommentProps) => {
   const { errorToast } = useToastMessageStore();
   const { profileImageUrl, nickname } = writerInfo;
-  const { isLikedByCurrentUser, likeCount, likeComment, cancelLikeComment } =
+  const { likedByCurrentUser, likeCount, likeComment, cancelLikeComment } =
     useLike(commentReplyLikeInfo);
 
   const mutatePostLike = usePostLikeCommentReply({
@@ -83,7 +83,7 @@ export const CommentReply = ({
           </div>
           <div>
             <LikeIcon
-              isLikedByCurrentUser={isLikedByCurrentUser}
+              likedByCurrentUser={likedByCurrentUser}
               onClickToLike={onClickToLike}
               onClickToLikeCancel={onClickToLikeCancel}
             />

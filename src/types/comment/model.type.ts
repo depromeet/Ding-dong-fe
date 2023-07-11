@@ -1,6 +1,6 @@
 export type CommentLikeModel = {
   likeCount: number;
-  isLikedByCurrentUser: boolean;
+  likedByCurrentUser: boolean;
 };
 
 export type CommentWriterIntoModel = {
