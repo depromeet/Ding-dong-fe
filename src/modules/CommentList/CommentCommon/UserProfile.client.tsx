@@ -11,8 +11,8 @@ export const UserProfile = ({ profileImageUrl }: UserProfileProps) => {
         width={32}
         height={32}
         src={profileImageUrl}
-        className="object-cover"
         alt="profile image"
+        className="max-h-[32px] min-h-[32px] min-w-[32px] max-w-[32px] rounded-full border-[1px] border-solid border-grey-100 object-cover"
       />
     </div>
   );
