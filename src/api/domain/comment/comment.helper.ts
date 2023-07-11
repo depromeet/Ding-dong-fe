@@ -35,7 +35,7 @@ export const createNewComment = ({
     },
     commentLikeInfo: {
       likeCount: 0,
-      isLikedByCurrentUser: false,
+      likedByCurrentUser: false,
     },
     repliesCount: 0,
   };
@@ -121,7 +121,7 @@ export const createNewReply = ({
     createdAt: new Date().toISOString(),
     commentReplyLikeInfo: {
       likeCount: 0,
-      isLikedByCurrentUser: false,
+      likedByCurrentUser: false,
     },
     writerInfo: {
       userId,

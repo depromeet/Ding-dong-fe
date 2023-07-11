@@ -5,7 +5,7 @@ import { CommentModel, CommentReplyModel } from '~/types/comment';
 
 export const createCommentLike = () => ({
   likeCount: faker.number.int({ min: 0, max: 999 }),
-  isLikedByCurrentUser: Math.random() > 0.5 ? true : false,
+  likedByCurrentUser: Math.random() > 0.5 ? true : false,
 });
 
 export const createCommentWriter = (idx: number) => ({
