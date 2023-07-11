@@ -176,12 +176,13 @@ export const addReplyCountToPages = (
 export const updateReplyId = (
   commentId: number,
   replyId: number,
+  mockReplyId: number,
   previousCommentRepliesResponse?: CommentReplyGetResponse,
 ): CommentReplyGetResponse => {
   const copyPreviousCommentReplies = cloneDeep(previousCommentRepliesResponse?.repliesInfo || []);
 
   const updated = copyPreviousCommentReplies.map(reply => {
-    if (reply.commentReplyId === replyId) {
+    if (reply.commentReplyId === mockReplyId) {
       return {
         ...reply,
         commentReplyId: replyId,
@@ -189,6 +190,7 @@ export const updateReplyId = (
     }
     return reply;
   });
+  console.log('updated', updated);
 
   return {
     commentId,

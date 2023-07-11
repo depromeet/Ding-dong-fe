@@ -216,7 +216,12 @@ export const usePostReplyCreate = (idCardId: number, communityId: number) => {
     mutationFn: postReplyCreate,
     onMutate: async (commentInfo: CommentPostReplyRequest) => {
       const { contents, commentId } = commentInfo;
-      await queryClient.cancelQueries({ queryKey: commentQueryKey.comments(idCardId) });
+      await Promise.all([
+        queryClient.cancelQueries({ queryKey: commentQueryKey.comments(idCardId) }),
+        queryClient.cancelQueries({
+          queryKey: commentQueryKey.commentReplies(idCardId, commentId),
+        }),
+      ]);
 
       const userInfo = queryClient.getQueryData<CommunityUserInfoResponse>(
         communityQueryKey.communityUserInfo(communityId),
@@ -261,29 +266,36 @@ export const usePostReplyCreate = (idCardId: number, communityId: number) => {
         );
         queryClient.setQueryData(commentQueryKey.comments(idCardId), updatedCommentsResponse);
 
-        return { previousCommentRepliesResponse, previousCommentsResponse };
+        return { previousCommentRepliesResponse, previousCommentsResponse, newReply };
       }
     },
     onError: (err, requestInfo, context) => {
-      if (context) {
-        const { previousCommentRepliesResponse, previousCommentsResponse } = context;
-        const error = err as AxiosError;
-        errorToast(error.message);
-        queryClient.setQueryData(
-          commentQueryKey.commentReplies(idCardId, requestInfo.commentId),
-          previousCommentRepliesResponse,
-        );
-        queryClient.setQueryData(commentQueryKey.comments(idCardId), previousCommentsResponse);
-      }
+      if (!context) return;
+
+      const { previousCommentRepliesResponse, previousCommentsResponse } = context;
+      const error = err as AxiosError;
+      errorToast(error.message);
+      queryClient.setQueryData(
+        commentQueryKey.commentReplies(idCardId, requestInfo.commentId),
+        previousCommentRepliesResponse,
+      );
+      queryClient.setQueryData(commentQueryKey.comments(idCardId), previousCommentsResponse);
     },
-    onSuccess: (response, commentReplyInfos) => {
+    onSuccess: (response, commentReplyInfos, context) => {
+      if (!context) return;
+      const { newReply } = context;
       const replyId = response.id;
       const commentId = commentReplyInfos.commentId;
 
       queryClient.setQueryData<CommentReplyGetResponse | undefined>(
         commentQueryKey.commentReplies(idCardId, commentId),
         previousCommentRepliesResponse =>
-          updateReplyId(commentId, replyId, previousCommentRepliesResponse),
+          updateReplyId(
+            commentId,
+            replyId,
+            newReply.commentReplyId,
+            previousCommentRepliesResponse,
+          ),
       );
     },
   });
@@ -303,9 +315,12 @@ export const useDeleteReply = (idCardId: number) => {
     onMutate: async (replyInfo: CommentReplyDeleteRequest) => {
       const { idCardId, commentId, commentReplyId } = replyInfo;
 
-      await queryClient.cancelQueries({
-        queryKey: commentQueryKey.commentReplies(idCardId, commentId),
-      });
+      await Promise.all([
+        queryClient.cancelQueries({ queryKey: commentQueryKey.comments(idCardId) }),
+        queryClient.cancelQueries({
+          queryKey: commentQueryKey.commentReplies(idCardId, commentId),
+        }),
+      ]);
 
       // update reply to target comment
       const previousCommentRepliesResponse = queryClient.getQueryData<CommentReplyGetResponse>(
