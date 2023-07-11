@@ -273,3 +273,119 @@ export const decreaseCommentCount = (commentCountResponse: CommentCountGetRespon
   if (commentCountResponse === undefined) return { count: 0 };
   return { count: commentCountResponse.count - 1 };
 };
+
+export const addLikeCommentToPages = (
+  previousComments: CommentPages | undefined,
+  commentId: number,
+): CommentPages => {
+  const copyPreviousComments = cloneDeep(previousComments);
+  const updatedPages = copyPreviousComments?.pages ? copyPreviousComments.pages : [];
+
+  if (updatedPages.length > 0) {
+    const firstPage = updatedPages[0];
+    const firstPageData = firstPage;
+    const commentIndex = firstPageData.content.findIndex(
+      comment => comment.commentId === commentId,
+    );
+
+    if (commentIndex !== -1) {
+      const comment = firstPageData.content[commentIndex];
+      const updatedComment = {
+        ...comment,
+        commentLikeInfo: {
+          likeCount: comment.commentLikeInfo.likeCount + 1,
+          likedByCurrentUser: true,
+        },
+      };
+      firstPageData.content[commentIndex] = updatedComment;
+    }
+  }
+
+  return { pages: updatedPages, pageParams: previousComments?.pageParams ?? [] };
+};
+
+export const removeLikeCommentToPages = (
+  previousComments: CommentPages | undefined,
+  commentId: number,
+): CommentPages => {
+  const copyPreviousComments = cloneDeep(previousComments);
+  const updatedPages = copyPreviousComments?.pages ? copyPreviousComments.pages : [];
+
+  if (updatedPages.length > 0) {
+    const firstPage = updatedPages[0];
+    const firstPageData = firstPage;
+    const commentIndex = firstPageData.content.findIndex(
+      comment => comment.commentId === commentId,
+    );
+
+    if (commentIndex !== -1) {
+      const comment = firstPageData.content[commentIndex];
+      const updatedComment = {
+        ...comment,
+        commentLikeInfo: {
+          likeCount:
+            comment.commentLikeInfo.likeCount === 0 ? 0 : comment.commentLikeInfo.likeCount - 1,
+          likedByCurrentUser: false,
+        },
+      };
+      firstPageData.content[commentIndex] = updatedComment;
+    }
+  }
+
+  return { pages: updatedPages, pageParams: previousComments?.pageParams ?? [] };
+};
+
+export const addLikeReplyToComment = (
+  commentId: number,
+  replyId: number,
+  previousCommentRepliesResponse: CommentReplyGetResponse,
+): CommentReplyGetResponse => {
+  const copyPreviousCommentReplies = cloneDeep(previousCommentRepliesResponse.repliesInfo || []);
+
+  const updated = copyPreviousCommentReplies.map(reply => {
+    if (reply.commentReplyId === replyId) {
+      return {
+        ...reply,
+        commentReplyLikeInfo: {
+          likeCount: reply.commentReplyLikeInfo.likeCount + 1,
+          likedByCurrentUser: true,
+        },
+      };
+    }
+    return reply;
+  });
+
+  return {
+    commentId,
+    repliesInfo: updated,
+  };
+};
+
+export const removeLikeReplyToComment = (
+  commentId: number,
+  replyId: number,
+  previousCommentRepliesResponse: CommentReplyGetResponse,
+): CommentReplyGetResponse => {
+  const copyPreviousCommentReplies = cloneDeep(previousCommentRepliesResponse.repliesInfo || []);
+
+  const updated = copyPreviousCommentReplies.map(reply => {
+    if (reply.commentReplyId === replyId) {
+      return {
+        ...reply,
+        commentReplyLikeInfo: {
+          likeCount:
+            reply.commentReplyLikeInfo.likeCount === 0
+              ? 0
+              : reply.commentReplyLikeInfo.likeCount - 1,
+          likedByCurrentUser: false,
+        },
+      };
+    }
+    return reply;
+  });
+
+  return {
+    commentId,
+    repliesInfo: updated,
+  };
+};
