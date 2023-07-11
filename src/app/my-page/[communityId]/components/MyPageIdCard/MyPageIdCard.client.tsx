@@ -1,8 +1,7 @@
-import 'server-only';
-
+'use client';
 import { Suspense } from 'react';
 
-import { getCommunityMyIdCardDetailServer } from '~/api/domain/idCard.api.server';
+import { useGetCommunityMyIdCardDetail } from '~/api/domain/idCard.api';
 import RetryErrorBoundary from '~/components/ErrorBoundary/RetryErrorBoundary.client';
 import { IdCard } from '~/modules/IdCard';
 import { IdCardEditButton } from '~/modules/IdCardEditButton';
@@ -11,10 +10,16 @@ type MyPageProps = {
   communityId: number;
 };
 
-const MyPageIdCardComponent = async ({ communityId }: MyPageProps) => {
-  const { idCardDetailsDto } = await getCommunityMyIdCardDetailServer(communityId);
-  const { idCardId, nickname, aboutMe, characterType, keywords } = idCardDetailsDto;
-  const keywordTitles = keywords.map(keyword => keyword.title);
+const MyPageIdCardComponent = ({ communityId }: MyPageProps) => {
+  const { data: idCardDetailsDto } = useGetCommunityMyIdCardDetail(communityId);
+
+  if (!idCardDetailsDto?.idCardDetailsDto) {
+    return <div></div>;
+  }
+
+  const { idCardId, nickname, aboutMe, characterType, keywords } =
+    idCardDetailsDto.idCardDetailsDto;
+  const keywordTitles = keywords?.map(keyword => keyword.title);
 
   return (
     <div>
@@ -37,7 +42,6 @@ export const MyPageIdCard = ({ communityId }: MyPageProps) => {
   return (
     <RetryErrorBoundary>
       <Suspense>
-        {/* @ts-expect-error Server Component */}
         <MyPageIdCardComponent communityId={communityId} />
       </Suspense>
     </RetryErrorBoundary>
