@@ -22,7 +22,7 @@ export const DeleteButton = ({ onClickToDeleteComment }: DeleteButtonProps) => {
 
   return (
     <>
-      <button className="text-detail text-grey-400" onClick={() => onDeleteComment()}>
+      <button className="text-detail font-medium text-grey-400" onClick={() => onDeleteComment()}>
         삭제
       </button>
       {isOpen && <ConfirmDeleteComment confirm={confirm} />}
