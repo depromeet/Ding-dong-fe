@@ -2,7 +2,6 @@
 import { useLayoutEffect, useRef, useState } from 'react';
 
 import { CommentModel } from '~/types/comment';
-import { tw } from '~/utils/tailwind.util';
 
 type ContentProps = Pick<CommentModel, 'content'>;
 
@@ -29,7 +28,7 @@ export const Content = ({ content }: ContentProps) => {
         window.getComputedStyle(contentElement).getPropertyValue('line-height')!;
 
       const lineHeight = lineHeightString ? parseInt(lineHeightString, 10) : 0;
-      const actualLines = contentElement.scrollHeight / lineHeight;
+      const actualLines = Math.floor(contentElement.scrollHeight / lineHeight);
 
       // content의 줄 수가 최대 줄 수를 초과하는지 확인
       if (isOverflowing(actualLines, MAX_LINE)) {
@@ -50,7 +49,10 @@ export const Content = ({ content }: ContentProps) => {
 
   return (
     <>
-      <p ref={paragraphRef} className={tw('text-b3 text-black', `overflow-hidden`, lineClampClass)}>
+      <p
+        ref={paragraphRef}
+        className={`mt-2pxr overflow-hidden text-b3 text-black ${lineClampClass}`}
+      >
         {content}
       </p>
       {isShowButton && (
