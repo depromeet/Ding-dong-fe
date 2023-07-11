@@ -2,6 +2,7 @@
 
 import { useFormContext } from 'react-hook-form';
 
+import { useGetUserInfo } from '~/api/domain/user.api';
 import { ProfileImageEdit } from '~/components/ProfileImageEdit';
 import { TextArea, useTextArea } from '~/components/TextArea';
 import { TextInput, useTextInput } from '~/components/TextInput';
@@ -18,6 +19,7 @@ export const ProfileStep = () => {
     setValue,
     formState: { errors },
   } = useFormContext<IdCardCreationFormModel>();
+  const { data: userInfo } = useGetUserInfo();
 
   const profileImageUrl = getValues('profileImageUrl');
 
@@ -31,13 +33,28 @@ export const ProfileStep = () => {
     maxLength: TEXT_AREA_MAX_LENGTH,
   });
 
+  const getDefaultProfileImage = () => {
+    if (userInfo?.userProfileDto.characterType === 'BUDDY') {
+      return '/assets/images/default-profile-image-buddy.png';
+    }
+    if (userInfo?.userProfileDto.characterType === 'PIPI') {
+      return '/assets/images/default-profile-image-pipi.png';
+    }
+    if (userInfo?.userProfileDto.characterType === 'TRUE') {
+      return '/assets/images/default-profile-image-true.png';
+    }
+    if (userInfo?.userProfileDto.characterType === 'TOBBY') {
+      return '/assets/images/default-profile-image-tobby.png';
+    }
+  };
+
   return (
     <div className="px-layout-sm">
       <h1 className="text-h1">{title}</h1>
       <ProfileImageEdit<IdCardCreationFormModel>
         className="mx-auto mt-20pxr"
         fieldName="profileImageUrl"
-        defaultProfileImage={profileImageUrl}
+        defaultProfileImage={profileImageUrl ?? getDefaultProfileImage()}
         setValue={setValue}
       />
       <TextInput>
