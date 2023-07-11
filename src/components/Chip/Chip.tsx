@@ -50,11 +50,15 @@ export const Chip = ({
   return (
     <button
       onClick={onClick}
-      className={`${colors[colorType]} flex w-fit items-center justify-center gap-4pxr rounded-[50px] border-[1px] px-12pxr py-8pxr text-b3`}
+      className={`${colors[colorType]} flex w-fit items-center justify-center gap-4pxr rounded-[50px] border-[1px] px-12pxr py-8pxr text-detail`}
       type="button"
     >
       <span>{text}</span>
-      <ButtonIcon onClick={handleClickIcon} className={`${iconColors[colorType]} stroke-white`} />
+      <ButtonIcon
+        onClick={handleClickIcon}
+        className={`${iconColors[colorType]} stroke-white`}
+        style={{ height: '13px', width: '13px' }}
+      />
     </button>
   );
 };
