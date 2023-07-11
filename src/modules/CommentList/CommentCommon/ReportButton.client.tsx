@@ -14,7 +14,7 @@ export const ReportButton = () => {
 
   return (
     <>
-      <button className="text-detail text-grey-400" onClick={() => handleReport()}>
+      <button className="text-detail font-medium text-grey-400 " onClick={() => handleReport()}>
         신고
       </button>
       {isOpen && (
