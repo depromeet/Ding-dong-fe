@@ -34,7 +34,7 @@ export const EditKeywordContentStep = ({ onClickMoveTargetStep }: EditKeywordCon
           <Button
             color="secondary"
             size="small"
-            className="mt-12pxr px-12pxr py-6pxr font-bold"
+            className="px-12pxr py-6pxr font-bold"
             width="w-fit"
             onClick={onClickEditProfileButton}
           >
