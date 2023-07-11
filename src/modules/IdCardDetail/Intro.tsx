@@ -33,7 +33,13 @@ export const Intro = ({
         </div>
       </div>
       <div className="h-80pxr w-80pxr flex-shrink-0 overflow-hidden rounded-full">
-        <Image width={80} height={80} src={profileImageUrl} alt="profile image" />
+        <Image
+          width={80}
+          height={80}
+          src={profileImageUrl}
+          alt="profile image"
+          className="max-h-[88px] min-h-[88px] min-w-[88px] max-w-[88px] rounded-full border-[1px] border-solid border-grey-100 object-cover"
+        />
       </div>
     </div>
   );
