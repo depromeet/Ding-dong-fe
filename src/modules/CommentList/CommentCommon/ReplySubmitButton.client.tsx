@@ -9,7 +9,7 @@ export const ReplySubmitButton = ({ nickname, commentId }: ReplySubmitButtonProp
   const { setReplyRecipient } = useReplyRecipientStore();
   return (
     <button
-      className="text-detail text-grey-500"
+      className="text-detail font-medium text-grey-500"
       onClick={() => setReplyRecipient(nickname, commentId)}
     >
       답글 달기
