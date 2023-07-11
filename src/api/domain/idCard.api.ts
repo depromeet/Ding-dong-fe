@@ -53,7 +53,7 @@ export const editIdCardDetail = (idCardInfo: EditIdCardRequest) => {
 export const useEditIdCardDetail = (communityId: number) => {
   const queryClient = useQueryClient();
 
-  return useMutation({
+  return useMutation<IdCardEditResponse, AxiosError, EditIdCardRequest>({
     mutationFn: (idCardInfo: EditIdCardRequest) => editIdCardDetail(idCardInfo),
     onSuccess: (data: IdCardEditResponse) => {
       queryClient.invalidateQueries(idCardQueryKey.myCommunity(communityId));
