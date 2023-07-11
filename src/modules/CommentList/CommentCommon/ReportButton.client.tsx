@@ -1,5 +1,4 @@
-import { useConfirmPopup } from '~/components/ConfirmPopup';
-import { SimpleConfirmPopup } from '~/components/ConfirmPopup/SimpleConfirmPopup/SimpleConfirmPopup.client';
+import { SimpleConfirmPopup, useConfirmPopup } from '~/components/ConfirmPopup';
 import { useToastMessageStore } from '~/stores/toastMessage.store';
 
 export const ReportButton = () => {
