@@ -17,8 +17,8 @@ export const NotificationList = ({ notifications }: NotificationListProps) => {
         <div key={notification.notificationId}>
           {(i === 0 || notificationAgoList[i] !== notificationAgoList[i - 1]) && (
             <>
-              {i !== 0 && <div className="-ml-5 w-screen border-b border-b-gray-200"></div>}
-              <h2 className="text-h4">{notificationAgoList[i]}</h2>
+              {i !== 0 && <div className="-ml-5 mb-5 w-screen border-b border-b-gray-200"></div>}
+              <h2 className="mb-4 text-h4">{notificationAgoList[i]}</h2>
             </>
           )}
           <NotificationItem {...notification} key={notification.notificationId} />

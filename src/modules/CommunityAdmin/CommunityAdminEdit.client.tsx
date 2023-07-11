@@ -18,6 +18,7 @@ export const CommunityAdminEdit = ({
   title,
   description,
   communityId,
+  coverImageUrl,
 }: CommunityAdminEditProps) => {
   const [isDuplicatedCheck, setIsDuplicatedCheck] = useState<DuplicateState>('SUCCESS');
 
@@ -26,6 +27,7 @@ export const CommunityAdminEdit = ({
       name: title,
       logoImageUrl,
       description,
+      coverImageUrl,
     },
   });
 

@@ -1,7 +1,7 @@
 'use client';
 
 import { usePathname, useRouter } from 'next/navigation';
-import { useEffect } from 'react';
+import { useCallback, useEffect } from 'react';
 
 import { useGetCommunityList } from '~/api/domain/community.api';
 import { useBottomSheet } from '~/components/BottomSheet';
@@ -11,6 +11,7 @@ import { usePlanetNavigate } from '~/hooks/usePlanetNavigate';
 import { CommunityList } from '~/modules/PlanetSelector/CommunityList.client';
 import { useCommunityStore } from '~/stores/community.store';
 import { getUserIdClient } from '~/utils/auth/getUserId.client';
+import { getCookie } from '~/utils/cookie.util';
 import { tw } from '~/utils/tailwind.util';
 
 export const PlanetSelector = () => {
@@ -21,10 +22,12 @@ export const PlanetSelector = () => {
   const { communityId: communityIdInStore, switchCommunity } = useCommunityStore();
   const { extractPlanetIdFromPathname } = usePlanetNavigate();
 
+  const communityIdCookey = getCookie('communityId');
+  const communityIdCookeyValue = communityIdCookey ? Number(communityIdCookey) : undefined;
   const communityId =
     communityIdInStore > 0
       ? communityIdInStore
-      : communityList?.communityListDtos.slice(-1)[0]?.communityId;
+      : communityIdCookeyValue ?? communityList?.communityListDtos.slice(-1)[0]?.communityId;
 
   const INIT_PLANET_ID = -1;
 
@@ -34,14 +37,15 @@ export const PlanetSelector = () => {
     router.push('/admin/planet/create');
   };
 
-  const getLastPlanetId = () => {
+  const getLastPlanetId = useCallback(() => {
     const lastCommunity = communityList?.communityListDtos.slice(-1)[0];
     if (!lastCommunity) return INIT_PLANET_ID;
     return lastCommunity.communityId;
-  };
-  const isSamePlanetIdFromPathname = (pathPlanetId: number) => pathPlanetId === communityId;
+  }, [INIT_PLANET_ID, communityList?.communityListDtos]);
 
-  const switchPlanetIdByPathname = () => {
+  const switchPlanetIdByPathname = useCallback(() => {
+    const isSamePlanetIdFromPathname = (pathPlanetId: number) => pathPlanetId === communityId;
+
     const planetId = extractPlanetIdFromPathname(pathname);
 
     if (!planetId) {
@@ -55,14 +59,14 @@ export const PlanetSelector = () => {
     }
 
     switchCommunity(planetId);
-  };
+  }, [extractPlanetIdFromPathname, pathname, switchCommunity, communityId, getLastPlanetId]);
 
   useEffect(() => {
     if (communityId !== -1) {
       return;
     }
     switchPlanetIdByPathname();
-  }, [pathname]);
+  }, [pathname, communityId, switchPlanetIdByPathname]);
 
   const defaultCommunity = communityList?.communityListDtos.find(
     community => community.communityId === communityId,
