@@ -45,7 +45,7 @@ const AdminCommunityCreateResultPage = () => {
         </p>
         <div className="relative mt-30pxr">
           <Image
-            src="/assets/images/planet-create-result-bg.png"
+            src="/assets/images/planet-with-shadow.png"
             width={375}
             height={375}
             className="object-contain"
