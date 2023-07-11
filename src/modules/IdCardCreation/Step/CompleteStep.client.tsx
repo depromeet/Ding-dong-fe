@@ -30,10 +30,10 @@ export const CompleteStep = ({ idCardId }: CompleteStepProps) => {
 
   return (
     <div className="flex min-h-[calc(100vh-50px)] flex-col px-layout-sm ">
-      <h2 className="text-h1 text-grey-900">{`짜잔!${
+      <h2 className="text-h1 text-grey-900">{`짜잔! ${
         communityDetail?.communityDetailsDto.title || ''
       } \n주민증이 발급되었어요!`}</h2>
-      <div className="mt-24pxr flex flex-1 flex-col">
+      <div className="mt-24pxr flex max-h-[650px] flex-1 flex-col justify-between">
         {idCardDetail && (
           <IdCard
             idCardId={idCardId}
@@ -44,7 +44,7 @@ export const CompleteStep = ({ idCardId }: CompleteStepProps) => {
           />
         )}
         <Link href={`/planet/${communityId}/id-card/${idCardId}`}>
-          <p className="my-52px flex w-full flex-1 items-center justify-center text-center text-b1 text-primary-500">
+          <p className="flex w-full flex-1 items-center justify-center text-center text-b1 text-primary-500">
             주민증을 눌러보세요!
           </p>
         </Link>
