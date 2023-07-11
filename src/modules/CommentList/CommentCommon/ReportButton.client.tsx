@@ -8,7 +8,7 @@ export const ReportButton = () => {
     const isOk = await openPopup();
     closePopup();
     if (isOk) {
-      infoToast('정상적으로 신고됐어요!');
+      infoToast('신고가 접수됐습니다');
     }
   };
 
