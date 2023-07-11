@@ -46,7 +46,9 @@ const nextConfig = {
       },
     ],
   },
-  sentry: {},
+  sentry: {
+    hideSourceMaps: true,
+  },
 };
 
 module.exports = withSentryConfig(nextConfig, sentryWebpackPluginOptions);
