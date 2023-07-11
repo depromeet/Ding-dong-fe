@@ -1,7 +1,6 @@
 'use client';
 import { useDeleteUser } from '~/api/domain/user.api';
-import { useConfirmPopup } from '~/components/ConfirmPopup';
-import { SimpleConfirmPopup } from '~/components/ConfirmPopup/SimpleConfirmPopup/SimpleConfirmPopup.client';
+import { SimpleConfirmPopup, useConfirmPopup } from '~/components/ConfirmPopup';
 import { Menu } from '~/components/Menu';
 
 export const UserMenu = () => {

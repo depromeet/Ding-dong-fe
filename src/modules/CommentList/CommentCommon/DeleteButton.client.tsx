@@ -1,5 +1,4 @@
-import { useConfirmPopup } from '~/components/ConfirmPopup';
-import { ConfirmDeleteComment } from '~/components/ConfirmPopup/ConfirmDeleteComment';
+import { SimpleConfirmPopup, useConfirmPopup } from '~/components/ConfirmPopup';
 
 type DeleteButtonProps = {
   onClickToDeleteComment: () => void;
@@ -25,7 +24,15 @@ export const DeleteButton = ({ onClickToDeleteComment }: DeleteButtonProps) => {
       <button className="text-detail text-grey-400" onClick={() => onDeleteComment()}>
         삭제
       </button>
-      {isOpen && <ConfirmDeleteComment confirm={confirm} />}
+      {isOpen && (
+        <SimpleConfirmPopup
+          confirm={confirm}
+          title="댓글 삭제"
+          description="댓글을 삭제할까요?"
+          confirmText="삭제"
+          cancelText="취소"
+        />
+      )}
     </>
   );
 };
