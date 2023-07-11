@@ -13,6 +13,7 @@ import { idCardCreationSchema as idCardEditorSchema } from '~/modules/IdCardCrea
 import { IdCardEditorForm } from '~/modules/IdCardEditor/Form';
 import { editorSteps, KEYWORD_CONTENT_STEP } from '~/modules/IdCardEditor/IdCardEditor.constant';
 import { EditorSteps, IdCardEditorFormValues } from '~/modules/IdCardEditor/IdCardEditor.type';
+import { useToastMessageStore } from '~/stores/toastMessage.store';
 import { getEntries } from '~/utils/util.common';
 
 type IdCardEditorProps = {
@@ -21,6 +22,7 @@ type IdCardEditorProps = {
 
 export const IdCardEditor = ({ communityId }: IdCardEditorProps) => {
   const { data } = useGetCommunityMyIdCardDetail(communityId);
+  const { errorToast } = useToastMessageStore();
 
   const { idCardId, nickname, aboutMe, profileImageUrl, keywords } = data!.idCardDetailsDto;
 
@@ -53,8 +55,22 @@ export const IdCardEditor = ({ communityId }: IdCardEditorProps) => {
   });
 
   const onSubmit = async (idCardInfo: IdCardEditorFormValues) => {
-    await mutateEditIdCardDetail({ idCardId, ...idCardInfo });
+    await mutateEditIdCardDetail(
+      { idCardId, ...idCardInfo },
+      {
+        onError: error => {
+          errorToast(error.message);
+        },
+        onSuccess: () => {
+          router.back();
+        },
+        onSettled: () => {
+          methods.reset();
+        },
+      },
+    );
   };
+
   const canSubmit = methods.formState.isValid && !methods.formState.isSubmitting;
   const submitButtonStyle = canSubmit ? 'text-primary-500' : 'text-grey-400';
 
@@ -108,8 +124,6 @@ export const IdCardEditor = ({ communityId }: IdCardEditorProps) => {
     if (isEntry) {
       await methods.handleSubmit(onSubmit)();
 
-      // TODO: onSubmit이 정상 실행될 때만 뒤로 가기: useMutation 정상 실행여부 판단하기
-      router.back();
       return;
     }
     setStepOrder(KEYWORD_CONTENT_STEP);
