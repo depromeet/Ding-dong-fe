@@ -2,7 +2,7 @@ name: 'Ding-dong-fe CI'
 
 on:
   push:
-    branches: [ "dev", "main" ]
+    branches: [ "main" ]
   pull_request:
     types: [ opened, synchronize, reopened ]
 
