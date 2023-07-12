@@ -1,9 +1,9 @@
-import 'server-only';
+'use client';
 
 import Image from 'next/image';
 import { Suspense } from 'react';
 
-import { getCommunityDetailServer } from '~/api/domain/community.api.server';
+import { useGetCommunityDetail } from '~/api/domain/community.api';
 import RetryErrorBoundary from '~/components/ErrorBoundary/RetryErrorBoundary.client';
 import { CommunityLogoImage } from '~/modules/CommunityProfile';
 
@@ -12,9 +12,14 @@ type CommunityDetailProps = {
 };
 
 // TODO: 디폴트 관련 논의 후 수정
-export const CommunityDetailComponent = async ({ id }: CommunityDetailProps) => {
-  const { communityDetailsDto } = await getCommunityDetailServer(id);
-  const { coverImageUrl, title, logoImageUrl, userCount, description } = communityDetailsDto;
+export const CommunityDetailComponent = ({ id }: CommunityDetailProps) => {
+  const { data } = useGetCommunityDetail(id);
+
+  if (!data?.communityDetailsDto) {
+    return <div></div>;
+  }
+
+  const { coverImageUrl, title, logoImageUrl, userCount, description } = data.communityDetailsDto;
 
   return (
     <div>
@@ -44,7 +49,6 @@ export const CommunityDetail = ({ id }: CommunityDetailProps) => {
   return (
     <RetryErrorBoundary>
       <Suspense>
-        {/* @ts-expect-error Server Component */}
         <CommunityDetailComponent id={id} />
       </Suspense>
     </RetryErrorBoundary>

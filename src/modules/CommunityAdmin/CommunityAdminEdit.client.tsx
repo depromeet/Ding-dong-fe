@@ -4,22 +4,20 @@ import { useState } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { twMerge } from 'tailwind-merge';
 
-import { usePostCommunityUpdate } from '~/api/domain/community.api';
+import { useGetCommunityDetail, usePostCommunityUpdate } from '~/api/domain/community.api';
 import { TopNavigation } from '~/components/TopNavigation';
 import { CommunityDetailModel, CreateCommunityRequest } from '~/types/community';
 
 import { DuplicateState } from './CommunityAdmin.type';
 import { CommunityAdminEditForm } from './CommunityAdminEditForm.client';
 
-type CommunityAdminEditProps = Omit<CommunityDetailModel, 'invitationCode'>;
+type CommunityAdminEditProps = Pick<CommunityDetailModel, 'communityId'>;
 
-export const CommunityAdminEdit = ({
-  logoImageUrl,
-  title,
-  description,
-  communityId,
-  coverImageUrl,
-}: CommunityAdminEditProps) => {
+export const CommunityAdminEdit = ({ communityId }: CommunityAdminEditProps) => {
+  const { data } = useGetCommunityDetail(communityId);
+
+  const { coverImageUrl, title, logoImageUrl, description } = data!.communityDetailsDto;
+
   const [isDuplicatedCheck, setIsDuplicatedCheck] = useState<DuplicateState>('SUCCESS');
 
   const methods = useForm<CreateCommunityRequest>({
