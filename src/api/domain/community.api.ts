@@ -99,13 +99,18 @@ export const usePostCommunityUpdate = (communityId: number) => {
   const queryClient = useQueryClient();
   const userId = getUserIdClient();
   const router = useRouter();
+  const { errorToast } = useToastMessageStore();
 
-  return useMutation({
+  return useMutation<CommunityUpdateResponse, AxiosError, CreateCommunityRequest>({
     mutationFn: (community: CreateCommunityRequest) => postCommunityUpdate(communityId, community),
     onSuccess: () => {
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       queryClient.invalidateQueries(communityQueryKey.communityList(userId!));
+      queryClient.invalidateQueries(communityQueryKey.communityDetail(communityId));
       router.replace(`/admin/planet/${communityId}`);
+    },
+    onError: error => {
+      errorToast(error.message);
     },
   });
 };
