@@ -34,6 +34,10 @@ export const KeywordContentEditCard = ({
     confirm: confirmDelete,
   } = useConfirmPopup();
 
+  const isImageExisted = keywords[index].imageUrl;
+
+  const imageButtonText = isImageExisted ? '이미지 수정' : '이미지 추가';
+
   const onCardClick = () => {
     if (textareaRef.current) textareaRef.current.focus();
   };
@@ -102,7 +106,7 @@ export const KeywordContentEditCard = ({
           htmlFor={`keywords.${index}.imageUrl`}
           className="text-primary font rounded-[12px] border-[0.5px] border-solid border-grey-100 bg-grey-50 px-[6px] pb-[6px] pt-[6px] text-detail text-primary-500"
         >
-          이미지 추가
+          {imageButtonText}
         </label>
         <input
           id={`keywords.${index}.imageUrl`}
