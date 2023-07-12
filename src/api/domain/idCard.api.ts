@@ -37,8 +37,15 @@ export const useGetIdCardDetail = (
 export const getCommunityMyIdCardDetail = (communityId: number) =>
   privateApi.get<CommunityMyIdCardDetailResponse>(`/communities/${communityId}/users/idCards`);
 
-export const useGetCommunityMyIdCardDetail = (communityId: number) =>
-  useQuery(idCardQueryKey.myCommunity(communityId), () => getCommunityMyIdCardDetail(communityId));
+export const useGetCommunityMyIdCardDetail = (
+  communityId: number,
+  options?: UseQueryOptions<CommunityMyIdCardDetailResponse>,
+) =>
+  useQuery<CommunityMyIdCardDetailResponse>(
+    idCardQueryKey.myCommunity(communityId),
+    () => getCommunityMyIdCardDetail(communityId),
+    options,
+  );
 
 export const editIdCardDetail = (idCardInfo: EditIdCardRequest) => {
   const { idCardId, profileImageUrl, nickname, aboutMe, keywords } = idCardInfo;
