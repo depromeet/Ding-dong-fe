@@ -2,15 +2,16 @@
 
 import { usePathname, useRouter } from 'next/navigation';
 
+import { useGetCommunityDetail } from '~/api/domain/community.api';
 import { Button } from '~/components/Button';
 import { TopNavigation } from '~/components/TopNavigation';
 import { CommunityBgImage, CommunityProfile } from '~/modules/CommunityProfile';
 import { InvitationButtons } from '~/modules/InvitationButtons/InvitationButtons.client';
 import { CommunityDetailModel } from '~/types/community';
 
-type CommunityAdminProps = Omit<CommunityDetailModel, 'invitationCode'>;
+type CommunityAdminProps = Pick<CommunityDetailModel, 'communityId'>;
 
-export const CommunityAdmin = (community: Omit<CommunityAdminProps, 'invitationCode'>) => {
+export const CommunityAdmin = ({ communityId }: CommunityAdminProps) => {
   const router = useRouter();
 
   const pathname = usePathname();
@@ -18,7 +19,14 @@ export const CommunityAdmin = (community: Omit<CommunityAdminProps, 'invitationC
     router.push(`${pathname}/edit`);
   };
 
-  const { logoImageUrl, userCount, description, title, communityId } = community;
+  const { data } = useGetCommunityDetail(communityId);
+
+  if (!data?.communityDetailsDto) {
+    return <div></div>;
+  }
+
+  const { userCount, title, logoImageUrl, description } = data.communityDetailsDto;
+
   return (
     <div>
       <TopNavigation>
@@ -30,7 +38,7 @@ export const CommunityAdmin = (community: Omit<CommunityAdminProps, 'invitationC
         </TopNavigation.Title>
         <TopNavigation.Right></TopNavigation.Right>
       </TopNavigation>
-      <CommunityBgImage isEditable community={community} />
+      <CommunityBgImage isEditable community={data.communityDetailsDto} />
       <div className="mt-16pxr px-20pxr">
         <CommunityProfile
           logoImageUrl={logoImageUrl}

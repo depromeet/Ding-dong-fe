@@ -12,12 +12,11 @@ type AdminPlanetDetailProps = {
   planetId: number;
 };
 
-const AdminPlanetDetailComponent = async ({ planetId }: AdminPlanetDetailProps) => {
+const AdminPlanetDetailComponent = ({ planetId }: AdminPlanetDetailProps) => {
   const getCommunityDetailQuery = async () => {
-    const { communityDetailsDto } = await getCommunityDetailServer(planetId);
-    return communityDetailsDto;
+    const data = await getCommunityDetailServer(planetId);
+    return data;
   };
-  const { communityDetailsDto } = await getCommunityDetailServer(planetId);
 
   return (
     <>
@@ -26,7 +25,7 @@ const AdminPlanetDetailComponent = async ({ planetId }: AdminPlanetDetailProps) 
         queryKey={communityQueryKey.communityDetail(planetId)}
         queryFn={getCommunityDetailQuery}
       >
-        <CommunityAdmin {...communityDetailsDto} />
+        <CommunityAdmin communityId={planetId} />
       </HydrationProvider>
     </>
   );
@@ -36,7 +35,6 @@ export const AdminPlanetDetail = ({ planetId }: AdminPlanetDetailProps) => {
   return (
     <RetryErrorBoundary>
       <Suspense>
-        {/* @ts-expect-error Server Component */}
         <AdminPlanetDetailComponent planetId={planetId} />
       </Suspense>
     </RetryErrorBoundary>
