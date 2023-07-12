@@ -62,9 +62,6 @@ export const PlanetSelector = () => {
   }, [extractPlanetIdFromPathname, pathname, switchCommunity, communityId, getLastPlanetId]);
 
   useEffect(() => {
-    if (communityId !== -1) {
-      return;
-    }
     switchPlanetIdByPathname();
   }, [pathname, communityId, switchPlanetIdByPathname]);
 
