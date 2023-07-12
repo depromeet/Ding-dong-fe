@@ -153,7 +153,6 @@ export const IdCardEditor = ({ communityId }: IdCardEditorProps) => {
               steps={editorSteps}
               stepOrder={stepOrder}
               onClickMoveTargetStep={onClickMoveTargetStep}
-              onSubmit={onSubmit}
             />
           </div>
         )}
