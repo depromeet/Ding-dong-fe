@@ -2,18 +2,18 @@
 
 import { yupResolver } from '@hookform/resolvers/yup';
 import { usePathname, useRouter } from 'next/navigation';
-import { useState } from 'react';
+import { useLayoutEffect, useState } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import * as yup from 'yup';
 
-import { usePostIdCardCreate } from '~/api/domain/idCard.api';
+import { useCheckIdCards } from '~/api/domain/community.api';
+import { useGetCommunityMyIdCardDetail, usePostIdCardCreate } from '~/api/domain/idCard.api';
 import { useGetUserInfo } from '~/api/domain/user.api';
 import { IdCardCreationForm } from '~/modules/IdCardCreation/Form';
+import { CreationSteps } from '~/modules/IdCardCreation/IdCardCreation.type';
 import { BoardingStep, CompleteStep } from '~/modules/IdCardCreation/Step';
 import { useToastMessageStore } from '~/stores/toastMessage.store';
 import { IdCardCreationFormModel } from '~/types/idCard';
-
-import { CreationSteps } from './IdCardCreation.type';
 
 const INIT_STEP = 0;
 
@@ -66,6 +66,30 @@ export const IdCardCreationSteps = ({ communityId }: IdCardCreationStepsProps) =
       }, 2000);
     },
   });
+
+  //TODO: Extract logic of sending complete step to router
+  const { data: checkIdCard } = useCheckIdCards(communityId);
+  const { data: idCardDetails } = useGetCommunityMyIdCardDetail(communityId, {
+    enabled: !!checkIdCard?.userMakeIdCard,
+  });
+
+  useLayoutEffect(() => {
+    if (!checkIdCard?.userMakeIdCard || !idCardDetails || stepOrder === steps.length - 1) {
+      return;
+    }
+    const { idCardId, profileImageUrl, nickname, aboutMe, keywords } =
+      idCardDetails.idCardDetailsDto;
+    const transformedKeywords = keywords.map(keyword => {
+      return { title: keyword.title, imageUrl: keyword.imageUrl, content: keyword.content };
+    });
+
+    setIdCardId(idCardId);
+    methods.setValue('profileImageUrl', profileImageUrl);
+    methods.setValue('nickname', nickname);
+    methods.setValue('aboutMe', aboutMe);
+    methods.setValue('keywords', transformedKeywords);
+    setStepOrder(steps.length - 1);
+  }, [checkIdCard, checkIdCard?.userMakeIdCard, idCardDetails, methods, stepOrder]);
 
   const onSubmit = () => {
     methods.handleSubmit(async data => {
