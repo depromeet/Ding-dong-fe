@@ -50,7 +50,10 @@ export const EditKeywordContentStep = ({ onClickMoveTargetStep }: EditKeywordCon
           />
         </div>
       </div>
-      <ul className="mb-34pxr mt-28pxr flex w-full flex-wrap items-center gap-x-4pxr gap-y-8pxr bg-grey-100 px-20pxr py-15pxr">
+      <ul
+        onClick={onClickKeywordPlus}
+        className="mb-34pxr mt-28pxr flex w-full cursor-pointer flex-wrap items-center gap-x-4pxr gap-y-8pxr bg-grey-100 px-20pxr py-15pxr"
+      >
         {keywords.map(({ title }) => (
           <Chip key={title} text={title} isSelected={true} />
         ))}
