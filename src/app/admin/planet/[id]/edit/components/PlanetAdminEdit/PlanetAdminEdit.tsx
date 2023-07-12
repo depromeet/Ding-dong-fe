@@ -26,7 +26,7 @@ const PlanetAdminEditComponent = async ({ planetId }: PlanetAdminEditProps) => {
         queryKey={communityQueryKey.communityDetail(planetId)}
         queryFn={getCommunityDetailQuery}
       >
-        <CommunityAdminEdit {...communityDetailsDto} />;
+        <CommunityAdminEdit {...communityDetailsDto} />
       </HydrationProvider>
     </>
   );
