@@ -43,29 +43,29 @@ export const PlanetSelector = () => {
     return lastCommunity.communityId;
   }, [INIT_PLANET_ID, communityList?.communityListDtos]);
 
-  const switchPlanetIdByPathname = useCallback(() => {
-    const isSamePlanetIdFromPathname = (pathPlanetId: number) => pathPlanetId === communityId;
+  const switchPlanetIdByPathname = useCallback(
+    (planetId?: number) => {
+      const isSamePlanetIdFromPathname = (pathPlanetId: number) => pathPlanetId === planetId;
 
-    const planetId = extractPlanetIdFromPathname(pathname);
+      const pathPlanetId = extractPlanetIdFromPathname(pathname);
 
-    if (!planetId) {
-      const lastPlanetId = getLastPlanetId();
-      switchCommunity(lastPlanetId);
-      return;
-    }
+      if (!pathPlanetId) {
+        const lastPlanetId = getLastPlanetId();
+        switchCommunity(lastPlanetId);
+        return;
+      }
 
-    if (isSamePlanetIdFromPathname(planetId)) {
-      return;
-    }
+      if (isSamePlanetIdFromPathname(pathPlanetId)) {
+        return;
+      }
 
-    switchCommunity(planetId);
-  }, [extractPlanetIdFromPathname, pathname, switchCommunity, communityId, getLastPlanetId]);
+      switchCommunity(pathPlanetId);
+    },
+    [extractPlanetIdFromPathname, pathname, switchCommunity, getLastPlanetId],
+  );
 
   useEffect(() => {
-    if (communityId !== -1) {
-      return;
-    }
-    switchPlanetIdByPathname();
+    switchPlanetIdByPathname(communityId);
   }, [pathname, communityId, switchPlanetIdByPathname]);
 
   const defaultCommunity = communityList?.communityListDtos.find(
