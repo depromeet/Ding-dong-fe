@@ -10,13 +10,15 @@ type CommentInputProps = {
 };
 
 export const CommentInput = ({ idCardId, communityId }: CommentInputProps) => {
-  const { data: userInfo } = useGetCommunityUserInfo(communityId);
+  const { data } = useGetCommunityUserInfo(communityId);
+
+  const shouldActiveCommentInput = data?.myInfoInInCommunityDto.isExistsIdCard;
 
   return (
     <>
-      {userInfo ? (
+      {shouldActiveCommentInput ? (
         <ActiveCommentInput
-          myInfoInInCommunityDto={userInfo.myInfoInInCommunityDto}
+          myInfoInInCommunityDto={data.myInfoInInCommunityDto}
           idCardId={idCardId}
           communityId={communityId}
         />
