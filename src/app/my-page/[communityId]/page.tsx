@@ -33,7 +33,7 @@ const MyPage = async ({ params: { communityId } }: MyPageProps) => {
           </Link>
         </TopNavigation.Right>
       </TopNavigation>
-      <main className="pt-35pxr">
+      <main className="mb-72pxr overflow-auto pb-b-nav pt-35pxr">
         <div className="mx-layout-l">
           {isUserMakeIdCard ? <MyPageIdCard communityId={communityId} /> : <CreateIdCardButton />}
         </div>
