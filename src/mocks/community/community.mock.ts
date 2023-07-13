@@ -23,6 +23,7 @@ export const createCommunityIdCard = (idx: number): CommunityIdCardsModel => ({
     3,
   ),
   commentCount: faker.number.int({ min: 0, max: 999 }),
+  profileImageUrl: faker.image.avatar(),
 });
 
 export const createCommunityIdCards = (
