@@ -8,6 +8,7 @@ import {
   CancelBoldIcon,
   CancelCircleIcon,
   CancelIcon,
+  ChatBubbleIcon,
   ChevronLeftIcon,
   ChevronRightIcon,
   DashIcon,
@@ -52,6 +53,10 @@ export const CancelCircle = {
 
 export const Cancel = {
   render: () => <CancelIcon />,
+};
+
+export const ChatBubble = {
+  render: () => <ChatBubbleIcon />,
 };
 
 export const CancelBold = {

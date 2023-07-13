@@ -3,6 +3,7 @@
 import Image from 'next/image';
 import { usePathname, useRouter } from 'next/navigation';
 
+import { ChatBubbleIcon } from '~/components/Icon';
 import Tag from '~/components/Tag/Tag';
 import { CharacterNameModel } from '~/types/idCard';
 import { tw } from '~/utils/tailwind.util';
@@ -13,9 +14,9 @@ type IdCardProps = {
   aboutMe: string;
   characterType: CharacterNameModel;
   keywordTitles: string[];
+  commentCount?: number;
   className?: string;
 };
-
 const bgColors: Record<CharacterNameModel, string> = {
   BUDDY: 'bg-buddy-400',
   TOBBY: 'bg-tobby-400',
@@ -30,6 +31,7 @@ export const IdCard = ({
   characterType,
   keywordTitles,
   className,
+  commentCount,
 }: IdCardProps) => {
   const bgColor = bgColors[characterType];
   const router = useRouter();
@@ -42,7 +44,7 @@ export const IdCard = ({
 
   return (
     <div className={tw('w-full', className)} onClick={handleClickIdCard}>
-      <div className={`${bgColor} rounded-t-2xl p-5`}>
+      <div className={`${bgColor} rounded-t-2xl p-20pxr`}>
         <p className="text-h1">{nickname}</p>
         <p className="mb-3 mt-3.5 text-b2">{aboutMe}</p>
         <div className="flex max-h-14 flex-wrap gap-1.5 overflow-hidden">
@@ -60,6 +62,12 @@ export const IdCard = ({
           object-fit="contain"
           object-position="center"
         />
+        {commentCount && (
+          <div className="absolute bottom-[33px] left-[22px] flex items-center gap-2pxr text-detail font-medium text-grey-900">
+            <ChatBubbleIcon />
+            <span>{commentCount}</span>
+          </div>
+        )}
       </div>
     </div>
   );
