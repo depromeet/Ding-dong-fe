@@ -19,6 +19,13 @@ const INIT_STEP = 0;
 
 const steps: CreationSteps[] = ['BOARDING', 'PROFILE', 'KEYWORD', 'KEYWORD_CONTENT', 'COMPLETE'];
 
+const CHARACTER_DEFAULT_KEYWORD = {
+  BUDDY: '아이디어 뱅크',
+  TOBBY: '자유로운 영혼',
+  PIPI: '모두의 뮤즈',
+  TRUE: '현실주의자',
+};
+
 export const idCardCreationSchema = yup.object({
   profileImageUrl: yup.string(),
   communityId: yup.number(),
@@ -35,15 +42,23 @@ export const IdCardCreationSteps = ({ communityId }: IdCardCreationStepsProps) =
   const { errorToast } = useToastMessageStore();
   const { data } = useGetUserInfo();
   const profileImageUrl = data?.userProfileDto.profileImageUrl;
+  const characterType = data?.userProfileDto.characterType || 'BUDDY';
   const router = useRouter();
   const pathname = usePathname();
+
+  const defaultKeywordByCharacter = {
+    title: CHARACTER_DEFAULT_KEYWORD[characterType],
+    imageUrl: '',
+    content: '',
+  };
+
   const methods = useForm<IdCardCreationFormModel>({
     defaultValues: {
       communityId,
       profileImageUrl,
       nickname: '',
       aboutMe: '',
-      keywords: [],
+      keywords: [defaultKeywordByCharacter],
     },
     mode: 'onChange',
     resolver: yupResolver(idCardCreationSchema),
