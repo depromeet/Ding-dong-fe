@@ -12,12 +12,8 @@ const NotificationLayout = ({ children }: PropsWithChildren) => {
             <h1 className="text-h1">알림</h1>
           </div>
         </TopNavigation.Left>
-        <TopNavigation.Title />
-        <TopNavigation.Right>
-          <TopNavigation.BackButton backButtonType="cancel" direction="right" />
-        </TopNavigation.Right>
       </TopNavigation>
-      <div className="mt-5 px-5">{children}</div>
+      <div className="mt-5 px-5 pb-[calc(20px+theme(spacing.b-nav))]">{children}</div>
       <BottomNavigation />
     </>
   );
