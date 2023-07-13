@@ -9,6 +9,7 @@ import { CharacterNameModel } from '~/types/idCard';
 import { tw } from '~/utils/tailwind.util';
 
 type IdCardProps = {
+  profileImageUrl: string;
   idCardId: number;
   nickname: string;
   aboutMe: string;
@@ -26,6 +27,7 @@ const bgColors: Record<CharacterNameModel, string> = {
 
 export const IdCard = ({
   idCardId,
+  profileImageUrl,
   nickname,
   aboutMe,
   characterType,
@@ -45,9 +47,20 @@ export const IdCard = ({
   return (
     <div className={tw('w-full', className)} onClick={handleClickIdCard}>
       <div className={`${bgColor} rounded-t-2xl p-20pxr`}>
-        <p className="text-h1">{nickname}</p>
-        <p className="mb-3 mt-3.5 text-b2">{aboutMe}</p>
-        <div className="flex max-h-14 flex-wrap gap-1.5 overflow-hidden">
+        <div className="flex gap-8pxr">
+          <div className="h-36pxr w-36pxr flex-shrink-0 overflow-hidden rounded-full">
+            <Image
+              width={36}
+              height={36}
+              src={profileImageUrl}
+              alt="profile image"
+              className="max-h-[36px] min-h-[36px] min-w-[36px] max-w-[36px] rounded-full object-cover"
+            />
+          </div>
+          <p className="text-h1">{nickname}</p>
+        </div>
+        <p className="mt-14pxr text-b2">{aboutMe}</p>
+        <div className="mt-12pxr flex max-h-14 flex-wrap gap-1.5 overflow-hidden">
           {keywordTitles.map(keywordTitle => (
             //TODO: 태그 2줄 이상 길어지면 ... 처리 필요
             <Tag key={keywordTitle} type={characterType} label={keywordTitle} />

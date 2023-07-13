@@ -17,7 +17,7 @@ const MyPageIdCardComponent = ({ communityId }: MyPageProps) => {
     return <div></div>;
   }
 
-  const { idCardId, nickname, aboutMe, characterType, keywords, commentCount } =
+  const { idCardId, nickname, aboutMe, characterType, keywords, commentCount, profileImageUrl } =
     idCardDetailsDto.idCardDetailsDto;
   const keywordTitles = keywords?.map(keyword => keyword.title);
 
@@ -30,6 +30,7 @@ const MyPageIdCardComponent = ({ communityId }: MyPageProps) => {
       <IdCard
         idCardId={idCardId}
         nickname={nickname}
+        profileImageUrl={profileImageUrl}
         aboutMe={aboutMe}
         characterType={characterType}
         keywordTitles={keywordTitles}

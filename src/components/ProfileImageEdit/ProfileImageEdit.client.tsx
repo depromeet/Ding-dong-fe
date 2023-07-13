@@ -1,7 +1,15 @@
 'use client';
 
 import Image from 'next/image';
-import { ChangeEvent, ForwardedRef, forwardRef, InputHTMLAttributes, memo, useState } from 'react';
+import {
+  ChangeEvent,
+  ForwardedRef,
+  forwardRef,
+  InputHTMLAttributes,
+  memo,
+  useEffect,
+  useState,
+} from 'react';
 import { FieldPath, FieldValues, UseFormSetValue } from 'react-hook-form';
 
 import { usePostImageUrl } from '~/api/domain/image.api';
@@ -29,12 +37,15 @@ function ProfileImageEditComponent<T extends FieldValues>(
     if (imageFileList && imageFileList.length > 0) {
       const data = await mutateAsync(imageFileList[0]);
       if (data) {
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         setValue(fieldName, data.imageUrl as any);
         setProfileImage(data.imageUrl);
       }
     }
   };
+
+  useEffect(() => {
+    setValue(fieldName, (defaultProfileImage as any) || '');
+  }, []);
 
   return (
     <div className={tw('relative w-fit', className)}>
