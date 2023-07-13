@@ -62,7 +62,7 @@ export const IdCard = ({
           object-fit="contain"
           object-position="center"
         />
-        {commentCount && (
+        {commentCount !== undefined && (
           <div className="absolute bottom-[33px] left-[22px] flex items-center gap-2pxr text-detail font-medium text-grey-900">
             <ChatBubbleIcon />
             <span>{commentCount}</span>
