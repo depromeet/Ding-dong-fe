@@ -108,7 +108,12 @@ export const CommunityAdminEditForm = ({
         <TextArea>
           <TextArea.Label name="description">소개</TextArea.Label>
           <TextArea.Border textCount={textareaCount} maxLength={TEXT_AREA_MAX_LENGTH}>
-            <TextArea.Content {...register('description')} onChange={onTextareaChangeHandler} />
+            <TextArea.Content
+              {...register('description')}
+              onChange={onTextareaChangeHandler}
+              value={getValues('description')}
+              isAutoSize
+            />
           </TextArea.Border>
         </TextArea>
       )}
