@@ -15,6 +15,7 @@ export const idCardDetailMock = (): IdCardDetailModel => ({
     content: faker.lorem.paragraph(),
   })),
   characterType: faker.helpers.arrayElement(['TRUE', 'PIPI', 'TOBBY', 'BUDDY']),
+  commentCount: faker.number.int({ min: 0, max: 999 }),
 });
 
 export const createIdCardMock: IdCardCreateResponse = { id: 1 };

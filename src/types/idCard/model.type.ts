@@ -17,6 +17,7 @@ export type IdCardDetailModel = {
   profileImageUrl: string;
   keywords: KeywordModel[];
   characterType: keyof CharacterModel;
+  commentCount: number;
 };
 
 export type KeywordModel = {
