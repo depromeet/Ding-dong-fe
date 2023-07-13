@@ -28,7 +28,7 @@ export const TextAreaBorder = ({
     <>
       <div
         className={tw(
-          'text-grey-90 mt-2pxr flex w-full flex-col rounded-[6px] border-[0.5px] border-solid border-grey-100 bg-grey-50 px-12pxr py-14pxr text-b1',
+          'text-grey-90 mt-2pxr flex h-fit w-full flex-col rounded-[6px] border-[0.5px] border-solid border-grey-100 bg-grey-50 px-12pxr py-14pxr text-b1',
           'focus-within:border-[1px] focus-within:border-primary-500 focus-within:caret-primary-500',
           infoCss,
           errorCss,
