@@ -20,7 +20,7 @@ export const useKeywordInput = ({
 }: UseKeywordInputProps) => {
   const [inputValue, setInputValue] = useState('');
   const isOverMaxInputValue = (len: number) => len > maxInputLength;
-  const isOverMaxKeywordListLength = (len: number) => len > maxActiveKeywordListLength;
+  const isOverMaxKeywordListLength = (len: number) => len >= maxActiveKeywordListLength;
 
   const resetInputValue = () => {
     setInputValue('');
