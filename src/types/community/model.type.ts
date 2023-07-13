@@ -24,6 +24,7 @@ export type CommunityIdCardsModel = {
   aboutMe: string;
   characterType: CharacterNameModel;
   keywordTitles: string[];
+  commentCount: number;
 };
 
 // FIXME: 이거 안 쓰는 거 같은데 맞나요?
