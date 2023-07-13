@@ -17,7 +17,7 @@ const NotificationLayout = ({ children }: PropsWithChildren) => {
           <TopNavigation.BackButton backButtonType="cancel" direction="right" />
         </TopNavigation.Right>
       </TopNavigation>
-      <div className="mt-5 px-5">{children}</div>
+      <div className="mb-10pxr mt-5 px-5 pb-b-nav">{children}</div>
       <BottomNavigation />
     </>
   );
