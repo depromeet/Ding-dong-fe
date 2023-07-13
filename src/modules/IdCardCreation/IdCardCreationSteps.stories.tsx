@@ -1,3 +1,4 @@
+import { faker } from '@faker-js/faker/locale/ko';
 import type { StoryObj } from '@storybook/react';
 
 import { Button } from '~/components/Button';
@@ -39,6 +40,7 @@ export const Complete = {
       </p>
       <p className="pb-24px text-h2 text-grey-900">주민증이 발급되었어요!</p>
       <IdCard
+        profileImageUrl={faker.image.avatar()}
         idCardId={2}
         aboutMe="안녕하세요 저는 N년차 개발자구요 :) 너무 보고싶었어요 다들 잘부탁드립니다!"
         keywordTitles={['엽기떡기', '르세라핌', 'FE', 'EPL']}
