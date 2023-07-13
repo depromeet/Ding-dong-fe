@@ -38,20 +38,18 @@ const AdminCommunityCreateResultPage = () => {
           </button>
         </TopNavigation.Right>
       </TopNavigation>
-      <main className="mt-26pxr px-5">
+      <main className="flex h-[calc(100vh-50px)] flex-col px-5 py-55pxr pt-26pxr">
         <h1 className="text-h2">행성 생성 완료</h1>
         <p className="mt-11pxr text-b2 font-normal text-gray-700">
           활기찬 행성을 위해 함께 할 주민이 필요할 거에요!
         </p>
-        <div className="relative mt-30pxr">
-          <Image
-            src="/assets/images/planet-with-shadow.png"
-            width={375}
-            height={375}
-            className="object-contain"
-            alt="planet"
-          />
-        </div>
+        <Image
+          src="/assets/images/planet-with-shadow.png"
+          width={375}
+          height={375}
+          className="flex-1 object-contain"
+          alt="planet"
+        />
         <div className="mt-3pxr">
           <InvitationButtons communityId={communityId} />
         </div>
