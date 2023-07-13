@@ -6,6 +6,7 @@ import { useFormContext } from 'react-hook-form';
 import { usePostImageUrl } from '~/api/domain/image.api';
 import { ConfirmDeleteKeyword, useConfirmPopup } from '~/components/ConfirmPopup';
 import { CancelCircleIcon } from '~/components/Icon';
+import { useAutoHeightTextArea } from '~/components/TextArea/useAutoHeightTextArea';
 import { KeywordContentImage } from '~/modules/IdCardCreation/Step/KeywordContentImage.client';
 import { KeywordContentCard } from '~/modules/IdCardDetail';
 import { FormKeywordModel } from '~/types/idCard';
@@ -25,7 +26,7 @@ export const KeywordContentEditCard = ({
   const { register, setValue, getValues } = useFormContext();
   const { keywords } = getValues();
   const [textFocus, setTextFocus] = useState<boolean>();
-  const textareaRef = useRef<HTMLTextAreaElement>(null);
+  const textareaRef = useRef<HTMLTextAreaElement | null>(null);
   const { mutateAsync } = usePostImageUrl();
   const {
     isOpen: isConfirmDeleteOpen,
@@ -33,6 +34,8 @@ export const KeywordContentEditCard = ({
     closePopup: closeConfirmDeletePopup,
     confirm: confirmDelete,
   } = useConfirmPopup();
+
+  const { ref, ...registerReturnWithoutRef } = register(`keywords.${index}.content`);
 
   const isImageExisted = keywords[index].imageUrl;
 
@@ -75,6 +78,12 @@ export const KeywordContentEditCard = ({
     [index, mutateAsync, setValue],
   );
 
+  useAutoHeightTextArea({
+    isAutoSize: true,
+    value: keywords[index].content,
+    ref: textareaRef,
+  });
+
   return (
     <div className={tw(className)}>
       <div className="relative">
@@ -85,8 +94,11 @@ export const KeywordContentEditCard = ({
           image={<KeywordContentImage index={index} />}
           content={
             <textarea
-              {...register(`keywords.${index}.content`)}
-              // ref={textareaRef} // FIXME: onCardClick가 동작하지 않음. 하지만 해당 이슈를 위해 주석처리  https://github.com/depromeet/Ding-dong-fe/issues/154
+              {...registerReturnWithoutRef}
+              ref={e => {
+                ref(e);
+                textareaRef.current = e;
+              }}
               onFocus={onTextFocus}
               onBlur={onTextBlur}
               className="w-full resize-none bg-grey-100"

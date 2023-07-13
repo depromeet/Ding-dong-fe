@@ -22,6 +22,7 @@ export const ProfileStep = () => {
   const { data: userInfo } = useGetUserInfo();
 
   const profileImageUrl = getValues('profileImageUrl');
+  const aboutMe = getValues('aboutMe');
 
   const { textCount, onChangeHandler } = useTextInput({
     onChange: register('nickname').onChange,
@@ -72,7 +73,12 @@ export const ProfileStep = () => {
       <TextArea className="mt-28pxr">
         <TextArea.Label name="aboutMe">소개</TextArea.Label>
         <TextArea.Border textCount={textareaCount} maxLength={TEXT_AREA_MAX_LENGTH}>
-          <TextArea.Content {...register('aboutMe')} onChange={onTextareaChangeHandler} />
+          <TextArea.Content
+            {...register('aboutMe')}
+            onChange={onTextareaChangeHandler}
+            value={aboutMe}
+            isAutoSize
+          />
         </TextArea.Border>
       </TextArea>
     </div>

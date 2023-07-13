@@ -54,6 +54,7 @@ export const EditProfileInfoStep = () => {
           <TextArea.Content
             {...register('aboutMe', { required: true })}
             onChange={onChangeAboutMe}
+            isAutoSize
           />
         </TextArea.Border>
       </TextArea>
