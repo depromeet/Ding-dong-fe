@@ -38,7 +38,7 @@ const AdminCommunityCreateResultPage = () => {
           </button>
         </TopNavigation.Right>
       </TopNavigation>
-      <main className="flex h-[calc(100vh-50px)] flex-col px-5 py-55pxr pt-26pxr">
+      <main className="flex h-[calc(100vh-theme(spacing.t-nav))] flex-col px-5 pb-55pxr pt-26pxr">
         <h1 className="text-h2">행성 생성 완료</h1>
         <p className="mt-11pxr text-b2 font-normal text-gray-700">
           활기찬 행성을 위해 함께 할 주민이 필요할 거에요!

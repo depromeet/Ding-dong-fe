@@ -61,7 +61,7 @@ export const CharacterCompleteStep = ({ characterName }: CharacterCompleteStepPr
   };
 
   return (
-    <Template className="h-[calc(100vh-50px)]">
+    <Template className="h-[calc(100vh-theme(spacing.t-nav))]">
       <Template.Title className="text-grey-900">
         <h1>{title}</h1>
       </Template.Title>

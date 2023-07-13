@@ -13,7 +13,7 @@ const NotificationLayout = ({ children }: PropsWithChildren) => {
           </div>
         </TopNavigation.Left>
       </TopNavigation>
-      <div className="mb-10pxr mt-5 px-5 pb-b-nav">{children}</div>
+      <div className="mt-5 px-5 pb-[calc(20px+theme(spacing.b-nav))]">{children}</div>
       <BottomNavigation />
     </>
   );
