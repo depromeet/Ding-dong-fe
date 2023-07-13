@@ -17,7 +17,7 @@ type CompleteStepProps = {
 export const CompleteStep = ({ idCardId }: CompleteStepProps) => {
   const { getValues } = useFormContext<IdCardCreationFormModel>();
   const values = getValues();
-  const { nickname, aboutMe, keywords } = values;
+  const { nickname, aboutMe, keywords, profileImageUrl } = values;
   const keywordTitles = keywords.map(keyword => keyword.title);
   const router = useRouter();
   const { communityId } = useParams();
@@ -36,6 +36,7 @@ export const CompleteStep = ({ idCardId }: CompleteStepProps) => {
       <div className="mt-24pxr flex max-h-[650px] flex-1 flex-col justify-between">
         {idCardDetail && (
           <IdCard
+            profileImageUrl={profileImageUrl}
             idCardId={idCardId}
             aboutMe={aboutMe}
             keywordTitles={keywordTitles}
