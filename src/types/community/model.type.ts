@@ -20,6 +20,7 @@ export type CommunityListModel = Omit<
 
 export type CommunityIdCardsModel = {
   idCardId: number;
+  profileImageUrl: string;
   nickname: string;
   aboutMe: string;
   characterType: CharacterNameModel;
