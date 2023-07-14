@@ -20,6 +20,13 @@ export const BottomNavigation = () => {
     router.push(path);
   };
 
+  const getPlanetId = () => {
+    const pathPlanetId = extractPlanetIdFromPathname(pathname);
+    if (pathPlanetId) return pathPlanetId;
+    if (!isInitPlanetId()) return planetId;
+    return null;
+  };
+
   const getSvgColor = (bottomNavigationPath: BottomNavigationPath) => {
     if (pathname.includes(bottomNavigationPath)) {
       return 'fill-primary-500 stroke-primary-500';
@@ -29,28 +36,25 @@ export const BottomNavigation = () => {
   };
 
   const onClickHome = () => {
-    const pathPlanetId = extractPlanetIdFromPathname(pathname);
-    if (pathPlanetId) {
-      handleNavigation(`/planet/${pathPlanetId}`);
+    const targetPlanetId = getPlanetId();
+    if (targetPlanetId) {
+      handleNavigation(`/planet/${targetPlanetId}`);
       return;
     }
-    if (!isInitPlanetId()) {
-      handleNavigation(`/planet/${planetId}`);
-      return;
-    }
-
     handleNavigation('/');
   };
-  const onClickNotification = () => {
-    handleNavigation('/notification');
-  };
+
   const onClickMyPage = () => {
-    const planetId = extractPlanetIdFromPathname(pathname);
-    if (planetId) {
-      handleNavigation(`/my-page/${planetId}`);
+    const targetPlanetId = getPlanetId();
+    if (targetPlanetId) {
+      handleNavigation(`/my-page/${targetPlanetId}`);
       return;
     }
     handleNavigation('/my-page');
+  };
+
+  const onClickNotification = () => {
+    handleNavigation('/notification');
   };
 
   return (
