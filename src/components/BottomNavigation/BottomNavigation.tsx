@@ -6,6 +6,7 @@ import { Divider } from '~/components/Divider';
 import { BellIcon, HomeIcon, PersonIcon } from '~/components/Icon';
 import { usePlanetNavigate } from '~/hooks/usePlanetNavigate';
 import { NewNotificationBadge } from '~/modules/Notification/NewNotificationBadge.client';
+import { useCommunityStore } from '~/stores/community.store';
 
 type BottomNavigationPath = '/planet' | '/notification' | '/my-page' | '/';
 
@@ -13,6 +14,7 @@ export const BottomNavigation = () => {
   const pathname = usePathname();
   const router = useRouter();
   const { extractPlanetIdFromPathname } = usePlanetNavigate();
+  const { communityId: planetId, isInitPlanetId } = useCommunityStore();
 
   const handleNavigation = (path: string) => {
     router.push(path);
@@ -27,11 +29,16 @@ export const BottomNavigation = () => {
   };
 
   const onClickHome = () => {
-    const planetId = extractPlanetIdFromPathname(pathname);
-    if (planetId) {
+    const pathPlanetId = extractPlanetIdFromPathname(pathname);
+    if (pathPlanetId) {
+      handleNavigation(`/planet/${pathPlanetId}`);
+      return;
+    }
+    if (!isInitPlanetId()) {
       handleNavigation(`/planet/${planetId}`);
       return;
     }
+
     handleNavigation('/');
   };
   const onClickNotification = () => {
