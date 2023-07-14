@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form';
 import { usePostCommentCreate, usePostReplyCreate } from '~/api/domain/comment/comment.api';
 import { Divider } from '~/components/Divider';
 import { SendIcon } from '~/components/Icon';
-import { TextInput, useTextInput } from '~/components/TextInput';
+import { TextArea, useTextArea } from '~/components/TextArea';
 import { ReplyIndicator } from '~/modules/CommentInput/ReplyIndicator.client';
 import { UserProfile } from '~/modules/CommentList/CommentCommon';
 import { useReplyRecipientStore } from '~/stores/comment.store';
@@ -43,7 +43,7 @@ export const ActiveCommentInput = ({
     reset();
   };
 
-  const { onChangeHandler } = useTextInput({
+  const { onChangeHandler } = useTextArea({
     onChange: register('contents').onChange,
   });
 
@@ -57,21 +57,22 @@ export const ActiveCommentInput = ({
       >
         {/* FIXME: default profile url로 수정 */}
         <UserProfile profileImageUrl={myInfoInInCommunityDto.profileImageUrl || ''} />
-        <TextInput>
-          <TextInput.Border className="rounded-[15px] px-[16px] py-[8px]">
+        <TextArea>
+          <TextArea.Border className="rounded-[15px] px-[16px] py-[8px]">
             <div className="flex w-full flex-row">
-              <TextInput.Content
-                className="w-full bg-grey-50"
+              <TextArea.Content
+                className="w-full resize-none bg-grey-50"
                 {...register('contents')}
                 placeholder="댓글을 남겨주세요"
                 onChange={onChangeHandler}
+                rows={2}
               />
               <button>
                 <SendIcon className="fill-none stroke-primary-500" />
               </button>
             </div>
-          </TextInput.Border>
-        </TextInput>
+          </TextArea.Border>
+        </TextArea>
       </form>
     </div>
   );

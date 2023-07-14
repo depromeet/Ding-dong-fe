@@ -9,6 +9,7 @@ type TextAreaBorderProps = {
   textCount?: number;
   maxLength?: number;
   disabled?: boolean;
+  className?: string;
 };
 
 export const TextAreaBorder = ({
@@ -18,6 +19,7 @@ export const TextAreaBorder = ({
   textCount,
   maxLength,
   children,
+  className,
 }: PropsWithChildren<TextAreaBorderProps>) => {
   const errorCss =
     errorMessage && 'border-[1px] border-error focus-within:border-error caret-error';
@@ -33,6 +35,7 @@ export const TextAreaBorder = ({
           infoCss,
           errorCss,
           disabledCss,
+          className,
         )}
       >
         {children}
