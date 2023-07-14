@@ -1,4 +1,5 @@
 import { AxiosError, InternalAxiosRequestConfig } from 'axios';
+import { redirect } from 'next/navigation';
 
 import { ErrorType } from '~/api/config/api.types';
 import { AUTH_ERROR_CODES } from '~/types/errorCodes';
@@ -62,6 +63,7 @@ export const onResponseErrorClient = async (
           }
         } catch (e) {
           // client-side 로그아웃 처리
+          redirect('/auth/signin');
           return Promise.reject(e);
         }
       }

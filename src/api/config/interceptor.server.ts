@@ -1,5 +1,6 @@
 import { AxiosError, InternalAxiosRequestConfig } from 'axios';
 import { cookies } from 'next/headers';
+import { redirect } from 'next/navigation';
 
 import { AUTH_COOKIE_KEYS } from '~/types/auth';
 import { AUTH_ERROR_CODES } from '~/types/errorCodes';
@@ -66,6 +67,7 @@ export const onResponseErrorServer = async (
           }
         } catch (e) {
           // server-side 로그아웃 처리
+          redirect('/auth/signin');
           return Promise.reject(e);
         }
       }
