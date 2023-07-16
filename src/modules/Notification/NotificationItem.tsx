@@ -1,5 +1,8 @@
+'use client';
+
 import { useRouter } from 'next/navigation';
 
+import { useReadNotification } from '~/api/domain/notification.api';
 import {
   NOTIFICATION_TYPE,
   NOTIFICATION_TYPE_ACTION,
@@ -10,7 +13,9 @@ import { isValidUrl } from '~/utils/validate';
 
 import { UserProfile } from '../CommentList/CommentCommon';
 
+type NotificationItemProps = NotificationModel & { page?: number };
 export const NotificationItem = ({
+  notificationId,
   notificationType,
   notificationStatus,
   createdAt,
@@ -18,11 +23,15 @@ export const NotificationItem = ({
   commentDto,
   userDto,
   idCardDto,
-}: NotificationModel) => {
+  page,
+}: NotificationItemProps) => {
+  const { mutate } = useReadNotification({ pageParam: page ?? 0 });
   const router = useRouter();
   const onClick = () => {
+    mutate(notificationId);
     router.push(`/planet/${communityDto.communityId}/id-card/${idCardDto.idCardId}`);
   };
+
   return (
     <li className="flex list-none gap-3" onClick={onClick}>
       <div className="relative">

@@ -5,8 +5,9 @@ import { NotificationItem } from './NotificationItem';
 
 type NotificationListProps = {
   notifications: NotificationModel[];
+  page?: number;
 };
-export const NotificationList = ({ notifications }: NotificationListProps) => {
+export const NotificationList = ({ notifications, page }: NotificationListProps) => {
   const notificationAgoList = notifications.map(notification =>
     checkNotificationAgo(notification.createdAt),
   );
@@ -21,7 +22,7 @@ export const NotificationList = ({ notifications }: NotificationListProps) => {
               <h2 className="mb-4 text-h4">{notificationAgoList[i]}</h2>
             </>
           )}
-          <NotificationItem {...notification} key={notification.notificationId} />
+          <NotificationItem {...notification} key={notification.notificationId} page={page} />
         </div>
       ))}
     </ul>

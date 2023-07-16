@@ -1,4 +1,4 @@
-import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
+import { useInfiniteQuery, useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
 import privateApi from '~/api/config/privateApi';
 import {
@@ -34,3 +34,16 @@ export const useGetUnreadNotification = () =>
   useQuery(notificationQueryKey.unread(), () => getUnreadNotification(), {
     retry: false,
   });
+
+export const readNotification = (notificationId: number) =>
+  privateApi.put(`/notifications/${notificationId}/read`);
+
+export const useReadNotification = ({ pageParam }: NotificationGetRequest) => {
+  const queryClient = useQueryClient();
+
+  return useMutation((notificationId: number) => readNotification(notificationId), {
+    onSuccess: () => {
+      queryClient.invalidateQueries(notificationQueryKey.notifications(pageParam));
+    },
+  });
+};
