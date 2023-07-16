@@ -8,9 +8,7 @@ import { NotificationList } from '~/modules/Notification/NotificationList';
 import { NotificationNoData } from '~/modules/Notification/NotificationNoData';
 
 export const InjectQueryDataNotification = () => {
-  const { data, fetchNextPage } = useGetNotifications({
-    pageParam: 1,
-  });
+  const { data, fetchNextPage } = useGetNotifications();
   // TODO: CommunityIdCards에서 사용하는 로직과 통일하기
   const { ref, inView } = useInView();
 
