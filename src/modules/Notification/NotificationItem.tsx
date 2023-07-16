@@ -1,3 +1,5 @@
+import { useRouter } from 'next/navigation';
+
 import {
   NOTIFICATION_TYPE,
   NOTIFICATION_TYPE_ACTION,
@@ -15,9 +17,14 @@ export const NotificationItem = ({
   communityDto,
   commentDto,
   userDto,
+  idCardDto,
 }: NotificationModel) => {
+  const router = useRouter();
+  const onClick = () => {
+    router.push(`/planet/${communityDto.communityId}/id-card/${idCardDto.idCardId}`);
+  };
   return (
-    <li className="flex list-none gap-3">
+    <li className="flex list-none gap-3" onClick={onClick}>
       <div className="relative">
         {notificationStatus === 'UNREAD' && (
           <span className="absolute -left-10pxr top-13pxr h-6pxr w-6pxr rounded-full bg-blue-500"></span>
