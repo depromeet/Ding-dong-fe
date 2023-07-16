@@ -47,7 +47,7 @@ export const NotificationItem = ({
           <b className={`font-medium ${notificationStatus === 'READ' ? 'text-gray-500' : ''}`}>
             {userDto.fromUserNickname}
           </b>
-          님 이{' '}
+          님이{' '}
           <b className={`font-medium ${notificationStatus === 'READ' ? 'text-gray-500' : ''}`}>
             회원님의 {NOTIFICATION_TYPE[notificationType]}
           </b>
