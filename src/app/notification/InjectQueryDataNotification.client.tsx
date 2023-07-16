@@ -22,7 +22,7 @@ export const InjectQueryDataNotification = () => {
     <>
       {data?.pages.map(page => (
         <div key={page.page}>
-          <NotificationList notifications={page.content} page={page.page} />
+          <NotificationList notifications={page.content} />
           {page.hasNext && <div ref={ref}></div>}
         </div>
       ))}

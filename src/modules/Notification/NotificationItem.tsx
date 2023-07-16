@@ -13,7 +13,6 @@ import { isValidUrl } from '~/utils/validate';
 
 import { UserProfile } from '../CommentList/CommentCommon';
 
-type NotificationItemProps = NotificationModel & { page?: number };
 export const NotificationItem = ({
   notificationId,
   notificationType,
@@ -23,9 +22,8 @@ export const NotificationItem = ({
   commentDto,
   userDto,
   idCardDto,
-  page,
-}: NotificationItemProps) => {
-  const { mutate } = useReadNotification({ pageParam: page ?? 0 });
+}: NotificationModel) => {
+  const { mutate } = useReadNotification();
   const router = useRouter();
   const onClick = () => {
     mutate(notificationId);
