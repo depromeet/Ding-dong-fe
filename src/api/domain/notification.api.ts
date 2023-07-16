@@ -8,15 +8,15 @@ import {
 } from '~/types/notification';
 
 export const notificationQueryKey = {
-  notifications: (pageParam: number) => ['notifications', pageParam],
+  notifications: () => ['notifications'],
   unread: () => ['unread'],
 };
 export const getNotifications = ({ pageParam }: NotificationGetRequest) =>
   privateApi.get<NotificationGetResponse>(`/notifications?page=${pageParam}&size=10`);
 
-export const useGetNotifications = ({ pageParam }: NotificationGetRequest) => {
+export const useGetNotifications = () => {
   return useInfiniteQuery(
-    notificationQueryKey.notifications(pageParam),
+    notificationQueryKey.notifications(),
     ({ pageParam = 0 }) => getNotifications({ pageParam }),
     {
       getNextPageParam: data => (data.hasNext ? data.page + 1 : undefined),
@@ -36,12 +36,12 @@ export const useGetUnreadNotification = () =>
 export const readNotification = (notificationId: number) =>
   privateApi.put(`/notifications/${notificationId}/read`);
 
-export const useReadNotification = ({ pageParam }: NotificationGetRequest) => {
+export const useReadNotification = () => {
   const queryClient = useQueryClient();
 
   return useMutation((notificationId: number) => readNotification(notificationId), {
     onSuccess: () => {
-      queryClient.invalidateQueries(notificationQueryKey.notifications(pageParam));
+      queryClient.invalidateQueries(notificationQueryKey.notifications());
     },
   });
 };
