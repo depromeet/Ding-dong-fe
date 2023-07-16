@@ -21,7 +21,7 @@ const NotificationComponent = () => {
     <>
       {/* @ts-expect-error Server Component */}
       <HydrationProvider
-        queryKey={notificationQueryKey.notifications(0)}
+        queryKey={notificationQueryKey.notifications()}
         queryFn={getNotificationsQuery}
       >
         <InjectQueryDataNotification />
