@@ -4,6 +4,8 @@ import { Inter } from 'next/font/google';
 
 const inter = Inter({ subsets: ['latin'] });
 
+import { ROOT_URL } from '~/api/config/requestUrl';
+
 import Provider from './Provider';
 
 const DEFAULT_OG_TITLE = 'Ding-Dong';
@@ -11,6 +13,7 @@ const DEFAULT_OG_DESC = '딩동으로 새로운 팀원들과 TMI를 공유하고
 const DEFAULT_OG_IMAGE = '/assets/images/default-og-image.png';
 
 export const metadata = {
+  metadataBase: new URL(ROOT_URL),
   title: {
     template: `${DEFAULT_OG_TITLE} / %s `,
     default: DEFAULT_OG_TITLE,
@@ -18,6 +21,7 @@ export const metadata = {
   description: {
     default: DEFAULT_OG_DESC,
   },
+  url: ROOT_URL,
   openGraph: {
     title: DEFAULT_OG_TITLE,
     description: DEFAULT_OG_DESC,
