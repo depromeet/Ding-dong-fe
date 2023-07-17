@@ -21,16 +21,18 @@ export const ProfileStep = () => {
   } = useFormContext<IdCardCreationFormModel>();
   const { data: userInfo } = useGetUserInfo();
 
-  const profileImageUrl = getValues('profileImageUrl');
-  const aboutMe = getValues('aboutMe');
+  const { profileImageUrl } = getValues();
 
-  const { textCount, onChangeHandler } = useTextInput({
-    onChange: register('nickname').onChange,
+  const { onChange: onChangeNicknameRhf, ...nicknameRegister } = register('nickname');
+  const { onChange: onChangeAboutMeRhf, ...aboutMeRegister } = register('aboutMe');
+
+  const { textCount: nicknameCount, onChangeHandler: onChangeNickname } = useTextInput({
+    onChange: onChangeNicknameRhf,
     maxLength: TEXT_MAX_LENGTH,
   });
 
-  const { textCount: textareaCount, onChangeHandler: onTextareaChangeHandler } = useTextArea({
-    onChange: register('aboutMe').onChange,
+  const { textCount: aboutMeCount, onChangeHandler: onChangeAboutMe } = useTextArea({
+    onChange: onChangeAboutMeRhf,
     maxLength: TEXT_AREA_MAX_LENGTH,
   });
 
@@ -63,22 +65,17 @@ export const ProfileStep = () => {
           이름
         </TextInput.Label>
         <TextInput.Border
-          textCount={textCount}
+          textCount={nicknameCount}
           maxLength={TEXT_MAX_LENGTH}
           errorMessage={errors?.nickname?.message}
         >
-          <TextInput.Content {...register('nickname')} onChange={onChangeHandler} />
+          <TextInput.Content {...nicknameRegister} onChange={onChangeNickname} />
         </TextInput.Border>
       </TextInput>
       <TextArea className="mt-28pxr">
         <TextArea.Label name="aboutMe">소개</TextArea.Label>
-        <TextArea.Border textCount={textareaCount} maxLength={TEXT_AREA_MAX_LENGTH}>
-          <TextArea.Content
-            {...register('aboutMe')}
-            onChange={onTextareaChangeHandler}
-            value={aboutMe}
-            isAutoSize
-          />
+        <TextArea.Border textCount={aboutMeCount} maxLength={TEXT_AREA_MAX_LENGTH}>
+          <TextArea.Content {...aboutMeRegister} onChange={onChangeAboutMe} isAutoSize />
         </TextArea.Border>
       </TextArea>
     </div>
