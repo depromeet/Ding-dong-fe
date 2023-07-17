@@ -13,15 +13,18 @@ export const EditProfileInfoStep = () => {
   const { register, getValues, setValue } = useFormContext<IdCardEditorFormValues>();
   const { nickname, aboutMe, profileImageUrl } = getValues();
 
+  const { onChange: onChangeNicknameRhf, ...nicknameRegister } = register('nickname');
+  const { onChange: onChangeAboutMeRhf, ...aboutMeRegister } = register('aboutMe');
+
   // TODO: TextInput, TextArea 안쪽으로 리팩토링해야 할듯
   const { textCount: nicknameCount, onChangeHandler: onChangeNickName } = useTextInput({
     initCount: nickname.length,
-    onChange: register('nickname').onChange,
+    onChange: onChangeNicknameRhf,
     maxLength: MAX_NICKNAME_LENGTH,
   });
   const { textCount: aboutMeCount, onChangeHandler: onChangeAboutMe } = useTextArea({
     initCount: aboutMe.length,
-    onChange: register('aboutMe').onChange,
+    onChange: onChangeAboutMeRhf,
     maxLength: MAX_ABOUT_ME_LENGTH,
   });
 
@@ -40,20 +43,16 @@ export const EditProfileInfoStep = () => {
           이름
         </TextInput.Label>
         <TextInput.Border textCount={nicknameCount} maxLength={MAX_NICKNAME_LENGTH}>
-          <TextInput.Content
-            {...register('nickname', { required: true })}
-            onChange={onChangeNickName}
-          />
+          <TextInput.Content {...nicknameRegister} onChange={onChangeNickName} />
         </TextInput.Border>
       </TextInput>
       <TextArea>
-        <TextArea.Label name="aboutMe" required>
-          소개
-        </TextArea.Label>
+        <TextArea.Label name="aboutMe">소개</TextArea.Label>
         <TextArea.Border textCount={aboutMeCount} maxLength={MAX_ABOUT_ME_LENGTH}>
           <TextArea.Content
-            {...register('aboutMe', { required: true })}
+            {...aboutMeRegister}
             onChange={onChangeAboutMe}
+            value={aboutMe}
             isAutoSize
           />
         </TextArea.Border>
