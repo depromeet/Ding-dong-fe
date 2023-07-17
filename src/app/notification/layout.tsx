@@ -3,6 +3,10 @@ import { PropsWithChildren } from 'react';
 import { BottomNavigation } from '~/components/BottomNavigation';
 import { TopNavigation } from '~/components/TopNavigation';
 
+export const metadata = {
+  title: '알림',
+};
+
 const NotificationLayout = ({ children }: PropsWithChildren) => {
   return (
     <>
