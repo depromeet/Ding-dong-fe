@@ -1,8 +1,11 @@
+import { URLSearchParams } from 'next/dist/compiled/@edge-runtime/primitives/url';
 import { NextRequest, NextResponse } from 'next/server';
 
 import { ROOT_API_URL } from '~/api/config/requestUrl';
 import { AUTH_COOKIE_KEYS } from '~/types/auth';
 import { ROUTE_COOKIE_KEYS } from '~/utils/route/route';
+
+import { getFetch, postFetch } from './utils/fetch';
 
 export const ACCESS_TOKEN_EXPIRE_MARGIN_SECOND = 60;
 
@@ -15,49 +18,60 @@ const middleware = async (request: NextRequest) => {
   if (pathname === '/') {
     const accessToken = getAccessToken(request);
     if (accessToken) {
-      const response = await fetch(`${ROOT_API_URL}/user/profile`, {
-        method: 'GET',
-        headers: new Headers({
-          'content-type': 'application/json',
-          Authorization: `Bearer ${accessToken}`,
-        }),
-        mode: 'no-cors',
-        credentials: 'include',
-      });
+      try {
+        const data = await getFetch('/user/profile', accessToken);
 
-      if (!response.ok) {
-        return NextResponse.redirect(new URL('/auth/signin', request.nextUrl.origin));
-      }
-      const data = await response.json();
-
-      const { characterType, communityIds } = data.data.userProfileDto;
-
-      const redirectUri = request.cookies.get(ROUTE_COOKIE_KEYS.redirectUri)?.value;
-      if (redirectUri?.includes('invitation')) {
-        const response = NextResponse.redirect(new URL(redirectUri, request.nextUrl.origin));
-        response.cookies.delete(ROUTE_COOKIE_KEYS.redirectUri);
-        return response;
-      }
-
-      if (characterType) {
-        if (redirectUri) {
-          const response = NextResponse.redirect(new URL(redirectUri, request.nextUrl.origin));
-          response.cookies.delete(ROUTE_COOKIE_KEYS.redirectUri);
-          return response;
+        const { characterType, communityIds } = data.data.userProfileDto;
+        console.log({ '/': data });
+        let redirectUri = request.cookies.get(ROUTE_COOKIE_KEYS.redirectUri)?.value;
+        if (redirectUri?.includes('invitation')) {
+          const paths = redirectUri.split('/');
+          const invitationCode = paths[paths.length - 1];
+          const queryString = new URLSearchParams({ code: invitationCode }).toString();
+          console.log({ queryString });
+          const checkInvitationData = await getFetch(
+            `/communities/validate?${queryString}`,
+            accessToken,
+          );
+          const { communityId } = checkInvitationData.data.checkInvitationCodeDto;
+          console.log({ communityId });
+          // 300 error code 처리하기
+          try {
+            await postFetch(`/communities/join`, accessToken, { communityId });
+          } catch (error) {
+            console.log('회원가입 두 번 된 경우');
+            if (error.response.status !== 300) {
+              throw new Error('error');
+            }
+          }
+          redirectUri = `/planet/${communityId}`;
         }
 
-        const currentCommunityId = request.cookies.get('communityId')?.value;
-        if (currentCommunityId)
-          return NextResponse.redirect(
-            new URL(`/planet/${currentCommunityId}`, request.nextUrl.origin),
-          );
-        return communityIds.length > 0
-          ? NextResponse.redirect(
-              new URL(`/planet/${communityIds[communityIds.length - 1]}`, request.nextUrl.origin),
-            )
-          : NextResponse.redirect(new URL('/planet', request.nextUrl.origin));
+        if (characterType) {
+          if (redirectUri) {
+            const response = NextResponse.redirect(new URL(redirectUri, request.nextUrl.origin));
+            response.cookies.delete(ROUTE_COOKIE_KEYS.redirectUri);
+            return response;
+          }
+
+          const currentCommunityId = request.cookies.get('communityId')?.value;
+          if (currentCommunityId)
+            return NextResponse.redirect(
+              new URL(`/planet/${currentCommunityId}`, request.nextUrl.origin),
+            );
+          return communityIds.length > 0
+            ? NextResponse.redirect(
+                new URL(`/planet/${communityIds[communityIds.length - 1]}`, request.nextUrl.origin),
+              )
+            : NextResponse.redirect(new URL('/planet', request.nextUrl.origin));
+        }
+        const response = NextResponse.redirect(new URL('/onboarding', request.url));
+        redirectUri && response.cookies.set(ROUTE_COOKIE_KEYS.redirectUri, redirectUri);
+        return response;
+      } catch (e) {
+        console.log({ e });
+        return NextResponse.redirect(new URL('/auth/signin', request.nextUrl.origin));
       }
-      return NextResponse.redirect(new URL('/onboarding', request.nextUrl.origin));
     }
     return NextResponse.redirect(new URL('/auth/signin', request.nextUrl.origin));
   }
