@@ -1,4 +1,7 @@
 .cache
+.next
 package.json
 package-lock.json
 public
+/**/*.png
+**/*.ico
