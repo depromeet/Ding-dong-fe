@@ -47,6 +47,10 @@ export const postFetch = async (
   if (res.ok) {
     return data;
   } else {
+    //TODO: middleware 로 error code 처리를 옮겨야 합니다
+    if (data.statusCode === 300) {
+      return data;
+    }
     throw Error(data);
   }
 };

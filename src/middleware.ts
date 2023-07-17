@@ -22,28 +22,18 @@ const middleware = async (request: NextRequest) => {
         const data = await getFetch('/user/profile', accessToken);
 
         const { characterType, communityIds } = data.data.userProfileDto;
-        console.log({ '/': data });
         let redirectUri = request.cookies.get(ROUTE_COOKIE_KEYS.redirectUri)?.value;
         if (redirectUri?.includes('invitation')) {
           const paths = redirectUri.split('/');
           const invitationCode = paths[paths.length - 1];
           const queryString = new URLSearchParams({ code: invitationCode }).toString();
-          console.log({ queryString });
           const checkInvitationData = await getFetch(
             `/communities/validate?${queryString}`,
             accessToken,
           );
           const { communityId } = checkInvitationData.data.checkInvitationCodeDto;
-          console.log({ communityId });
-          // 300 error code 처리하기
-          try {
-            await postFetch(`/communities/join`, accessToken, { communityId });
-          } catch (error) {
-            console.log('회원가입 두 번 된 경우');
-            if (error.response.status !== 300) {
-              throw new Error('error');
-            }
-          }
+          await postFetch(`/communities/join`, accessToken, { communityId });
+
           redirectUri = `/planet/${communityId}`;
         }
 
@@ -69,7 +59,6 @@ const middleware = async (request: NextRequest) => {
         redirectUri && response.cookies.set(ROUTE_COOKIE_KEYS.redirectUri, redirectUri);
         return response;
       } catch (e) {
-        console.log({ e });
         return NextResponse.redirect(new URL('/auth/signin', request.nextUrl.origin));
       }
     }
