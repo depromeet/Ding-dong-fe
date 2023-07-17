@@ -72,6 +72,9 @@ export const onResponseErrorServer = async (
         }
       }
 
+      // 가입한 행성에 초대코드를 들고 다시 진입한 경우
+      if (error.response.status === 300) return;
+
       // 서버에서 보낸 custom 에러 메세지가 없을 경우 기본 메세지를 에러 메세지로 전달
       return Promise.reject(new ApiError(success, statusCode, errorCode, reason));
     }
