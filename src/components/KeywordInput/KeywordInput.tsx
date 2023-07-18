@@ -1,4 +1,5 @@
 'use client';
+
 import { KeyboardEvent, MouseEvent, useRef } from 'react';
 
 import { Chip } from '~/components/Chip/Chip';
@@ -17,6 +18,7 @@ type KeywordInputProps = {
   activeKeywordList: OptionType[];
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   onChange: (...event: any[]) => void; // rhf의 onChange타입입니다.
+  onClickConfirmDelete?: (title: string) => Promise<boolean>;
   maxActiveKeywordListLength: number;
   maxInputLength: number;
   className?: ClassNameType;
@@ -29,6 +31,7 @@ export const KeywordInput = ({
   keywordOptions,
   activeKeywordList,
   onChange,
+  onClickConfirmDelete,
   maxActiveKeywordListLength,
   maxInputLength,
   className,
@@ -61,12 +64,23 @@ export const KeywordInput = ({
     shouldFocusInput();
   };
 
-  const onKeyUp = (event: KeyboardEvent<HTMLInputElement>) => {
+  const onKeyUp = (e: KeyboardEvent<HTMLInputElement>) => {
     // rn으로 실행했을 때도 정상적으로 작동했습니다.
-    if (event.key === 'Enter') {
+    if (e.key === 'Enter') {
       addKeyword(inputValue);
       return;
     }
+  };
+
+  const onClickDeleteIcon = async (title: string) => {
+    if (onClickConfirmDelete !== undefined) {
+      const isOk = await onClickConfirmDelete(title);
+      if (isOk) {
+        deleteKeyword(title);
+      }
+      return;
+    }
+    deleteKeyword(title);
   };
 
   return (
@@ -80,7 +94,7 @@ export const KeywordInput = ({
               isSelected={true}
               themeType="close"
               onClick={(event: MouseEvent) => event.stopPropagation()} // handleClickBackground이 자식 요소로 전파되는 걸 막습니다.
-              handleClickIcon={() => deleteKeyword(title)}
+              handleClickIcon={() => onClickDeleteIcon(title)}
             />
           ))}
           <input
