@@ -37,7 +37,7 @@ export const onResponseErrorServer = async (
       const data = error.response.data;
       const { success, statusCode, errorCode, reason } = data;
 
-      if (error.response.status === 401 || error.response.status === 403) {
+      if (error.response.status === 401) {
         try {
           const cookieStore = cookies();
           const refreshToken = cookieStore.get(AUTH_COOKIE_KEYS.refreshToken)?.value;
