@@ -35,7 +35,7 @@ export const onResponseErrorClient = async (
       const data = error.response.data;
       const { success, statusCode, errorCode, reason } = data;
 
-      if (error.response.status === 401 || error.response.status === 403) {
+      if (error.response.status === 401) {
         try {
           const auth = getAuthTokensByCookie(document.cookie);
           const validTokenResponse = await getAccessTokenClient(auth);
@@ -63,6 +63,7 @@ export const onResponseErrorClient = async (
           }
         } catch (e) {
           // client-side 로그아웃 처리
+          console.log(e);
           redirect('/auth/signin');
           return Promise.reject(e);
         }
