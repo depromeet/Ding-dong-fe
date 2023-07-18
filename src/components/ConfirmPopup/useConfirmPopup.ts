@@ -13,7 +13,7 @@ export const useConfirmPopup = (initialState = false) => {
   const openPopup = () => {
     setIsOpen(true);
 
-    return new Promise(resolve => {
+    return new Promise<boolean>(resolve => {
       setResolveFunc(() => resolve);
     });
   };
