@@ -23,7 +23,7 @@ const useStorybookWithRhf = () => {
     },
   });
 
-  const { textCount, onChangeHandler } = useTextInput({
+  const { value, onChangeHandler } = useTextInput({
     onChange: register('textInputSb').onChange,
     maxLength: MAX_LENGTH,
   });
@@ -31,7 +31,7 @@ const useStorybookWithRhf = () => {
   return {
     register,
     onChangeHandler,
-    textCount,
+    textCount: value.length,
   };
 };
 

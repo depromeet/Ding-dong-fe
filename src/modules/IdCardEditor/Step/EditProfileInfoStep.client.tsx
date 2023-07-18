@@ -16,19 +16,19 @@ export const EditProfileInfoStep = () => {
     setValue,
     formState: { errors },
   } = useFormContext<IdCardEditorFormValues>();
-  const { nickname, aboutMe, profileImageUrl } = getValues();
+  const { nickname: initNickname, profileImageUrl, aboutMe: initAboutMe } = getValues();
 
   const { onChange: onChangeNicknameRhf, ...nicknameRegister } = register('nickname');
   const { onChange: onChangeAboutMeRhf, ...aboutMeRegister } = register('aboutMe');
 
   // TODO: TextInput, TextArea 안쪽으로 리팩토링해야 할듯
-  const { textCount: nicknameCount, onChangeHandler: onChangeNickName } = useTextInput({
-    initCount: nickname.length,
+  const { value: nickname, onChangeHandler: onChangeNickName } = useTextInput({
+    initValue: initNickname,
     onChange: onChangeNicknameRhf,
     maxLength: MAX_NICKNAME_LENGTH,
   });
-  const { textCount: aboutMeCount, onChangeHandler: onChangeAboutMe } = useTextArea({
-    initCount: aboutMe.length,
+  const { value: aboutMe, onChangeHandler: onChangeAboutMe } = useTextArea({
+    initValue: initAboutMe,
     onChange: onChangeAboutMeRhf,
     maxLength: MAX_ABOUT_ME_LENGTH,
   });
@@ -48,7 +48,7 @@ export const EditProfileInfoStep = () => {
           이름
         </TextInput.Label>
         <TextInput.Border
-          textCount={nicknameCount}
+          textCount={nickname.length}
           maxLength={MAX_NICKNAME_LENGTH}
           errorMessage={errors?.nickname?.message}
         >
@@ -57,7 +57,7 @@ export const EditProfileInfoStep = () => {
       </TextInput>
       <TextArea>
         <TextArea.Label name="aboutMe">소개</TextArea.Label>
-        <TextArea.Border textCount={aboutMeCount} maxLength={MAX_ABOUT_ME_LENGTH}>
+        <TextArea.Border textCount={aboutMe.length} maxLength={MAX_ABOUT_ME_LENGTH}>
           <TextArea.Content
             {...aboutMeRegister}
             onChange={onChangeAboutMe}

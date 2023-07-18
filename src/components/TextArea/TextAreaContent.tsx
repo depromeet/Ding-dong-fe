@@ -28,8 +28,8 @@ export const TextAreaContent = forwardRef<HTMLTextAreaElement, TextAreaContentPr
           // rhf's ref is function that type RefCallback
           if (typeof ref === 'function') {
             ref(e);
-            innerRef.current = e;
           }
+          innerRef.current = e;
         }}
         className={tw('mt-8pxr w-full resize-none bg-inherit', disabledCss)}
         placeholder={placeholder}

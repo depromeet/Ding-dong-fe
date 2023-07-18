@@ -26,12 +26,12 @@ export const ProfileStep = () => {
   const { onChange: onChangeNicknameRhf, ...nicknameRegister } = register('nickname');
   const { onChange: onChangeAboutMeRhf, ...aboutMeRegister } = register('aboutMe');
 
-  const { textCount: nicknameCount, onChangeHandler: onChangeNickname } = useTextInput({
+  const { value: nickname, onChangeHandler: onChangeNickName } = useTextInput({
     onChange: onChangeNicknameRhf,
     maxLength: TEXT_MAX_LENGTH,
   });
 
-  const { textCount: aboutMeCount, onChangeHandler: onChangeAboutMe } = useTextArea({
+  const { value: aboutMe, onChangeHandler: onChangeAboutMe } = useTextArea({
     onChange: onChangeAboutMeRhf,
     maxLength: TEXT_AREA_MAX_LENGTH,
   });
@@ -65,17 +65,22 @@ export const ProfileStep = () => {
           이름
         </TextInput.Label>
         <TextInput.Border
-          textCount={nicknameCount}
+          textCount={nickname.length}
           maxLength={TEXT_MAX_LENGTH}
           errorMessage={errors?.nickname?.message}
         >
-          <TextInput.Content {...nicknameRegister} onChange={onChangeNickname} />
+          <TextInput.Content {...nicknameRegister} onChange={onChangeNickName} />
         </TextInput.Border>
       </TextInput>
       <TextArea className="mt-28pxr">
         <TextArea.Label name="aboutMe">소개</TextArea.Label>
-        <TextArea.Border textCount={aboutMeCount} maxLength={TEXT_AREA_MAX_LENGTH}>
-          <TextArea.Content {...aboutMeRegister} onChange={onChangeAboutMe} isAutoSize />
+        <TextArea.Border textCount={aboutMe.length} maxLength={TEXT_AREA_MAX_LENGTH}>
+          <TextArea.Content
+            {...aboutMeRegister}
+            onChange={onChangeAboutMe}
+            isAutoSize
+            value={aboutMe}
+          />
         </TextArea.Border>
       </TextArea>
     </div>
