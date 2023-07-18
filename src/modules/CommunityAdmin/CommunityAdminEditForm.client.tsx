@@ -41,15 +41,15 @@ export const CommunityAdminEditForm = ({
   const defaultPlanetLogoImage =
     defaultValues?.logoImageUrl || '/assets/images/default_planet_logo.png';
 
-  const { textCount, onChangeHandler } = useTextInput({
+  const { value: name, onChangeHandler } = useTextInput({
     onChange: (e: ChangeEvent<HTMLInputElement>) => {
       register('name').onChange(e);
       checkDuplicate(e.target.value);
     },
     maxLength: TEXT_MAX_LENGTH,
   });
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const { textCount: textareaCount, onChangeHandler: onTextareaChangeHandler } = useTextArea({
+
+  const { value: description, onChangeHandler: onTextareaChangeHandler } = useTextArea({
     onChange: register('description').onChange,
     maxLength: TEXT_AREA_MAX_LENGTH,
   });
@@ -77,7 +77,7 @@ export const CommunityAdminEditForm = ({
           행성 이름
         </TextInput.Label>
         <TextInput.Border
-          textCount={textCount}
+          textCount={name.length}
           maxLength={TEXT_MAX_LENGTH}
           direction="row"
           className="py-8pxr"
@@ -107,11 +107,11 @@ export const CommunityAdminEditForm = ({
       {hasDescription && (
         <TextArea>
           <TextArea.Label name="description">소개</TextArea.Label>
-          <TextArea.Border textCount={textareaCount} maxLength={TEXT_AREA_MAX_LENGTH}>
+          <TextArea.Border textCount={description.length} maxLength={TEXT_AREA_MAX_LENGTH}>
             <TextArea.Content
               {...register('description')}
               onChange={onTextareaChangeHandler}
-              value={getValues('description')}
+              value={description}
               isAutoSize
             />
           </TextArea.Border>

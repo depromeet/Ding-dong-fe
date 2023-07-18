@@ -10,18 +10,26 @@ import {
 import { IdCardEditorFormValues } from '~/modules/IdCardEditor/IdCardEditor.type';
 
 export const EditProfileInfoStep = () => {
-  const { register, getValues, setValue } = useFormContext<IdCardEditorFormValues>();
-  const { nickname, aboutMe, profileImageUrl } = getValues();
+  const {
+    register,
+    getValues,
+    setValue,
+    formState: { errors },
+  } = useFormContext<IdCardEditorFormValues>();
+  const { nickname: initNickname, profileImageUrl, aboutMe: initAboutMe } = getValues();
+
+  const { onChange: onChangeNicknameRhf, ...nicknameRegister } = register('nickname');
+  const { onChange: onChangeAboutMeRhf, ...aboutMeRegister } = register('aboutMe');
 
   // TODO: TextInput, TextArea 안쪽으로 리팩토링해야 할듯
-  const { textCount: nicknameCount, onChangeHandler: onChangeNickName } = useTextInput({
-    initCount: nickname.length,
-    onChange: register('nickname').onChange,
+  const { value: nickname, onChangeHandler: onChangeNickName } = useTextInput({
+    initValue: initNickname,
+    onChange: onChangeNicknameRhf,
     maxLength: MAX_NICKNAME_LENGTH,
   });
-  const { textCount: aboutMeCount, onChangeHandler: onChangeAboutMe } = useTextArea({
-    initCount: aboutMe.length,
-    onChange: register('aboutMe').onChange,
+  const { value: aboutMe, onChangeHandler: onChangeAboutMe } = useTextArea({
+    initValue: initAboutMe,
+    onChange: onChangeAboutMeRhf,
     maxLength: MAX_ABOUT_ME_LENGTH,
   });
 
@@ -39,22 +47,22 @@ export const EditProfileInfoStep = () => {
         <TextInput.Label name="nickname" required>
           이름
         </TextInput.Label>
-        <TextInput.Border textCount={nicknameCount} maxLength={MAX_NICKNAME_LENGTH}>
-          <TextInput.Content
-            {...register('nickname', { required: true })}
-            onChange={onChangeNickName}
-          />
+        <TextInput.Border
+          textCount={nickname.length}
+          maxLength={MAX_NICKNAME_LENGTH}
+          errorMessage={errors?.nickname?.message}
+        >
+          <TextInput.Content {...nicknameRegister} onChange={onChangeNickName} />
         </TextInput.Border>
       </TextInput>
       <TextArea>
-        <TextArea.Label name="aboutMe" required>
-          소개
-        </TextArea.Label>
-        <TextArea.Border textCount={aboutMeCount} maxLength={MAX_ABOUT_ME_LENGTH}>
+        <TextArea.Label name="aboutMe">소개</TextArea.Label>
+        <TextArea.Border textCount={aboutMe.length} maxLength={MAX_ABOUT_ME_LENGTH}>
           <TextArea.Content
-            {...register('aboutMe', { required: true })}
+            {...aboutMeRegister}
             onChange={onChangeAboutMe}
             isAutoSize
+            value={aboutMe}
           />
         </TextArea.Border>
       </TextArea>

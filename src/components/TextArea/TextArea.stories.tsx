@@ -24,12 +24,12 @@ const useStorybookWithRhf = () => {
     },
   });
 
-  const { textCount, onChangeHandler } = useTextArea({ onChange: register('textareaSb').onChange });
+  const { value, onChangeHandler } = useTextArea({ onChange: register('textareaSb').onChange });
 
   return {
     register,
     onChangeHandler,
-    textCount,
+    textCount: value.length,
   };
 };
 

@@ -36,7 +36,7 @@ export const IdCardCreationForm = ({
     let disableStyle;
     switch (steps[stepOrder]) {
       case 'PROFILE':
-        error = !isDirty || !!errors?.nickname;
+        error = !isDirty || !!errors?.nickname || !isValid;
         disableStyle = (error && disableButtonStyle) || '';
         return (
           <button className={disableStyle} disabled={error} onClick={onNext}>

@@ -2,22 +2,22 @@
 import { ChangeEvent, ChangeEventHandler, useCallback, useState } from 'react';
 
 export type UseTextInputProps = {
-  initCount?: number;
+  initValue?: string;
   onChange: ChangeEventHandler;
   maxLength?: number;
 };
 
-export const useTextInput = ({ initCount = 0, onChange, maxLength }: UseTextInputProps) => {
-  const [textCount, setTextCount] = useState(initCount);
+export const useTextInput = ({ initValue = '', onChange, maxLength }: UseTextInputProps) => {
+  const [value, setValue] = useState(initValue);
 
   const onChangeHandler = useCallback(
     (e: ChangeEvent<HTMLInputElement>) => {
       e.target.value = e.target.value.slice(0, maxLength);
-      onChange && onChange(e);
-      setTextCount(e.target.value.length);
+      onChange(e);
+      setValue(e.target.value);
     },
     [maxLength, onChange],
   );
 
-  return { textCount, onChangeHandler };
+  return { value, onChangeHandler };
 };
