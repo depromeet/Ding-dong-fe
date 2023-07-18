@@ -15,7 +15,6 @@ class PrivateFetch extends PublicFetch {
     return super.common<T>(route, {
       ...(requestInit ?? {}),
       headers: { Authorization: `Bearer ${accessToken}` },
-      credentials: 'include',
     });
   }
   async get<T>(route: string, requestInit?: RequestInit) {

@@ -12,7 +12,6 @@ const KakaoCallbackPage = () => {
   const code = searchParams.get('code');
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const authData = useLogin(code, {
-    retry: false,
     onSuccess: data => {
       for (const [cookieKey, cookieValue] of generateCookiesKeyValues(data)) {
         document.cookie = `${cookieKey}=${cookieValue}; path=/;`;

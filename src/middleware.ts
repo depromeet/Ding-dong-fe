@@ -1,12 +1,10 @@
 import { URLSearchParams } from 'next/dist/compiled/@edge-runtime/primitives/url';
 import { NextRequest, NextResponse } from 'next/server';
 
-import { AUTH_COOKIE_KEYS, AuthResponse } from '~/types/auth';
+import { ROOT_API_URL } from '~/api/config/requestUrl';
+import { AUTH_COOKIE_KEYS } from '~/types/auth';
 import { ROUTE_COOKIE_KEYS } from '~/utils/route/route';
 
-import { publicFetch } from './api/fetch/publicFetch';
-import { UserInfoResponse } from './types/user';
-import { generateCookiesKeyValues } from './utils/auth/tokenHandlers';
 import { getFetch, postFetch } from './utils/fetch';
 
 export const ACCESS_TOKEN_EXPIRE_MARGIN_SECOND = 60;
@@ -72,13 +70,21 @@ const middleware = async (request: NextRequest) => {
       const accessToken = getAccessToken(request);
 
       if (accessToken) {
-        const data = await publicFetch.get<UserInfoResponse>('/user/profile', {
-          headers: { Authorization: `Bearer ${accessToken}` },
+        const response = await fetch(`${ROOT_API_URL}/user/profile`, {
+          method: 'GET',
+          headers: new Headers({
+            'content-type': 'application/json',
+            Authorization: `Bearer ${accessToken}`,
+          }),
+          mode: 'no-cors',
           credentials: 'include',
         });
-        if (!data) return NextResponse.redirect(new URL('/auth/signin', request.url));
+        if (!response.ok) {
+          return NextResponse.redirect(new URL('/auth/signin', request.url));
+        }
+        const data = await response.json();
 
-        const { communityIds } = data.userProfileDto;
+        const { communityIds } = data.data.userProfileDto;
         const currentCommunityId = request.cookies.get('communityId')?.value;
 
         if (currentCommunityId) {
@@ -92,32 +98,6 @@ const middleware = async (request: NextRequest) => {
       return NextResponse.redirect(new URL('/auth/signin', request.url));
     } catch (e) {
       return NextResponse.redirect(new URL('/auth/signin', request.url));
-    }
-  }
-  if (pathname.startsWith('/auth/callback/kakao')) {
-    const authCode = request.nextUrl.searchParams.get('code');
-    if (!authCode) {
-      return NextResponse.redirect(new URL('/auth/signin', request.url));
-    }
-    try {
-      const origin = request.nextUrl.origin;
-      const authData = await publicFetch.post<AuthResponse>('/auth/login/kakao', {
-        body: JSON.stringify({ authCode, redirectUri: `${origin}/auth/callback/kakao` }),
-      });
-
-      if (!authData) {
-        throw new Error('authData is null');
-      }
-
-      const res = NextResponse.redirect(new URL('/', request.url));
-      for (const cookie of generateCookiesKeyValues(authData as AuthResponse)) {
-        const cookieKey = cookie[0];
-        const cookieValue = cookie[1] as string | number;
-        res.cookies.set(cookieKey, cookieValue.toString());
-      }
-      return res;
-    } catch (e) {
-      console.log(e);
     }
   }
 };

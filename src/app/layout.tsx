@@ -32,12 +32,6 @@ export const metadata = {
     description: DEFAULT_OG_DESC,
     images: [DEFAULT_OG_IMAGE],
   },
-  viewport: {
-    width: 'device-width',
-    initialScale: 1,
-    maximumScale: 1,
-    userScalable: 'no',
-  },
 };
 
 const RootLayout = ({ children }: { children: React.ReactNode }) => {
