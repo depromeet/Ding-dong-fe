@@ -10,7 +10,12 @@ import {
 import { IdCardEditorFormValues } from '~/modules/IdCardEditor/IdCardEditor.type';
 
 export const EditProfileInfoStep = () => {
-  const { register, getValues, setValue } = useFormContext<IdCardEditorFormValues>();
+  const {
+    register,
+    getValues,
+    setValue,
+    formState: { errors },
+  } = useFormContext<IdCardEditorFormValues>();
   const { nickname, aboutMe, profileImageUrl } = getValues();
 
   const { onChange: onChangeNicknameRhf, ...nicknameRegister } = register('nickname');
@@ -42,7 +47,11 @@ export const EditProfileInfoStep = () => {
         <TextInput.Label name="nickname" required>
           이름
         </TextInput.Label>
-        <TextInput.Border textCount={nicknameCount} maxLength={MAX_NICKNAME_LENGTH}>
+        <TextInput.Border
+          textCount={nicknameCount}
+          maxLength={MAX_NICKNAME_LENGTH}
+          errorMessage={errors?.nickname?.message}
+        >
           <TextInput.Content {...nicknameRegister} onChange={onChangeNickName} />
         </TextInput.Border>
       </TextInput>
@@ -52,8 +61,8 @@ export const EditProfileInfoStep = () => {
           <TextArea.Content
             {...aboutMeRegister}
             onChange={onChangeAboutMe}
-            value={aboutMe}
             isAutoSize
+            value={aboutMe}
           />
         </TextArea.Border>
       </TextArea>
