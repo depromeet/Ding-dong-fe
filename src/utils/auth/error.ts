@@ -9,7 +9,7 @@ export class UserIdNotFoundError extends Error {
 
 export const isUnauthorizedError = (error: unknown): boolean => {
   if (error instanceof ApiError) {
-    if (error.statusCode === 401 || error.statusCode === 403) {
+    if (error.statusCode === 401) {
       return true;
     }
   }
