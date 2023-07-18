@@ -13,7 +13,7 @@ export const useTextArea = ({ initCount = 0, onChange, maxLength }: UseTextAreaP
   const onChangeHandler = useCallback(
     (e: ChangeEvent<HTMLTextAreaElement>) => {
       e.target.value = e.target.value.slice(0, maxLength);
-      onChange && onChange(e);
+      onChange(e);
       setTextCount(e.target.value.length);
     },
     [maxLength, onChange],
