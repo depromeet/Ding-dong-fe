@@ -21,7 +21,7 @@ export const CommunityProfile = ({
       <div className="flex items-center gap-12pxr">
         <CommunityLogoImage logoImageUrl={logoImageUrl} />
         <div className="flex w-full flex-col gap-8pxr">
-          <p className="text-sm font-medium text-gray-800">{`주민 ${userCount}`}</p>
+          <p className="text-sm font-medium text-gray-800">{`주민 ${userCount}명`}</p>
           <p className="text-detail text-gray-800">{description}</p>
         </div>
       </div>
