@@ -43,7 +43,7 @@ export const ActiveCommentInput = ({
     reset();
   };
 
-  const { onChangeHandler } = useTextArea({
+  const { onChangeHandler, value: contents } = useTextArea({
     onChange: register('contents').onChange,
   });
 
@@ -61,11 +61,12 @@ export const ActiveCommentInput = ({
           <TextArea.Border className="rounded-[15px] px-[16px] py-[8px]">
             <div className="flex w-full flex-row">
               <TextArea.Content
-                className="w-full resize-none bg-grey-50"
+                className="max-h-105pxr w-full resize-none bg-grey-50"
                 {...register('contents')}
                 placeholder="댓글을 남겨주세요"
                 onChange={onChangeHandler}
-                rows={2}
+                value={contents}
+                isAutoSize
               />
               <button>
                 <SendIcon className="fill-none stroke-primary-500" />
