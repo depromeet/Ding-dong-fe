@@ -29,7 +29,11 @@ export const ActiveCommentInput = ({
   const { mutate: mutatePostReplyCreate } = usePostReplyCreate(idCardId, communityId);
   const { commentId, clear } = useReplyRecipientStore();
 
-  const { register, handleSubmit, reset } = useForm<CommentFormData>();
+  const { register, handleSubmit, reset } = useForm<CommentFormData>({
+    defaultValues: {
+      contents: '',
+    },
+  });
 
   const onSubmit = (data: CommentFormData) => {
     const { contents } = data;
