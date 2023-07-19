@@ -15,7 +15,7 @@ export const KeywordContentStep = () => {
       <h1 className="text-h1">{title}</h1>
       <div className="mt-26pxr flex flex-col gap-22pxr">
         {keywords.map((keyword: FormKeywordModel, index: number) => {
-          return <KeywordContentEditCard key={index} keyword={keyword} index={index} />;
+          return <KeywordContentEditCard key={keyword.title} keyword={keyword} index={index} />;
         })}
       </div>
     </div>
