@@ -9,7 +9,6 @@ import {
   NotificationModel,
 } from '~/types/notification';
 import { getCreatedAtFormat } from '~/utils/time.util';
-import { isValidUrl } from '~/utils/validate';
 
 import { UserProfile } from '../CommentList/CommentCommon';
 
@@ -36,11 +35,7 @@ export const NotificationItem = ({
         {notificationStatus === 'UNREAD' && (
           <span className="absolute -left-10pxr top-13pxr h-6pxr w-6pxr rounded-full bg-blue-500"></span>
         )}
-        <UserProfile
-          profileImageUrl={
-            isValidUrl(userDto.fromUserProfileImageUrl) ? userDto.fromUserProfileImageUrl : ''
-          }
-        />
+        <UserProfile profileImageUrl={userDto.fromUserProfileImageUrl} />
       </div>
       <div className={notificationStatus === 'READ' ? 'text-gray-400' : ''}>
         <p className="mb-2 text-b2 font-normal">
