@@ -52,14 +52,16 @@ export const ActiveCommentInput = ({
       <ReplyIndicator />
       <Divider className="bg-grey-200" />
       <form
-        className="flex items-center gap-8pxr px-[20px] py-[8px]"
+        className="flex items-end gap-8pxr px-[20px] py-[8px]"
         onSubmit={handleSubmit(onSubmit)}
       >
         {/* FIXME: default profile url로 수정 */}
-        <UserProfile profileImageUrl={myInfoInInCommunityDto.profileImageUrl || ''} />
+        <div className="mb-10pxr">
+          <UserProfile profileImageUrl={myInfoInInCommunityDto.profileImageUrl || ''} />
+        </div>
         <TextArea>
           <TextArea.Border className="rounded-[15px] px-[16px] py-[8px]">
-            <div className="flex w-full flex-row">
+            <div className="flex w-full flex-row items-end">
               <TextArea.Content
                 className="max-h-105pxr w-full resize-none bg-grey-50"
                 {...register('contents')}
