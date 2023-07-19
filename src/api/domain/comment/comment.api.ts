@@ -103,7 +103,10 @@ export const usePostCommentCreate = (idCardId: number, communityId: number) => {
   return useMutation({
     mutationFn: (commentInfo: CommentPostRequest) => postCommentCreate(commentInfo),
     onMutate: async (commentInfo: CommentPostRequest) => {
-      await queryClient.cancelQueries({ queryKey: commentQueryKey.comments(idCardId) });
+      await Promise.all([
+        queryClient.cancelQueries({ queryKey: commentQueryKey.comments(idCardId) }),
+        queryClient.cancelQueries({ queryKey: commentQueryKey.commentCount(idCardId) }),
+      ]);
 
       const userInfo = queryClient.getQueryData<CommunityUserInfoResponse>(
         communityQueryKey.communityUserInfo(communityId),
@@ -171,7 +174,10 @@ export const useDeleteComment = (idCardId: number) => {
   return useMutation({
     mutationFn: (commentInfo: CommentDeleteRequest) => deleteComment(commentInfo),
     onMutate: async (commentInfo: CommentDeleteRequest) => {
-      await queryClient.cancelQueries({ queryKey: commentQueryKey.comments(idCardId) });
+      await Promise.all([
+        queryClient.cancelQueries({ queryKey: commentQueryKey.comments(idCardId) }),
+        queryClient.cancelQueries({ queryKey: commentQueryKey.commentCount(idCardId) }),
+      ]);
 
       const previousComments = queryClient.getQueryData<CommentPages>(
         commentQueryKey.comments(idCardId),
@@ -215,9 +221,10 @@ export const usePostReplyCreate = (idCardId: number, communityId: number) => {
   return useMutation({
     mutationFn: postReplyCreate,
     onMutate: async (commentInfo: CommentPostReplyRequest) => {
-      const { contents, commentId } = commentInfo;
+      const { idCardId, contents, commentId } = commentInfo;
       await Promise.all([
         queryClient.cancelQueries({ queryKey: commentQueryKey.comments(idCardId) }),
+        queryClient.cancelQueries({ queryKey: commentQueryKey.commentCount(idCardId) }),
         queryClient.cancelQueries({
           queryKey: commentQueryKey.commentReplies(idCardId, commentId),
         }),
@@ -266,13 +273,27 @@ export const usePostReplyCreate = (idCardId: number, communityId: number) => {
         );
         queryClient.setQueryData(commentQueryKey.comments(idCardId), updatedCommentsResponse);
 
-        return { previousCommentRepliesResponse, previousCommentsResponse, newReply };
+        // update comment count
+        const previousCommentCount = queryClient.getQueryData<CommentCountGetResponse>(
+          commentQueryKey.commentCount(idCardId),
+        );
+
+        const updatedCommentCount = increaseCommentCount(previousCommentCount);
+        queryClient.setQueryData(commentQueryKey.commentCount(idCardId), updatedCommentCount);
+
+        return {
+          previousCommentRepliesResponse,
+          previousCommentsResponse,
+          newReply,
+          previousCommentCount,
+        };
       }
     },
     onError: (err, requestInfo, context) => {
       if (!context) return;
 
-      const { previousCommentRepliesResponse, previousCommentsResponse } = context;
+      const { previousCommentRepliesResponse, previousCommentsResponse, previousCommentCount } =
+        context;
       const error = err as AxiosError;
       errorToast(error.message);
       queryClient.setQueryData(
@@ -280,6 +301,7 @@ export const usePostReplyCreate = (idCardId: number, communityId: number) => {
         previousCommentRepliesResponse,
       );
       queryClient.setQueryData(commentQueryKey.comments(idCardId), previousCommentsResponse);
+      queryClient.setQueryData(commentQueryKey.commentCount(idCardId), previousCommentCount);
     },
     onSuccess: (response, commentReplyInfos, context) => {
       if (!context) return;
@@ -320,6 +342,7 @@ export const useDeleteReply = (idCardId: number) => {
         queryClient.cancelQueries({
           queryKey: commentQueryKey.commentReplies(idCardId, commentId),
         }),
+        queryClient.cancelQueries({ queryKey: commentQueryKey.commentCount(idCardId) }),
       ]);
 
       // update reply to target comment
@@ -350,11 +373,20 @@ export const useDeleteReply = (idCardId: number) => {
       );
       queryClient.setQueryData(commentQueryKey.comments(idCardId), updatedCommentsResponse);
 
-      return { previousCommentsResponse, previousCommentRepliesResponse };
+      // update comment count
+      const previousCommentCount = queryClient.getQueryData<CommentCountGetResponse>(
+        commentQueryKey.commentCount(idCardId),
+      );
+
+      const updatedCommentCount = decreaseCommentCount(previousCommentCount);
+      queryClient.setQueryData(commentQueryKey.commentCount(idCardId), updatedCommentCount);
+
+      return { previousCommentsResponse, previousCommentRepliesResponse, previousCommentCount };
     },
     onError: (err, requestInfo, context) => {
       if (context) {
-        const { previousCommentRepliesResponse, previousCommentsResponse } = context;
+        const { previousCommentRepliesResponse, previousCommentsResponse, previousCommentCount } =
+          context;
         const error = err as AxiosError;
         errorToast(error.message);
         queryClient.setQueryData(
@@ -362,6 +394,7 @@ export const useDeleteReply = (idCardId: number) => {
           previousCommentRepliesResponse,
         );
         queryClient.setQueryData(commentQueryKey.comments(idCardId), previousCommentsResponse);
+        queryClient.setQueryData(commentQueryKey.commentCount(idCardId), previousCommentCount);
       }
     },
   });
