@@ -61,7 +61,7 @@ export const EditKeywordContentStep = ({ onClickMoveTargetStep }: EditKeywordCon
       </ul>
       <ul className="flex flex-col gap-20pxr px-layout-sm">
         {keywords.map((keyword, index) => (
-          <KeywordContentEditCard key={index} index={index} keyword={keyword} />
+          <KeywordContentEditCard key={keyword.title} index={index} keyword={keyword} />
         ))}
       </ul>
     </div>
