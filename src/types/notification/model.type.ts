@@ -42,3 +42,8 @@ export const NOTIFICATION_TYPE_ACTION = {
   COMMENT_REPLY: '에 답글을 달았습니다',
   COMMENT_LIKE: '을 좋아합니다',
 };
+
+export type NotificationTitle = {
+  title: string;
+  id: number;
+};
