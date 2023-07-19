@@ -2,7 +2,6 @@
 
 import { usePathname, useRouter } from 'next/navigation';
 
-import { Divider } from '~/components/Divider';
 import { BellIcon, HomeIcon, PersonIcon } from '~/components/Icon';
 import { usePlanetNavigate } from '~/hooks/usePlanetNavigate';
 import { NewNotificationBadge } from '~/modules/Notification/NewNotificationBadge.client';
@@ -58,9 +57,8 @@ export const BottomNavigation = () => {
   };
 
   return (
-    <nav className="fixed bottom-0 left-0 w-full">
-      <Divider />
-      <ul className="flex h-b-nav items-center justify-evenly bg-white">
+    <nav className="fixed bottom-0 left-0 flex w-full justify-center">
+      <ul className="flex h-b-nav w-full max-w-[420px] items-center justify-evenly border-t border-grey-100 bg-white">
         <li>
           <button onClick={onClickHome}>
             <HomeIcon className={getSvgColor('/planet')} />
