@@ -26,4 +26,6 @@ export const useLogin = (code: string | null, options?: UseQueryOptions<AuthResp
 };
 
 export const reissue = async (refreshToken: string) =>
-  publicApi.get<AuthResponse>('/auth/login/reissue', { params: { REFRESH_TOKEN: refreshToken } });
+  publicApi.get<AuthResponse>('/auth/login/reissue', {
+    headers: { 'REFRESH-TOKEN': refreshToken },
+  });
