@@ -80,7 +80,7 @@ export const IdCardCreationForm = ({
         <TopNavigation.ProgressBar currentStep={stepOrder} stepsLength={3} />
       </TopNavigation>
 
-      <form className="mt-24pxr" onSubmit={(e: FormEvent<HTMLFormElement>) => e.preventDefault()}>
+      <form className="pt-24pxr" onSubmit={(e: FormEvent<HTMLFormElement>) => e.preventDefault()}>
         {steps[stepOrder] === 'PROFILE' && <ProfileStep />}
         {steps[stepOrder] === 'KEYWORD' && <KeywordStep />}
         {steps[stepOrder] === 'KEYWORD_CONTENT' && <KeywordContentStep />}

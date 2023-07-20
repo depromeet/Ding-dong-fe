@@ -53,7 +53,7 @@ export const CommunityAdminEdit = ({ communityId }: CommunityAdminEditProps) => 
           </button>
         </TopNavigation.Right>
       </TopNavigation>
-      <div className="mt-24pxr px-20pxr">
+      <main className="px-20pxr pt-24pxr">
         <FormProvider {...methods}>
           <CommunityAdminEditForm
             mutation={mutation}
@@ -62,7 +62,8 @@ export const CommunityAdminEdit = ({ communityId }: CommunityAdminEditProps) => 
             hasDescription={true}
           />
         </FormProvider>
-      </div>
+      </main>
+      <div className="h-[50px] bg-white" />
     </div>
   );
 };
