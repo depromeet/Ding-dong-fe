@@ -7,6 +7,7 @@ import { ChatBubbleIcon } from '~/components/Icon';
 import Tag from '~/components/Tag/Tag';
 import { CharacterNameModel } from '~/types/idCard';
 import { tw } from '~/utils/tailwind.util';
+import { DINGDONG_PLANET } from '~/utils/variable';
 
 type IdCardProps = {
   profileImageUrl: string;
@@ -38,11 +39,13 @@ export const IdCard = ({
   const bgColor = bgColors[characterType];
   const router = useRouter();
   const pathname = usePathname();
+  const planetIdPathname = pathname.replace('/id-card/create', '').replace('/my-page', '/planet');
 
   const handleClickIdCard = () => {
-    const planetIdPathname = pathname.replace('/id-card/create', '').replace('/my-page', '/planet');
     router.push(`${planetIdPathname}/id-card/${idCardId}`);
   };
+
+  const isShowCommentCount = !(Number(planetIdPathname) === DINGDONG_PLANET.DINGDONG_PLANET_ID);
 
   return (
     <div className={tw('w-full', className)} onClick={handleClickIdCard}>
@@ -75,7 +78,7 @@ export const IdCard = ({
           object-fit="contain"
           object-position="center"
         />
-        {commentCount !== undefined && (
+        {commentCount !== undefined && isShowCommentCount && (
           <div className="absolute bottom-[33px] left-[22px] flex items-center gap-2pxr text-detail font-medium text-grey-900">
             <ChatBubbleIcon />
             <span>{commentCount}</span>
