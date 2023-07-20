@@ -6,6 +6,7 @@ import { Suspense } from 'react';
 import { useGetCommunityDetail } from '~/api/domain/community.api';
 import RetryErrorBoundary from '~/components/ErrorBoundary/RetryErrorBoundary.client';
 import { CommunityLogoImage } from '~/modules/CommunityProfile';
+import { DINGDONG_PLANET } from '~/utils/variable';
 
 type CommunityDetailProps = {
   id: number;
@@ -13,6 +14,7 @@ type CommunityDetailProps = {
 
 // TODO: 디폴트 관련 논의 후 수정
 export const CommunityDetailComponent = ({ id }: CommunityDetailProps) => {
+  const isDingDongPlanet = id === DINGDONG_PLANET.DINGDONG_PLANET_ID;
   const { data } = useGetCommunityDetail(id);
 
   if (!data?.communityDetailsDto) {
@@ -35,7 +37,9 @@ export const CommunityDetailComponent = ({ id }: CommunityDetailProps) => {
       <div className="flex w-[calc(100vw-40px)] max-w-[calc(420px-40px)] translate-x-[20px] translate-y-[-50%] items-center gap-12pxr rounded-3xl border border-grey-100 bg-white p-18pxr">
         <CommunityLogoImage logoImageUrl={logoImageUrl} />
         <div className="flex flex-col gap-8pxr">
-          <p className="text-sm font-medium text-gray-800">{`주민 ${userCount ?? 0}명`}</p>
+          <p className="text-sm font-medium text-gray-800">{`주민 ${
+            isDingDongPlanet ? 4 : userCount ?? 0
+          }명`}</p>
           <p className="text-detail text-gray-800 ">{`${
             description ?? '우리 행성에 온 걸 환영해~!'
           }`}</p>
