@@ -38,31 +38,34 @@ export const CommunityAdmin = ({ communityId }: CommunityAdminProps) => {
         </TopNavigation.Title>
         <TopNavigation.Right></TopNavigation.Right>
       </TopNavigation>
-      <CommunityBgImage isEditable community={data.communityDetailsDto} />
-      <div className="mt-16pxr px-20pxr">
-        <CommunityProfile
-          logoImageUrl={logoImageUrl}
-          userCount={userCount}
-          description={description}
-          top={
-            <div className="mt-6pxr flex items-center justify-between gap-12pxr py-10pxr">
-              <h1 className="text-h1 font-bold text-gray-800">{title}</h1>
-              <Button
-                onClick={goEdit}
-                size="small"
-                color="secondary"
-                width="min-w-fit"
-                className="px-12pxr py-8pxr text-detail font-bold"
-              >
-                수정
-              </Button>
-            </div>
-          }
-        />
-        <div className="mt-28pxr ">
-          <InvitationButtons communityId={communityId} />
+      <main>
+        <CommunityBgImage isEditable community={data.communityDetailsDto} />
+        <div className="mt-16pxr px-20pxr">
+          <CommunityProfile
+            logoImageUrl={logoImageUrl}
+            userCount={userCount}
+            description={description}
+            top={
+              <div className="mt-6pxr flex items-center justify-between gap-12pxr py-10pxr">
+                <h1 className="text-h1 font-bold text-gray-800">{title}</h1>
+                <Button
+                  onClick={goEdit}
+                  size="small"
+                  color="secondary"
+                  width="min-w-fit"
+                  className="px-12pxr py-8pxr text-detail font-bold"
+                >
+                  수정
+                </Button>
+              </div>
+            }
+          />
+          <div className="mt-28pxr ">
+            <InvitationButtons communityId={communityId} />
+          </div>
         </div>
-      </div>
+      </main>
+      <div className="h-[50px] bg-white" />
     </div>
   );
 };

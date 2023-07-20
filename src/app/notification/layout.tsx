@@ -17,9 +17,9 @@ const NotificationLayout = ({ children }: PropsWithChildren) => {
           </div>
         </TopNavigation.Left>
       </TopNavigation>
-      <div className="mt-5 overflow-x-hidden px-5 pb-[calc(20px+theme(spacing.b-nav))]">
+      <main className="overflow-x-hidden px-5 pb-[calc(20px+theme(spacing.b-nav))] pt-5">
         {children}
-      </div>
+      </main>
       <BottomNavigation />
     </>
   );

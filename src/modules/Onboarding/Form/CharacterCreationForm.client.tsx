@@ -79,7 +79,7 @@ export const CharacterCreationForm = ({
         <TopNavigation.ProgressBar currentStep={stepOrder} stepsLength={4} />
       </TopNavigation>
 
-      <div className="mt-24pxr px-layout-sm">
+      <div className="px-layout-sm pt-24pxr">
         <CharacterQuestion
           title={currentQuestionInfo.title}
           image={currentQuestionInfo.image}
