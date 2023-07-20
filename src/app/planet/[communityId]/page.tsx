@@ -15,6 +15,7 @@ import { HydrationProvider } from '~/components/HydrationProvider';
 import { GearIcon } from '~/components/Icon';
 import { TopNavigation } from '~/components/TopNavigation';
 import { PlanetSelector } from '~/modules/PlanetSelector';
+import { DINGDONG_PLANET } from '~/utils/variable';
 
 type PlanetPageProps = {
   params: {
@@ -26,6 +27,7 @@ const PlanetPage = async ({ params: { communityId: communityIdParam } }: PlanetP
   const communityId = Number(communityIdParam);
   const { myInfoInInCommunityDto } = await getCommunityUserInfoServer(communityId);
   const isMyPlanet = myInfoInInCommunityDto.isAdmin;
+  const isDingDongPlanet = Number(communityIdParam) === DINGDONG_PLANET.DINGDONG_PLANET_ID;
 
   const getCommunityIdCardsQuery = async () => {
     const data = await getCommunityIdCardsServer({ communityId });
@@ -49,7 +51,7 @@ const PlanetPage = async ({ params: { communityId: communityIdParam } }: PlanetP
         )}
       </TopNavigation>
       <CommunityDetail id={communityId} />
-      <IdCardCreatorButton communityId={communityId} />
+      {!isDingDongPlanet && <IdCardCreatorButton communityId={communityId} />}
       {/* @ts-expect-error Server Component */}
       <HydrationProvider
         queryKey={communityQueryKey.idCards(communityId)}
