@@ -49,7 +49,7 @@ const middleware = async (request: NextRequest) => {
             return NextResponse.redirect(
               new URL(`/planet/${currentCommunityId}`, request.nextUrl.origin),
             );
-          return communityIds.length > 0
+          return communityIds.length > 1
             ? NextResponse.redirect(
                 new URL(`/planet/${communityIds[communityIds.length - 1]}`, request.nextUrl.origin),
               )

@@ -55,7 +55,7 @@ export const CharacterCompleteStep = ({ characterName }: CharacterCompleteStepPr
       return router.push(redirectUri);
     }
 
-    return communityIds && communityIds.length > 0
+    return communityIds && communityIds.length > 1
       ? router.push(`/planet/${communityIds[0]}`)
       : router.push('/planet');
   };
