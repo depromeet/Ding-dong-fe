@@ -14,7 +14,7 @@ type CharacterBoardingStepProps = {
 
 export const CharacterBoardingStep = ({ onNext }: CharacterBoardingStepProps) => {
   return (
-    <div className="relative h-[calc(100vh-50px)]">
+    <div className="relative z-[1] h-[calc(100vh-50px)]">
       <Image
         src={info.image}
         width={0}
