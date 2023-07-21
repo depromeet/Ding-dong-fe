@@ -13,8 +13,7 @@
   > 새로운 조직에 처음 들어가면 마치 다른 행성에 와 있는 것처럼 느껴지지 않나요? <br/> 
   딩동은 새로운 동아리에서 사람들과 친해지는 것을 돕는 서비스예요. <br/>
   
-
-  <img width="900" align=center alt="ding-dong-logo" src="https://github.com/depromeet/Ding-dong-fe/assets/62633444/94c5f4c1-900f-40f5-9484-781163b66f77"/>
+  ![Frame 1000012075](https://github.com/depromeet/Ding-dong-fe/assets/62633444/55d857cd-d18e-409d-b7bf-b42306202038)
   <br/>
   <br/>
   
