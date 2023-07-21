@@ -13,6 +13,7 @@ import { useCommunityStore } from '~/stores/community.store';
 import { getUserIdClient } from '~/utils/auth/getUserId.client';
 import { getCookie } from '~/utils/cookie.util';
 import { tw } from '~/utils/tailwind.util';
+import { DINGDONG_PLANET } from '~/utils/variable';
 
 export const PlanetSelector = () => {
   const bottomSheetHandlers = useBottomSheet();
@@ -29,19 +30,11 @@ export const PlanetSelector = () => {
       ? communityIdInStore
       : communityIdCookeyValue ?? communityList?.communityListDtos.slice(-1)[0]?.communityId;
 
-  const INIT_PLANET_ID = -1;
-
   const router = useRouter();
 
   const onClickCreateButton = () => {
     router.push('/admin/planet/create');
   };
-
-  const getLastPlanetId = useCallback(() => {
-    const lastCommunity = communityList?.communityListDtos.slice(-1)[0];
-    if (!lastCommunity) return INIT_PLANET_ID;
-    return lastCommunity.communityId;
-  }, [INIT_PLANET_ID, communityList?.communityListDtos]);
 
   const switchPlanetIdByPathname = useCallback(
     (planetId?: number) => {
@@ -50,8 +43,7 @@ export const PlanetSelector = () => {
       const pathPlanetId = extractPlanetIdFromPathname(pathname);
 
       if (!pathPlanetId) {
-        const lastPlanetId = getLastPlanetId();
-        switchCommunity(lastPlanetId);
+        switchCommunity(DINGDONG_PLANET.DINGDONG_PLANET_ID);
         return;
       }
 
@@ -61,7 +53,7 @@ export const PlanetSelector = () => {
 
       switchCommunity(pathPlanetId);
     },
-    [extractPlanetIdFromPathname, pathname, switchCommunity, getLastPlanetId],
+    [extractPlanetIdFromPathname, pathname, switchCommunity],
   );
 
   useEffect(() => {
