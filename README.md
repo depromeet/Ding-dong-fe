@@ -1,34 +1,57 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-## Getting Started
+# <img width="100" align=left alt="ding-dong-logo" src="https://github.com/depromeet/Ding-dong-fe/assets/62633444/db00a3c0-4959-426e-9d1f-545efc22cfc6"> Ding-Dong 
+새로운 사람과 친해지고 싶은 순간,<br/> 망설임 없이 **딩동하세요!**
 
-First, run the development server:
+## 서비스 소개
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
+## 주요 기능 소개
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 기술스택
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+## 👪 팀원소개 
+<table>
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+<tr>
+  <td align=center>
+    <a href="https://github.com/99-zziy">
+    <img src="https://github.com/99-zziy.png" width="100px" />
+    <br/>
+    FE 
+    <br/>
+    강지영
+    </a>
+  </td>
+ 
+  <td align=center>
+    <a href="https://github.com/kimyouknow">
+    <img src="https://github.com/kimyouknow.png" width="100px" />
+    <br/>
+    FE 
+    <br/>
+    김윤호
+    </a>
+  </td>
+  
+  <td align=center>
+    <a href="https://github.com/darae07">
+    <img src="https://github.com/darae07.png" width="100px"  />
+    <br/>
+    FE 
+    <br/>
+    이다래
+    </a>
+  </td>
+  
+  <td align=center>
+    <a href="https://github.com/hyehyeonmoon">
+    <img src="https://github.com/hyehyeonmoon.png" width="100px"  />
+    <br/>
+    FE 
+    <br/>
+    문혜현
+    </a>
+  </td>
+  
+</tr>
+</table>
