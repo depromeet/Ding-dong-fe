@@ -9,7 +9,7 @@ const Home = () => {
         height={0}
         sizes="100vw"
         alt="splash"
-        className="mt-none-t-nav max-h-[100vh] w-full object-cover"
+        className="mt-none-t-nav max-h-full-screen w-full object-cover"
       />
     </main>
   );

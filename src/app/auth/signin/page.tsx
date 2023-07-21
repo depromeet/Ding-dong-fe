@@ -2,7 +2,7 @@ import { LoginStep } from '~/modules/LoginStep';
 
 const SignInPage = () => {
   return (
-    <main className="flex h-[calc(100vh-50px)] items-center px-layout-sm">
+    <main className="flex h-real-screen items-center px-layout-sm">
       <LoginStep />
     </main>
   );
