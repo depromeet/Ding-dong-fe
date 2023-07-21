@@ -1,10 +1,26 @@
 
 
-# <img width="100" align=left alt="ding-dong-logo" src="https://github.com/depromeet/Ding-dong-fe/assets/62633444/db00a3c0-4959-426e-9d1f-545efc22cfc6"> Ding-Dong 
+# <img width="130" align=left alt="ding-dong-logo" src="https://github.com/depromeet/Ding-dong-fe/assets/62633444/db00a3c0-4959-426e-9d1f-545efc22cfc6"> Ding-Dong 
 새로운 사람과 친해지고 싶은 순간,<br/> 망설임 없이 **딩동하세요!**
 
-## 서비스 소개
+<br/>
+<br/>
 
+## 🪐 서비스 소개
+
+  > 새로운 조직에 처음 들어가면 마치 다른 행성에 와 있는 것처럼 느껴지지 않나요? <br/> 
+  딩동은 새로운 동아리에서 사람들과 친해지는 것을 돕는 서비스예요. <br/>
+  
+
+  <img width="900" align=center alt="ding-dong-logo" src="https://github.com/depromeet/Ding-dong-fe/assets/62633444/94c5f4c1-900f-40f5-9484-781163b66f77"/>
+  <br/>
+  <br/>
+  
+  > 처음 다른 사람의 집에 갔을 때 초인종을 누르듯,  <br/>
+  친해지고 싶은 사람을 발견하면 **딩동**을 눌러 상대방에게 다가가보세요.
+
+<br/>
+<br/>
 
 ## 💫 주요 기능 소개
 ### 🛳️ 온보딩 | 나만의 외계인 캐릭터를 만들어요 
@@ -23,9 +39,13 @@
 ![talk](https://github.com/depromeet/Ding-dong-fe/assets/62633444/13d43192-1672-4e4f-87a0-ea023f9c6479)
 
 
+<br/>
+<br/>
 
 ## 기술스택
 
+<br/>
+<br/>
 
 ## 👪 팀원소개 
 <table>
