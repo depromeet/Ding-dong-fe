@@ -15,7 +15,7 @@ export const CommentInput = ({ idCardId, communityId }: CommentInputProps) => {
   const shouldActiveCommentInput = data?.myInfoInInCommunityDto.isExistsIdCard;
 
   return (
-    <>
+    <div className="fixed bottom-0 left-1/2 w-full max-w-content -translate-x-1/2 transform bg-white ">
       {shouldActiveCommentInput ? (
         <ActiveCommentInput
           myInfoInInCommunityDto={data.myInfoInInCommunityDto}
@@ -25,6 +25,6 @@ export const CommentInput = ({ idCardId, communityId }: CommentInputProps) => {
       ) : (
         <DisabledCommentInput communityId={communityId} />
       )}
-    </>
+    </div>
   );
 };
