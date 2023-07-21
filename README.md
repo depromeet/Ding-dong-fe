@@ -1,7 +1,9 @@
 
 
-# <img width="130" align=left alt="ding-dong-logo" src="https://github.com/depromeet/Ding-dong-fe/assets/62633444/db00a3c0-4959-426e-9d1f-545efc22cfc6"> Ding-Dong 
+# <img width="160" align=left alt="ding-dong-logo" src="https://github.com/depromeet/Ding-dong-fe/assets/62633444/db00a3c0-4959-426e-9d1f-545efc22cfc6"> Ding-Dong 
 새로운 사람과 친해지고 싶은 순간,<br/> 망설임 없이 **딩동하세요!**
+
+<a href="https://ding-dong-planet.com/">Ding Dong</a> | <a href='https://www.behance.net/gallery/175602565/DingDong-TMI-'>Behance</a>
 
 <br/>
 <br/>
