@@ -117,6 +117,9 @@ module.exports = {
         'none-t-nav': '-50px',
         ...declarePxr(),
       },
+      maxWidth: {
+        content: '420px',
+      },
       // TODO: 아직 폰트가 정해지지 않아 기본 값으로 넣어두었습니다. 폰트 지정 후 수정이 필요합니다.
       fontFamily: {
         Pretendard: ['Pretendard Variable', 'Pretendard'],

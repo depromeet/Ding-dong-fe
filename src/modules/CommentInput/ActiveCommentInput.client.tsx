@@ -52,7 +52,7 @@ export const ActiveCommentInput = ({
   });
 
   return (
-    <div className="fixed bottom-0 left-0 w-full bg-white">
+    <div>
       <ReplyIndicator />
       <Divider className="bg-grey-200" />
       <form
