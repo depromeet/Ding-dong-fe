@@ -11,7 +11,7 @@ import { InjectQueryDataNotification } from './InjectQueryDataNotification.clien
 
 const NotificationComponent = () => {
   const getNotificationsQuery = async () => {
-    const data = await getNotificationsServer({ pageParam: 0 });
+    const data = await getNotificationsServer();
     return {
       pages: [data],
     };
