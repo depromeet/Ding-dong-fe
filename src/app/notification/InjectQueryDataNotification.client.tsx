@@ -45,7 +45,7 @@ export const InjectQueryDataNotification = () => {
   return (
     <>
       {data?.pages.map(page => (
-        <div key={page.page}>
+        <div key={page.page} className="mb-7">
           <NotificationList
             notifications={page.content}
             notificationAgoList={notificationAgoList}
