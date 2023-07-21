@@ -7,6 +7,7 @@ import { AUTH_COOKIE_KEYS } from '~/types/auth';
 import { ROUTE_COOKIE_KEYS } from '~/utils/route/route';
 
 import { getFetch, postFetch } from './utils/fetch';
+import { DINGDONG_PLANET } from './utils/variable';
 
 export const ACCESS_TOKEN_EXPIRE_MARGIN_SECOND = 60;
 
@@ -103,6 +104,12 @@ const middleware = async (request: NextRequest) => {
     } catch (e) {
       return NextResponse.redirect(new URL('/auth/signin', request.url));
     }
+  }
+
+  if (pathname === `/planet/${DINGDONG_PLANET.DINGDONG_PLANET_ID}/id-card/create`) {
+    return NextResponse.redirect(
+      new URL(`/planet/${DINGDONG_PLANET.DINGDONG_PLANET_ID}`, request.url),
+    );
   }
 };
 

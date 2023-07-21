@@ -66,7 +66,10 @@ export const PlanetSelector = () => {
 
   return (
     <div className="w-full">
-      <div className="flex w-full items-center gap-8pxr" onClick={bottomSheetHandlers.onOpen}>
+      <div
+        className="flex w-full cursor-pointer items-center gap-8pxr"
+        onClick={bottomSheetHandlers.onOpen}
+      >
         <p className="mix-w-[70%] overflow-hidden text-ellipsis whitespace-nowrap text-h1 text-grey-800">
           {defaultCommunity?.title}
         </p>
