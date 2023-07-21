@@ -44,7 +44,10 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <html lang="en">
       <body className={inter.className}>
-        <Provider>{children}</Provider>
+        <div className="h-[50px] bg-white"></div>
+        <Provider>
+          <div className="bg-white">{children}</div>
+        </Provider>
         <div id="portal" />
         <div id="toast-portal" />
       </body>

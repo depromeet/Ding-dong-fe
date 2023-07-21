@@ -29,7 +29,7 @@ export const CompleteStep = ({ idCardId }: CompleteStepProps) => {
   };
 
   return (
-    <div className="flex min-h-[calc(100vh-50px)] flex-col px-layout-sm ">
+    <main className="flex flex-col px-layout-sm ">
       <h2 className="text-h1 text-grey-900">{`짜잔! ${
         communityDetail?.communityDetailsDto.title || ''
       } \n주민증이 발급되었어요!`}</h2>
@@ -53,6 +53,6 @@ export const CompleteStep = ({ idCardId }: CompleteStepProps) => {
           행성 방문하기
         </Button>
       </div>
-    </div>
+    </main>
   );
 };

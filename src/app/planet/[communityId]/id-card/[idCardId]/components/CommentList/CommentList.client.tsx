@@ -27,7 +27,7 @@ const CommentListComponent = ({ idCardId }: CommentListProps) => {
   const isEmpty = commentList?.pages[0].content.length === 0;
 
   return (
-    <div className="mt-24pxr flex flex-col gap-24pxr pb-50pxr">
+    <div className="mt-24pxr flex flex-col gap-24pxr pb-100pxr">
       {isEmpty ? (
         <Empty />
       ) : (

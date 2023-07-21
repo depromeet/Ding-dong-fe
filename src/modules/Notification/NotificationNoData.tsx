@@ -4,7 +4,7 @@ export const NotificationNoData = () => {
   return (
     <div className="px-54pxr pt-125pxr">
       <div className="px-22pxr">
-        <div className="relative h-[65vw] w-full">
+        <div className="relative h-[248px] w-full">
           <Image src="/assets/images/ufo.png" fill className="object-contain" alt="ufo" />
         </div>
       </div>

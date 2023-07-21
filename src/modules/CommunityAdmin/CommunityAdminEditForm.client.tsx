@@ -106,7 +106,9 @@ export const CommunityAdminEditForm = ({
       </TextInput>
       {hasDescription && (
         <TextArea>
-          <TextArea.Label name="description">소개</TextArea.Label>
+          <TextArea.Label name="description" className="mt-24pxr">
+            소개
+          </TextArea.Label>
           <TextArea.Border textCount={description.length} maxLength={TEXT_AREA_MAX_LENGTH}>
             <TextArea.Content
               {...register('description')}

@@ -41,7 +41,7 @@ export const CommunityAdmin = ({ communityId }: CommunityAdminProps) => {
         <TopNavigation.Right></TopNavigation.Right>
       </TopNavigation>
       <CommunityBgImage isEditable community={data.communityDetailsDto} />
-      <div className="mt-16pxr px-20pxr">
+      <main className="mt-16pxr px-20pxr">
         <CommunityProfile
           logoImageUrl={logoImageUrl}
           userCount={finalUserCount}
@@ -64,7 +64,8 @@ export const CommunityAdmin = ({ communityId }: CommunityAdminProps) => {
         <div className="mt-28pxr ">
           <InvitationButtons communityId={communityId} />
         </div>
-      </div>
+      </main>
+      <div className="h-[50px] bg-white" />
     </div>
   );
 };

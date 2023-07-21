@@ -29,7 +29,7 @@ export const CommunityAdminCreate = () => {
           <TopNavigation.BackButton backButtonType="cancel" backLink="/" />
         </TopNavigation.Left>
       </TopNavigation>
-      <div className="mt-24pxr px-20pxr">
+      <main className="px-20pxr pt-24pxr">
         <h2 className="text-h2">행성을 만들어보세요</h2>
         <p className="mb-6 mt-11pxr text-b2 font-normal text-gray-700">
           행성에서 나와 주민들이 서로를 알아갈 수 있어요.
@@ -53,7 +53,8 @@ export const CommunityAdminCreate = () => {
         >
           행성 만들기
         </Button>
-      </div>
+      </main>
+      <div className="h-[50px] bg-white" />
     </div>
   );
 };

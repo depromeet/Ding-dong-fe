@@ -8,9 +8,12 @@ type IdCardCreationPageProps = {
 
 const IdCardCreationPage = ({ params: { communityId } }: IdCardCreationPageProps) => {
   return (
-    <main>
-      <IdCardCreationSteps communityId={Number(communityId)} />
-    </main>
+    <>
+      <main>
+        <IdCardCreationSteps communityId={Number(communityId)} />
+      </main>
+      <div className="h-[50px] bg-white" />
+    </>
   );
 };
 
