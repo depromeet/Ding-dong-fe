@@ -27,7 +27,7 @@ export const DisabledCommentInput = ({ communityId }: DisabledCommentInputProps)
     }
   };
   return (
-    <div className="fixed bottom-0 left-0 w-full bg-white" onClick={onClickDisabledCommentInput}>
+    <div onClick={onClickDisabledCommentInput}>
       <div className="flex items-center gap-8pxr px-[20px] py-[8px]">
         <TextInput>
           <TextInput.Border className="rounded-[15px] px-[16px] py-[8px]" disabled>
