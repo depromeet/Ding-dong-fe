@@ -10,6 +10,7 @@ import { IdCardDetail } from '~/app/planet/[communityId]/id-card/[idCardId]/comp
 import { Divider } from '~/components/Divider';
 import { HydrationProvider } from '~/components/HydrationProvider';
 import { CommentInput } from '~/modules/CommentInput';
+import { DINGDONG_PLANET } from '~/utils/variable';
 
 type IdCardDetailPageProps = {
   params: {
@@ -21,6 +22,7 @@ type IdCardDetailPageProps = {
 const IdCardDetailPage = ({
   params: { idCardId: idCardIdParam, communityId: communityIdParam },
 }: IdCardDetailPageProps) => {
+  const isDingDongPlanet = Number(communityIdParam) === DINGDONG_PLANET.DINGDONG_PLANET_ID;
   const idCardId = Number(idCardIdParam);
   const communityId = Number(communityIdParam);
 
@@ -55,13 +57,20 @@ const IdCardDetailPage = ({
           <IdCardDetail idCardId={idCardId} communityId={communityId} />
         </HydrationProvider>
       </HydrationProvider>
-      <Divider />
-      <CommentCount idCardId={idCardId} />
-      {/* @ts-expect-error Server Component */}
-      <HydrationProvider queryKey={commentQueryKey.comments(idCardId)} queryFn={getCommentsQuery}>
-        <CommentList idCardId={idCardId} />
-      </HydrationProvider>
-      <CommentInput idCardId={idCardId} communityId={communityId} />
+      {!isDingDongPlanet && (
+        <>
+          <Divider />
+          <CommentCount idCardId={idCardId} />
+          {/* @ts-expect-error Server Component */}
+          <HydrationProvider
+            queryKey={commentQueryKey.comments(idCardId)}
+            queryFn={getCommentsQuery}
+          >
+            <CommentList idCardId={idCardId} />
+          </HydrationProvider>
+          <CommentInput idCardId={idCardId} communityId={communityId} />
+        </>
+      )}
     </main>
   );
 };

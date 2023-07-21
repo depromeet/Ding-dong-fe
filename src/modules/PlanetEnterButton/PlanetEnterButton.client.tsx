@@ -3,6 +3,7 @@
 import { useRouter } from 'next/navigation';
 
 import { Button, TextButton } from '~/components/Button';
+import { DINGDONG_PLANET } from '~/utils/variable';
 
 export const PlanetEnterButton = () => {
   const router = useRouter();
@@ -10,7 +11,7 @@ export const PlanetEnterButton = () => {
     <div className="mt-6pxr">
       <TextButton
         className="w-full text-center text-b1 text-primary-500"
-        onClick={() => console.log('딩동행성 둘러보기')}
+        onClick={() => router.push(`/planet/${DINGDONG_PLANET.DINGDONG_PLANET_ID}`)}
       >
         딩동행성 둘러보기
       </TextButton>

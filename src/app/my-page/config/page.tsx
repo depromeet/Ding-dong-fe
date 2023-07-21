@@ -5,10 +5,18 @@ import { getUserInfoServer } from '~/api/domain/user.api.server';
 import { Divider } from '~/components/Divider';
 import { PlanetMenu } from '~/modules/PlanetMenu';
 import { UserMenu } from '~/modules/UserMenu';
+import { DINGDONG_PLANET } from '~/utils/variable';
 
 export const dynamic = 'force-dynamic';
 
-const MyPageConfig = async () => {
+type MyPageConfigProps = {
+  params: {
+    communityId?: string;
+  };
+};
+
+const MyPageConfig = async ({ params: { communityId } }: MyPageConfigProps) => {
+  const isDingDongPlanet = Number(communityId) === DINGDONG_PLANET.DINGDONG_PLANET_ID;
   const { userProfileDto } = await getUserInfoServer();
 
   const { communityListDtos } = await getCommunityListServer(userProfileDto.userId);
@@ -18,7 +26,7 @@ const MyPageConfig = async () => {
   return (
     <main>
       <div className="pt-28pxr">
-        {isBelongToCommunity && (
+        {isBelongToCommunity && communityId && !isDingDongPlanet && (
           <>
             <PlanetMenu />
             <Divider />

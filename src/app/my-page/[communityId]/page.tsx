@@ -10,15 +10,18 @@ import { TopNavigation } from '~/components/TopNavigation';
 import { CreateIdCardButton } from '~/modules/CreateIdCardButton';
 import { PlanetCreationButton } from '~/modules/PlanetCreationButton';
 import { PlanetSelector } from '~/modules/PlanetSelector';
+import { DINGDONG_PLANET } from '~/utils/variable';
 
 type MyPageProps = {
   params: {
-    communityId: number;
+    communityId: string;
   };
 };
 
 const MyPage = async ({ params: { communityId } }: MyPageProps) => {
-  const { userMakeIdCard } = await checkIdCardServer(communityId);
+  const isDingDongPlanet = Number(communityId) === DINGDONG_PLANET.DINGDONG_PLANET_ID;
+  const { userMakeIdCard } =
+    (!isDingDongPlanet && (await checkIdCardServer(Number(communityId)))) || {};
   const isUserMakeIdCard = userMakeIdCard;
 
   return (
@@ -34,9 +37,15 @@ const MyPage = async ({ params: { communityId } }: MyPageProps) => {
         </TopNavigation.Right>
       </TopNavigation>
       <main className="overflow-auto pb-[calc(72px+theme(spacing.b-nav))] pt-35pxr">
-        <div className="mx-layout-l">
-          {isUserMakeIdCard ? <MyPageIdCard communityId={communityId} /> : <CreateIdCardButton />}
-        </div>
+        {!isDingDongPlanet && (
+          <div className="mx-layout-l">
+            {isUserMakeIdCard ? (
+              <MyPageIdCard communityId={Number(communityId)} />
+            ) : (
+              <CreateIdCardButton />
+            )}
+          </div>
+        )}
         <div className="mx-layout-sm mt-28pxr">
           <PlanetCreationButton />
         </div>
