@@ -1,14 +1,15 @@
 import { create } from 'zustand';
 
+import { DINGDONG_PLANET } from '~/utils/variable';
+
 type Store = {
   communityId: number;
   switchCommunity: (id: number) => void;
   isInitPlanetId: () => boolean;
 };
-const INIT_PLANET_ID = -1;
 
 export const useCommunityStore = create<Store>()((set, get) => ({
-  communityId: INIT_PLANET_ID,
+  communityId: DINGDONG_PLANET.DINGDONG_PLANET_ID,
   switchCommunity: (id: number) => {
     document.cookie = `communityId=${id}`;
     set(() => ({
@@ -16,6 +17,6 @@ export const useCommunityStore = create<Store>()((set, get) => ({
     }));
   },
   isInitPlanetId: () => {
-    return get().communityId === INIT_PLANET_ID;
+    return get().communityId === DINGDONG_PLANET.DINGDONG_PLANET_ID;
   },
 }));

@@ -1,0 +1,1 @@
+export const DEFAULT_SELECT_PLANET_INDEX = 0;

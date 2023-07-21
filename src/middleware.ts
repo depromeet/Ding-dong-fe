@@ -2,6 +2,7 @@ import { URLSearchParams } from 'next/dist/compiled/@edge-runtime/primitives/url
 import { NextRequest, NextResponse } from 'next/server';
 
 import { ROOT_API_URL } from '~/api/config/requestUrl';
+import { DEFAULT_SELECT_PLANET_INDEX } from '~/constant/planet';
 import { AUTH_COOKIE_KEYS } from '~/types/auth';
 import { ROUTE_COOKIE_KEYS } from '~/utils/route/route';
 
@@ -51,7 +52,10 @@ const middleware = async (request: NextRequest) => {
             );
           return communityIds.length > 1
             ? NextResponse.redirect(
-                new URL(`/planet/${communityIds[communityIds.length - 1]}`, request.nextUrl.origin),
+                new URL(
+                  `/planet/${communityIds[DEFAULT_SELECT_PLANET_INDEX]}`,
+                  request.nextUrl.origin,
+                ),
               )
             : NextResponse.redirect(new URL('/planet', request.nextUrl.origin));
         }
@@ -91,7 +95,7 @@ const middleware = async (request: NextRequest) => {
           return NextResponse.redirect(new URL(`/my-page/${currentCommunityId}`, request.url));
         } else if (communityIds.length !== 0)
           return NextResponse.redirect(
-            new URL(`/my-page/${communityIds[communityIds.length - 1]}`, request.url),
+            new URL(`/my-page/${communityIds[DEFAULT_SELECT_PLANET_INDEX]}`, request.url),
           );
         else return NextResponse.redirect(new URL('/my-page/empty', request.url));
       }
