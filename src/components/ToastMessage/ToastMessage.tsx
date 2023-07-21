@@ -10,5 +10,15 @@ const colors: Record<ToastMessageType, string> = {
 };
 
 export const ToastMessage = ({ message, type }: ToastMessageProps) => {
-  return <div className={tw('rounded-[12px]  p-16pxr text-b2', colors[type])}>{message}</div>;
+  return (
+    <div
+      className={tw(
+        'absolute left-1/2 top-60pxr w-[calc(100vw-40px)] max-w-[calc(theme(maxWidth.content)-40px)] -translate-x-1/2 transform',
+        'rounded-[12px] p-16pxr text-b2',
+        colors[type],
+      )}
+    >
+      {message}
+    </div>
+  );
 };
