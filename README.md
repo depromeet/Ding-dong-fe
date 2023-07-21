@@ -42,12 +42,14 @@
 <br/>
 <br/>
 
-## 기술스택
+## 🛠️ 기술 스택
+<img width="600" align=center alt="ding-dong-logo" src="https://github.com/depromeet/Ding-dong-fe/assets/62633444/b5b59d8d-53e3-4862-87a1-84ce6b0fb2e4"/>
+
 
 <br/>
 <br/>
 
-## 👪 팀원소개 
+## 👪 팀원 소개 
 <table>
 
 <tr>
