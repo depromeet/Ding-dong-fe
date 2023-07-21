@@ -8,7 +8,7 @@ import { Button } from '~/components/Button';
 const NotFound = () => {
   const router = useRouter();
   return (
-    <div className="h-real relative flex flex-col items-center">
+    <div className="relative flex h-real-screen flex-col items-center">
       <Image
         src="/assets/images/error-ufo.png"
         width={235}
