@@ -18,7 +18,8 @@ body {
   width: 100%;
   max-width: 420px;
   min-width: 375px;
-  min-height: calc(100vh-50px);
+  min-height: calc(100vh - 50px);
+  min-height: calc(100dvh - 50px);
   margin: 0 auto;
   color: rgb(var(--foreground-rgb));
   white-space: pre-line;
@@ -27,6 +28,7 @@ body {
 
 main {
   min-height: calc(100vh - 100px);
+  min-height: calc(100dvh - 100px);
 }
 
 textarea:focus,

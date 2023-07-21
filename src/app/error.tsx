@@ -9,7 +9,7 @@ const Error = () => {
     infoToast('아직 준비중이에요...');
   };
   return (
-    <div className="relative flex h-[calc(100vh-50px)] flex-col items-center">
+    <div className="relative flex h-real-screen flex-col items-center">
       <Image
         src="/assets/images/error-ufo.png"
         width={235}
@@ -23,7 +23,7 @@ const Error = () => {
         <p>문제를 해결하기 위해 열심히 노력하고 있습니다.</p>
         <p>잠시 후 다시 확인해 주세요.</p>
       </div>
-      <div className="absolute top-[calc(100vh-50px)]  w-full translate-y-[-160%] text-center text-b1 text-grey-500">
+      <div className="absolute top-[calc(100dvh-50px)] top-[calc(100vh-50px)] w-full translate-y-[-160%] text-center text-b1 text-grey-500">
         <p>
           문제가 계속된다면,{' '}
           <button className="underline underline-offset-2" onClick={onClickHere}>

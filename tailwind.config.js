@@ -138,6 +138,15 @@ module.exports = {
       transitionProperty: {
         width: 'width',
       },
+      height: {
+        ['real-screen']: ['calc(100vh - 50px)', 'calc(100dvh - 50px)'],
+        ['full-screen']: ['100vh', '100dvh'],
+      },
+      maxHeight: {
+        ['real-screen']: ['calc(100vh - 50px)', 'calc(100dvh - 50px)'],
+        ['bottom-sheet']: ['[calc(100dvh - 212px)]', '[calc(100vh - 212px)]'],
+        ['full-screen']: ['100vh', '100dvh'],
+      },
     },
     screens: {
       mobile: { max: '420px' },

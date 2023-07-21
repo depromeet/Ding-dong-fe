@@ -8,7 +8,7 @@ import { Button } from '~/components/Button';
 const NotFound = () => {
   const router = useRouter();
   return (
-    <div className="relative flex h-[calc(100vh-50px)] flex-col items-center">
+    <div className="relative flex h-real-screen flex-col items-center">
       <Image
         src="/assets/images/error-ufo.png"
         width={235}
@@ -21,7 +21,7 @@ const NotFound = () => {
         <p>입력한 주소의 페이지를 찾을 수 없어요.</p>
         <p>주소를 다시 한 번 확인해 주세요.</p>
       </div>
-      <div className="absolute top-[calc(100vh-50px)] w-full translate-y-[-160%]">
+      <div className="absolute top-[calc(100dvh-50px)] top-[calc(100vh-50px)] w-full translate-y-[-160%]">
         <Button color="primary" size="large" onClick={() => router.push('/')}>
           홈으로 돌아가기
         </Button>

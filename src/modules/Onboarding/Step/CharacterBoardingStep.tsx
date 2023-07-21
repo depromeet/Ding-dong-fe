@@ -14,13 +14,13 @@ type CharacterBoardingStepProps = {
 
 export const CharacterBoardingStep = ({ onNext }: CharacterBoardingStepProps) => {
   return (
-    <div className="relative z-[1] h-[calc(100vh-50px)]">
+    <main className="relative z-[1] h-real-screen">
       <Image
         src={info.image}
         width={0}
         height={0}
         sizes="100vw"
-        className="absolute left-0 top-0 z-below mt-none-t-nav max-h-[100vh] w-full object-cover"
+        className="absolute left-0 top-0 z-below mt-none-t-nav max-h-full-screen w-full object-cover"
         alt="onboarding planet image"
       />
       <Template className="flex h-full flex-col justify-between">
@@ -37,6 +37,6 @@ export const CharacterBoardingStep = ({ onNext }: CharacterBoardingStepProps) =>
           시작하기
         </Template.Button>
       </Template>
-    </div>
+    </main>
   );
 };
