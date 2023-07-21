@@ -11,7 +11,7 @@
 ## 🪐 서비스 소개
  <img width="150" align=left alt="ding-dong-logo" src="https://github.com/depromeet/Ding-dong-fe/assets/62633444/d27d3f64-e0ec-40c4-be67-2191c2fad17d">
 
-  > <br/> <br/> 새로운 조직에 처음 들어가면 마치 다른 행성에 와 있는 것처럼 느껴지지 않나요? <br/> 
+  > <br/> <br/> : 새로운 조직에 처음 들어가면 마치 다른 행성에 와 있는 것처럼 느껴지지 않나요? <br/> 
   딩동은 새로운 동아리에서 사람들과 친해지는 것을 돕는 서비스예요. <br/>
   
   ![Frame 1000012075](https://github.com/depromeet/Ding-dong-fe/assets/62633444/55d857cd-d18e-409d-b7bf-b42306202038)
