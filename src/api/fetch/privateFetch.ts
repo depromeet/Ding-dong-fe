@@ -1,20 +1,22 @@
-import { cookies } from 'next/headers';
-
-import { AUTH_COOKIE_KEYS } from '~/types/auth';
+import { AuthResponse } from '~/types/auth';
 
 import { PublicFetch } from './publicFetch';
 
 class PrivateFetch extends PublicFetch {
-  constructor() {
+  tokens: Partial<AuthResponse>;
+  constructor(tokens: Partial<AuthResponse>) {
     super();
+    this.tokens = tokens;
   }
-  async common<T>(route: string, requestInit?: RequestInit) {
-    const cookieStore = cookies();
-    const accessToken = cookieStore.get(AUTH_COOKIE_KEYS.accessToken)?.value;
+  async common<T>(route: string, requestInit?: RequestInit): Promise<{ data: T }> {
+    const { accessToken } = this.tokens;
 
     return super.common<T>(route, {
       ...(requestInit ?? {}),
-      headers: { Authorization: `Bearer ${accessToken}` },
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+        ...(requestInit?.headers ?? {}),
+      },
     });
   }
   async get<T>(route: string, requestInit?: RequestInit) {
@@ -43,6 +45,4 @@ class PrivateFetch extends PublicFetch {
   }
 }
 
-const privateFetch = new PrivateFetch();
-
-export { PrivateFetch, privateFetch };
+export { PrivateFetch };
