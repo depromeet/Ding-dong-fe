@@ -1,11 +1,18 @@
 import { ROOT_API_URL } from '../config/requestUrl';
 
 class PublicFetch {
-  async common<T>(route: string, requestInit?: RequestInit): Promise<T> {
+  async common<T>(route: string, requestInit?: RequestInit): Promise<{ data: T }> {
     const response = await fetch(`${ROOT_API_URL}${route}`, {
-      ...(requestInit ?? {}),
+      ...requestInit,
+      mode: 'no-cors',
+      credentials: 'include',
+      headers: new Headers({
+        'content-type': 'application/json',
+        ...requestInit?.headers,
+      }),
     });
-    return response.json();
+    if (response.ok) return await response.json();
+    throw Error(response.status + '');
   }
   async get<T>(route: string, requestInit?: RequestInit) {
     return this.common<T>(route, {

@@ -3,9 +3,11 @@ import { NextRequest, NextResponse } from 'next/server';
 
 import { ROOT_API_URL } from '~/api/config/requestUrl';
 import { DEFAULT_SELECT_PLANET_INDEX } from '~/constant/planet';
-import { AUTH_COOKIE_KEYS } from '~/types/auth';
+import { AUTH_COOKIE_KEYS, AuthResponse } from '~/types/auth';
 import { ROUTE_COOKIE_KEYS } from '~/utils/route/route';
 
+import { PrivateFetch } from './api/fetch/privateFetch';
+import { generateCookiesKeyValues } from './utils/auth/tokenHandlers';
 import { getFetch, postFetch } from './utils/fetch';
 import { DINGDONG_PLANET } from './utils/variable';
 
@@ -14,9 +16,44 @@ export const ACCESS_TOKEN_EXPIRE_MARGIN_SECOND = 60;
 const getAccessToken = (request: NextRequest) =>
   request.cookies.get(AUTH_COOKIE_KEYS.accessToken)?.value;
 
+const getRefreshToken = (request: NextRequest) =>
+  request.cookies.get(AUTH_COOKIE_KEYS.refreshToken)?.value;
+
+const getExpireDate = (request: NextRequest) =>
+  request.cookies.get(AUTH_COOKIE_KEYS.accessTokenExpireDate)?.value;
+
+const privatePages = /^\/(admin|invitation|my-page|notification|onboarding|planet)/;
+
 const middleware = async (request: NextRequest) => {
   const pathname = request.nextUrl.pathname;
 
+  const accessToken = getAccessToken(request);
+  const refreshToken = getRefreshToken(request);
+  const expireDate = getExpireDate(request);
+
+  if (privatePages.test(pathname)) {
+    const privateFetch = new PrivateFetch({ accessToken, refreshToken });
+    const isExpired = new Date().getTime() > Number(expireDate) - ACCESS_TOKEN_EXPIRE_MARGIN_SECOND;
+    if (isExpired && refreshToken) {
+      try {
+        const { data: refreshResponse } = await privateFetch.get<AuthResponse>(
+          '/auth/login/reissue',
+          {
+            headers: { 'REFRESH-TOKEN': refreshToken ?? '' },
+          },
+        );
+        const response = NextResponse.next();
+        for (const [cookieKey, cookieValue] of generateCookiesKeyValues(refreshResponse)) {
+          response.cookies.set(cookieKey, cookieValue as string);
+        }
+        return response;
+      } catch (e) {
+        return NextResponse.redirect(new URL('/auth/signin', request.nextUrl.origin));
+      }
+    } else if (!accessToken) {
+      return NextResponse.redirect(new URL('/auth/signin', request.nextUrl.origin));
+    }
+  }
   if (pathname === '/') {
     const accessToken = getAccessToken(request);
     if (accessToken) {
