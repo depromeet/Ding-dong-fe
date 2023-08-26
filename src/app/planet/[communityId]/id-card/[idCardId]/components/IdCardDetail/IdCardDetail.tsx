@@ -34,7 +34,7 @@ const IdCardDetailComponent = ({ idCardId, communityId }: IdCardDetailProps) => 
 
   return (
     <>
-      <TopNavigation bgColor={bgColor}>
+      <TopNavigation>
         <TopNavigation.Left>
           <TopNavigation.BackButton />
         </TopNavigation.Left>
@@ -49,9 +49,9 @@ const IdCardDetailComponent = ({ idCardId, communityId }: IdCardDetailProps) => 
           </TopNavigation.Right>
         )}
       </TopNavigation>
-      <div className={`${bgColor} pt-[44px]`}>
+      <div className={`${bgColor} rounded-3xl pt-7`}>
         <Intro {...idCardDetailsDto} />
-        <div className="flex flex-col gap-4 bg-white px-5 py-6">
+        <div className="flex flex-col gap-5 bg-white px-5 py-5">
           {idCardDetailsDto.keywords.map(keyword => (
             <KeywordContentCard
               key={keyword.keywordId}
@@ -62,7 +62,7 @@ const IdCardDetailComponent = ({ idCardId, communityId }: IdCardDetailProps) => 
                   <img
                     src={keyword.imageUrl}
                     alt={keyword.title}
-                    className="mx-auto my-0 max-h-[192px] max-w-[308px] object-contain"
+                    className="mx-auto my-0 w-full rounded-xl object-contain"
                   />
                 )
               }
