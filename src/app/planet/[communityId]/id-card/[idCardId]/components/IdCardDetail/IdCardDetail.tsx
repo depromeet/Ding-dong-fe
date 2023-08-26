@@ -4,6 +4,7 @@ import { Suspense } from 'react';
 
 import { useGetIdCardDetail } from '~/api/domain/idCard.api';
 import { useGetUserInfo } from '~/api/domain/user.api';
+import { Bell } from '~/app/planet/[communityId]/id-card/[idCardId]/components/Bell/Bell';
 import RetryErrorBoundary from '~/components/ErrorBoundary/RetryErrorBoundary.client';
 import { TopNavigation } from '~/components/TopNavigation';
 import { Intro, KeywordContentCard } from '~/modules/IdCardDetail';
@@ -71,6 +72,7 @@ const IdCardDetailComponent = ({ idCardId, communityId }: IdCardDetailProps) => 
           ))}
         </div>
       </div>
+      <Bell isMyIdCard={isMyIdCard} bellType="rice" />
     </>
   );
 };
