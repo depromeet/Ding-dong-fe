@@ -2,7 +2,7 @@
 
 import { usePathname, useRouter } from 'next/navigation';
 
-import { BellIcon, HomeIcon, PersonIcon } from '~/components/Icon';
+import { HomeIcon, NotificationIcon, PersonIcon } from '~/components/Icon';
 import { usePlanetNavigate } from '~/hooks/usePlanetNavigate';
 import { NewNotificationBadge } from '~/modules/Notification/NewNotificationBadge.client';
 import { useCommunityStore } from '~/stores/community.store';
@@ -72,7 +72,7 @@ export const BottomNavigation = () => {
         <li>
           <button onClick={onClickNotification} className="relative">
             <NewNotificationBadge />
-            <BellIcon height={26} className={getSvgColor('/notification')} />
+            <NotificationIcon height={26} className={getSvgColor('/notification')} />
           </button>
         </li>
       </ul>

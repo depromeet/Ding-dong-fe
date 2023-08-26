@@ -2,7 +2,7 @@ import { ComponentProps } from 'react';
 
 import { Svg } from '~/components/Svg';
 
-export const BellIcon = ({
+export const NotificationIcon = ({
   className,
   size,
   width,

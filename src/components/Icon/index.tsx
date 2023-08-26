@@ -1,6 +1,5 @@
 export * from './ArrowLeftIcon';
 export * from './ArrowVerticalIcon';
-export * from './BellIcon';
 export * from './CameraIcon';
 export * from './CancelCircleIcon';
 export * from './CancelIcon';
@@ -13,6 +12,7 @@ export * from './GearIcon';
 export * from './HeartFillIcon';
 export * from './HeartIcon';
 export * from './HomeIcon';
+export * from './NotificationIcon';
 export * from './PersonIcon';
 export * from './PlusIcon';
 export * from './QuestionCircleIcon';
