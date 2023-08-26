@@ -3,16 +3,20 @@ import type { Meta } from '@storybook/react';
 import {
   ArrowLeftIcon,
   ArrowVerticalIcon,
+  BellIcon,
   CameraIcon,
   CancelBoldIcon,
   CancelCircleIcon,
   CancelIcon,
+  CelebrationIcon,
   ChatBubbleIcon,
   CheckCircleFillIcon,
   ChevronLeftIcon,
   ChevronRightIcon,
   DashIcon,
+  EyeIcon,
   GearIcon,
+  HeartExchangeIcon,
   HeartFillIcon,
   HeartIcon,
   HomeIcon,
@@ -20,6 +24,7 @@ import {
   PersonIcon,
   PlusIcon,
   QuestionCircleIcon,
+  RiceIcon,
   SendIcon,
   ThreeDotsVerticalIcon,
 } from '~/components/Icon';
@@ -126,4 +131,24 @@ export const Send = {
 
 export const ThreeDotsVertical = {
   render: () => <ThreeDotsVerticalIcon />,
+};
+
+export const Bell = {
+  render: () => <BellIcon />,
+};
+
+export const Celebration = {
+  render: () => <CelebrationIcon />,
+};
+
+export const Eye = {
+  render: () => <EyeIcon />,
+};
+
+export const HeartExchange = {
+  render: () => <HeartExchangeIcon />,
+};
+
+export const Rice = {
+  render: () => <RiceIcon />,
 };
