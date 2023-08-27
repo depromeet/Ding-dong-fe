@@ -8,18 +8,23 @@ import {
   CancelBoldIcon,
   CancelCircleIcon,
   CancelIcon,
+  CelebrationIcon,
   ChatBubbleIcon,
   CheckCircleFillIcon,
   ChevronLeftIcon,
   ChevronRightIcon,
   DashIcon,
+  EyeIcon,
   GearIcon,
+  HeartExchangeIcon,
   HeartFillIcon,
   HeartIcon,
   HomeIcon,
+  NotificationIcon,
   PersonIcon,
   PlusIcon,
   QuestionCircleIcon,
+  RiceIcon,
   SendIcon,
   ThreeDotsVerticalIcon,
 } from '~/components/Icon';
@@ -108,8 +113,8 @@ export const Person = {
   render: () => <PersonIcon />,
 };
 
-export const Bell = {
-  render: () => <BellIcon />,
+export const Notification = {
+  render: () => <NotificationIcon />,
 };
 
 export const Camera = {
@@ -126,4 +131,24 @@ export const Send = {
 
 export const ThreeDotsVertical = {
   render: () => <ThreeDotsVerticalIcon />,
+};
+
+export const Bell = {
+  render: () => <BellIcon />,
+};
+
+export const Celebration = {
+  render: () => <CelebrationIcon />,
+};
+
+export const Eye = {
+  render: () => <EyeIcon />,
+};
+
+export const HeartExchange = {
+  render: () => <HeartExchangeIcon />,
+};
+
+export const Rice = {
+  render: () => <RiceIcon />,
 };
