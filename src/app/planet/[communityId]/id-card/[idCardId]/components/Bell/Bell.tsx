@@ -33,10 +33,9 @@ export const Bell = ({ isMyIdCard, bellType }: BellProps) => {
           <BellButton
             bellType={bellType || 'bell'}
             onClick={onOtherBellClick}
-            isClose={isMessageOpen}
+            isOpen={isMessageOpen}
             className="mt-16pxr"
           />
-          {/*BellCloseButton*/}
         </>
       )}
     </div>
