@@ -32,6 +32,7 @@ export const BellButton = ({ className, bellType, onClick, isOpen, ...props }: B
     )}
     onClick={onClick}
     {...props}
+    type="button"
   >
     {isOpen ? <BellCloseIcon /> : bellIconMap[bellType]}
   </button>

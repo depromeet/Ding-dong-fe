@@ -1,4 +1,5 @@
-import { useState } from 'react';
+'use client';
+import { useRef, useState } from 'react';
 
 import { BellMessages } from '~/app/planet/[communityId]/id-card/[idCardId]/components/Bell/Message/BellMessages';
 import { useToastMessageStore } from '~/stores/toastMessage.store';
@@ -15,6 +16,7 @@ type BellProps = {
 
 export const Bell = ({ isMyIdCard, bellType, nickname: nicknameToReceiveMsg }: BellProps) => {
   const [isMessageOpen, setIsMessageOpen] = useState(false);
+  const backdropRef = useRef(null);
   const { successToast } = useToastMessageStore();
   const onMyBellClick = () => {
     // bottomsheet open
@@ -30,25 +32,27 @@ export const Bell = ({ isMyIdCard, bellType, nickname: nicknameToReceiveMsg }: B
   };
 
   return (
-    <div className="fixed bottom-60pxr right-20pxr flex flex-col items-end ">
-      {isMyIdCard ? (
-        <BellButton bellType="bell" onClick={onMyBellClick} />
-      ) : (
-        <>
-          {isMessageOpen && (
-            <>
-              {/*backdrop*/}
+    <>
+      <div className="fixed bottom-60pxr right-20pxr z-modal flex flex-col items-end ">
+        {isMyIdCard ? (
+          <BellButton bellType="bell" onClick={onMyBellClick} />
+        ) : (
+          <>
+            {isMessageOpen && (
               <BellMessages activeBellType="rice" onMessageClick={onMessageClick} />
-            </>
-          )}
-          <BellButton
-            bellType={bellType || 'bell'}
-            onClick={onOtherBellClick}
-            isOpen={isMessageOpen}
-            className="mt-16pxr"
-          />
-        </>
+            )}
+            <BellButton
+              bellType={bellType || 'bell'}
+              onClick={onOtherBellClick}
+              isOpen={isMessageOpen}
+              className="mt-16pxr"
+            />
+          </>
+        )}
+      </div>
+      {isMessageOpen && (
+        <div ref={backdropRef} className="fixed left-0 top-0 z-top1 h-full w-full bg-black/50" />
       )}
-    </div>
+    </>
   );
 };
