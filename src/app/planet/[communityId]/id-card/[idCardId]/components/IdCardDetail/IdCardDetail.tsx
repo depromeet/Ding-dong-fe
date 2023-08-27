@@ -72,7 +72,7 @@ const IdCardDetailComponent = ({ idCardId, communityId }: IdCardDetailProps) => 
           ))}
         </div>
       </div>
-      <Bell isMyIdCard={isMyIdCard} bellType="rice" />
+      <Bell isMyIdCard={isMyIdCard} nickname={idCardDetailsDto.nickname} bellType="rice" />
     </>
   );
 };
