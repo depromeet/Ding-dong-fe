@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import { BellMessage } from '~/app/planet/[communityId]/id-card/[idCardId]/components/Bell/Message/BellMessage';
+import { BellMessages } from '~/app/planet/[communityId]/id-card/[idCardId]/components/Bell/Message/BellMessages';
 
 import { BellButton } from './Button/BellButton';
 
@@ -27,7 +27,7 @@ export const Bell = ({ isMyIdCard, bellType }: BellProps) => {
           {isMessageOpen && (
             <>
               {/*backdrop*/}
-              <BellMessage activeBellType="rice" />
+              <BellMessages activeBellType="rice" />
             </>
           )}
           <BellButton

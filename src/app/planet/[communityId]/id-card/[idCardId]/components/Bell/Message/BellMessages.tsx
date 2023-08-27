@@ -33,7 +33,7 @@ const bellMessages: BellMessagesType = [
   },
 ];
 
-export const BellMessage = ({ className, activeBellType }: BellMessageProps) => (
+export const BellMessages = ({ className, activeBellType }: BellMessageProps) => (
   <div className={twMerge('flex flex-col gap-12pxr', className)}>
     {bellMessages.map(({ icon, text, id }) => {
       return (
