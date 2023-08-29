@@ -19,13 +19,13 @@ export const KeywordContentCard = ({
   ...props
 }: KeywordContentCardProps) => {
   return (
-    <div className={tw('w-full rounded-xl bg-grey-100', className)} onClick={onClick} {...props}>
-      <p className="px-[14px] py-[10px] text-base  font-semibold text-grey-900">{title}</p>
-      <div className="border-[0.5px] border-solid border-grey-200" />
-      <div className="flex flex-col gap-2 px-[14px] pb-[20px] pt-[8px] ">
+    <div className={tw('w-full', className)} onClick={onClick} {...props}>
+      <p className="mb-3 h-5 font-semibold text-grey-900">{title}</p>
+      <div className="flex flex-col gap-2 pb-[20px]">
         {image}
         <p className="text-[15px] font-normal text-grey-800">{content}</p>
       </div>
+      <div className="-ml-5 w-[420px] border-[0.5px] border-solid border-grey-100" />
     </div>
   );
 };

@@ -24,7 +24,7 @@ export const CommunityDetailComponent = ({ id }: CommunityDetailProps) => {
   const { coverImageUrl, title, logoImageUrl, userCount, description } = data.communityDetailsDto;
 
   return (
-    <div>
+    <div className="h-[calc(420px*0.65)]">
       {/*  width = 100vw, height = width * 0.48 */}
       <div className="relative h-[calc(420px*0.48)] mobile:h-[calc(100vw*0.48)]">
         <Image
@@ -34,7 +34,7 @@ export const CommunityDetailComponent = ({ id }: CommunityDetailProps) => {
           style={{ objectFit: 'cover' }}
         />
       </div>
-      <div className="flex w-[calc(100vw-40px)] max-w-[calc(420px-40px)] translate-x-[20px] translate-y-[-50%] items-center gap-12pxr rounded-3xl border border-grey-100 bg-white p-18pxr">
+      <div className="flex w-[calc(100vw-40px)] max-w-[calc(420px-40px)] translate-x-[20px] translate-y-[-50%] items-center gap-12pxr rounded-3xl border border-gray-200 bg-white p-18pxr shadow-[0_2px_24px_0px_rgba(0,0,0,0.05)]">
         <CommunityLogoImage logoImageUrl={logoImageUrl} />
         <div className="flex flex-col gap-8pxr">
           <p className="text-sm font-medium text-gray-800">{`주민 ${

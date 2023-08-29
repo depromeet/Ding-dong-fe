@@ -21,11 +21,7 @@ export const KeywordContentImage = ({ index }: KeywordContentImageProps) => {
   return imageUrl ? (
     <div className="relative mx-auto my-0 w-fit">
       {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img
-        src={imageUrl}
-        className="max-h-[192px] max-w-[308px] object-contain"
-        alt="image preview"
-      />
+      <img src={imageUrl} className="w-full rounded-xl object-contain" alt="image preview" />
       <div className="absolute right-[12px] top-[12px] flex h-[16px] w-[16px]  items-center justify-center rounded-full bg-grey-800">
         <CancelCircleIcon className="fill-grey-800" onClick={onCancelClick} />
       </div>

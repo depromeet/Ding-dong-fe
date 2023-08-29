@@ -55,6 +55,7 @@ module.exports = {
         white: '#FFFFFF',
         black: '#090909',
         grey: {
+          10: '#FEFEFE',
           50: '#FAFAFA',
           100: '#F5F5F5',
           200: '#EFEFEF',

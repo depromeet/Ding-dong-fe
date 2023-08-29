@@ -25,7 +25,7 @@ export const CommunityIdCardsComponent = ({ communityId }: CommunityIdCardsProps
   }, [inView, fetchNextPage, communityIdCards?.pages]);
 
   return (
-    <div className="px-[27px]">
+    <div className="px-5">
       {isEmpty || (
         <div className="flex flex-col gap-18pxr pb-18pxr">
           <h3 className="text-h3 text-grey-800">우리 행성 주민을 소개할게요!</h3>
