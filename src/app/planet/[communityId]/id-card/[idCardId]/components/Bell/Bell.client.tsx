@@ -1,4 +1,5 @@
 'use client';
+import { AnimatePresence, motion } from 'framer-motion';
 import { useRef, useState } from 'react';
 
 import { BellMessages } from '~/app/planet/[communityId]/id-card/[idCardId]/components/Bell/Message/BellMessages';
@@ -38,9 +39,11 @@ export const Bell = ({ isMyIdCard, bellType, nickname: nicknameToReceiveMsg }: B
           <BellButton bellType="bell" onClick={onMyBellClick} />
         ) : (
           <>
-            {isMessageOpen && (
-              <BellMessages activeBellType="rice" onMessageClick={onMessageClick} />
-            )}
+            <AnimatePresence>
+              {isMessageOpen && (
+                <BellMessages activeBellType="rice" onMessageClick={onMessageClick} />
+              )}
+            </AnimatePresence>
             <BellButton
               bellType={bellType || 'bell'}
               onClick={onOtherBellClick}
@@ -50,9 +53,18 @@ export const Bell = ({ isMyIdCard, bellType, nickname: nicknameToReceiveMsg }: B
           </>
         )}
       </div>
-      {isMessageOpen && (
-        <div ref={backdropRef} className="fixed left-0 top-0 z-top1 h-full w-full bg-black/50" />
-      )}
+      <AnimatePresence>
+        {isMessageOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.4 }}
+            ref={backdropRef}
+            className="fixed left-0 top-0 z-top1 h-full w-full bg-black/50"
+          />
+        )}
+      </AnimatePresence>
     </>
   );
 };
