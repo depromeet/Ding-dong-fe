@@ -15,6 +15,7 @@ type NudgeProps = {
   nickname: IdCardDetailModel['nickname'];
   idCardUserId: number;
   idCardId: number;
+  communityId: number;
 };
 
 export const Nudge = ({
@@ -23,6 +24,7 @@ export const Nudge = ({
   NudgeType,
   nickname: nicknameToReceiveMsg,
   idCardId,
+  communityId,
 }: NudgeProps) => {
   const [isMessageOpen, setIsMessageOpen] = useState(false);
   const backdropRef = useRef(null);
@@ -35,7 +37,7 @@ export const Nudge = ({
     setIsMessageOpen(!isMessageOpen);
   };
   const onMessageClick = (NudgeType: NudgeType) => {
-    mutate({ nudgeType: NudgeType });
+    mutate({ nudgeType: NudgeType, communityId });
     setIsMessageOpen(!isMessageOpen);
   };
 

@@ -1,3 +1,3 @@
 import { NudgeType } from '~/types/nudge/model.type';
 
-export type NudgePostRequest = { nudgeType: NudgeType };
+export type NudgePostRequest = { nudgeType: NudgeType; communityId: number };

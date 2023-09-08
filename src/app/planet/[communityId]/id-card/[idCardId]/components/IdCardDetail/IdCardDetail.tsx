@@ -78,6 +78,7 @@ const IdCardDetailComponent = ({ idCardId, communityId }: IdCardDetailProps) => 
         idCardUserId={idCardDetailsDto.userId}
         idCardId={idCardId}
         NudgeType="FRIENDLY"
+        communityId={communityId}
       />
     </>
   );
