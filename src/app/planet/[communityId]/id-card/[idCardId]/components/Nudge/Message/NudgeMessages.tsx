@@ -5,14 +5,14 @@ import { CelebrationIcon, EyeIcon, HeartExchangeIcon, RiceIcon } from '~/compone
 import { NudgeType } from '~/types/nudge';
 import { twMerge } from '~/utils/tailwind.util';
 
-type BellMessageProps = {
+type NudgeMessageProps = {
   className?: string;
-  activeBellType: NudgeType;
-  onMessageClick: (bellType: NudgeType) => void;
+  activeNudgeType: NudgeType;
+  onMessageClick: (NudgeType: NudgeType) => void;
 };
 
-type BellMessagesType = { icon: ReactNode; text: string; id: NudgeType }[];
-const bellMessages: BellMessagesType = [
+type NudgeMessagesType = { icon: ReactNode; text: string; id: NudgeType }[];
+const nudgeMessages: NudgeMessagesType = [
   {
     icon: <CelebrationIcon />,
     text: '만나서 반가워요',
@@ -63,7 +63,11 @@ const messageVariants = {
   closed: { opacity: 0, y: -50 },
 };
 
-export const BellMessages = ({ className, activeBellType, onMessageClick }: BellMessageProps) => (
+export const NudgeMessages = ({
+  className,
+  activeNudgeType,
+  onMessageClick,
+}: NudgeMessageProps) => (
   <motion.ul
     variants={containerVariants}
     initial="hidden"
@@ -71,7 +75,7 @@ export const BellMessages = ({ className, activeBellType, onMessageClick }: Bell
     exit="closed"
     className={twMerge('flex flex-col gap-12pxr', className)}
   >
-    {bellMessages.map(({ icon, text, id }) => {
+    {nudgeMessages.map(({ icon, text, id }) => {
       return (
         <motion.li
           key={id}
@@ -80,7 +84,7 @@ export const BellMessages = ({ className, activeBellType, onMessageClick }: Bell
           whileTap={{ scale: 0.95 }}
           className={twMerge(
             'flex w-180pxr items-center justify-between rounded-[44px] bg-[#E7EAFF] px-16pxr py-7pxr text-15pxr font-bold',
-            id === activeBellType && 'bg-[#8C82FF]',
+            id === activeNudgeType && 'bg-[#8C82FF]',
           )}
           onClick={() => onMessageClick(id)}
         >

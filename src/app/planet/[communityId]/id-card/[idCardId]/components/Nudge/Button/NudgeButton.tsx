@@ -1,31 +1,37 @@
 import { ButtonHTMLAttributes, ReactNode } from 'react';
 
 import {
-  BellCloseIcon,
-  BellIcon,
   CelebrationIcon,
   EyeIcon,
   HeartExchangeIcon,
+  NudgeCloseIcon,
+  NudgeIcon,
   RiceIcon,
 } from '~/components/Icon';
 import { NudgeType } from '~/types/nudge';
 import { twMerge } from '~/utils/tailwind.util';
 
-type BellIconType = 'default' | NudgeType;
-const bellIconMap: Record<BellIconType, ReactNode> = {
-  default: <BellIcon />,
+type NudgeIconType = 'default' | NudgeType;
+const NudgeIconMap: Record<NudgeIconType, ReactNode> = {
+  default: <NudgeIcon />,
   MEET: <CelebrationIcon />,
   FRIENDLY: <EyeIcon />,
   SIMILARITY: <HeartExchangeIcon />,
   TALKING: <RiceIcon />,
 };
 
-type BellButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
-  bellType: BellIconType;
+type NudgeButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
+  NudgeType: NudgeIconType;
   onClick?: () => void;
   isOpen?: boolean;
 };
-export const BellButton = ({ className, bellType, onClick, isOpen, ...props }: BellButtonProps) => (
+export const NudgeButton = ({
+  className,
+  NudgeType,
+  onClick,
+  isOpen,
+  ...props
+}: NudgeButtonProps) => (
   <button
     className={twMerge(
       'border-2pxr flex h-56pxr w-56pxr items-center justify-center rounded-full border-[#DFE3FF] bg-[#E7EAFF]',
@@ -35,6 +41,6 @@ export const BellButton = ({ className, bellType, onClick, isOpen, ...props }: B
     {...props}
     type="button"
   >
-    {isOpen ? <BellCloseIcon /> : bellIconMap[bellType]}
+    {isOpen ? <NudgeCloseIcon /> : NudgeIconMap[NudgeType]}
   </button>
 );

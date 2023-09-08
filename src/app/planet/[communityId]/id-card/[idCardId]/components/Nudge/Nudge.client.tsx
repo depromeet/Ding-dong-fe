@@ -3,39 +3,39 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { useRef, useState } from 'react';
 
 import { usePostNudge } from '~/api/domain/nudge.api.client';
-import { BellMessages } from '~/app/planet/[communityId]/id-card/[idCardId]/components/Bell/Message/BellMessages';
+import { NudgeMessages } from '~/app/planet/[communityId]/id-card/[idCardId]/components/Nudge/Message/NudgeMessages';
 import { IdCardDetailModel } from '~/types/idCard';
 import { NudgeType } from '~/types/nudge';
 
-import { BellButton } from './Button/BellButton';
+import { NudgeButton } from './Button/NudgeButton';
 
-type BellProps = {
+type NudgeProps = {
   isMyIdCard: boolean;
-  bellType?: NudgeType;
+  NudgeType?: NudgeType;
   nickname: IdCardDetailModel['nickname'];
   idCardUserId: number;
   idCardId: number;
 };
 
-export const Bell = ({
+export const Nudge = ({
   isMyIdCard,
   idCardUserId,
-  bellType,
+  NudgeType,
   nickname: nicknameToReceiveMsg,
   idCardId,
-}: BellProps) => {
+}: NudgeProps) => {
   const [isMessageOpen, setIsMessageOpen] = useState(false);
   const backdropRef = useRef(null);
 
   const { mutate } = usePostNudge(idCardUserId, idCardId, nicknameToReceiveMsg);
-  const onMyBellClick = () => {
+  const onMyNudgeClick = () => {
     // bottomsheet open
   };
-  const onOtherBellClick = () => {
+  const onOtherNudgeClick = () => {
     setIsMessageOpen(!isMessageOpen);
   };
-  const onMessageClick = (bellType: NudgeType) => {
-    mutate({ nudgeType: bellType });
+  const onMessageClick = (NudgeType: NudgeType) => {
+    mutate({ nudgeType: NudgeType });
     setIsMessageOpen(!isMessageOpen);
   };
 
@@ -43,17 +43,17 @@ export const Bell = ({
     <>
       <div className="fixed bottom-60pxr right-20pxr z-modal flex flex-col items-end ">
         {isMyIdCard ? (
-          <BellButton bellType="default" onClick={onMyBellClick} />
+          <NudgeButton NudgeType="default" onClick={onMyNudgeClick} />
         ) : (
           <>
             <AnimatePresence>
               {isMessageOpen && (
-                <BellMessages activeBellType="FRIENDLY" onMessageClick={onMessageClick} />
+                <NudgeMessages activeNudgeType="FRIENDLY" onMessageClick={onMessageClick} />
               )}
             </AnimatePresence>
-            <BellButton
-              bellType={bellType || 'default'}
-              onClick={onOtherBellClick}
+            <NudgeButton
+              NudgeType={NudgeType || 'default'}
+              onClick={onOtherNudgeClick}
               isOpen={isMessageOpen}
               className="mt-16pxr"
             />
