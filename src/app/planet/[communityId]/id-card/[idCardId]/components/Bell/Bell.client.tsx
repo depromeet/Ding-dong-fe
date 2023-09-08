@@ -2,8 +2,8 @@
 import { AnimatePresence, motion } from 'framer-motion';
 import { useRef, useState } from 'react';
 
+import { usePostNudge } from '~/api/domain/nudge.api.client';
 import { BellMessages } from '~/app/planet/[communityId]/id-card/[idCardId]/components/Bell/Message/BellMessages';
-import { useToastMessageStore } from '~/stores/toastMessage.store';
 import { IdCardDetailModel } from '~/types/idCard';
 import { NudgeType } from '~/types/nudge';
 
@@ -13,12 +13,21 @@ type BellProps = {
   isMyIdCard: boolean;
   bellType?: NudgeType;
   nickname: IdCardDetailModel['nickname'];
+  idCardUserId: number;
+  idCardId: number;
 };
 
-export const Bell = ({ isMyIdCard, bellType, nickname: nicknameToReceiveMsg }: BellProps) => {
+export const Bell = ({
+  isMyIdCard,
+  idCardUserId,
+  bellType,
+  nickname: nicknameToReceiveMsg,
+  idCardId,
+}: BellProps) => {
   const [isMessageOpen, setIsMessageOpen] = useState(false);
   const backdropRef = useRef(null);
-  const { successToast } = useToastMessageStore();
+
+  const { mutate } = usePostNudge(idCardUserId, idCardId, nicknameToReceiveMsg);
   const onMyBellClick = () => {
     // bottomsheet open
   };
@@ -26,10 +35,8 @@ export const Bell = ({ isMyIdCard, bellType, nickname: nicknameToReceiveMsg }: B
     setIsMessageOpen(!isMessageOpen);
   };
   const onMessageClick = (bellType: NudgeType) => {
-    // TODO: bellType post api -> 성공할 경우 detail 정보 invalidate query를 이용해서 새로운 정보 받아오기
-    console.log({ bellType }); // api 붙이면서 함께 삭제 예정
+    mutate({ nudgeType: bellType });
     setIsMessageOpen(!isMessageOpen);
-    successToast(`${nicknameToReceiveMsg}에게 성공적으로 딩동을 보냈어요!`);
   };
 
   return (
