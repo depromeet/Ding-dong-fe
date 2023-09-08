@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import { Bell } from '~/app/planet/[communityId]/id-card/[idCardId]/components/Bell/Bell';
+import { Bell } from '~/app/planet/[communityId]/id-card/[idCardId]/components/Bell/Bell.client';
 
 const meta: Meta<typeof Bell> = {
   title: 'components/Bell',

@@ -22,15 +22,9 @@ const bellIconMap: Record<BellIconType, ReactNode> = {
 type BellButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
   bellType: BellIconType;
   onClick?: () => void;
-  isClose?: boolean;
+  isOpen?: boolean;
 };
-export const BellButton = ({
-  className,
-  bellType,
-  onClick,
-  isClose,
-  ...props
-}: BellButtonProps) => (
+export const BellButton = ({ className, bellType, onClick, isOpen, ...props }: BellButtonProps) => (
   <button
     className={twMerge(
       'border-2pxr flex h-56pxr w-56pxr items-center justify-center rounded-full border-[#DFE3FF] bg-[#E7EAFF]',
@@ -38,7 +32,8 @@ export const BellButton = ({
     )}
     onClick={onClick}
     {...props}
+    type="button"
   >
-    {isClose ? <BellCloseIcon /> : bellIconMap[bellType]}
+    {isOpen ? <BellCloseIcon /> : bellIconMap[bellType]}
   </button>
 );
