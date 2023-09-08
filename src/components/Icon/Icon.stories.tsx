@@ -3,7 +3,6 @@ import type { Meta } from '@storybook/react';
 import {
   ArrowLeftIcon,
   ArrowVerticalIcon,
-  BellIcon,
   CameraIcon,
   CancelBoldIcon,
   CancelCircleIcon,
@@ -21,6 +20,7 @@ import {
   HeartIcon,
   HomeIcon,
   NotificationIcon,
+  NudgeIcon,
   PersonIcon,
   PlusIcon,
   QuestionCircleIcon,
@@ -133,8 +133,8 @@ export const ThreeDotsVertical = {
   render: () => <ThreeDotsVerticalIcon />,
 };
 
-export const Bell = {
-  render: () => <BellIcon />,
+export const Nudge = {
+  render: () => <NudgeIcon />,
 };
 
 export const Celebration = {

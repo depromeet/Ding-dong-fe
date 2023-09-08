@@ -2,36 +2,36 @@ import { motion } from 'framer-motion';
 import { ReactNode } from 'react';
 
 import { CelebrationIcon, EyeIcon, HeartExchangeIcon, RiceIcon } from '~/components/Icon';
+import { NudgeType } from '~/types/nudge';
 import { twMerge } from '~/utils/tailwind.util';
 
-type BellType = 'celebration' | 'eye' | 'heart' | 'rice';
-type BellMessageProps = {
+type NudgeMessageProps = {
   className?: string;
-  activeBellType: BellType;
-  onMessageClick: (bellType: BellType) => void;
+  activeNudgeType: NudgeType;
+  onMessageClick: (NudgeType: NudgeType) => void;
 };
 
-type BellMessagesType = { icon: ReactNode; text: string; id: BellType }[];
-const bellMessages: BellMessagesType = [
+type NudgeMessagesType = { icon: ReactNode; text: string; id: NudgeType }[];
+const nudgeMessages: NudgeMessagesType = [
   {
     icon: <CelebrationIcon />,
     text: '만나서 반가워요',
-    id: 'celebration',
+    id: 'MEET',
   },
   {
     icon: <EyeIcon />,
     text: '친해지고 싶어요',
-    id: 'eye',
+    id: 'FRIENDLY',
   },
   {
     icon: <HeartExchangeIcon />,
     text: '저와 비슷해요',
-    id: 'heart',
+    id: 'SIMILARITY',
   },
   {
     icon: <RiceIcon />,
     text: '같이 밥 한끼 해요',
-    id: 'rice',
+    id: 'TALKING',
   },
 ];
 
@@ -63,7 +63,11 @@ const messageVariants = {
   closed: { opacity: 0, y: -50 },
 };
 
-export const BellMessages = ({ className, activeBellType, onMessageClick }: BellMessageProps) => (
+export const NudgeMessages = ({
+  className,
+  activeNudgeType,
+  onMessageClick,
+}: NudgeMessageProps) => (
   <motion.ul
     variants={containerVariants}
     initial="hidden"
@@ -71,7 +75,7 @@ export const BellMessages = ({ className, activeBellType, onMessageClick }: Bell
     exit="closed"
     className={twMerge('flex flex-col gap-12pxr', className)}
   >
-    {bellMessages.map(({ icon, text, id }) => {
+    {nudgeMessages.map(({ icon, text, id }) => {
       return (
         <motion.li
           key={id}
@@ -80,7 +84,7 @@ export const BellMessages = ({ className, activeBellType, onMessageClick }: Bell
           whileTap={{ scale: 0.95 }}
           className={twMerge(
             'flex w-180pxr items-center justify-between rounded-[44px] bg-[#E7EAFF] px-16pxr py-7pxr text-15pxr font-bold',
-            id === activeBellType && 'bg-[#8C82FF]',
+            id === activeNudgeType && 'bg-[#8C82FF]',
           )}
           onClick={() => onMessageClick(id)}
         >

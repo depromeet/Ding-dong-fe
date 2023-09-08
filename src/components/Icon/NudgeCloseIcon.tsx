@@ -2,7 +2,7 @@ import { ComponentProps } from 'react';
 
 import { Svg } from '~/components/Svg';
 
-export const BellCloseIcon = ({ ...rest }: ComponentProps<typeof Svg>) => {
+export const NudgeCloseIcon = ({ ...rest }: ComponentProps<typeof Svg>) => {
   return (
     <Svg
       width={33}

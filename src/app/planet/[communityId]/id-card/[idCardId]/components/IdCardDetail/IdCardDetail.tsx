@@ -4,7 +4,7 @@ import { Suspense } from 'react';
 
 import { useGetIdCardDetail } from '~/api/domain/idCard.api';
 import { useGetUserInfo } from '~/api/domain/user.api';
-import { Bell } from '~/app/planet/[communityId]/id-card/[idCardId]/components/Bell/Bell.client';
+import { Nudge } from '~/app/planet/[communityId]/id-card/[idCardId]/components/Nudge/Nudge.client';
 import RetryErrorBoundary from '~/components/ErrorBoundary/RetryErrorBoundary.client';
 import { TopNavigation } from '~/components/TopNavigation';
 import { Intro, KeywordContentCard } from '~/modules/IdCardDetail';
@@ -72,7 +72,14 @@ const IdCardDetailComponent = ({ idCardId, communityId }: IdCardDetailProps) => 
           ))}
         </div>
       </div>
-      <Bell isMyIdCard={isMyIdCard} nickname={idCardDetailsDto.nickname} bellType="rice" />
+      <Nudge
+        isMyIdCard={isMyIdCard}
+        nickname={idCardDetailsDto.nickname}
+        idCardUserId={idCardDetailsDto.userId}
+        idCardId={idCardId}
+        NudgeType="FRIENDLY"
+        communityId={communityId}
+      />
     </>
   );
 };
