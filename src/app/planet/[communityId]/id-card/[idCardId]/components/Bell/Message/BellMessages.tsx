@@ -2,36 +2,36 @@ import { motion } from 'framer-motion';
 import { ReactNode } from 'react';
 
 import { CelebrationIcon, EyeIcon, HeartExchangeIcon, RiceIcon } from '~/components/Icon';
+import { NudgeType } from '~/types/nudge';
 import { twMerge } from '~/utils/tailwind.util';
 
-type BellType = 'celebration' | 'eye' | 'heart' | 'rice';
 type BellMessageProps = {
   className?: string;
-  activeBellType: BellType;
-  onMessageClick: (bellType: BellType) => void;
+  activeBellType: NudgeType;
+  onMessageClick: (bellType: NudgeType) => void;
 };
 
-type BellMessagesType = { icon: ReactNode; text: string; id: BellType }[];
+type BellMessagesType = { icon: ReactNode; text: string; id: NudgeType }[];
 const bellMessages: BellMessagesType = [
   {
     icon: <CelebrationIcon />,
     text: '만나서 반가워요',
-    id: 'celebration',
+    id: 'MEET',
   },
   {
     icon: <EyeIcon />,
     text: '친해지고 싶어요',
-    id: 'eye',
+    id: 'FRIENDLY',
   },
   {
     icon: <HeartExchangeIcon />,
     text: '저와 비슷해요',
-    id: 'heart',
+    id: 'SIMILARITY',
   },
   {
     icon: <RiceIcon />,
     text: '같이 밥 한끼 해요',
-    id: 'rice',
+    id: 'TALKING',
   },
 ];
 

@@ -8,15 +8,16 @@ import {
   HeartExchangeIcon,
   RiceIcon,
 } from '~/components/Icon';
+import { NudgeType } from '~/types/nudge';
 import { twMerge } from '~/utils/tailwind.util';
 
-type BellIconType = 'bell' | 'celebration' | 'eye' | 'heart' | 'rice';
+type BellIconType = 'default' | NudgeType;
 const bellIconMap: Record<BellIconType, ReactNode> = {
-  bell: <BellIcon />,
-  celebration: <CelebrationIcon />,
-  eye: <EyeIcon />,
-  heart: <HeartExchangeIcon />,
-  rice: <RiceIcon />,
+  default: <BellIcon />,
+  MEET: <CelebrationIcon />,
+  FRIENDLY: <EyeIcon />,
+  SIMILARITY: <HeartExchangeIcon />,
+  TALKING: <RiceIcon />,
 };
 
 type BellButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {

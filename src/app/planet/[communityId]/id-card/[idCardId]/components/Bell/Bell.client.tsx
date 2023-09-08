@@ -5,13 +5,13 @@ import { useRef, useState } from 'react';
 import { BellMessages } from '~/app/planet/[communityId]/id-card/[idCardId]/components/Bell/Message/BellMessages';
 import { useToastMessageStore } from '~/stores/toastMessage.store';
 import { IdCardDetailModel } from '~/types/idCard';
+import { NudgeType } from '~/types/nudge';
 
 import { BellButton } from './Button/BellButton';
 
-type BellType = 'celebration' | 'eye' | 'heart' | 'rice';
 type BellProps = {
   isMyIdCard: boolean;
-  bellType?: 'celebration' | 'eye' | 'heart' | 'rice';
+  bellType?: NudgeType;
   nickname: IdCardDetailModel['nickname'];
 };
 
@@ -25,7 +25,7 @@ export const Bell = ({ isMyIdCard, bellType, nickname: nicknameToReceiveMsg }: B
   const onOtherBellClick = () => {
     setIsMessageOpen(!isMessageOpen);
   };
-  const onMessageClick = (bellType: BellType) => {
+  const onMessageClick = (bellType: NudgeType) => {
     // TODO: bellType post api -> 성공할 경우 detail 정보 invalidate query를 이용해서 새로운 정보 받아오기
     console.log({ bellType }); // api 붙이면서 함께 삭제 예정
     setIsMessageOpen(!isMessageOpen);
@@ -36,16 +36,16 @@ export const Bell = ({ isMyIdCard, bellType, nickname: nicknameToReceiveMsg }: B
     <>
       <div className="fixed bottom-60pxr right-20pxr z-modal flex flex-col items-end ">
         {isMyIdCard ? (
-          <BellButton bellType="bell" onClick={onMyBellClick} />
+          <BellButton bellType="default" onClick={onMyBellClick} />
         ) : (
           <>
             <AnimatePresence>
               {isMessageOpen && (
-                <BellMessages activeBellType="rice" onMessageClick={onMessageClick} />
+                <BellMessages activeBellType="FRIENDLY" onMessageClick={onMessageClick} />
               )}
             </AnimatePresence>
             <BellButton
-              bellType={bellType || 'bell'}
+              bellType={bellType || 'default'}
               onClick={onOtherBellClick}
               isOpen={isMessageOpen}
               className="mt-16pxr"
