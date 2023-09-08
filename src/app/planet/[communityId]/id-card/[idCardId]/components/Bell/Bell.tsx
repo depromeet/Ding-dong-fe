@@ -1,6 +1,8 @@
 import { useState } from 'react';
 
 import { BellMessage } from '~/app/planet/[communityId]/id-card/[idCardId]/components/Bell/Message/BellMessage';
+import { useBottomSheet } from '~/components/BottomSheet';
+import { BellList } from '~/modules/BellList/BellList.client';
 
 import { BellButton } from './Button/BellButton';
 
@@ -11,8 +13,9 @@ type BellProps = {
 
 export const Bell = ({ isMyIdCard, bellType }: BellProps) => {
   const [isMessageOpen, setIsMessageOpen] = useState(false);
+  const bottomSheetHandlers = useBottomSheet();
   const onMyBellClick = () => {
-    // bottomsheet open
+    bottomSheetHandlers.onOpen();
   };
   const onOtherBellClick = () => {
     setIsMessageOpen(!isMessageOpen);
@@ -21,7 +24,10 @@ export const Bell = ({ isMyIdCard, bellType }: BellProps) => {
   return (
     <div className="fixed bottom-60pxr right-20pxr flex flex-col items-end ">
       {isMyIdCard ? (
-        <BellButton bellType="bell" onClick={onMyBellClick} />
+        <>
+          <BellButton bellType="bell" onClick={onMyBellClick} />
+          <BellList bottomSheetHandlers={bottomSheetHandlers} />
+        </>
       ) : (
         <>
           {isMessageOpen && (
