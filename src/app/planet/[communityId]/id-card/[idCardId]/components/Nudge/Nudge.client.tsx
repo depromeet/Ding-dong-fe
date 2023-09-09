@@ -2,37 +2,47 @@
 import { AnimatePresence, motion } from 'framer-motion';
 import { useRef, useState } from 'react';
 
-import { BellMessages } from '~/app/planet/[communityId]/id-card/[idCardId]/components/Bell/Message/BellMessages';
+import { usePostNudge } from '~/api/domain/nudge.api.client';
+import { NudgeMessages } from '~/app/planet/[communityId]/id-card/[idCardId]/components/Nudge/Message/NudgeMessages';
 import { useBottomSheet } from '~/components/BottomSheet';
 import { BellList } from '~/modules/BellList/BellList.client';
-import { useToastMessageStore } from '~/stores/toastMessage.store';
 import { IdCardDetailModel } from '~/types/idCard';
+import { NudgeModel } from '~/types/nudge';
 
-import { BellButton } from './Button/BellButton';
+import { NudgeButton } from './Button/NudgeButton';
 
-type BellType = 'celebration' | 'eye' | 'heart' | 'rice';
-type BellProps = {
+type NudgeProps = {
   isMyIdCard: boolean;
-  bellType?: 'celebration' | 'eye' | 'heart' | 'rice';
+  nudgeType?: NudgeModel;
   nickname: IdCardDetailModel['nickname'];
+  idCardUserId: number;
+  idCardId: number;
+  communityId: number;
 };
 
-export const Bell = ({ isMyIdCard, bellType, nickname: nicknameToReceiveMsg }: BellProps) => {
+export const Nudge = ({
+  isMyIdCard,
+  idCardUserId,
+  nudgeType,
+  nickname: nicknameToReceiveMsg,
+  idCardId,
+  communityId,
+}: NudgeProps) => {
   const [isMessageOpen, setIsMessageOpen] = useState(false);
   const bottomSheetHandlers = useBottomSheet();
   const backdropRef = useRef(null);
-  const { successToast } = useToastMessageStore();
-  const onMyBellClick = () => {
+  const { mutate } = usePostNudge(idCardUserId, idCardId, nicknameToReceiveMsg);
+
+  const onMyNudgeClick = () => {
     bottomSheetHandlers.onOpen();
   };
-  const onOtherBellClick = () => {
+
+  const onOtherNudgeClick = () => {
     setIsMessageOpen(!isMessageOpen);
   };
-  const onMessageClick = (bellType: BellType) => {
-    // TODO: bellType post api -> 성공할 경우 detail 정보 invalidate query를 이용해서 새로운 정보 받아오기
-    console.log({ bellType }); // api 붙이면서 함께 삭제 예정
+  const onMessageClick = (nudgeType: NudgeModel) => {
+    mutate({ nudgeType, communityId });
     setIsMessageOpen(!isMessageOpen);
-    successToast(`${nicknameToReceiveMsg}에게 성공적으로 딩동을 보냈어요!`);
   };
 
   return (
@@ -40,19 +50,19 @@ export const Bell = ({ isMyIdCard, bellType, nickname: nicknameToReceiveMsg }: B
       <div className="fixed bottom-60pxr right-20pxr z-modal flex flex-col items-end ">
         {isMyIdCard ? (
           <>
-            <BellButton bellType="bell" onClick={onMyBellClick} />
+            <NudgeButton nudgeType="DEFAULT" onClick={onMyNudgeClick} />
             <BellList bottomSheetHandlers={bottomSheetHandlers} />
           </>
         ) : (
           <>
             <AnimatePresence>
               {isMessageOpen && (
-                <BellMessages activeBellType="rice" onMessageClick={onMessageClick} />
+                <NudgeMessages activeNudgeType="FRIENDLY" onMessageClick={onMessageClick} />
               )}
             </AnimatePresence>
-            <BellButton
-              bellType={bellType || 'bell'}
-              onClick={onOtherBellClick}
+            <NudgeButton
+              nudgeType={nudgeType || 'DEFAULT'}
+              onClick={onOtherNudgeClick}
               isOpen={isMessageOpen}
               className="mt-16pxr"
             />

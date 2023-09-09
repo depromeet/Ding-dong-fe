@@ -4,8 +4,9 @@ import { Suspense } from 'react';
 
 import { useGetIdCardDetail } from '~/api/domain/idCard.api';
 import { useGetUserInfo } from '~/api/domain/user.api';
-import { Bell } from '~/app/planet/[communityId]/id-card/[idCardId]/components/Bell/Bell.client';
+import { Nudge } from '~/app/planet/[communityId]/id-card/[idCardId]/components/Nudge/Nudge.client';
 import RetryErrorBoundary from '~/components/ErrorBoundary/RetryErrorBoundary.client';
+import { SpeechBubble } from '~/components/SpeechBubble';
 import { TopNavigation } from '~/components/TopNavigation';
 import { Intro, KeywordContentCard } from '~/modules/IdCardDetail';
 import { CharacterNameModel } from '~/types/idCard';
@@ -50,7 +51,10 @@ const IdCardDetailComponent = ({ idCardId, communityId }: IdCardDetailProps) => 
           </TopNavigation.Right>
         )}
       </TopNavigation>
-      <div className={`${bgColor} rounded-3xl pt-7`}>
+      <div className={`${bgColor} relative rounded-3xl pt-28pxr`}>
+        <div className="absolute left-1/2 top-[-12px] z-top1 -translate-x-1/2 transform">
+          <SpeechBubble.Detail nudgeType={idCardDetailsDto.toNudgeType} />
+        </div>
         <Intro {...idCardDetailsDto} />
         <div className="flex flex-col gap-5 bg-white px-5 py-5">
           {idCardDetailsDto.keywords.map(keyword => (
@@ -72,7 +76,14 @@ const IdCardDetailComponent = ({ idCardId, communityId }: IdCardDetailProps) => 
           ))}
         </div>
       </div>
-      <Bell isMyIdCard={isMyIdCard} nickname={idCardDetailsDto.nickname} bellType="rice" />
+      <Nudge
+        isMyIdCard={isMyIdCard}
+        nickname={idCardDetailsDto.nickname}
+        idCardUserId={idCardDetailsDto.userId}
+        idCardId={idCardId}
+        nudgeType={idCardDetailsDto.toNudgeType}
+        communityId={communityId}
+      />
     </>
   );
 };

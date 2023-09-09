@@ -2,7 +2,7 @@ import { ComponentProps } from 'react';
 
 import { Svg } from '~/components/Svg';
 
-export const BellIcon = ({ ...rest }: ComponentProps<typeof Svg>) => {
+export const NudgeIcon = ({ ...rest }: ComponentProps<typeof Svg>) => {
   return (
     <Svg
       width={36}

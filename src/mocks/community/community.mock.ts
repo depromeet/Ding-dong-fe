@@ -1,5 +1,6 @@
 import { faker } from '@faker-js/faker/locale/ko';
 
+import { generateRandomNudge } from '~/mocks/nudge.util';
 import { SliceResponse } from '~/types/api';
 import { CommunityDetailModel, CommunityIdCardsModel, CommunityListModel } from '~/types/community';
 
@@ -24,6 +25,7 @@ export const createCommunityIdCard = (idx: number): CommunityIdCardsModel => ({
   ),
   commentCount: faker.number.int({ min: 0, max: 999 }),
   profileImageUrl: faker.image.avatar(),
+  toNudgeType: generateRandomNudge(),
 });
 
 export const createCommunityIdCards = (

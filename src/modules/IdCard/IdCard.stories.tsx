@@ -20,6 +20,7 @@ export const Default: Story = {
       characterType="TRUE"
       keywordTitles={['엽기떡기', '르세라핌', 'FE', 'EPL']}
       commentCount={faker.number.int({ min: 0, max: 999 })}
+      toNudgeType="FRIENDLY"
     />
   ),
 };
@@ -42,6 +43,7 @@ export const Tobby: Story = {
         '코딩하는게 취미',
         '퐁퐁퐁퐁퐁',
       ]}
+      toNudgeType="FRIENDLY"
     />
   ),
 };
@@ -56,6 +58,7 @@ export const Buddy: Story = {
       characterType="BUDDY"
       keywordTitles={['엽기떡기', '르세라핌', 'FE', 'EPL']}
       commentCount={faker.number.int({ min: 0, max: 999 })}
+      toNudgeType="FRIENDLY"
     />
   ),
 };
@@ -70,6 +73,7 @@ export const Pipi: Story = {
       characterType="PIPI"
       keywordTitles={['엽기떡기', '르세라핌', 'FE', 'EPL']}
       commentCount={faker.number.int({ min: 0, max: 999 })}
+      toNudgeType="FRIENDLY"
     />
   ),
 };
