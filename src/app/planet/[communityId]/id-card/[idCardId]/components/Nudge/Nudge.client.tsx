@@ -52,7 +52,11 @@ export const Nudge = ({
         {isMyIdCard ? (
           <>
             <NudgeButton nudgeType="DEFAULT" onClick={onMyNudgeClick} />
-            <NudgeList bottomSheetHandlers={bottomSheetHandlers} idCardsId={idCardId} />
+            <NudgeList
+              bottomSheetHandlers={bottomSheetHandlers}
+              idCardsId={idCardId}
+              communityId={communityId}
+            />
           </>
         ) : (
           <>
