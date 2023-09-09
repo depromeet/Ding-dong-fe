@@ -1,5 +1,5 @@
-import { SpeechBubbleDetail } from '~/components/SpeechBubble/SpeechBubble.detail';
-import { SpeechBubbleThumbnail } from '~/components/SpeechBubble/SpeechBubble.thumbnail';
+import { SpeechBubbleDetail } from '~/components/SpeechBubble/SpeechBubbleDetail';
+import { SpeechBubbleThumbnail } from '~/components/SpeechBubble/SpeechBubbleThumbnail';
 
 export const SpeechBubble = Object.assign(
   {},
