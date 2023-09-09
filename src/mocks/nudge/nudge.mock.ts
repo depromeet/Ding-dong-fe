@@ -10,13 +10,7 @@ export const createNudgeList = (): NudgeListModel[] => {
       profileImageUrl: faker.image.avatar(),
       nickname: faker.person.fullName(),
     },
-    toUserNudgeType: faker.helpers.arrayElement([
-      'FRIENDLY',
-      'SIMILARITY',
-      'TALKING',
-      'MEET',
-      null,
-    ]),
+    toUserNudgeType: faker.helpers.arrayElement(['FRIENDLY', 'SIMILARITY', 'TALKING', 'MEET']),
     fromUserNudgeType: faker.helpers.arrayElement([
       'FRIENDLY',
       'SIMILARITY',
