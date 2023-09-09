@@ -1,5 +1,5 @@
 import { NudgeListModel } from '~/types/nudge/model.type';
 
-export type NudgeInfoResponse = {
+export type NudgeListResponse = {
   nudgeInfoDtos: NudgeListModel[];
 };

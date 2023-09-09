@@ -7,7 +7,7 @@ export type NudgeListModel = {
     profileImageUrl: string;
     nickname: string;
   };
-  toUserNudgeType: NudgeModel | null;
+  toUserNudgeType: NudgeModel;
   fromUserNudgeType: NudgeModel | null;
 };
 
