@@ -34,7 +34,7 @@ export const NudgeButton = ({
 }: NudgeButtonProps) => (
   <button
     className={twMerge(
-      'border-2pxr flex h-56pxr w-56pxr items-center justify-center rounded-full border-[#DFE3FF] bg-[#E7EAFF]',
+      'flex h-56pxr w-56pxr items-center justify-center rounded-full border-[2px] border-[#C6CFFF] bg-[#EBEEFF]',
       className,
     )}
     onClick={onClick}
