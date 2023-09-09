@@ -5,7 +5,7 @@ import { useRef, useState } from 'react';
 import { usePostNudge } from '~/api/domain/nudge.api.client';
 import { NudgeMessages } from '~/app/planet/[communityId]/id-card/[idCardId]/components/Nudge/Message/NudgeMessages';
 import { useBottomSheet } from '~/components/BottomSheet';
-import { BellList } from '~/modules/BellList/BellList.client';
+import { NudgeList } from '~/modules/NudgeList';
 import { IdCardDetailModel } from '~/types/idCard';
 import { NudgeModel } from '~/types/nudge';
 
@@ -51,7 +51,7 @@ export const Nudge = ({
         {isMyIdCard ? (
           <>
             <NudgeButton nudgeType="DEFAULT" onClick={onMyNudgeClick} />
-            <BellList bottomSheetHandlers={bottomSheetHandlers} />
+            <NudgeList bottomSheetHandlers={bottomSheetHandlers} />
           </>
         ) : (
           <>

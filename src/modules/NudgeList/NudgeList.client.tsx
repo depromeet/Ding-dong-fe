@@ -3,11 +3,11 @@
 import { UseBottomSheetReturn } from '~/components/BottomSheet';
 import BottomSheet from '~/components/BottomSheet/BottomSheet';
 
-type BellListProps = {
+type NudgeListProps = {
   bottomSheetHandlers: UseBottomSheetReturn;
 };
 
-export const BellList = ({ bottomSheetHandlers }: BellListProps) => {
+export const NudgeList = ({ bottomSheetHandlers }: NudgeListProps) => {
   return (
     <div className="w-full">
       <BottomSheet {...bottomSheetHandlers}>
