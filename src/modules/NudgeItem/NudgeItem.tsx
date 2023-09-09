@@ -29,15 +29,19 @@ export const NudgeItem = ({
             alt="profile image"
             className="max-h-[44px] min-h-[44px] min-w-[44px] max-w-[44px] rounded-full border-[1px] border-solid border-grey-100 object-cover"
           />
-          {fromUserNudgeType && data?.myInfoInInCommunityDto.profileImageUrl && (
-            <Image
-              width={18}
-              height={18}
-              src={data.myInfoInInCommunityDto.profileImageUrl}
-              alt="profile image"
-              className="ml-[-10px] max-h-[18px] min-h-[18px] min-w-[18px] max-w-[18px] rounded-full border-[1px] border-solid border-grey-100 object-cover"
-            />
-          )}
+          <div className="ml-[-10px] ">
+            {fromUserNudgeType && data?.myInfoInInCommunityDto.profileImageUrl ? (
+              <Image
+                width={18}
+                height={18}
+                src={data.myInfoInInCommunityDto.profileImageUrl}
+                alt="profile image"
+                className="max-h-[18px] min-h-[18px] min-w-[18px] max-w-[18px] rounded-full border-[1px] border-solid border-grey-100 object-cover"
+              />
+            ) : (
+              <div className="h-[18px] w-[18px]" />
+            )}
+          </div>
         </div>
         <div className="flex flex-col">
           <p className="text-h5 text-[#282828]">{opponentUser.nickname}</p>
