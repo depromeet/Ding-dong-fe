@@ -8,12 +8,15 @@ import { SpeechBubble } from '~/components/SpeechBubble';
 import Tag from '~/components/Tag/Tag';
 import { CommunityIdCardsModel } from '~/types/community';
 import { CharacterNameModel } from '~/types/idCard';
+import { NudgeModel } from '~/types/nudge';
 import { ClassNameType } from '~/types/util';
 import { tw } from '~/utils/tailwind.util';
 import { DINGDONG_PLANET } from '~/utils/variable';
 
-type IdCardProps = CommunityIdCardsModel & {
+type IdCardProps = Omit<CommunityIdCardsModel, 'commentCount' | 'toNudgeType'> & {
   className?: ClassNameType;
+  commentCount?: number;
+  toNudgeType?: NudgeModel;
 };
 
 const bgColors: Record<CharacterNameModel, string> = {
@@ -57,7 +60,7 @@ export const IdCard = ({
       onClick={handleClickIdCard}
     >
       <div className="rounded-t-xl bg-white p-20pxr">
-        <SpeechBubble.Thumbnail nudgeType={toNudgeType} />
+        {toNudgeType && <SpeechBubble.Thumbnail nudgeType={toNudgeType} />}
         <div className="mt-20pxr flex items-center gap-6pxr">
           <div className="h-36pxr w-36pxr flex-shrink-0 overflow-hidden rounded-full">
             <Image
