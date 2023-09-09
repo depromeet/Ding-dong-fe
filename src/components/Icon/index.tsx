@@ -18,6 +18,7 @@ export * from './HomeIcon';
 export * from './NotificationIcon';
 export * from './NudgeCloseIcon';
 export * from './NudgeIcon';
+export * from './NudgeMessageIcon';
 export * from './PersonIcon';
 export * from './PlusIcon';
 export * from './QuestionCircleIcon';

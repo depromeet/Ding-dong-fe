@@ -32,6 +32,7 @@ export const Nudge = ({
   const bottomSheetHandlers = useBottomSheet();
   const backdropRef = useRef(null);
   const { mutate } = usePostNudge(idCardUserId, idCardId, nicknameToReceiveMsg);
+  isMyIdCard = true;
 
   const onMyNudgeClick = () => {
     bottomSheetHandlers.onOpen();
@@ -51,7 +52,7 @@ export const Nudge = ({
         {isMyIdCard ? (
           <>
             <NudgeButton nudgeType="DEFAULT" onClick={onMyNudgeClick} />
-            <NudgeList bottomSheetHandlers={bottomSheetHandlers} />
+            <NudgeList bottomSheetHandlers={bottomSheetHandlers} idCardsId={idCardId} />
           </>
         ) : (
           <>
