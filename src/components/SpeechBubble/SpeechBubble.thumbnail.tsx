@@ -14,8 +14,8 @@ export const SpeechBubbleThumbnail = ({ nudgeType }: SpeechBubbleThumbnailProps)
       <div className="flex items-center rounded-[8px] bg-[#EBEEFF] px-10pxr py-4pxr">
         <NudgeIconSelector nudgeType={nudgeType} className="mr-4pxr h-14pxr w-14pxr" />
         <>
-          <span className={tw('text-detail', 'font-bold')}>{message}</span>
-          <span className="text-detail">를 나에게 보냈어요</span>
+          <span className={tw('text-b3', 'font-bold')}>{message}</span>
+          <span className="text-b3">를 나에게 보냈어요</span>
         </>
       </div>
       <div className="absolute left-[20px]">

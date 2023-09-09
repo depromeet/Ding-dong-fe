@@ -4,21 +4,18 @@ import Image from 'next/image';
 import { usePathname, useRouter } from 'next/navigation';
 
 import { ChatBubbleIcon } from '~/components/Icon';
+import { SpeechBubble } from '~/components/SpeechBubble';
 import Tag from '~/components/Tag/Tag';
+import { CommunityIdCardsModel } from '~/types/community';
 import { CharacterNameModel } from '~/types/idCard';
+import { ClassNameType } from '~/types/util';
 import { tw } from '~/utils/tailwind.util';
 import { DINGDONG_PLANET } from '~/utils/variable';
 
-type IdCardProps = {
-  profileImageUrl: string;
-  idCardId: number;
-  nickname: string;
-  aboutMe: string;
-  characterType: CharacterNameModel;
-  keywordTitles: string[];
-  commentCount?: number;
-  className?: string;
+type IdCardProps = CommunityIdCardsModel & {
+  className?: ClassNameType;
 };
+
 const bgColors: Record<CharacterNameModel, string> = {
   BUDDY: 'bg-buddy-100',
   TOBBY: 'bg-tobby-100',
@@ -38,6 +35,7 @@ export const IdCard = ({
   keywordTitles,
   className,
   commentCount,
+  toNudgeType,
 }: IdCardProps) => {
   const bgColor = bgColors[characterType];
   const router = useRouter();
@@ -59,7 +57,8 @@ export const IdCard = ({
       onClick={handleClickIdCard}
     >
       <div className="rounded-t-xl bg-white p-20pxr">
-        <div className="flex items-center gap-6pxr">
+        <SpeechBubble.Thumbnail nudgeType={toNudgeType} />
+        <div className="mt-20pxr flex items-center gap-6pxr">
           <div className="h-36pxr w-36pxr flex-shrink-0 overflow-hidden rounded-full">
             <Image
               width={36}
