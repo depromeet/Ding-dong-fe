@@ -21,6 +21,7 @@ export const Default: Story = {
     <NudgeItem
       fromUserNudgeType="MEET"
       nudgeId={1}
+      communityId={1}
       opponentUser={opponentUser}
       toUserNudgeType="FRIENDLY"
     />
