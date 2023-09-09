@@ -19,7 +19,7 @@ export const NudgeItem = ({
   const { data } = useGetCommunityUserInfo(communityId);
 
   return (
-    <li className="flex flex-row justify-between">
+    <li className="flex flex-row items-center justify-between">
       <div className="flex gap-12pxr">
         <div className="flex items-baseline">
           <Image
@@ -29,7 +29,7 @@ export const NudgeItem = ({
             alt="profile image"
             className="max-h-[44px] min-h-[44px] min-w-[44px] max-w-[44px] rounded-full border-[1px] border-solid border-grey-100 object-cover"
           />
-          <div className="ml-[-10px] ">
+          <div className="ml-[-10px]">
             {fromUserNudgeType && data?.myInfoInInCommunityDto.profileImageUrl ? (
               <Image
                 width={18}
