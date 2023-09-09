@@ -1,5 +1,6 @@
 import { faker } from '@faker-js/faker/locale/ko';
 
+import { generateRandomNudge } from '~/mocks/nudge.util';
 import { IdCardCreateResponse, IdCardDetailModel } from '~/types/idCard';
 
 export const idCardDetailMock = (): IdCardDetailModel => ({
@@ -16,6 +17,7 @@ export const idCardDetailMock = (): IdCardDetailModel => ({
   })),
   characterType: faker.helpers.arrayElement(['TRUE', 'PIPI', 'TOBBY', 'BUDDY']),
   commentCount: faker.number.int({ min: 0, max: 999 }),
+  toNudgeType: generateRandomNudge(),
 });
 
 export const createIdCardMock: IdCardCreateResponse = { id: 1 };

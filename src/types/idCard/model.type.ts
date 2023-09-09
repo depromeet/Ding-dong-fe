@@ -1,3 +1,5 @@
+import { NudgeModel } from '~/types/nudge';
+
 export type CharacterModel = {
   PIPI: { group: 'FIRST'; korean: '피피'; english: 'Pipi' };
   TRUE: { group: 'FIRST'; korean: '트루'; english: 'True' };
@@ -18,6 +20,7 @@ export type IdCardDetailModel = {
   keywords: KeywordModel[];
   characterType: keyof CharacterModel;
   commentCount: number;
+  toNudgeType: NudgeModel;
 };
 
 export type KeywordModel = {
