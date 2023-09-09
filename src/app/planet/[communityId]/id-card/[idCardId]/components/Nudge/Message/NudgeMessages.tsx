@@ -1,39 +1,14 @@
 import { motion } from 'framer-motion';
-import { ReactNode } from 'react';
 
-import { CelebrationIcon, EyeIcon, HeartExchangeIcon, RiceIcon } from '~/components/Icon';
-import { NudgeType } from '~/types/nudge';
+import { NudgeIconSelector } from '~/components/NudgeIconSelector';
+import { nudgeMessages, NudgeModel } from '~/types/nudge';
 import { twMerge } from '~/utils/tailwind.util';
 
 type NudgeMessageProps = {
   className?: string;
-  activeNudgeType: NudgeType;
-  onMessageClick: (NudgeType: NudgeType) => void;
+  activeNudgeType: NudgeModel;
+  onMessageClick: (NudgeType: NudgeModel) => void;
 };
-
-type NudgeMessagesType = { icon: ReactNode; text: string; id: NudgeType }[];
-const nudgeMessages: NudgeMessagesType = [
-  {
-    icon: <CelebrationIcon />,
-    text: '만나서 반가워요',
-    id: 'MEET',
-  },
-  {
-    icon: <EyeIcon />,
-    text: '친해지고 싶어요',
-    id: 'FRIENDLY',
-  },
-  {
-    icon: <HeartExchangeIcon />,
-    text: '저와 비슷해요',
-    id: 'SIMILARITY',
-  },
-  {
-    icon: <RiceIcon />,
-    text: '같이 밥 한끼 해요',
-    id: 'TALKING',
-  },
-];
 
 const containerVariants = {
   hidden: {
@@ -75,7 +50,7 @@ export const NudgeMessages = ({
     exit="closed"
     className={twMerge('flex flex-col gap-12pxr', className)}
   >
-    {nudgeMessages.map(({ icon, text, id }) => {
+    {nudgeMessages.map(({ id, text }) => {
       return (
         <motion.li
           key={id}
@@ -88,7 +63,7 @@ export const NudgeMessages = ({
           )}
           onClick={() => onMessageClick(id)}
         >
-          {icon}
+          <NudgeIconSelector nudgeType={id} />
           <div>{text}</div>
         </motion.li>
       );

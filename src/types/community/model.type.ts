@@ -1,4 +1,5 @@
 import { CharacterNameModel, IdCardDetailModel } from '~/types/idCard';
+import { NudgeModel } from '~/types/nudge';
 
 // FIXME: 아래 타입 어디서 사용하죠? 아무대서도 사용 안하는 것 같은뎁
 export type CommunityIdCardSummaryModel = Omit<IdCardDetailModel, 'profileImageUrl' | 'userId'>;
@@ -26,6 +27,7 @@ export type CommunityIdCardsModel = {
   characterType: CharacterNameModel;
   keywordTitles: string[];
   commentCount: number;
+  toNudgeType: NudgeModel;
 };
 
 // FIXME: 이거 안 쓰는 거 같은데 맞나요?

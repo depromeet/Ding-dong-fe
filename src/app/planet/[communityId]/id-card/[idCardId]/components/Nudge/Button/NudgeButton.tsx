@@ -1,33 +1,18 @@
-import { ButtonHTMLAttributes, ReactNode } from 'react';
+import { ButtonHTMLAttributes } from 'react';
 
-import {
-  CelebrationIcon,
-  EyeIcon,
-  HeartExchangeIcon,
-  NudgeCloseIcon,
-  NudgeIcon,
-  RiceIcon,
-} from '~/components/Icon';
-import { NudgeType } from '~/types/nudge';
+import { NudgeCloseIcon } from '~/components/Icon';
+import { NudgeIconSelector } from '~/components/NudgeIconSelector';
+import { NudgeIconSelectorType } from '~/types/nudge';
 import { twMerge } from '~/utils/tailwind.util';
 
-type NudgeIconType = 'default' | NudgeType;
-const NudgeIconMap: Record<NudgeIconType, ReactNode> = {
-  default: <NudgeIcon />,
-  MEET: <CelebrationIcon />,
-  FRIENDLY: <EyeIcon />,
-  SIMILARITY: <HeartExchangeIcon />,
-  TALKING: <RiceIcon />,
-};
-
 type NudgeButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
-  NudgeType: NudgeIconType;
+  nudgeType: NudgeIconSelectorType;
   onClick?: () => void;
   isOpen?: boolean;
 };
 export const NudgeButton = ({
   className,
-  NudgeType,
+  nudgeType,
   onClick,
   isOpen,
   ...props
@@ -41,6 +26,6 @@ export const NudgeButton = ({
     {...props}
     type="button"
   >
-    {isOpen ? <NudgeCloseIcon /> : NudgeIconMap[NudgeType]}
+    {isOpen ? <NudgeCloseIcon /> : <NudgeIconSelector nudgeType={nudgeType} />}
   </button>
 );

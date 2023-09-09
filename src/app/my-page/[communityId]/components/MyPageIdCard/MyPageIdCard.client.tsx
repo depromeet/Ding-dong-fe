@@ -17,8 +17,16 @@ const MyPageIdCardComponent = ({ communityId }: MyPageProps) => {
     return <div></div>;
   }
 
-  const { idCardId, nickname, aboutMe, characterType, keywords, commentCount, profileImageUrl } =
-    idCardDetailsDto.idCardDetailsDto;
+  const {
+    idCardId,
+    nickname,
+    aboutMe,
+    characterType,
+    keywords,
+    commentCount,
+    profileImageUrl,
+    toNudgeType,
+  } = idCardDetailsDto.idCardDetailsDto;
   const keywordTitles = keywords?.map(keyword => keyword.title);
 
   return (
@@ -35,6 +43,7 @@ const MyPageIdCardComponent = ({ communityId }: MyPageProps) => {
         characterType={characterType}
         keywordTitles={keywordTitles}
         commentCount={commentCount}
+        toNudgeType={toNudgeType}
       />
     </div>
   );

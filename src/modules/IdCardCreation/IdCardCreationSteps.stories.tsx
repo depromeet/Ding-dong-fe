@@ -46,6 +46,7 @@ export const Complete = {
         keywordTitles={['엽기떡기', '르세라핌', 'FE', 'EPL']}
         nickname="유토비"
         characterType="TOBBY"
+        toNudgeType="FRIENDLY"
       />
       <p className="my-52px w-full text-center text-b1 text-primary-500">주민증을 눌러보세요!</p>
       <Button size="large" color="primary">
