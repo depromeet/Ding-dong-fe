@@ -1,1 +1,1 @@
-export type NudgeType = 'FRIENDLY' | 'SIMILARITY' | 'TALKING' | 'MEET';
+export type NudgeModel = 'FRIENDLY' | 'SIMILARITY' | 'TALKING' | 'MEET';

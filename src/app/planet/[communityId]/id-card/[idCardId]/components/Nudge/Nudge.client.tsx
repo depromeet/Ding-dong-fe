@@ -5,13 +5,13 @@ import { useRef, useState } from 'react';
 import { usePostNudge } from '~/api/domain/nudge.api.client';
 import { NudgeMessages } from '~/app/planet/[communityId]/id-card/[idCardId]/components/Nudge/Message/NudgeMessages';
 import { IdCardDetailModel } from '~/types/idCard';
-import { NudgeType } from '~/types/nudge';
+import { NudgeModel } from '~/types/nudge';
 
 import { NudgeButton } from './Button/NudgeButton';
 
 type NudgeProps = {
   isMyIdCard: boolean;
-  NudgeType?: NudgeType;
+  nudgeType?: NudgeModel;
   nickname: IdCardDetailModel['nickname'];
   idCardUserId: number;
   idCardId: number;
@@ -21,7 +21,7 @@ type NudgeProps = {
 export const Nudge = ({
   isMyIdCard,
   idCardUserId,
-  NudgeType,
+  nudgeType,
   nickname: nicknameToReceiveMsg,
   idCardId,
   communityId,
@@ -36,8 +36,8 @@ export const Nudge = ({
   const onOtherNudgeClick = () => {
     setIsMessageOpen(!isMessageOpen);
   };
-  const onMessageClick = (NudgeType: NudgeType) => {
-    mutate({ nudgeType: NudgeType, communityId });
+  const onMessageClick = (nudgeType: NudgeModel) => {
+    mutate({ nudgeType, communityId });
     setIsMessageOpen(!isMessageOpen);
   };
 
@@ -45,7 +45,7 @@ export const Nudge = ({
     <>
       <div className="fixed bottom-60pxr right-20pxr z-modal flex flex-col items-end ">
         {isMyIdCard ? (
-          <NudgeButton NudgeType="default" onClick={onMyNudgeClick} />
+          <NudgeButton nudgeType="DEFAULT" onClick={onMyNudgeClick} />
         ) : (
           <>
             <AnimatePresence>
@@ -54,7 +54,7 @@ export const Nudge = ({
               )}
             </AnimatePresence>
             <NudgeButton
-              NudgeType={NudgeType || 'default'}
+              nudgeType={nudgeType || 'DEFAULT'}
               onClick={onOtherNudgeClick}
               isOpen={isMessageOpen}
               className="mt-16pxr"
