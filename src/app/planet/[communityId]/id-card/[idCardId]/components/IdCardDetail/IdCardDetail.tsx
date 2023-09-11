@@ -53,7 +53,9 @@ const IdCardDetailComponent = ({ idCardId, communityId }: IdCardDetailProps) => 
       </TopNavigation>
       <div className={`${bgColor} relative rounded-3xl pt-28pxr`}>
         <div className="absolute left-1/2 top-[-12px] z-top1 -translate-x-1/2 transform">
-          <SpeechBubble.Detail nudgeType={idCardDetailsDto.toNudgeType} />
+          {idCardDetailsDto.toNudgeType && (
+            <SpeechBubble.Detail nudgeType={idCardDetailsDto.toNudgeType} />
+          )}
         </div>
         <Intro {...idCardDetailsDto} />
         <div className="flex flex-col gap-5 bg-white px-5 py-5">

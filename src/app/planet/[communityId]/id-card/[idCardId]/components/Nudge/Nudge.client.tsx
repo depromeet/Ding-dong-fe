@@ -4,6 +4,8 @@ import { useRef, useState } from 'react';
 
 import { usePostNudge } from '~/api/domain/nudge.api.client';
 import { NudgeMessages } from '~/app/planet/[communityId]/id-card/[idCardId]/components/Nudge/Message/NudgeMessages';
+import { useBottomSheet } from '~/components/BottomSheet';
+import { NudgeList } from '~/modules/NudgeList';
 import { IdCardDetailModel } from '~/types/idCard';
 import { NudgeModel } from '~/types/nudge';
 
@@ -27,12 +29,14 @@ export const Nudge = ({
   communityId,
 }: NudgeProps) => {
   const [isMessageOpen, setIsMessageOpen] = useState(false);
+  const bottomSheetHandlers = useBottomSheet();
   const backdropRef = useRef(null);
-
   const { mutate } = usePostNudge(idCardUserId, idCardId, nicknameToReceiveMsg);
+
   const onMyNudgeClick = () => {
-    // bottomsheet open
+    bottomSheetHandlers.onOpen();
   };
+
   const onOtherNudgeClick = () => {
     setIsMessageOpen(!isMessageOpen);
   };
@@ -45,7 +49,16 @@ export const Nudge = ({
     <>
       <div className="fixed bottom-60pxr right-20pxr z-modal flex flex-col items-end ">
         {isMyIdCard ? (
-          <NudgeButton nudgeType="DEFAULT" onClick={onMyNudgeClick} />
+          <>
+            <NudgeList
+              bottomSheetHandlers={bottomSheetHandlers}
+              idCardsId={idCardId}
+              communityId={communityId}
+            />
+            {!bottomSheetHandlers.isOpen && (
+              <NudgeButton nudgeType="DEFAULT" onClick={onMyNudgeClick} />
+            )}
+          </>
         ) : (
           <>
             <AnimatePresence>

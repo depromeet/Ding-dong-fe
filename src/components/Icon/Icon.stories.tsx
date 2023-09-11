@@ -21,6 +21,7 @@ import {
   HomeIcon,
   NotificationIcon,
   NudgeIcon,
+  NudgeMessageIcon,
   PersonIcon,
   PlusIcon,
   QuestionCircleIcon,
@@ -151,4 +152,8 @@ export const HeartExchange = {
 
 export const Rice = {
   render: () => <RiceIcon />,
+};
+
+export const NudgeMessage = {
+  render: () => <NudgeMessageIcon />,
 };
