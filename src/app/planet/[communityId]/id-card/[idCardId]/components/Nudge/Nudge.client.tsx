@@ -50,12 +50,14 @@ export const Nudge = ({
       <div className="fixed bottom-60pxr right-20pxr z-modal flex flex-col items-end ">
         {isMyIdCard ? (
           <>
-            <NudgeButton nudgeType="DEFAULT" onClick={onMyNudgeClick} />
             <NudgeList
               bottomSheetHandlers={bottomSheetHandlers}
               idCardsId={idCardId}
               communityId={communityId}
             />
+            {!bottomSheetHandlers.isOpen && (
+              <NudgeButton nudgeType="DEFAULT" onClick={onMyNudgeClick} />
+            )}
           </>
         ) : (
           <>
