@@ -10,7 +10,7 @@ const bgColors: Record<CharacterNameModel, string> = {
   TRUE: 'bg-true-100',
 };
 
-type IntroProps = Omit<IdCardDetailModel, 'idCardId' | 'userId'>;
+type IntroProps = Omit<IdCardDetailModel, 'idCardId' | 'userId' | 'unreadNudges'>;
 
 export const Intro = ({
   nickname,

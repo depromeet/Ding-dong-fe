@@ -18,6 +18,7 @@ export const idCardDetailMock = (): IdCardDetailModel => ({
   characterType: faker.helpers.arrayElement(['TRUE', 'PIPI', 'TOBBY', 'BUDDY']),
   commentCount: faker.number.int({ min: 0, max: 999 }),
   toNudgeType: generateRandomNudge(),
+  unreadNudges: faker.number.int({ min: 0, max: 999 }),
 });
 
 export const createIdCardMock: IdCardCreateResponse = { id: 1 };

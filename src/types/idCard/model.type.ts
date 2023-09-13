@@ -21,6 +21,7 @@ export type IdCardDetailModel = {
   characterType: keyof CharacterModel;
   commentCount: number;
   toNudgeType: NudgeModel;
+  unreadNudges: number;
 };
 
 export type KeywordModel = {
