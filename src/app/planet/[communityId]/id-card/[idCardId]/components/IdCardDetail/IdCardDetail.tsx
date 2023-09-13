@@ -85,6 +85,7 @@ const IdCardDetailComponent = ({ idCardId, communityId }: IdCardDetailProps) => 
         idCardId={idCardId}
         nudgeType={idCardDetailsDto.toNudgeType}
         communityId={communityId}
+        unreadNudges={idCardDetailsDto.unreadNudges}
       />
     </>
   );
