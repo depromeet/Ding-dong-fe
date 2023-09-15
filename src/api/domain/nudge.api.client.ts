@@ -26,6 +26,21 @@ export const usePostNudge = (userId: number, idCardId: number, nickname: string)
   });
 };
 
+export const usePutNudge = (userId: number, idCardId: number, nickname: string) => {
+  const queryClient = useQueryClient();
+  const { successToast, errorToast } = useToastMessageStore();
+
+  return useMutation({
+    mutationFn: (nudgeType: NudgePostRequest) =>
+      privateApi.put(`/nudges/users/${userId}`, nudgeType),
+    onSuccess: async () => {
+      await queryClient.invalidateQueries(idCardQueryKey.idCards(idCardId));
+      successToast(`${nickname}에게 성공적으로 딩동을 보냈어요!`);
+    },
+    onError: () => errorToast('콕 찌르기에 실패했습니다. 다시 시도해 주세요.'),
+  });
+};
+
 export const getNudgeList = (idCardsId: number) =>
   privateApi.get<NudgeListResponse>(`/nudges/id-cards/${idCardsId}`);
 

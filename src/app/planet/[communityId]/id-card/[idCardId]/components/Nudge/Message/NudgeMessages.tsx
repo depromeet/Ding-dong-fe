@@ -6,7 +6,7 @@ import { twMerge } from '~/utils/tailwind.util';
 
 type NudgeMessageProps = {
   className?: string;
-  activeNudgeType: NudgeModel;
+  activeNudgeType?: NudgeModel;
   onMessageClick: (NudgeType: NudgeModel) => void;
 };
 
