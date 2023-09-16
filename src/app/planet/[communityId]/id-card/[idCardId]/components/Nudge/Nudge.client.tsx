@@ -18,6 +18,7 @@ type NudgeProps = {
   idCardUserId: number;
   idCardId: number;
   communityId: number;
+  unreadNudges: number;
 };
 
 export const Nudge = ({
@@ -27,6 +28,7 @@ export const Nudge = ({
   nickname: nicknameToReceiveMsg,
   idCardId,
   communityId,
+  unreadNudges,
 }: NudgeProps) => {
   const [isMessageOpen, setIsMessageOpen] = useState(false);
   const bottomSheetHandlers = useBottomSheet();
@@ -63,7 +65,12 @@ export const Nudge = ({
               communityId={communityId}
             />
             {!bottomSheetHandlers.isOpen && (
-              <NudgeButton nudgeType="DEFAULT" onClick={onMyNudgeClick} />
+              <div className="relative">
+                <div className="absolute right-[-10px] top-[-10px] flex h-[32px] w-[32px] items-center justify-center rounded-full bg-black p-[4px] text-white">
+                  {unreadNudges}
+                </div>
+                <NudgeButton nudgeType="DEFAULT" onClick={onMyNudgeClick} />
+              </div>
             )}
           </>
         ) : (
